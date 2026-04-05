@@ -1,0 +1,92 @@
+[
+  {
+    "code": "us",
+    "name": "United States",
+    "region": "North America",
+    "capital": "Washington, D.C.",
+    "population": 339000000,
+    "gdp": 27900000000000,
+    "summary": "A global power with strong innovation capacity, deep capital markets, and major geopolitical influence."
+  },
+  {
+    "code": "cn",
+    "name": "China",
+    "region": "Asia",
+    "capital": "Beijing",
+    "population": 1410000000,
+    "gdp": 17700000000000,
+    "summary": "A manufacturing and technology giant with strong state coordination and major global supply-chain influence."
+  },
+  {
+    "code": "jp",
+    "name": "Japan",
+    "region": "Asia",
+    "capital": "Tokyo",
+    "population": 124000000,
+    "gdp": 4200000000000,
+    "summary": "A mature, high-order economy known for stability, infrastructure, and advanced industrial capability."
+  },
+  {
+    "code": "de",
+    "name": "Germany",
+    "region": "Europe",
+    "capital": "Berlin",
+    "population": 84000000,
+    "gdp": 4500000000000,
+    "summary": "A leading industrial economy in Europe with strong engineering capacity, export strength, and institutional stability."
+  },
+  {
+    "code": "gb",
+    "name": "United Kingdom",
+    "region": "Europe",
+    "capital": "London",
+    "population": 68000000,
+    "gdp": 3300000000000,
+    "summary": "A globally connected service and finance economy with strong legal institutions and international influence."
+  },
+  {
+    "code": "fr",
+    "name": "France",
+    "region": "Europe",
+    "capital": "Paris",
+    "population": 65000000,
+    "gdp": 3100000000000,
+    "summary": "A diversified European power with strong state capacity, cultural influence, and strategic industrial sectors."
+  },
+  {
+    "code": "in",
+    "name": "India",
+    "region": "Asia",
+    "capital": "New Delhi",
+    "population": 1430000000,
+    "gdp": 3900000000000,
+    "summary": "A large emerging economy with major demographic scale, digital growth, and long-term expansion potential."
+  },
+  {
+    "code": "sg",
+    "name": "Singapore",
+    "region": "Asia",
+    "capital": "Singapore",
+    "population": 6000000,
+    "gdp": 500000000000,
+    "summary": "A highly efficient city-state with strong governance, advanced infrastructure, and global trade connectivity."
+  },
+  {
+    "code": "ae",
+    "name": "United Arab Emirates",
+    "region": "Middle East",
+    "capital": "Abu Dhabi",
+    "population": 10000000,
+    "gdp": 510000000000,
+    "summary": "A fast-developing Gulf economy with strong infrastructure, global positioning, and ambitious diversification goals."
+  },
+  {
+    "code": "br",
+    "name": "Brazil",
+    "region": "South America",
+    "capital": "Brasília",
+    "population": 203000000,
+    "gdp": 2200000000000,
+    "summary": "A major Latin American economy with strong resource capacity, domestic market scale, and uneven structural performance."
+  }
+]

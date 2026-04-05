@@ -1,0 +1,4 @@
+ingest_rejections.jsonl
+
+# DB dump / restore artifacts (see docs/NEON_MIGRATION_PLAN.md)
+db-exports/

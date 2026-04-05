@@ -32,6 +32,24 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# secrets / local overrides (belt-and-suspenders; .env* already covers most)
+*.pem.key
+secrets/
+.secrets/
+
+# logs & database dump artifacts
+logs/
+*.dump
+*.dump.*
+
+# Local exports only — keep scripts/sql/*.sql tracked for migrations
+/data/**/*.sql
+
+# Explicit paths (also partially covered by data/.gitignore)
+/data/db-exports/
+/data/metrics/evolution/*.jsonl
 
 # vercel
 .vercel

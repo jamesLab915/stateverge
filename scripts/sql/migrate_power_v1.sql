@@ -1,0 +1,2 @@
+-- Deprecated: superseded by migrate_nationmatrix_evolution_v1.sql
+-- Run: node scripts/migratePowerTracking.js (applies unified migration)
