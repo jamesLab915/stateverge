@@ -1,0 +1,112 @@
+# =====================================================================
+# StateVerge .gitignore
+# Goals:
+#   * never commit secrets (.env, keys, certs)
+#   * never commit huge raw media (videos / audio / images / archives)
+#   * never commit episode raw working dirs (EP01..EP10) or assets/
+#   * keep all source / scripts / docs / tracking text & JSON in git
+# =====================================================================
+
+# ---------- Secrets / credentials ----------
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+credentials.json
+serviceaccount.json
+.netrc
+id_rsa*
+id_ed25519*
+id_ecdsa*
+
+# ---------- OS / IDE / runtime noise ----------
+.DS_Store
+*.log
+*.pid
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+env/
+node_modules/
+.next/
+.cache/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# ---------- Python build ----------
+build/
+dist/
+*.egg-info/
+
+# ---------- Large work / raw-media directories (kept entirely out of git) ----------
+assets/
+Brand_Assets/
+output/
+EP01/
+EP02/
+EP03/
+EP04/
+EP05/
+EP06/
+EP07/
+EP08/
+EP09/
+EP10/
+
+# ---------- Big media files anywhere (covers topics/, src/, etc.) ----------
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.avi
+*.wav
+*.mp3
+*.flac
+*.aac
+*.ogg
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.tif
+*.tiff
+*.bmp
+*.psd
+*.ai
+*.eps
+*.svg
+*.heic
+
+# ---------- Archives ----------
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.7z
+*.rar
+
+# ---------- Tracking snapshot artifacts (regenerated on next scan) ----------
+logs/tracking/file_snapshot.json
+
+# ---------- Cursor / VSCode local prefs (optional) ----------
+.cursor/
+.vscode/
+
+# =====================================================================
+# Whitelist: keep small text / data inside topics/ even though media is
+# blocked above. (Patterns below cannot UN-ignore files whose parent
+# directory is ignored, but topics/ itself is NOT ignored, so these
+# negations safely re-include text/json/markdown under topics/.)
+# =====================================================================
+!topics/**/*.md
+!topics/**/*.txt
+!topics/**/*.json
+!topics/**/*.yaml
+!topics/**/*.yml
+!topics/**/*.csv

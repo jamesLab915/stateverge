@@ -1,0 +1,637 @@
+{
+  "topic": "hidden-rules",
+  "source_plan": "topics/hidden-rules/brief/ltx_scene_plan.json",
+  "global_style": "cinematic geopolitical documentary, dark blue tone, high contrast, global system, dramatic lighting, ultra realistic, 4k, smooth camera motion, no text, consistent style",
+  "items": [
+    {
+      "scene_id": "scene_001",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_001.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_001.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_002",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_002.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_002.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_003",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_003.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_003.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_004",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_004.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_004.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_005",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_005.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_005.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_006",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_006.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_006.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_007",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_007.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_007.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_008",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_008.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_008.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_009",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_009.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_009.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_010",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_010.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_010.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_011",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_011.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_011.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_012",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_012.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_012.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_013",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_013.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_013.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_014",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_014.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_014.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_015",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_015.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_015.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_016",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_016.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_016.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_017",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_017.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_017.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_018",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_018.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_018.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_019",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_019.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_019.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_020",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_020.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_020.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_021",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_021.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_021.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_022",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_022.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_022.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_023",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_023.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_023.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_024",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_024.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_024.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_025",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_025.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_025.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_026",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_026.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_026.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_027",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_027.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_027.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_028",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_028.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_028.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_029",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_029.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_029.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_030",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_030.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_030.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_031",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_031.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_031.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_032",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_032.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_032.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_033",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_033.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_033.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_034",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_034.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_034.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_035",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_035.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_035.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_036",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_036.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_036.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_037",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_037.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_037.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_038",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_038.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_038.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_039",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_039.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_039.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_040",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_040.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_040.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_041",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_041.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_041.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_042",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_042.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_042.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_043",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_043.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_043.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_044",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_044.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_044.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_045",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_045.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_045.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_046",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_046.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_046.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_047",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_047.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_047.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_048",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_048.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_048.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_049",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_049.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_049.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_050",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_050.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_050.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_051",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_051.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_051.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_052",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_052.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_052.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_053",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_053.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_053.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_054",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_054.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_054.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_055",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_055.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_055.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_056",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_056.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_056.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_057",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_057.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_057.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_058",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_058.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_058.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_059",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_059.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_059.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_060",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_060.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_060.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_061",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_061.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_061.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_062",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_062.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_062.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_063",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_063.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_063.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_064",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_064.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_064.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_065",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_065.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_065.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_066",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_066.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_066.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_067",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_067.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_067.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_068",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_068.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_068.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_069",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_069.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_069.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_070",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_070.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_070.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_071",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_071.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_071.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_072",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_072.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_072.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_073",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_073.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_073.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_074",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_074.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_074.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_075",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_075.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_075.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_076",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_076.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_076.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_077",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_077.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_077.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_078",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_078.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_078.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_079",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_079.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_079.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_080",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_080.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_080.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_081",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_081.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_081.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_082",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_082.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_082.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_083",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_083.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_083.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_084",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_084.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_084.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_085",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_085.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_085.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_086",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_086.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_086.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_087",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_087.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_087.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_088",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_088.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_088.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_089",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_089.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_089.mp4",
+      "status": "pending"
+    },
+    {
+      "scene_id": "scene_090",
+      "duration_sec": 8.0,
+      "prompt_path": "topics/hidden-rules/ltx/prompts/scene_090.txt",
+      "expected_video_path": "topics/hidden-rules/ltx/generated/scene_090.mp4",
+      "status": "pending"
+    }
+  ]
+}

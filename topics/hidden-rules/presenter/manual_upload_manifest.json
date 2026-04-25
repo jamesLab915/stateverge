@@ -1,0 +1,20 @@
+{
+  "topic": "hidden-rules",
+  "generator": "eleven_lipsync",
+  "items": [
+    {
+      "segment": "intro",
+      "part": "part_01",
+      "video_path": "topics/hidden-rules/presenter/lipsync_input/intro/part_01/base_video.mp4",
+      "audio_path": "topics/hidden-rules/presenter/lipsync_input/intro/part_01/audio.wav",
+      "expected_output_path": "topics/hidden-rules/presenter/lipsync_output/intro/part_01.mp4"
+    },
+    {
+      "segment": "outro",
+      "part": "part_01",
+      "video_path": "topics/hidden-rules/presenter/lipsync_input/outro/part_01/base_video.mp4",
+      "audio_path": "topics/hidden-rules/presenter/lipsync_input/outro/part_01/audio.wav",
+      "expected_output_path": "topics/hidden-rules/presenter/lipsync_output/outro/part_01.mp4"
+    }
+  ]
+}

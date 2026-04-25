@@ -1,0 +1,25 @@
+{
+  "title": "Prod Test",
+  "duration_target_sec": 900,
+  "style": "cinematic geopolitical explainer",
+  "chapters": [
+    {
+      "name": "The System",
+      "duration_sec": 180,
+      "focus": "global structure, networks"
+    },
+    {
+      "name": "Rupture",
+      "duration_sec": 180,
+      "focus": "crisis points, volatility"
+    }
+  ],
+  "presenter": {
+    "frequency_sec": 60.0
+  },
+  "envato": {
+    "music_mood": "dark cinematic tension",
+    "sfx_style": "news impact",
+    "title_style": "news documentary"
+  }
+}

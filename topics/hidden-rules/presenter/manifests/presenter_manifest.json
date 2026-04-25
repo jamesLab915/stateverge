@@ -1,0 +1,129 @@
+{
+  "topic_slug": "hidden-rules",
+  "video_duration_sec": 70.933,
+  "timeline_path": "topics/hidden-rules/presenter/plan/presenter_timeline.json",
+  "reference_image_path": "assets/presenter_reference/host_master.png",
+  "reference_image_status": "ok",
+  "generated_variants": [],
+  "segments": [
+    {
+      "name": "intro",
+      "type": "intro",
+      "text": "Welcome to 'Hidden Rules', where we explore the unseen structures that shape our global landscape.",
+      "audio_path": "topics/hidden-rules/audio/presenter/intro.wav",
+      "audio_duration_sec": 4.226,
+      "split_parts": [
+        "presenter/segments/intro/audio_part_01.wav"
+      ],
+      "split_points": [],
+      "base_video_paths": [
+        "topics/hidden-rules/presenter/base/intro/base_part_01.mp4"
+      ],
+      "selected_master_files": [
+        "/Users/ziweizhang/StateVerge/assets/presenter_masters/10s/master_005.mp4"
+      ],
+      "selected_plan": [
+        [
+          {
+            "file": "/Users/ziweizhang/StateVerge/assets/presenter_masters/10s/master_005.mp4",
+            "nominal_sec": 10.0,
+            "size": "10s",
+            "source": "master"
+          }
+        ]
+      ],
+      "runway_input_paths": [
+        "topics/hidden-rules/presenter/lipsync_input/intro/part_01"
+      ],
+      "lipsync_output_paths": [],
+      "runway_lipsync": {
+        "part_01": {
+          "runway_submit_status": "manual_required",
+          "runway_error": "RUNWAY_LIPSYNC_ENDPOINT not set",
+          "runway_output_path": "topics/hidden-rules/presenter/lipsync_output/intro/part_01.mp4",
+          "runway_job_id": null
+        }
+      },
+      "eleven_lipsync": {
+        "part_01": {
+          "eleven_lipsync_status": "manual_required",
+          "eleven_lipsync_error": "ELEVEN_LIPSYNC_ENDPOINT not set",
+          "eleven_lipsync_job_id": null,
+          "output_path": "topics/hidden-rules/presenter/lipsync_output/intro/part_01.mp4"
+        }
+      },
+      "final_segment_path": null,
+      "timeline_start": 0.0,
+      "status": "audio_ready",
+      "errors": [
+        "tts_failed",
+        "split_skip_missing_audio",
+        "build_base_no_audio_parts",
+        "lipsync_output_dir_missing",
+        "presenter_final_missing:intro",
+        "presenter_final_missing:intro"
+      ]
+    },
+    {
+      "name": "outro",
+      "type": "outro",
+      "text": "Thank you for joining us on this exploration of the hidden rules that shape our world.",
+      "audio_path": "topics/hidden-rules/audio/presenter/outro.wav",
+      "audio_duration_sec": 3.204,
+      "split_parts": [
+        "presenter/segments/outro/audio_part_01.wav"
+      ],
+      "split_points": [],
+      "base_video_paths": [
+        "topics/hidden-rules/presenter/base/outro/base_part_01.mp4"
+      ],
+      "selected_master_files": [
+        "/Users/ziweizhang/StateVerge/assets/presenter_masters/10s/master_005.mp4"
+      ],
+      "selected_plan": [
+        [
+          {
+            "file": "/Users/ziweizhang/StateVerge/assets/presenter_masters/10s/master_005.mp4",
+            "nominal_sec": 10.0,
+            "size": "10s",
+            "source": "master"
+          }
+        ]
+      ],
+      "runway_input_paths": [
+        "topics/hidden-rules/presenter/lipsync_input/outro/part_01"
+      ],
+      "lipsync_output_paths": [],
+      "runway_lipsync": {
+        "part_01": {
+          "runway_submit_status": "manual_required",
+          "runway_error": "RUNWAY_LIPSYNC_ENDPOINT not set",
+          "runway_output_path": "topics/hidden-rules/presenter/lipsync_output/outro/part_01.mp4",
+          "runway_job_id": null
+        }
+      },
+      "eleven_lipsync": {
+        "part_01": {
+          "eleven_lipsync_status": "manual_required",
+          "eleven_lipsync_error": "ELEVEN_LIPSYNC_ENDPOINT not set",
+          "eleven_lipsync_job_id": null,
+          "output_path": "topics/hidden-rules/presenter/lipsync_output/outro/part_01.mp4"
+        }
+      },
+      "final_segment_path": null,
+      "timeline_start": 0.0,
+      "status": "audio_ready",
+      "errors": [
+        "tts_failed",
+        "split_skip_missing_audio",
+        "build_base_no_audio_parts",
+        "lipsync_output_dir_missing",
+        "presenter_final_missing:outro",
+        "presenter_final_missing:outro"
+      ]
+    }
+  ],
+  "errors": [],
+  "final_output_path": "topics/hidden-rules/output/final_with_presenter.mp4",
+  "updated_at": "2026-04-24T21:49:20.185158-04:00"
+}

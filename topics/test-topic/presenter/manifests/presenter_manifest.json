@@ -1,0 +1,58 @@
+{
+  "topic_slug": "test-topic",
+  "video_duration_sec": 0.0,
+  "timeline_path": "topics/test-topic/presenter/plan/presenter_timeline.json",
+  "segments": [
+    {
+      "name": "intro",
+      "type": "intro",
+      "text": "",
+      "audio_path": "topics/test-topic/audio/presenter/intro.wav",
+      "audio_duration_sec": null,
+      "split_parts": [],
+      "split_points": [],
+      "base_video_paths": [],
+      "selected_master_files": [],
+      "selected_plan": [],
+      "runway_input_paths": [],
+      "lipsync_output_paths": [],
+      "final_segment_path": null,
+      "timeline_start": 0.0,
+      "status": "placeholder",
+      "errors": []
+    },
+    {
+      "name": "outro",
+      "type": "outro",
+      "text": "",
+      "audio_path": "topics/test-topic/audio/presenter/outro.wav",
+      "audio_duration_sec": null,
+      "split_parts": [],
+      "split_points": [],
+      "base_video_paths": [],
+      "selected_master_files": [],
+      "selected_plan": [],
+      "runway_input_paths": [],
+      "lipsync_output_paths": [],
+      "final_segment_path": null,
+      "timeline_start": 0.0,
+      "status": "placeholder",
+      "errors": []
+    }
+  ],
+  "final_output_path": null,
+  "updated_at": "2026-04-23T17:51:37.361481-04:00",
+  "errors": [
+    "host_master.png missing at assets/presenter_reference/; future variant module disabled; master concat continues",
+    "variant_module_skipped: host_master.png missing"
+  ],
+  "generated_variants": [
+    {
+      "status": "skipped",
+      "reason": "reference_image_missing",
+      "reference_path": "assets/presenter_reference/host_master.png"
+    }
+  ],
+  "reference_image_path": "assets/presenter_reference/host_master.png",
+  "reference_image_status": "missing"
+}

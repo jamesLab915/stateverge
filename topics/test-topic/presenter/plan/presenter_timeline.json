@@ -1,0 +1,24 @@
+{
+  "topic_slug": "test-topic",
+  "video_duration_sec": 0.0,
+  "segments": [
+    {
+      "name": "intro",
+      "type": "intro",
+      "timeline_start": 0.0,
+      "anchor_sec": 0.0,
+      "text": "",
+      "audio_path": "topics/test-topic/audio/presenter/intro.wav",
+      "status": "placeholder"
+    },
+    {
+      "name": "outro",
+      "type": "outro",
+      "timeline_start": 0.0,
+      "anchor_sec": 0.0,
+      "text": "",
+      "audio_path": "topics/test-topic/audio/presenter/outro.wav",
+      "status": "placeholder"
+    }
+  ]
+}

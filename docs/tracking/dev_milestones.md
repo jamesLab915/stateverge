@@ -1,0 +1,15 @@
+# 研发里程碑
+
+| Date | Milestone | Project Area | Technical Contribution | Tools Used | Output | Evidence Path | Business / Immigration Relevance |
+|------|------------|--------------|------------------------|------------|--------|---------------|----------------------------------|
+| TBD | Evidence-first data governance for geopolitical & risk narratives | StateVerge data layer | Design principles for source-aware, non-speculative data presentation | Cursor, Python, Markdown | `docs/`, data schemas in repo (where present) | docs/ (see data-related docs) | Business: differentiator; NIW/EB1: original systematic approach (consult counsel) |
+| TBD | Production video pipeline (packaging) | `src/production` | FFmpeg-staged audio + mux; manifest-driven; non-destructive to presenter | FFmpeg, Python | Packaged MP4 output paths | `src/production/packaging_engine.py` (read-only for tracking) | Business: shippable media product |
+| TBD | Presenter pipeline (host integration) | `src/presenter_pipeline` | Timeline, TTS, base build, Runway/Lipsync I/O, assembly | Python, ffprobe/ffmpeg | `final_with_presenter` outputs | `src/presenter_pipeline/` (read-only) | Business: end-to-end creative automation |
+| TBD | HeyGen presenter / host segment workflow | Integrations | HeyGen path skeleton + env; manual fallback | HeyGen (account-dependent) | `docs/…` or integration outputs (when used) | `src/integrations/heygen_*.py` (if present) | Immigration: tooling + workflow evidence |
+| TBD | Envato asset packaging workflow | `src/production` | Asset selection, lower-thirds, SFX, BGM, mux | Envato (local + optional API) | `final_packaged` | `src/production/packaging_engine.py` | Business: commercial licensing discipline |
+| TBD | LTX batch helper (scene prompts, assemble) | `src/production` | Semi-automated scene prompt export and concat | LTX (user-side gen), ffmpeg | `topics/.../ltx/`, `narrative_main` | `src/production/ltx_batch_helper.py` | Business: scale of cinematic production |
+| TBD | Integrations healthcheck | `src/integrations` | One-shot API config visibility | requests | CLI health | `src/integrations/healthcheck.py` | Operational R&D for integrations |
+| TBD | FFmpeg automated assembly of narrative | `src/production` + tooling | Normalization + concat for batch scenes | ffmpeg | `narrative_main.mp4` | `ltx_batch_helper` outputs | Reproducible engineering artifact |
+| TBD | StateVerge homepage / IA (when applicable) | Web | Information architecture for product narrative | Vercel/Neon (if used) | Deployed site (if any) | repo web app folder (if any) | Public-facing evidence (if published) |
+| TBD | NationMatrix / country profile data structure (when applicable) | StateVerge | Structured country & risk context | Python, data files | Schemas & exports | (project paths TBD) | Original domain-specific system design |
+| 2026-04-24 | R&D evidence & expense tracking system | Meta / governance | `docs/tracking` + append-only CLI, monthly report draft | Python stdlib | This documentation tree | `docs/tracking/` | Factual R&D and expense traceability (non-legal) |

@@ -1,0 +1,10 @@
+{
+  "topic_slug": "hidden-rules",
+  "segment_name": "outro",
+  "part_name": "part_01",
+  "segment_type": "outro",
+  "audio_duration_sec": 3.622,
+  "base_video_path": "topics/hidden-rules/presenter/lipsync_input/outro/part_01/base_video.mp4",
+  "audio_path": "topics/hidden-rules/presenter/lipsync_input/outro/part_01/audio.wav",
+  "expected_output_path": "topics/hidden-rules/presenter/lipsync_output/outro/part_01.mp4"
+}

@@ -1,0 +1,24 @@
+{
+  "topic_slug": "hidden-rules",
+  "video_duration_sec": 70.933,
+  "segments": [
+    {
+      "name": "intro",
+      "type": "intro",
+      "timeline_start": 0.0,
+      "anchor_sec": 0.0,
+      "text": "Welcome to 'Hidden Rules,' a deep dive into the unseen forces that shape our world.",
+      "audio_path": "topics/hidden-rules/audio/presenter/intro.wav",
+      "status": "planned"
+    },
+    {
+      "name": "outro",
+      "type": "outro",
+      "timeline_start": 70.933,
+      "anchor_sec": 70.933,
+      "text": "Thank you for joining us on this journey through the hidden rules of our world.",
+      "audio_path": "topics/hidden-rules/audio/presenter/outro.wav",
+      "status": "planned"
+    }
+  ]
+}

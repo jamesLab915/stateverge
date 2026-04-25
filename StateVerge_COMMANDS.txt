@@ -1,0 +1,368 @@
+StateVerge 常用 Python 指令速查（可当作操作手册）
+===============================================
+工作目录默认：~/StateVerge
+建议每次先执行（若尚未 export）:
+  cd ~/StateVerge
+  export PYTHONPATH="$PWD"
+
+示例 topic：us-separation-of-powers（将下列命令中 TOPIC 或 slug 换成你的 topic 名）
+
+注：与路径相关的根目录为仓库根下的 **topics/<slug>/**，不是根目录的 output/<slug>/。
+
+--------------------------------------------------------------------------------
+一、项目初始化 / 检查
+--------------------------------------------------------------------------------
+【什么时候用】
+- 第一次开项目、换电脑、出片前怀疑环境或 API
+- 不清楚该用哪个子命令时，用下列入口看 --help
+
+【做什么】
+  cd ~/StateVerge
+  export PYTHONPATH="$PWD"
+
+  # 检查各集成 API / 环境（OpenAI、ElevenLabs 等，见终端输出）
+  python -m src.integrations.healthcheck
+
+  # TODO: 仓库中未发现 `src/run_pipeline.py`。可用各模块的 `--help` 或裸运行看用法：
+  # Production 主入口
+  python -m src.production.cli
+  # Presenter 主入口
+  python -m src.presenter_pipeline.cli
+  # LTX 批处理助手
+  python -m src.production.ltx_batch_helper
+  # Envato 下载分拣
+  python -m src.utils.sort_envato
+
+--------------------------------------------------------------------------------
+二、Production 层
+--------------------------------------------------------------------------------
+【什么时候用】
+- 新建 topic 或要补全 brief
+- 改口播/主持人文案后需重新出脚本
+- 要生成 LTX 分镜表、导出 LTX 侧 prompt
+- 外部 LTX 已出片、要在本机拼 narrative_main
+- 要加包装带、字幕、Envato 混音混剪后出 final_packaged
+
+【做什么】
+  export PYTHONPATH="$PWD"
+
+  # 1) 生成 / 初始化 brief（若已存在会提示不覆盖）
+  python -m src.production.cli --topic us-separation-of-powers --generate-brief
+
+  # 2) 生成口播与 presenter 脚本（需 OpenAI 等与 narration 流程）
+  python -m src.production.cli --topic us-separation-of-powers --generate-scripts
+
+  # 3) 生成 LTX 场景表 ltx_scene_plan.json（依赖 brief 与 narration_script）
+  python -m src.production.cli --topic us-separation-of-powers --generate-ltx-plan
+
+  # 4) 从场景表导出 LTX 侧 prompt / manifest（不调外部 LTX API）
+  python -m src.production.ltx_batch_helper --topic us-separation-of-powers --export-prompts
+
+  # 5) 在外部 LTX/工具按 manifest 生成好各 scene 片段后，合成为 narrative_main
+  python -m src.production.ltx_batch_helper --topic us-separation-of-powers --assemble
+
+  # 6) 打包装：音乐 duck、字幕、SFX 等，输出 final_packaged.mp4（需前置产物齐）
+  python -m src.production.cli --topic us-separation-of-powers --package
+
+--------------------------------------------------------------------------------
+三、Presenter 层（按顺序；同一 topic）
+--------------------------------------------------------------------------------
+【什么时候用】
+- 要为主持人建立时间线、写 manifest
+- 要生成/更新主持人配音
+- 要按时间线切分对轨
+- 要拼 base 与准备 Runway lip-sync 目入目出
+- 手动完成 Runway 出片后，要拼段并合并进全长 narrative
+
+【做什么】
+  export PYTHONPATH="$PWD"
+
+  # plan：规划时间线、建目录
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --plan
+
+  # TTS：ElevenLabs 等（.env 需 ELEVENLABS_*，否则日志会提示 no-op）
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --tts
+
+  # 按时间线切分主持人相关音频
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --split-audio
+
+  # 为每段拼 base 视频（母版池等）
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --build-base
+
+  # 为 Runway lip-sync 准备输入目录
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --prepare-runway
+
+  # 在放好 Runway 输出到 lipsync_output 约定路径后，先逐段合再全长
+  #（无单独名为「insert」的子命令；对应 assemble）
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --assemble-segments
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --assemble-full
+
+  # 或：plan 起到 prepare-runway 之前的一次性备料（不含你手动的 Runway 出片 + 上面两个 assemble）
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --full-prep
+
+--------------------------------------------------------------------------------
+四、完整视频流水线（总览顺序）
+--------------------------------------------------------------------------------
+【什么时候用】
+- 要一眼看完从 topic 到 final_packaged 的全链路（心里打底稿）
+
+  export PYTHONPATH="$PWD"
+
+  # 1) topic / brief
+  python -m src.production.cli --topic us-separation-of-powers --generate-brief
+
+  # 2) 生成脚本
+  python -m src.production.cli --topic us-separation-of-powers --generate-scripts
+
+  # 3) 视觉计划 + LTX 主片
+  python -m src.production.cli --topic us-separation-of-powers --generate-ltx-plan
+  python -m src.production.ltx_batch_helper --topic us-separation-of-powers --export-prompts
+  # 在外部用 LTX 等按 manifest 生成 scene 片段后：
+  python -m src.production.ltx_batch_helper --topic us-separation-of-powers --assemble
+
+  # 4) 主持 / 口播 音频 与 分段 base
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --plan
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --tts
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --split-audio
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --build-base
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --prepare-runway
+  # 将 Runway 输出按 README 放入 lipsync_output 后：
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --assemble-segments
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --assemble-full
+
+  # 5) 打包 final_packaged.mp4
+  python -m src.production.cli --topic us-separation-of-powers --package
+
+--------------------------------------------------------------------------------
+五、Tracking / IRS / EB1-NIW 记录
+--------------------------------------------------------------------------------
+【什么时候用】
+- 记一笔订阅/设备费用、记研发笔记、记里程碑
+- 月末汇总、看自动文件变更、装 git 提交后钩子
+
+【做什么】
+  cd ~/StateVerge
+
+  python scripts/tracking/add_expense.py --date 2026-04-24 --vendor Cursor --amount "" --category "Software Subscription" --tool Cursor --description "填写说明" --business-purpose "填写业务目的"
+
+  python scripts/tracking/add_research_log.py --date 2026-04-24 --title "标题" --project-area "领域" --problem "问题" --tools "工具" --approach "方法" --result "结果" --evidence "路径" --next-step "下一步" --eb1 "移民证据相关" --irs "税务备注相关"
+
+  python scripts/tracking/add_milestone.py --date 2026-04-24 --milestone "里程碑" --area "范围" --contribution "技术贡献" --tools "工具" --output "产出" --evidence "证据路径" --relevance "业务/移民相关性"
+
+  python scripts/tracking/track_stateverge_activity.py --mode manual
+  python scripts/tracking/track_stateverge_activity.py --summary
+  python scripts/tracking/generate_monthly_report.py --month 2026-04
+  python scripts/tracking/install_git_hooks.py
+
+--------------------------------------------------------------------------------
+六、常用 force 重跑参数
+--------------------------------------------------------------------------------
+【什么时候用】
+- 误以为有「全量重算」的 force 旗标时，先看本段
+
+  TODO: 在仓库 `src/` 中未检索到 --force-script、--force-voice、--force-visuals、
+  --force-sections、--force-final、--force-all 等 argparse 参数。
+
+  👉 当前系统通过 **重复执行某一步对应的子命令** 实现局部重跑，而不是通过 force flag（见下「十、重跑策略」节）。
+
+--------------------------------------------------------------------------------
+七、常见问题排查（步骤链；按序执行）
+--------------------------------------------------------------------------------
+【视频黑屏】
+  1️⃣ 先重拼全长时间线（命令存在，但需 narrative 与片源已齐）：
+     python -m src.presenter_pipeline.cli --topic us-separation-of-powers --assemble-full
+  2️⃣ 再检查 topic 下分段产物目录（本仓库为 presenter/ 下，不是根目录 output/；见「十一、📁 输出文件在哪里」）：
+     例如 topics/<slug>/presenter/segments/ 、 topics/<slug>/presenter/final/ 、 topics/<slug>/output/
+  3️⃣ 终端检查 ffmpeg 是否在 PATH（非 Python 模块）：
+     执行：which ffmpeg
+  4️⃣ 若仍无法判断黑屏原因，需要看容器轨信息：
+     TODO: 本仓库未附带 ffprobe 一键检查脚本，可在终端对成片手动执行：ffprobe -hide_banner <file.mp4>
+
+【有声音没画面】
+  1️⃣  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --build-base
+  2️⃣  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --assemble-segments
+  3️⃣  若仍无声画不同步，再看 narrative_main 是否完整：
+     确认 topics/<slug>/video/narrative_main.mp4 存在
+
+【有画面没声音】
+  1️⃣  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --tts
+  2️⃣  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --split-audio
+  3️⃣  python -m src.integrations.healthcheck
+
+【素材没下载（本仓库指 Envato 从 ~/Downloads 分拣到 assets/envato）】
+  1️⃣  python -m src.utils.sort_envato --once
+
+【HeyGen 主持人没插入】
+  1️⃣  TODO: 未在 `src/integrations/` 下发现 heygen_*.py 等可执行入口。
+  2️⃣  当前以 presenter 时间线 + Runway lip sync + assemble 为主，请用 --assemble-segments / --assemble-full 排查。
+
+【LTX 文件缺失】
+  1️⃣  python -m src.production.ltx_batch_helper --topic us-separation-of-powers --assemble
+      （终端会提示缺片/跳过数）
+  2️⃣  若 ltx_scene_plan 不存在，先补计划：
+     python -m src.production.cli --topic us-separation-of-powers --generate-ltx-plan
+
+【Envato 素材没识别】
+  1️⃣  python -m src.utils.sort_envato --once
+  2️⃣  再查 assets/envato 分桶与 brief 里 envato 相关字段（见 README_ENVATO_SORT.md 与 packaging 日志）
+
+【API key 缺失】
+  1️⃣  python -m src.integrations.healthcheck
+
+说明：若需用 ffprobe 看轨，那是系统终端命令，非本仓库 Python 模块；需自行执行 ffprobe。
+
+================================================================================
+九、🔥 最常用「一键/最少复制」流程（直接照抄跑）
+================================================================================
+9.1 「极速压缩」示例（命令均真实存在）
+---------------------------------------
+⚠️ 下列顺序会被很多人当作「最短路」，但**很容易在 assemble 一步失败**：
+
+原因简述：
+- `--export-prompts` 之前通常**必须先有** `brief/ltx_scene_plan.json`（需先 `--generate-ltx-plan`；见 9.2 推荐版）
+- `assemble-full` 在代码中依赖 `video/narrative_main.mp4` 等；若 LTX 片段未生成就拼不出来
+- 通常还需要 `build-base`、`prepare-runway`、手动的 Runway 出片、`--assemble-segments` 后，再 `assemble-full`
+
+  cd ~/StateVerge
+  export PYTHONPATH="$PWD"
+
+  # 1. 生成内容
+  python -m src.production.cli --topic us-separation-of-powers --generate-brief
+  python -m src.production.cli --topic us-separation-of-powers --generate-scripts
+
+  # 2. LTX（只导出 prompt；若上一步未先生成 ltx 计划，请先 8.2 的一行 generate-ltx-plan）
+  python -m src.production.ltx_batch_helper --topic us-separation-of-powers --export-prompts
+
+  # 3. Presenter（到 split）
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --plan
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --tts
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --split-audio
+
+  # 4. 拼接（全长；缺前置时可能报错）
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --assemble-full
+
+9.2 推荐「能跑通概率更高」的连续复制块（在 9.1 基础上补关键步）
+----------------------------------------------------------------
+  cd ~/StateVerge
+  export PYTHONPATH="$PWD"
+
+  python -m src.production.cli --topic us-separation-of-powers --generate-brief
+  python -m src.production.cli --topic us-separation-of-powers --generate-scripts
+  python -m src.production.cli --topic us-separation-of-powers --generate-ltx-plan
+  python -m src.production.ltx_batch_helper --topic us-separation-of-powers --export-prompts
+  # … 在外部 LTX/工具生成 topics/<slug>/ltx/generated/scene_XXX.mp4 等 …
+  python -m src.production.ltx_batch_helper --topic us-separation-of-powers --assemble
+
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --plan
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --tts
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --split-audio
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --build-base
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --prepare-runway
+  # … 在 Runway 中完成 lip sync，将输出放回 topics/<slug>/presenter/lipsync_output/ …
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --assemble-segments
+  python -m src.presenter_pipeline.cli --topic us-separation-of-powers --assemble-full
+
+  python -m src.production.cli --topic us-separation-of-powers --package
+
+TODO：上文中「在 LTX/Runway 中手动出片」仍不是 Python 命令；仓库内未发现代替该人工步骤的 CLI。
+
+================================================================================
+十、♻️ 重跑策略（省时间，避免全量重跑）
+================================================================================
+👉 当前 **没有** 全局 force 参数时，用「只重跑相关子命令」替代（见「六、常用 force」中 TODO）；
+  **不要指望一条 --force-all**，应按场景挑下面子命令重跑。
+
+1）只改口播/主持人**文案** → 通常只跑：
+  python -m src.production.cli --topic <slug> --generate-scripts
+
+2）只改**声音**（重新出 TTS）→ 通常只跑：
+  python -m src.presenter_pipeline.cli --topic <slug> --tts
+  python -m src.presenter_pipeline.cli --topic <slug> --split-audio
+  （之后若已影响切段，自 `--build-base` 起按需继续）
+
+3）只改/重做**主持画面与 lip 相关**（在 Runway 出片已更新时）→ 只跑 Presenter 后半段：
+  python -m src.presenter_pipeline.cli --topic <slug> --assemble-segments
+  python -m src.presenter_pipeline.cli --topic <slug> --assemble-full
+  若仅全长合成有问题，可优先只试：
+  python -m src.presenter_pipeline.cli --topic <slug> --assemble-full
+
+4）**成片异常**（黑屏、没对上轨）在确认片源在磁盘上后，优先**局部重试合成**而不是从头：
+  python -m src.presenter_pipeline.cli --topic <slug> --assemble-full
+  若与包装层有关，再试：
+  python -m src.production.cli --topic <slug> --package
+
+5）**只改 LTX 出片、不改脚本** → 在新生成 ltx/generated 下片段后，只跑：
+  python -m src.production.ltx_batch_helper --topic <slug> --assemble
+  然后按需从 presenter 链上继续。
+
+================================================================================
+十一、📁 输出文件在哪里（topics/<topic>/ 下，不是根目录的 output/）
+================================================================================
+以 topics/<slug>/ 为根，与 `src/production/paths.py`、
+`src/presenter_pipeline/fs_utils.py` 的约定一致：
+
+  brief/               production_brief.json, ltx_scene_plan.json, packaging_manifest.json
+  script/              narration_script.txt, presenter_script.json
+  video/               narrative_main.mp4（LTX 拼接后在此）
+  audio/               主持人相关见 presenter 子结构（如 audio/presenter/ 下片段）
+  presenter/           plan/, segments/, base/, lipsync_input/, lipsync_output/, final/, manifests/
+  output/              final_with_presenter.mp4, final_packaged.mp4
+  ltx/                 prompts/, generated/ 等（LTX 批处理助手用）
+
+注意：本仓库**没有**统一使用「根目录 output/<topic>/」这一结构；请以 **topics/<topic>/** 为准。若有人说「audio.wav」「sections/*.mp4」，在本项目中更接近：
+- 整段或分段音频多在 topics/<slug>/audio/ 与 presenter/ 各子目录
+- 分段视频多在 topics/<slug>/presenter/segments/ 、presenter/final/ 下（名称因段而异，不是固定「sections 文件夹名」的单一约定，以你磁盘为准）
+
+================================================================================
+十二、⚠️ 常见坑（经验总结）
+================================================================================
+- 没配 API key → `healthcheck` 中对应行 FAIL，进而 `--generate-scripts` 或 TTS 失败
+- 没先 `--generate-ltx-plan` 就 `--export-prompts` / assemble → 缺 plan 或行为不符合预期
+- LTX 片段未落盘到 ltx/generated → `--assemble` 后 narrative_main 为空或失败
+- 没做 Runway 手速环节就把 output 放错路径 → `assemble-segments` / `assemble-full` 找不到片
+- 没 `--split-audio` 就强行往下 → 时间线/段边界与真音频对不上
+- 机器上多版本 ffmpeg、参数不统一 → 易黑屏/无声/轨错位（应用同一环境的 ffmpeg/ffprobe 排查）
+- 混淆路径：成文在 **topics/<slug>/output/**，不是仓库根 **output/**
+
+================================================================================
+十三、Media Sources / 统一素材获取系统
+================================================================================
+  从 Pexels / Pixabay / DVIDS 拉素材到 topics/<topic>/assets/raw/，并写
+  media_manifest.json。环境变量 PEXELS_API_KEY、PIXABAY_API_KEY、可选 DVIDS_API_KEY。
+  详见 docs/MEDIA_SYSTEM.md
+
+  cd ~/StateVerge
+  export PYTHONPATH="$PWD"
+
+  python -m src.integrations.media_sources.selector --topic chernobyl
+  python -m src.integrations.media_sources.selector --topic chernobyl --no-download
+  python -m src.integrations.media_sources.selector --topic chernobyl --source pexels,pixabay,dvids
+
+================================================================================
+十四、Mix Engine / 纪录片混剪系统
+================================================================================
+  不替代 production / presenter_pipeline。所有路径在 topics/<topic>/ 下；详见
+  src/mix_engine/README.md 与 topics/SCAFFOLD_topic_mix/ 目录示例。
+
+  目录约定（相对 topics/<topic>/）：
+  - video/        LTX 主输出 MP4
+  - envato/       Envato B-roll MP4
+  - sources/      采访/档案：raw, transcripts, rewritten, audio
+  - mix/          timeline.json, clips/ 中间片
+  - output/       final_mix.mp4 等
+
+  cd ~/StateVerge
+  export PYTHONPATH="$PWD"
+
+  python -m src.mix_engine.generate_timeline --topic chernobyl
+  python -m src.mix_engine.generate_timeline --topic chernobyl --force
+  python -m src.mix_engine.build_video --topic chernobyl
+  python -m src.mix_engine.build_video --topic chernobyl --dry-run
+  ./scripts/verify_final_video.sh chernobyl final_mix.mp4
+  ./scripts/verify_final_video.sh chernobyl
+
+================================================================================
+十五、本速查文件在仓库中的位置
+================================================================================
+  StateVerge_COMMANDS.txt
+  docs/StateVerge_COMMANDS.md

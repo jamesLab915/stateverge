@@ -1,0 +1,10 @@
+{
+  "topic_slug": "hidden-rules",
+  "segment_name": "intro",
+  "part_name": "part_01",
+  "segment_type": "intro",
+  "audio_duration_sec": 5.062,
+  "base_video_path": "topics/hidden-rules/presenter/lipsync_input/intro/part_01/base_video.mp4",
+  "audio_path": "topics/hidden-rules/presenter/lipsync_input/intro/part_01/audio.wav",
+  "expected_output_path": "topics/hidden-rules/presenter/lipsync_output/intro/part_01.mp4"
+}

@@ -1,0 +1,6 @@
+Topic,Stage,Completion %,Has Script,Has Presenter Script,Has Audio,Section Count,Has Final,Has Packaged Final,Last Updated
+SCAFFOLD_topic_mix,init,10,No,No,No,0,No,No,2026-04-24T19:39:28
+does-not-exist-zzz,init,10,No,No,No,0,No,No,2026-04-23T21:33:03
+hidden-rules,packaged_ready,100,Yes,Yes,No,0,Yes,Yes,2026-04-24T20:54:46
+prod-test,init,10,No,No,No,0,No,No,2026-04-23T18:02:56
+test-topic,init,10,No,No,No,0,No,No,2026-04-23T17:39:03

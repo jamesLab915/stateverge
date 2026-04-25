@@ -1,0 +1,287 @@
+{
+  "scenes": [
+    {
+      "scene_id": "scene_01",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 1/23: visual beat, consistent world look, global composition, v0 [sig:9876782e]",
+      "purpose": "establishing shot for The System — support «The System» segment 1/23: visual beat"
+    },
+    {
+      "scene_id": "scene_02",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 2/23: visual beat, consistent world look, global composition, v0 [sig:fdc3c90a]",
+      "purpose": "establishing shot for The System — support «The System» segment 2/23: visual beat"
+    },
+    {
+      "scene_id": "scene_03",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 3/23: visual beat, consistent world look, global composition, v0 [sig:d74b58b7]",
+      "purpose": "establishing shot for The System — support «The System» segment 3/23: visual beat"
+    },
+    {
+      "scene_id": "scene_04",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 4/23: visual beat, consistent world look, global composition, v0 [sig:46883524]",
+      "purpose": "establishing shot for The System — support «The System» segment 4/23: visual beat"
+    },
+    {
+      "scene_id": "scene_05",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 5/23: visual beat, consistent world look, global composition, v0 [sig:807f3711]",
+      "purpose": "establishing shot for The System — support «The System» segment 5/23: visual beat"
+    },
+    {
+      "scene_id": "scene_06",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 6/23: visual beat, consistent world look, global composition, v0 [sig:4b149a24]",
+      "purpose": "establishing shot for The System — support «The System» segment 6/23: visual beat"
+    },
+    {
+      "scene_id": "scene_07",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 7/23: visual beat, consistent world look, global composition, v0 [sig:71891040]",
+      "purpose": "establishing shot for The System — support «The System» segment 7/23: visual beat"
+    },
+    {
+      "scene_id": "scene_08",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 8/23: visual beat, consistent world look, global composition, v0 [sig:35715764]",
+      "purpose": "establishing shot for The System — support «The System» segment 8/23: visual beat"
+    },
+    {
+      "scene_id": "scene_09",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 9/23: visual beat, consistent world look, global composition, v0 [sig:312e0197]",
+      "purpose": "establishing shot for The System — support «The System» segment 9/23: visual beat"
+    },
+    {
+      "scene_id": "scene_10",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 10/23: visual beat, consistent world look, global composition, v0 [sig:681e06b4]",
+      "purpose": "establishing shot for The System — support «The System» segment 10/23: visual beat"
+    },
+    {
+      "scene_id": "scene_11",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 11/23: visual beat, consistent world look, global composition, v0 [sig:a3fb8700]",
+      "purpose": "establishing shot for The System — support «The System» segment 11/23: visual beat"
+    },
+    {
+      "scene_id": "scene_12",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 12/23: visual beat, consistent world look, global composition, v0 [sig:f3a548b6]",
+      "purpose": "establishing shot for The System — support «The System» segment 12/23: visual beat"
+    },
+    {
+      "scene_id": "scene_13",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 13/23: visual beat, consistent world look, global composition, v0 [sig:c59be12a]",
+      "purpose": "establishing shot for The System — support «The System» segment 13/23: visual beat"
+    },
+    {
+      "scene_id": "scene_14",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 14/23: visual beat, consistent world look, global composition, v0 [sig:b3aa3cb5]",
+      "purpose": "establishing shot for The System — support «The System» segment 14/23: visual beat"
+    },
+    {
+      "scene_id": "scene_15",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 15/23: visual beat, consistent world look, global composition, v0 [sig:bc1e86aa]",
+      "purpose": "establishing shot for The System — support «The System» segment 15/23: visual beat"
+    },
+    {
+      "scene_id": "scene_16",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 16/23: visual beat, consistent world look, global composition, v0 [sig:c642802f]",
+      "purpose": "establishing shot for The System — support «The System» segment 16/23: visual beat"
+    },
+    {
+      "scene_id": "scene_17",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 17/23: visual beat, consistent world look, global composition, v0 [sig:783596b0]",
+      "purpose": "establishing shot for The System — support «The System» segment 17/23: visual beat"
+    },
+    {
+      "scene_id": "scene_18",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 18/23: visual beat, consistent world look, global composition, v0 [sig:fb21658d]",
+      "purpose": "establishing shot for The System — support «The System» segment 18/23: visual beat"
+    },
+    {
+      "scene_id": "scene_19",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 19/23: visual beat, consistent world look, global composition, v0 [sig:214a09f9]",
+      "purpose": "establishing shot for The System — support «The System» segment 19/23: visual beat"
+    },
+    {
+      "scene_id": "scene_20",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 20/23: visual beat, consistent world look, global composition, v0 [sig:839b6ea4]",
+      "purpose": "establishing shot for The System — support «The System» segment 20/23: visual beat"
+    },
+    {
+      "scene_id": "scene_21",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 21/23: visual beat, consistent world look, global composition, v0 [sig:9cb54cc1]",
+      "purpose": "establishing shot for The System — support «The System» segment 21/23: visual beat"
+    },
+    {
+      "scene_id": "scene_22",
+      "duration_sec": 7.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 22/23: visual beat, consistent world look, global composition, v0 [sig:629aae2c]",
+      "purpose": "establishing shot for The System — support «The System» segment 22/23: visual beat"
+    },
+    {
+      "scene_id": "scene_23",
+      "duration_sec": 5.0,
+      "prompt": "cinematic geopolitical explainer, chapter «The System»: global structure, networks. Cinematic, photoreal, 8k, filmic color grade, support «The System» segment 23/23: visual beat, consistent world look, global composition, v0 [sig:34a56cec]",
+      "purpose": "establishing shot for The System — support «The System» segment 23/23: visual beat"
+    },
+    {
+      "scene_id": "scene_24",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 1/23: visual beat, consistent world look, global composition, v0 [sig:3dce6630]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 1/23: visual beat"
+    },
+    {
+      "scene_id": "scene_25",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 2/23: visual beat, consistent world look, global composition, v0 [sig:1dfd4d73]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 2/23: visual beat"
+    },
+    {
+      "scene_id": "scene_26",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 3/23: visual beat, consistent world look, global composition, v0 [sig:f14857da]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 3/23: visual beat"
+    },
+    {
+      "scene_id": "scene_27",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 4/23: visual beat, consistent world look, global composition, v0 [sig:a91ae4dd]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 4/23: visual beat"
+    },
+    {
+      "scene_id": "scene_28",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 5/23: visual beat, consistent world look, global composition, v0 [sig:fb0d4fc1]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 5/23: visual beat"
+    },
+    {
+      "scene_id": "scene_29",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 6/23: visual beat, consistent world look, global composition, v0 [sig:ec5b9238]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 6/23: visual beat"
+    },
+    {
+      "scene_id": "scene_30",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 7/23: visual beat, consistent world look, global composition, v0 [sig:1b703995]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 7/23: visual beat"
+    },
+    {
+      "scene_id": "scene_31",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 8/23: visual beat, consistent world look, global composition, v0 [sig:f8abef70]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 8/23: visual beat"
+    },
+    {
+      "scene_id": "scene_32",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 9/23: visual beat, consistent world look, global composition, v0 [sig:6c909db7]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 9/23: visual beat"
+    },
+    {
+      "scene_id": "scene_33",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 10/23: visual beat, consistent world look, global composition, v0 [sig:a612ff55]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 10/23: visual beat"
+    },
+    {
+      "scene_id": "scene_34",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 11/23: visual beat, consistent world look, global composition, v0 [sig:8b708343]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 11/23: visual beat"
+    },
+    {
+      "scene_id": "scene_35",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 12/23: visual beat, consistent world look, global composition, v0 [sig:98dc6db7]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 12/23: visual beat"
+    },
+    {
+      "scene_id": "scene_36",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 13/23: visual beat, consistent world look, global composition, v0 [sig:1e7d954f]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 13/23: visual beat"
+    },
+    {
+      "scene_id": "scene_37",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 14/23: visual beat, consistent world look, global composition, v0 [sig:84e78d88]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 14/23: visual beat"
+    },
+    {
+      "scene_id": "scene_38",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 15/23: visual beat, consistent world look, global composition, v0 [sig:69ed41f2]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 15/23: visual beat"
+    },
+    {
+      "scene_id": "scene_39",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 16/23: visual beat, consistent world look, global composition, v0 [sig:f8888200]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 16/23: visual beat"
+    },
+    {
+      "scene_id": "scene_40",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 17/23: visual beat, consistent world look, global composition, v0 [sig:6b9af535]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 17/23: visual beat"
+    },
+    {
+      "scene_id": "scene_41",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 18/23: visual beat, consistent world look, global composition, v0 [sig:77a8416b]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 18/23: visual beat"
+    },
+    {
+      "scene_id": "scene_42",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 19/23: visual beat, consistent world look, global composition, v0 [sig:7e625693]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 19/23: visual beat"
+    },
+    {
+      "scene_id": "scene_43",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 20/23: visual beat, consistent world look, global composition, v0 [sig:7edf6f62]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 20/23: visual beat"
+    },
+    {
+      "scene_id": "scene_44",
+      "duration_sec": 8.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 21/23: visual beat, consistent world look, global composition, v0 [sig:dc99b288]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 21/23: visual beat"
+    },
+    {
+      "scene_id": "scene_45",
+      "duration_sec": 7.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 22/23: visual beat, consistent world look, global composition, v0 [sig:e3b85b3d]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 22/23: visual beat"
+    },
+    {
+      "scene_id": "scene_46",
+      "duration_sec": 5.0,
+      "prompt": "cinematic geopolitical explainer, chapter «Rupture»: crisis points, volatility. Cinematic, photoreal, 8k, filmic color grade, support «Rupture» segment 23/23: visual beat, consistent world look, global composition, v0 [sig:172690a1]",
+      "purpose": "establishing shot for Rupture — support «Rupture» segment 23/23: visual beat"
+    }
+  ],
+  "meta": {
+    "title": "Hidden Rules",
+    "duration_target_sec": 900,
+    "style": "cinematic geopolitical explainer",
+    "production_brief": "topics/hidden-rules/brief/production_brief.json",
+    "narration_script": "topics/hidden-rules/script/narration_script.txt"
+  }
+}

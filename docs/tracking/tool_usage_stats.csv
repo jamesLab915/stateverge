@@ -1,0 +1,17 @@
+Tool,Usage Count,Last Used,Area,Evidence Value,IRS Relevance,EB1_NIW_Relevance
+LTX,6,2026-01-01,Video generation,High,Video generation tool,Advanced video synthesis
+Cursor,5,2026-01-01,Development,Medium,Tool expense,Development platform
+FFmpeg,5,,Video processing,Medium,Media processing,Video synthesis infrastructure
+Runway,4,2026-01-01,Video generation,High,Video processing tool,AI video generation capability
+HeyGen,4,2026-01-01,Presenter generation,High,AI presenter tool,"Presenter automation, AI integration"
+Envato,4,2026-01-01,Stock library,Medium,Subscription / licensed assets,Production asset pipeline
+Vercel,4,2026-01-01,Hosting,Medium,Server infrastructure,Deployment platform
+Neon,4,2026-01-01,Database,Medium,Database service,Data infrastructure
+ElevenLabs,3,2026-01-01,Audio generation,High,Audio synthesis tool,"Voice generation, text-to-speech"
+OpenAI,3,2026-01-01,AI/ML,High,LLM subscription,Core AI infrastructure
+GitHub,3,2026-01-01,Version control,High,Hosting service,"Development infrastructure, R&D tracking"
+Hostinger,3,2026-01-01,Hosting,Medium,Web hosting,Application hosting
+ChatGPT,2,2026-01-01,Development,High,AI tool subscription,AI-assisted development
+CapCut,2,,Video editing,Medium,Video editing software,Final video refinement
+Pexels,1,,Media library,Low,Stock media,Content sourcing
+Pixabay,1,,Media library,Low,Stock media,Content sourcing

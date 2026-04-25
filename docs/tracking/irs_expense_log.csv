@@ -1,0 +1,13 @@
+Date,Vendor,Amount,Currency,Category,Payment Method,Project,Tool/Asset,Description,Business Purpose,Receipt Path,Deductibility Notes,Reviewed
+2026-01-01,Cursor,,USD,Software Subscription,,StateVerge,Cursor,AI-assisted development (example row — fill amount from statement),Support software development and automation for StateVerge, ,Consult CPA,No
+2026-01-01,Runway,,USD,Software Subscription,,StateVerge,Runway,Video generation / lip-sync related tooling (example),Cinematic and presenter-related production for StateVerge, ,Consult CPA,No
+2026-01-01,LTX Studio,,USD,Software Subscription,,StateVerge,LTX Studio,Main cinematic video tooling (example),Narrative main video production, ,Consult CPA,No
+2026-01-01,HeyGen,,USD,Software Subscription,,StateVerge,HeyGen,Presenter / avatar workflow (example),On-camera segment automation, ,Consult CPA,No
+2026-01-01,ElevenLabs,,USD,Software Subscription,,StateVerge,ElevenLabs,Voice / TTS (example),Narration and audio pipeline, ,Consult CPA,No
+2026-01-01,Envato,,USD,Stock / License,,StateVerge,Envato Elements,Licensed media assets (example),B-roll, music, packages for production, ,Consult CPA,No
+2026-01-01,OpenAI,,USD,API / Software,,StateVerge,OpenAI,LLM API / ChatGPT (example),Script and planning support, ,Consult CPA,No
+2026-01-01,Vercel,,USD,Hosting,,StateVerge,Vercel,Deployment (example),Web deployment for project, ,Consult CPA,No
+2026-01-01,Neon,,USD,Database,,StateVerge,Neon,Postgres (example),Data layer, ,Consult CPA,No
+2026-01-01,GitHub,,USD,Source control,,StateVerge,GitHub,Team / Copilot (if any),Code hosting and review, ,Consult CPA,No
+2026-01-01,Apple,,USD,Hardware,,StateVerge,MacBook,Hardware purchase (example),Development equipment, ,Consult CPA,No
+2026-01-01,Hostinger,,USD,Domain / Hosting,,StateVerge,Hostinger,Domain or hosting (example),Project website / email, ,Consult CPA,No
