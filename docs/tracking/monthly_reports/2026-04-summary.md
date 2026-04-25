@@ -1,6 +1,6 @@
 # StateVerge Monthly Evidence Report - 2026-04
 
-_Generated: 2026-04-24T21:55:36-04:00_
+_Generated: 2026-04-24T22:06:15-04:00_
 
 _Applicant / legal name on file: **Ziwei Zhang**. "James" if it appears in StateVerge artifacts is a presenter/host persona only._
 
@@ -31,6 +31,11 @@ _(no expenses or subscription emails recorded for this month — add receipts vi
 |------|------------|--------------|------------------------|------------|--------|---------------|----------------------------------|
 | 2026-04-24 | R&D evidence & expense tracking system | Meta / governance | `docs/tracking` + append-only CLI, monthly report draft | Python stdlib | This documentation tree | `docs/tracking/` | Factual R&D and expense traceability (non-legal) |
 
+### 2.3 GitHub commits (1 total, 1 high-evidence)
+| Date | Type | Area | Evidence | Files | +/- | Message |
+|------|------|------|----------|------:|----:|---------|
+| 2026-04-24T22:06:05 | commit | Documentation | High | 205 | +16659 -0 | init stateverge tracking evidence system| |
+
 ### 2.4 Auto-tracked file events: 1 (created 0, modified 1, deleted 0)
 
 > Disclaimer: This is **not** legal/immigration advice. Use rows above as factual evidence, not as conclusions.
@@ -45,7 +50,8 @@ _(no expenses or subscription emails recorded for this month — add receipts vi
 
 ## 4. GitHub Activity
 
-_(no commits or PRs recorded for this month)_
+- Commits: **1** · PRs: **0**
+- Files changed: **205** · +16659 / -0 lines
 
 ## 5. Project Progress
 
@@ -87,6 +93,7 @@ _(no commits or PRs recorded for this month)_
 ## 8. Missing Evidence Checklist
 
 - [x] All expense rows have a receipt path.
+- [ ] **GitHub URL** missing for 1 commit/PR row(s) (configure `GITHUB_REPO` for HTTPS URLs).
 - [x] Monthly summary file present in `docs/tracking/monthly_reports/`.
 - [ ] **Final video** not yet produced for 4 topic(s).
 
