@@ -110,3 +110,8 @@ logs/tracking/file_snapshot.json
 !topics/**/*.yaml
 !topics/**/*.yml
 !topics/**/*.csv
+
+# Hook-regenerated tracking artifacts
+docs/tracking/auto_tracking_events.csv
+docs/tracking/github_activity_log.csv
+docs/tracking/tool_usage_stats.csv

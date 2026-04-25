@@ -1,2 +1,0 @@
-Timestamp,Event Type,Source,File Path,Summary,Project Area,Evidence Value,IRS Relevance,EB1_NIW_Relevance,Notes
-2026-04-24T20:58:13+00:00,modified,file_scan,scripts/tracking/track_stateverge_activity.py,Modified file in automation / tooling,Automation scripts,High,software/business development support,sustained technical development evidence,
