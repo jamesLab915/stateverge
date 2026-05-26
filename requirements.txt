@@ -1,2 +1,11 @@
 requests>=2.28.0
 python-dotenv>=1.0.0
+
+# Volume automation Flask dashboard (/Volumes/StateVerge/07_AUTOMATION/scripts/dashboard.py)
+flask>=3.0.0
+
+# StateVerge Studio Dashboard (src/studio_dashboard/)
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+jinja2>=3.1.0
+requests>=2.31.0

@@ -11,6 +11,12 @@
 .env
 .env.*
 !.env.example
+.secrets/
+*.api_key
+openai_api_key
+data/youtube/token*.json
+data/youtube/client_secrets*.json
+*.client_secret.json
 *.key
 *.pem
 *.p12
@@ -42,6 +48,9 @@ node_modules/
 build/
 dist/
 *.egg-info/
+
+# ---------- Repo-local fallback when SV_* volumes are offline ----------
+_storage_fallback/
 
 # ---------- Large work / raw-media directories (kept entirely out of git) ----------
 assets/

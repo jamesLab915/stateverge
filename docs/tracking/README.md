@@ -126,3 +126,69 @@ python scripts/tracking/generate_monthly_report.py --month 2026-04
 # 7. 安装 git post-commit 钩子（自动联动以上模块）
 python scripts/tracking/install_git_hooks.py
 ```
+
+### 每日自动刷新（macOS launchd）
+
+无需手动执行，每天 **23:30** 本地时间自动跑一次 `track_stateverge_activity → project_progress_tracker → tool_usage_tracker → dev_time_tracker --mode auto`，结果写入 `logs/tracking/launchd_stdout.log` 与 `logs/tracking/launchd_stderr.log`。
+
+非侵入：**不监控键盘、不截图、不读取私人文件夹**，仅扫描 `~/StateVerge` 仓库内文件树。
+
+```bash
+# 安装每日自动刷新（写入 ~/Library/LaunchAgents/com.stateverge.tracking.autorefresh.plist）
+python3 scripts/tracking/install_launchd_autotracker.py --install
+
+# 查看状态（plist 是否存在 / launchctl 是否加载 / 最近日志）
+python3 scripts/tracking/install_launchd_autotracker.py --status
+
+# 卸载
+python3 scripts/tracking/install_launchd_autotracker.py --uninstall
+```
+
+## Expenses Tracking
+
+为了在不影响现有 `irs_expense_log.csv` 行级日志的前提下，单独记录 **结构化的费用账单**（例如 LLC 注册、注册代理服务、出版费等一次性 / 多项打包的支出），新增了一个独立的 expenses 模块：
+
+- 所有费用记录放在仓库根目录下的 [`tracking/expenses/`](../../tracking/expenses/)。
+- 每个 JSON 文件代表 **一笔或一组费用**（例如 `2026-llc-registration.json`）。
+- 使用 [`scripts/tracking/sum_expenses.py`](../../scripts/tracking/sum_expenses.py) 汇总所有 JSON 文件，按 `category` 分组并合计。
+
+### 文件格式
+
+```json
+{
+  "project": "StateVerge",
+  "category": "legal_setup",
+  "type": "llc_registration",
+  "date": "2026-04-25",
+  "items": [
+    { "name": "New York LLC filing fee", "amount": 205, "currency": "USD" }
+  ],
+  "total": 880,
+  "notes": "Initial legal setup cost for StateVerge LLC",
+  "owner": "Ziwei Zhang"
+}
+```
+
+- `category` 用于分组（如 `legal_setup` / `tools` / `media` 等）。
+- 若提供了 `total`，将以 `total` 为准；否则脚本会从 `items[].amount` 累加。
+- `owner` 字段填写法律身份姓名（**Ziwei Zhang**），与视频主持人 persona `James` 不混用。
+
+### 汇总命令
+
+```bash
+cd /Users/ziweizhang/StateVerge
+python scripts/tracking/sum_expenses.py
+```
+
+输出示例：
+
+```
+[expenses]
+total=880 USD
+
+by_category:
+legal_setup=880
+```
+
+> 该模块为 **追加式**：不修改现有 tracking 自动系统、不新增 watcher、不影响 `src/production/` 与 `src/presenter_pipeline/` 任何代码。
+

@@ -1,5 +1,6 @@
 """
-Envato download sorter: scan ``~/Downloads``, move into ``assets/envato/``.
+Envato download sorter: scan the resolved home Downloads folder (``~/Downloads``,
+``~/downloads``, or ``~/下载`` — whichever exists first), move into ``assets/envato/``.
 
 Run from repo root::
 
@@ -17,9 +18,11 @@ import time
 import zipfile
 from pathlib import Path
 
+from src.utils.home_downloads import resolve_home_downloads
+
 # Repository root: .../StateVerge
 REPO_ROOT: Path = Path(__file__).resolve().parent.parent.parent
-DOWNLOADS: Path = Path.home() / "Downloads"
+DOWNLOADS: Path = resolve_home_downloads()
 ENVATO_BASE: Path = REPO_ROOT / "assets" / "envato"
 
 INCOMPLETE_SUFFIXES: tuple[str, ...] = (
@@ -40,6 +43,27 @@ BUCKET_NAMES: tuple[str, ...] = (
     "_licenses",
     "_raw_backup",
 )
+
+# Optional project route: when an Envato file's name/parent/metadata matches
+# trigger_keywords, the file is parked under base_dir/_raw_unsorted instead of
+# going through the regular Envato classifier. Sub-categorization is intentionally
+# deferred — this is just a holding bay for now.
+PROJECT_ROUTE = {
+    "name": "museum_series_louvre",
+    "base_dir": "~/StateVerge/assets/envato/museum_series/louvre_episode_01",
+    "trigger_keywords": [
+        "louvre",
+        "museum",
+        "art gallery",
+        "gallery",
+        "renaissance",
+        "sculpture",
+        "statue",
+        "paris",
+        "france",
+        "pyramid",
+    ],
+}
 
 AUDIO_EXTS: set[str] = {".mp3", ".wav", ".m4a", ".aiff", ".aif"}
 VIDEO_EXTS: set[str] = {".mp4", ".mov"}
@@ -148,6 +172,11 @@ def _lower_thirds_match(name: str) -> bool:
     return any(k in n for k in LOWER_THIRDS_KEYWORDS)
 
 
+def match_project_route(path: Path, metadata_text: str = "") -> bool:
+    text = f"{path.name} {path.parent.name} {metadata_text}".lower()
+    return any(k in text for k in PROJECT_ROUTE["trigger_keywords"])
+
+
 def classify_file(path: Path) -> str:
     """
     Return one of BUCKET_NAMES for a regular file.
@@ -244,6 +273,13 @@ def process_zip(zip_path: Path) -> int:
         log(f"action=skip file={zip_path!s} reason=unstable")
         return 0
 
+    if match_project_route(zip_path):
+        project_unsorted_dir = (
+            Path(PROJECT_ROUTE["base_dir"]).expanduser() / "_raw_unsorted"
+        )
+        print(f"[envato_sorter] route={PROJECT_ROUTE['name']} file={zip_path.name}")
+        return 1 if _move_preserve_name(zip_path, project_unsorted_dir) else 0
+
     log(f"action=unzip file={zip_path!s}")
     work = (
         DOWNLOADS
@@ -289,6 +325,13 @@ def process_loose_file(path: Path) -> int:
     if not _wait_stable(path):
         log(f"action=skip file={path!s} reason=unstable")
         return 0
+
+    if match_project_route(path):
+        project_unsorted_dir = (
+            Path(PROJECT_ROUTE["base_dir"]).expanduser() / "_raw_unsorted"
+        )
+        print(f"[envato_sorter] route={PROJECT_ROUTE['name']} file={path.name}")
+        return 1 if _move_preserve_name(path, project_unsorted_dir) else 0
 
     if path.suffix.lower() == ".zip":
         return process_zip(path)

@@ -75,6 +75,43 @@ python -m src.integrations.media_sources.selector --topic chernobyl --source pex
 - `assets/raw/` 是**可审计**的真实素材落盘；可在后期人工或自动挑选后复制到 `topics/<topic>/assets/...`、Envato 子目录、或再喂给 `mix_engine` 的时间线 JSON。
 - 本模块**不**修改 `mix_engine`、`production`、`presenter_pipeline` 的代码路径。
 
+### 8.1 桥接到 mix_engine：`promote` 子命令
+
+`mix_engine.generate_timeline` 把 `topics/<topic>/envato/*.mp4` 当作 B-roll 候选。要把上面下载到 `assets/raw/` 的 stock 素材接入这条链路，跑：
+
+```bash
+python -m src.integrations.media_sources.promote --topic chernobyl
+```
+
+行为：
+
+1. 读 `topics/<topic>/assets/media_manifest.json`
+2. 把每个 `file` 字段非空的 clip 从 `assets/raw/<f>` **拷贝**（默认）或 **symlink**（`--symlink`）到 `topics/<topic>/envato/<f>`
+3. 写旁车 `topics/<topic>/envato/_attribution.json`：每个 promoted 文件 → `source / url / download_url / license / author / query / segment / width / height / duration`，**这些字段是 mix_engine 时间线 schema 不保留、但合规审计需要的元信息**
+4. 已存在文件默认跳过（`--force` 强制覆盖；`--dry-run` 只看不动）
+
+可选过滤：
+
+- `--filter "source=pexels,pixabay kind=video"` — 空格分隔多个 `key=val[,val...]`
+- `--segment segment_01,segment_02` — 只 promote 指定段
+- `--max N` — 总条数上限（过滤后）
+- `--symlink` — 不拷贝，节省磁盘（注意：删 `raw/` 会断链）
+- `--force` — 覆盖已存在
+- `--dry-run` — 只打印计划，不动文件
+
+完整链路示例：
+
+```bash
+python -m src.integrations.media_sources.selector  --topic chernobyl
+python -m src.integrations.media_sources.promote   --topic chernobyl
+python -m src.mix_engine.generate_timeline         --topic chernobyl --smart --force
+python -m src.mix_engine.build_video               --topic chernobyl
+```
+
+**前置依赖**：`mix_engine.generate_timeline`（含 `--smart`）硬性要求 `topics/<topic>/video/*.mp4`（LTX 主叙事素材）；只有 stock B-roll 的 topic 跑不通后两步——这是 mix_engine 自身约束，不在本模块范围内。
+
+`promote` 自身**不导入**也**不修改** `mix_engine`，只是产出 `mix_engine` 既有协议下的合法输入文件。
+
 ## 9. 合规与许可
 
 - **Pexels / Pixabay**：清单中应保留 `license`、`source`、`url`；最终商用以各站当前条款与单条资源说明为准。

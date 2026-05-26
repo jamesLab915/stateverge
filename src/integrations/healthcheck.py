@@ -218,6 +218,45 @@ def _check_runway() -> None:
         )
 
 
+def _check_fmp() -> None:
+    key = (os.environ.get("FMP_API_KEY") or "").strip()
+    if not key:
+        _line(
+            "FMP (Financial Modeling Prep)",
+            "SKIP (optional)",
+            "missing: FMP_API_KEY\n"
+            "next: fundamentals / earnings — see src/integrations/fmp_client.py\n"
+            "smoke:  PYTHONPATH=. python -m src.integrations.fmp_client --profile AAPL",
+        )
+        return
+    try:
+        from src.integrations.fmp_client import FMPClient, FMPError
+    except Exception as e:
+        _line("FMP", "FAIL (import)", str(e))
+        return
+    try:
+        c = FMPClient()
+        rows = c.profile("AAPL")
+        if not rows:
+            _line("FMP", "WARN", "profile/AAPL returned empty — check plan / key tier")
+            return
+        row0 = rows[0] if isinstance(rows[0], dict) else {}
+        label = row0.get("companyName") or row0.get("symbol") or "?"
+        _line(
+            "FMP",
+            "OK (profile)",
+            f"GET profile/AAPL -> {label!r}",
+        )
+    except FMPError as e:
+        _line(
+            "FMP",
+            "FAIL (API)",
+            f"{e}\n  snippet: {(e.body_snippet or '')[:200]}",
+        )
+    except Exception as e:
+        _line("FMP", "FAIL", str(e)[:400])
+
+
 def _check_envato() -> None:
     key = (os.environ.get("ENVATO_API_KEY") or "").strip()
     if not key:
@@ -243,6 +282,7 @@ def run() -> int:
     _check_elevenlabs()
     _check_ltx()
     _check_runway()
+    _check_fmp()
     _check_envato()
     print("\n--- summary: missing or unset ---")
     missing: list[str] = []
@@ -268,6 +308,8 @@ def run() -> int:
         )
     if not (os.environ.get("ENVATO_API_KEY") or "").strip():
         missing.append("ENVATO_API_KEY (optional; local assets in v1)")
+    if not (os.environ.get("FMP_API_KEY") or "").strip():
+        missing.append("FMP_API_KEY (optional; finance / earnings data)")
     if not missing:
         print("  (none of the required keys for your workflow are empty)")
     else:

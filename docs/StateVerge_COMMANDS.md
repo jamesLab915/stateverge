@@ -359,6 +359,15 @@ python -m src.integrations.media_sources.selector --topic chernobyl --no-downloa
 python -m src.integrations.media_sources.selector --topic chernobyl --source pexels,pixabay,dvids
 ```
 
+桥接到 mix_engine（把 `assets/raw/*.mp4` 拷到 `envato/`，并写 `_attribution.json` 旁车保留来源/许可）：
+
+```bash
+python -m src.integrations.media_sources.promote --topic chernobyl
+python -m src.integrations.media_sources.promote --topic chernobyl --dry-run
+python -m src.integrations.media_sources.promote --topic chernobyl --symlink --force
+python -m src.integrations.media_sources.promote --topic chernobyl --filter "source=pexels,pixabay kind=video" --max 12
+```
+
 ---
 
 ## 十四、Mix Engine / 纪录片混剪系统
@@ -416,7 +425,90 @@ python -m src.mix_engine.build_video --topic chernobyl --dry-run
 
 ---
 
-## 十五、本速查文件在仓库中的位置
+## 十五、一键自动出片（auto_video）
+
+### 什么时候用
+
+- 已经有 `topics/<topic>/brief/narration_script.txt`，想从脚本一路跑到 `final_mix.mp4`
+- 不想逐个手敲 selector → promote → generate_timeline → run_pipeline → verify
+
+### 流程（顺序固定，任何一步失败立即终止）
+
+1. 检查 `topics/<topic>/brief/narration_script.txt` 是否存在
+2. `python -m src.integrations.media_sources.selector --topic <topic>`
+3. `python -m src.integrations.media_sources.promote  --topic <topic>`
+4. 如果 `topics/<topic>/video/` 没有 `*.mp4`，自动从 `topics/<topic>/envato/` 复制最多 `--max-video-copy` 个 mp4 进入 `video/`，作为 LTX-side 占位素材
+5. `python -m src.mix_engine.generate_timeline --topic <topic> --force`
+6. `python -m src.run_pipeline --topic <topic> --only-main`
+7. `./scripts/verify_final_video.sh <topic> final_mix.mp4`
+
+> 不会修改 `mix_engine` / `production` / `presenter_pipeline` 的逻辑；只是按顺序调起它们已有的 CLI。
+
+### 命令
+
+> ⚠️ **运行环境提示**：本仓库的 Python pipeline 一律走项目内的 `.venv/`（已含
+> `requests` 等依赖）。**强烈推荐**用下面的 wrapper 脚本，它会自动 cd 到
+> 仓库根并用 `.venv/bin/python` 执行，避免命中 macOS Homebrew Python 3.14
+> 的 PEP 668「外部托管环境」错误，也避免污染系统解释器。
+
+#### 推荐（默认走 `.venv`）
+
+```bash
+./scripts/sv_run.sh --topic watergate
+./scripts/sv_run.sh --topic watergate --no-download
+./scripts/sv_run.sh --topic watergate --skip-verify
+```
+
+`scripts/sv_run.sh` 的实现（仅 4 行 bash）：
+
+```bash
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+exec .venv/bin/python -m src.auto_video "$@"
+```
+
+#### 不推荐（容易意外用到 Homebrew Python 3.14）
+
+```bash
+# ❌ 在某些 shell 下 python3 指向 /opt/homebrew/bin/python3，会找不到
+#    requests / 其它仓库内已装的依赖，且 pip install 会触发 PEP 668。
+python3 -m src.auto_video --topic watergate --no-download
+```
+
+如果一定要直接用 `python` / `python3`，先 `source .venv/bin/activate`：
+
+```bash
+cd ~/StateVerge
+source .venv/bin/activate
+python -m src.auto_video --topic watergate --no-download
+```
+
+完整参数：
+
+| 参数 | 含义 |
+|------|------|
+| `--topic <slug>`        | 必填；对应 `topics/<slug>/` |
+| `--no-download`         | 透传给 selector：仅写 manifest，不下载素材 |
+| `--force-timeline`      | 默认开启；给 `generate_timeline` 加 `--force` |
+| `--no-force-timeline`   | 关闭 `--force`（仅在 `mix/timeline.json` 不存在时生成） |
+| `--max-video-copy 8`    | 第 4 步从 envato/ 复制到 video/ 的上限（默认 8） |
+| `--skip-verify`         | 跳过最后一步 `verify_final_video.sh` |
+| `--root <path>`         | 覆盖 `STATEVERGE_ROOT` / `~/StateVerge` |
+
+### 输出
+
+- 成功后最终成片路径固定为：
+
+  ```
+  topics/<topic>/output/final_mix.mp4
+  ```
+
+- 全部 7 步均带 `[auto_video step N/7]` 前缀日志；首次失败的步骤即 exit code 来源。
+
+---
+
+## 十六、本速查文件在仓库中的位置
 
 - 纯文本：仓库根目录 `StateVerge_COMMANDS.txt`
 - 本文档：仓库内 `docs/StateVerge_COMMANDS.md`（你当前所读即此文件）

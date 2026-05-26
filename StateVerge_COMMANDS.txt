@@ -338,6 +338,12 @@ TODO：上文中「在 LTX/Runway 中手动出片」仍不是 Python 命令；�
   python -m src.integrations.media_sources.selector --topic chernobyl --no-download
   python -m src.integrations.media_sources.selector --topic chernobyl --source pexels,pixabay,dvids
 
+  # 桥接到 mix_engine：把 assets/raw/*.mp4 拷到 envato/，并写 _attribution.json
+  # 旁车保留 source/url/license/author/query。--dry-run / --symlink / --force /
+  # --filter "source=pexels,pixabay kind=video" / --segment segment_01 / --max N
+  python -m src.integrations.media_sources.promote  --topic chernobyl
+  python -m src.integrations.media_sources.promote  --topic chernobyl --dry-run
+
 ================================================================================
 十四、Mix Engine / 纪录片混剪系统
 ================================================================================
@@ -362,7 +368,36 @@ TODO：上文中「在 LTX/Runway 中手动出片」仍不是 Python 命令；�
   ./scripts/verify_final_video.sh chernobyl
 
 ================================================================================
-十五、本速查文件在仓库中的位置
+十五、一键自动出片 (auto_video)
+================================================================================
+  从 brief/narration_script.txt 一路跑到 topics/<topic>/output/final_mix.mp4。
+  顺序：检查脚本 → selector → promote → 自动 seed video/ → 生成 timeline →
+        run_pipeline --only-main → verify_final_video.sh。
+  不修改 mix_engine / production / presenter_pipeline 的逻辑；任何一步失败立即终止。
+
+  常用命令：
+    python -m src.auto_video --topic watergate
+    python -m src.auto_video --topic watergate --no-download
+    python -m src.auto_video --topic watergate --skip-verify
+
+  全部参数：
+    --topic <slug>          (必填) 对应 topics/<slug>/
+    --no-download           透传 selector：仅写 manifest，不下载素材
+    --force-timeline        默认开启，给 generate_timeline 加 --force
+    --no-force-timeline     关闭 --force（仅缺失时才生成 timeline.json）
+    --max-video-copy 8      第 4 步从 envato/ 复制到 video/ 的上限 (默认 8)
+    --skip-verify           跳过最后一步 verify_final_video.sh
+    --root <path>           覆盖 STATEVERGE_ROOT / ~/StateVerge
+
+  最终成片路径：
+    topics/<topic>/output/final_mix.mp4
+
+  日志前缀：
+    [auto_video]                    总入口
+    [auto_video step N/7]           第 N 步（共 7 步）
+
+================================================================================
+十六、本速查文件在仓库中的位置
 ================================================================================
   StateVerge_COMMANDS.txt
   docs/StateVerge_COMMANDS.md
