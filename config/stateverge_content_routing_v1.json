@@ -1,0 +1,129 @@
+{
+  "version": "stateverge_content_routing_v1",
+  "CONTENT_TRUTH_AUDIO_ROUTING_V1_READY": true,
+
+  "music_routing": {
+    "long": {
+      "music_priority": "suno_first",
+      "roots_priority": [
+        "/Volumes/SV_CACHE/inbox/suno",
+        "/Volumes/SV_TRANSFER/04_AUDIO/music/stateverge_suno",
+        "/Volumes/SV_CACHE/inbox/souno",
+        "/Volumes/SV_TRANSFER/04_AUDIO/music/nyc_long"
+      ],
+      "envato_fallback_themes": ["skyline_sequence", "rain_night", "unknown"],
+      "driving": { "music_source": "suno", "audio_mode": "music_first", "music_required": true },
+      "ferry": { "music_source": "none", "audio_mode": "real_ambience_primary", "music_disabled_by_default": true },
+      "skyline_sequence": { "music_source": "suno", "envato_fallback": true },
+      "rain_night": { "music_source": "suno", "envato_fallback": true }
+    },
+    "shorts": {
+      "default_audio_mode": "envato_music",
+      "music_source": "envato",
+      "category_priority": ["ambient", "cinematic", "calm_piano"],
+      "roots": [
+        "/Volumes/SV_TRANSFER/04_AUDIO/music/shorts",
+        "/Volumes/SV_TRANSFER/04_AUDIO/music/nyc_long"
+      ],
+      "exclude_name_fragments": ["vocal", "vocals", "trailer", "edm", "dubstep", "drop"],
+      "fail_open_warning": "envato_music_not_found_fallback_original"
+    }
+  },
+
+  "audio_intent_by_source_type": {
+    "driving": {
+      "audio_mode": "music_first",
+      "music_required": true,
+      "real_sound_secondary": true,
+      "music_disabled_by_default": false,
+      "allowed_audio_filter": "volume=0.5",
+      "description": "Driving long videos should be calm ambient music-first, with weak NYC ambience only."
+    },
+    "ferry": {
+      "audio_mode": "real_ambience_primary",
+      "music_required": false,
+      "real_sound_secondary": false,
+      "music_disabled_by_default": true,
+      "allowed_audio_filter": "highpass=f=28,volume=0.75",
+      "description": "Ferry long videos should preserve real ferry / harbor ambience by default."
+    },
+    "skyline_sequence": {
+      "audio_mode": "cinematic_music_first",
+      "music_required": true,
+      "real_sound_secondary": true,
+      "music_disabled_by_default": false,
+      "allowed_audio_filter": "volume=0.55",
+      "description": "Skyline/timelapse content should be cinematic music-first."
+    },
+    "rain_night": {
+      "audio_mode": "music_first",
+      "music_required": true,
+      "real_sound_secondary": true,
+      "music_disabled_by_default": false,
+      "allowed_audio_filter": "volume=0.48",
+      "description": "Rainy night atmosphere — calm Suno BGM with soft wet-street ambience."
+    },
+    "unknown": {
+      "audio_mode": "safe_neutral",
+      "music_required": false,
+      "real_sound_secondary": true,
+      "music_disabled_by_default": false,
+      "allowed_audio_filter": "volume=0.65",
+      "description": "Unknown content should use neutral metadata and avoid specific claims."
+    }
+  },
+
+  "title_truth_rules": {
+    "forbidden_without_evidence": [
+      "night",
+      "sunset",
+      "rain",
+      "ferry",
+      "driving",
+      "drive",
+      "skyline",
+      "bridge",
+      "tunnel",
+      "Manhattan",
+      "Brooklyn"
+    ],
+    "default_safe_titles": [
+      "Calm NYC Street View",
+      "NYC Ambient Moment",
+      "Real NYC City Scene",
+      "New York City Atmosphere",
+      "Quiet NYC Urban View"
+    ]
+  },
+
+  "title_templates": {
+    "driving": [
+      "Calm NYC Drive with Ambient Music",
+      "Relaxing New York City Drive",
+      "Ambient Manhattan Driving Scene",
+      "NYC Drive for Background Watching",
+      "Calm City Ride Through New York"
+    ],
+    "ferry": [
+      "Real NYC Ferry Ambience",
+      "Calm Ferry Ride in New York Harbor",
+      "Manhattan Skyline from the Ferry",
+      "NYC Harbor Sounds and Ferry Atmosphere",
+      "Peaceful Ferry Ride in New York"
+    ],
+    "skyline_sequence": [
+      "Manhattan Skyline Atmosphere",
+      "Cinematic NYC Skyline Moment",
+      "Calm New York Skyline View",
+      "Evening City Skyline Atmosphere",
+      "NYC Skyline Background Scene"
+    ],
+    "unknown": [
+      "Calm NYC Street View",
+      "NYC Ambient Moment",
+      "Real NYC City Scene",
+      "New York City Atmosphere",
+      "Quiet NYC Urban View"
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "enable_davinci_audio_finish": false,
+  "require_davinci_audio_finish": false,
+  "default_preset": "auto",
+  "version": "davinci_youtube_audio_finishing_gate_v1"
+}

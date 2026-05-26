@@ -1,0 +1,97 @@
+{% extends "_base.html" %}
+
+{% block title %}NYC 发布监控 · StateVerge Studio{% endblock %}
+{% block page_title %}NYC 自动化监控{% endblock %}
+
+{% block page_sub %}
+  今日 <code>launchd.out</code> 行内过滤 ·
+  {% if mount_ok %}<span class="pill pill-green">外盘已挂载</span>{% else %}<span class="pill pill-red">外盘未挂载</span>{% endif %}
+  · 原始路径 <code>{{ log_path }}</code>
+{% endblock %}
+
+{% block topbar_actions %}
+  <button type="button" class="btn btn-ghost" onclick="location.reload()">↻ 刷新</button>
+  <a class="btn btn-primary" href="/api/nyc" target="_blank">JSON</a>
+{% endblock %}
+
+{% block content %}
+<section class="stages">
+  <div class="stage-card stage-green">
+    <div class="stage-card-head">
+      <span class="stage-num">01</span>
+      <span class="stage-name">Long 上传成功</span>
+    </div>
+    <div class="stage-card-body">
+      <div class="stage-metric">
+        <span class="stage-num-big">{{ data.long }}</span>
+        <span class="stage-num-of">hits</span>
+      </div>
+      <div class="stage-bar"><div class="stage-bar-fill" style="width:100%"></div></div>
+      <div class="stage-missing"><code>SUCCESS long</code></div>
+    </div>
+  </div>
+  <div class="stage-card stage-yellow">
+    <div class="stage-card-head">
+      <span class="stage-num">02</span>
+      <span class="stage-name">Short 上传成功</span>
+    </div>
+    <div class="stage-card-body">
+      <div class="stage-metric">
+        <span class="stage-num-big">{{ data.short }}</span>
+        <span class="stage-num-of">hits</span>
+      </div>
+      <div class="stage-bar"><div class="stage-bar-fill" style="width:100%"></div></div>
+      <div class="stage-missing"><code>SUCCESS short</code></div>
+    </div>
+  </div>
+  <div class="stage-card stage-yellow">
+    <div class="stage-card-head">
+      <span class="stage-num">03</span>
+      <span class="stage-name">Short 生成</span>
+    </div>
+    <div class="stage-card-body">
+      <div class="stage-metric">
+        <span class="stage-num-big">{{ data.generated }}</span>
+        <span class="stage-num-of">hits</span>
+      </div>
+      <div class="stage-bar"><div class="stage-bar-fill" style="width:100%"></div></div>
+      <div class="stage-missing"><code>SHORT_CREATED</code></div>
+    </div>
+  </div>
+  <div class="stage-card stage-red">
+    <div class="stage-card-head">
+      <span class="stage-num">04</span>
+      <span class="stage-name">错误 / 失败</span>
+    </div>
+    <div class="stage-card-body">
+      <div class="stage-metric">
+        <span class="stage-num-big">{{ data.errors }}</span>
+        <span class="stage-num-of">hits</span>
+      </div>
+      <div class="stage-bar"><div class="stage-bar-fill" style="width:100%"></div></div>
+      <div class="stage-missing"><code>ERROR</code> / <code>FAIL</code></div>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card-head">
+    <h2 class="card-title">最新日志</h2>
+    <div class="card-sub">
+      {% if data.logs|length %}显示 {{ data.logs|length }} 行（仅含今日日期匹配）{% else %}今日暂无匹配行{% endif %}
+    </div>
+  </div>
+  <pre class="nyc-log-block">{% for l in data.logs %}{{ l }}
+{% endfor %}</pre>
+</section>
+{% endblock %}
+
+{% block side %}
+<div class="card suggest-card">
+  <div class="suggest-head">说明</div>
+  <div class="suggest-body">
+    统计仅针对<strong>今日日期字符串</strong>出现在行内的记录（与 <code>07_AUTOMATION/logs/launchd.out</code> 一致）。
+    另有外盘常驻面板 <code>:8767</code> 可对照。
+  </div>
+</div>
+{% endblock %}

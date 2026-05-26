@@ -1,0 +1,145 @@
+{
+  "version": "davinci_ambient_audio_system_v1",
+  "description": "Fairlight ambient chains — radio/Netflix-grade, ferry atmosphere preserved",
+  "forbidden_global": ["afftdn", "anlmdn", "arnndn", "demucs", "ai_voice_isolation"],
+  "chains": {
+    "broadcast_ambient_master": {
+      "label": "Broadcast ambient master (radio-grade long-form)",
+      "content_types": ["long", "rain_night", "skyline_sequence", "unknown"],
+      "fairlight": {
+        "bus_layout": ["Dialogue", "Ambience", "Music", "Master"],
+        "highpass_hz": 25,
+        "multiband_compressor": {"enabled": true, "ratio": 1.4, "threshold_db": -18},
+        "deesser": {"enabled": true, "bus": "Ambience", "not_on": ["Music"]},
+        "sidechain_duck": {"enabled": true, "when_music_present": true, "ambience_reduction_db": 4},
+        "loudness": {"integrated_lufs": -15, "lufs_range": [-16, -14], "true_peak_db": -1.5},
+        "noise_reduction": {"enabled": false}
+      },
+      "ffmpeg_fallback": {
+        "filters": [
+          "highpass=f=25",
+          "compand=attacks=0.3:decays=0.8:points=-70/-70|-20/-15|-5/-5|0/-2",
+          "loudnorm=I=-15:LRA=11:TP=-1.5",
+          "alimiter=limit=0.89:attack=5:release=50"
+        ],
+        "integrated_lufs": -15,
+        "true_peak_db": -1.5
+      }
+    },
+    "streaming_immersive_ambient": {
+      "label": "Streaming immersive ambient (Netflix-style width, room tone)",
+      "content_types": ["long", "shorts", "skyline_sequence"],
+      "fairlight": {
+        "bus_layout": ["Ambience", "Music", "Master"],
+        "highpass_hz": 22,
+        "mid_side_widen": {"enabled": true, "amount_pct": 12},
+        "low_ambience_shelf": {"enabled": true, "freq_hz": 120, "gain_db": 1.5, "not_kill": true},
+        "spectral_repair_optional": {
+          "enabled": false,
+          "fairlight_nr_max_reduction_db": -20,
+          "note": "Optional Fairlight NR only; never default"
+        },
+        "loudness": {
+          "integrated_lufs_long": -16,
+          "integrated_lufs_shorts": -14,
+          "true_peak_db": -1.5
+        }
+      },
+      "ffmpeg_fallback": {
+        "filters_long": [
+          "highpass=f=22",
+          "stereotools=mlev=0.95:slev=1.05:sbal=0.02",
+          "loudnorm=I=-16:LRA=12:TP=-1.5",
+          "alimiter=limit=0.89:attack=5:release=50"
+        ],
+        "filters_shorts": [
+          "highpass=f=22",
+          "stereotools=mlev=0.95:slev=1.08:sbal=0.03",
+          "loudnorm=I=-14:LRA=9:TP=-1.5",
+          "alimiter=limit=0.89:attack=5:release=50"
+        ],
+        "integrated_lufs_long": -16,
+        "integrated_lufs_shorts": -14,
+        "true_peak_db": -1.5
+      }
+    },
+    "ferry_preserve_atmosphere": {
+      "label": "Ferry preserve atmosphere (real harbour sound)",
+      "content_types": ["ferry"],
+      "matches_youtube_preset": "youtube_ferry_real",
+      "fairlight": {
+        "bus_layout": ["Ambience", "Master"],
+        "highpass_hz": 28,
+        "volume": 0.75,
+        "wind_shelf": {"enabled": true, "freq_hz": 8000, "gain_db": -3, "on_spikes_only": true},
+        "limiter": {"true_peak_db": -2.0},
+        "forbidden": ["afftdn", "demucs", "ai_voice_isolation", "anlmdn", "arnndn"]
+      },
+      "ffmpeg_fallback": {
+        "filters": [
+          "highpass=f=28",
+          "volume=0.75",
+          "firequalizer=gain_entry='entry(8000, -3);entry(12000, -3)'",
+          "alimiter=limit=0.79:attack=5:release=50"
+        ],
+        "true_peak_db": -2.0,
+        "forbidden": ["afftdn", "demucs", "ai_voice_isolation"]
+      }
+    },
+    "driving_music_first_chain": {
+      "label": "Driving music-first (ambience bus -60% when music on)",
+      "content_types": ["driving", "long"],
+      "matches_youtube_preset": "youtube_long_calm",
+      "fairlight": {
+        "bus_layout": ["Ambience", "Music", "Master"],
+        "ambience_bus_when_music_db": -60,
+        "ambience_bus_range_db": [-50, -70],
+        "music_bus": {"stable": true, "mild_eq": true},
+        "loudness": {"integrated_lufs": -15, "true_peak_db": -1.5}
+      },
+      "ffmpeg_fallback": {
+        "note": "BGM mix handled by gate_v1 / audio_modes; per-clip ambience volume only",
+        "per_clip_volume": 0.30,
+        "music_volume": 0.85,
+        "loudnorm": "loudnorm=I=-15:LRA=11:TP=-1.5",
+        "integrated_lufs": -15,
+        "true_peak_db": -1.5
+      }
+    },
+    "sleep_calm_ambient": {
+      "label": "Sleep calm ambient (gentle HF roll, no pumping)",
+      "content_types": ["sleep", "calm"],
+      "fairlight": {
+        "bus_layout": ["Ambience", "Master"],
+        "highpass_hz": 20,
+        "hf_roll": {"enabled": true, "lowpass_hz": 14000, "gentle": true},
+        "compressor": {"enabled": false},
+        "loudness": {"integrated_lufs": -18, "true_peak_db": -2.0}
+      },
+      "ffmpeg_fallback": {
+        "filters": [
+          "highpass=f=20",
+          "lowpass=f=14000",
+          "loudnorm=I=-18:LRA=14:TP=-2",
+          "alimiter=limit=0.79:attack=20:release=200"
+        ],
+        "integrated_lufs": -18,
+        "true_peak_db": -2.0
+      }
+    }
+  },
+  "youtube_preset_to_chain": {
+    "youtube_long_calm": "driving_music_first_chain",
+    "youtube_ferry_real": "ferry_preserve_atmosphere",
+    "youtube_shorts_cinematic": "streaming_immersive_ambient"
+  },
+  "content_type_default_chain": {
+    "driving": "driving_music_first_chain",
+    "ferry": "ferry_preserve_atmosphere",
+    "skyline_sequence": "streaming_immersive_ambient",
+    "rain_night": "broadcast_ambient_master",
+    "shorts": "streaming_immersive_ambient",
+    "sleep": "sleep_calm_ambient",
+    "unknown": "broadcast_ambient_master"
+  }
+}

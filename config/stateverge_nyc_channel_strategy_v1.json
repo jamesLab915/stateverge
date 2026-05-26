@@ -1,0 +1,76 @@
+{
+  "version": "stateverge_nyc_channel_strategy_v1",
+  "channel_positioning": {
+    "tagline": "Relaxing NYC Ambient Experience",
+    "not": ["vlog", "documentary", "montage", "walking tour", "talking head", "reaction"],
+    "experience_types": ["manhattan_drive", "nyc_ferry", "rain_night_atmosphere"]
+  },
+  "allowed_content_types": {
+    "manhattan_drive": {
+      "aliases": ["driving", "night_drive", "city_drive", "street_view"],
+      "long_audio": "suno_bgm_calm",
+      "shorts_audio": "original_only"
+    },
+    "nyc_ferry": {
+      "aliases": ["ferry", "ferry_route", "waterfront"],
+      "long_audio": "real_sound_cleanup_gate",
+      "shorts_audio": "original_only"
+    },
+    "rain_night_atmosphere": {
+      "aliases": ["rain", "rainy", "night", "evening", "wet_streets"],
+      "long_audio": "suno_bgm_rain_or_night",
+      "shorts_audio": "original_only"
+    }
+  },
+  "forbidden_content_types": [
+    "walking_tour",
+    "documentary_narration",
+    "montage_compilation",
+    "hyperlapse_only_without_ambience",
+    "raw_filename_titles",
+    "resolution_spam_titles"
+  ],
+  "production_cadence": {
+    "long_daily": {
+      "count_per_day": 1,
+      "duration_sec": 3600,
+      "driving": { "bgm": "suno", "styles": ["calm", "blues", "piano", "night"] },
+      "ferry": { "bgm": false, "gate": "real_sound_cleanup_gate" }
+    },
+    "long_extended_every_n_days": {
+      "every_n": 3,
+      "duration_sec": 10800,
+      "themes": ["ferry_sunset", "rainy_night", "evening_drive", "skyline"]
+    },
+    "shorts_daily": {
+      "count_per_day": 4,
+      "audio": "original_only",
+      "no_ai_music": true
+    }
+  },
+  "title_policy": {
+    "structure": "[Atmosphere] + [Location] + [Experience] + [Ambient hook]",
+    "forbid_in_title": ["1080p", "4K", "4k", "2160p", "RAW", ".mp4", ".mov", "IMG_", "DSC_", "GH0", "PXL_"],
+    "forbid_raw_filename_as_title": true,
+    "max_title_length": 100
+  },
+  "seo_keywords": {
+    "primary": [
+      "relaxing NYC",
+      "NYC ambient",
+      "New York City ambience",
+      "Manhattan drive",
+      "NYC ferry ambience",
+      "rainy NYC night"
+    ],
+    "secondary": [
+      "city drive background",
+      "ferry ride sounds",
+      "urban atmosphere",
+      "calm city video",
+      "sleep ambience NYC"
+    ],
+    "hashtags_core": ["#NYC", "#NewYorkCity", "#AmbientNYC", "#RelaxingNYC", "#CityAmbience"]
+  },
+  "privacy_note": "Upload policy unchanged: keep existing unlisted/private defaults in upload scripts."
+}

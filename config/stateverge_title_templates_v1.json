@@ -1,0 +1,81 @@
+{
+  "version": "stateverge_title_templates_v1",
+  "title_structure": "[Atmosphere] + [Location] + [Experience] + [Ambient hook]",
+  "forbidden_title_tokens": ["1080p", "4K", "4k", "2160p", "RAW", ".mp4", ".mov"],
+  "templates": {
+    "driving": {
+      "day": [
+        "Calm {location} Drive | Relaxing NYC Ambience",
+        "Peaceful {location} City Drive | Soft Urban Atmosphere",
+        "Quiet {location} Streets | Background NYC Drive"
+      ],
+      "night": [
+        "Relaxing {location} Night Drive | NYC Ambient Experience",
+        "Calm {location} After Dark | City Lights & Soft Drive",
+        "Peaceful {location} Evening Drive | Urban Night Ambience"
+      ],
+      "rain": [
+        "Rainy {location} Drive | Calm NYC Night Atmosphere",
+        "Wet {location} Streets | Relaxing Rainy City Drive",
+        "Soft Rain over {location} | Peaceful NYC Drive"
+      ]
+    },
+    "ferry": {
+      "default": [
+        "Calm NYC Ferry Ride | Real Harbor Ambience",
+        "Peaceful Ferry to Manhattan | Skyline & Water Sounds",
+        "Relaxing Staten Island Ferry | NYC Waterfront Experience"
+      ],
+      "sunset": [
+        "Ferry Sunset over Manhattan | Real NYC Harbor Sounds",
+        "Golden Hour Ferry Ride | Calm New York Skyline",
+        "Evening Ferry Ambience | Peaceful NYC Waterfront"
+      ]
+    },
+    "rain_night": {
+      "default": [
+        "Rainy NYC Night | Calm Urban Atmosphere",
+        "Wet Manhattan Streets | Relaxing Night Ambience",
+        "Peaceful Rainy New York | Soft City Night Sounds"
+      ]
+    },
+    "skyline_sequence": {
+      "default": [
+        "Manhattan Skyline Atmosphere | Calm NYC View",
+        "Cinematic NYC Skyline | Relaxing Urban Background",
+        "Evening Skyline over New York | Peaceful City Scene"
+      ]
+    },
+    "shorts": {
+      "driving": [
+        "Calm NYC Drive Moment",
+        "Quick Manhattan Street Ambience",
+        "Relaxing New York Drive Clip"
+      ],
+      "ferry": [
+        "NYC Ferry Ambience Clip",
+        "Harbor Sounds from the Ferry",
+        "Manhattan Skyline Ferry Moment"
+      ],
+      "rain_night": [
+        "Rainy NYC Night Clip",
+        "Wet Street Ambience",
+        "Calm Rainy City Moment"
+      ],
+      "unknown": [
+        "NYC Ambient Moment",
+        "Calm New York City Scene",
+        "Quiet Urban Atmosphere"
+      ]
+    }
+  },
+  "location_tokens": {
+    "default": "Manhattan",
+    "brooklyn": "Brooklyn",
+    "manhattan": "Manhattan",
+    "queens": "Queens",
+    "bronx": "Bronx",
+    "ferry": "New York Harbor",
+    "waterfront": "NYC Waterfront"
+  }
+}

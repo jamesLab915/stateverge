@@ -1,0 +1,34 @@
+{
+  "brand": "StateVerge NYC",
+  "style": "cinematic_live_ambient",
+  "font": "Montserrat",
+  "colors": {
+    "white": "#F5F5F5",
+    "gray": "#B8B8B8",
+    "black": "#101214",
+    "red": "#D71920"
+  },
+  "watermark": {
+    "enabled": true,
+    "position": "top_left",
+    "opacity": 0.68,
+    "text": "STATEVERGE NYC",
+    "logo_text_top": "SV",
+    "logo_text_bottom": "NYC"
+  },
+  "live_badge": {
+    "enabled": true,
+    "text": "LIVE AMBIENT",
+    "position": "top_right",
+    "red_dot": true
+  },
+  "lower_third": {
+    "enabled": true,
+    "position": "bottom_left",
+    "badge": "LIVE",
+    "title_template": "{location} → MANHATTAN",
+    "subtitle_template": "NEW YORK HARBOR"
+  },
+  "safe_for_long_video": true,
+  "notes": "Minimal semi-transparent TV-style overlay for NYC ambient long videos."
+}

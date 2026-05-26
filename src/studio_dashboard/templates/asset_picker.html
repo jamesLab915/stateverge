@@ -1,0 +1,275 @@
+{% extends "_base.html" %}
+
+{% block title %}素材选择 · {{ topic }} · StateVerge{% endblock %}
+{% block page_title %}素材选择 — {{ topic }}{% endblock %}
+
+{% block page_sub %}
+  扫描了 <strong>{{ totals['sources'] }}</strong> 个目录，共
+  <strong>{{ totals['items'] }}</strong> 个视频片段
+  · 总时长 <strong>{{ "%.1f"|format(totals['duration_sec']) }}s</strong>
+  · 已选 <span id="picker-count" class="pill pill-blue">{{ selected_count }}</span>
+  <span class="topbar-meta">·  扫描耗时 {{ totals['elapsed_ms'] }} ms</span>
+{% endblock %}
+
+{% block topbar_actions %}
+  <a class="btn btn-ghost" href="/assets/picker">↺ 切换 topic</a>
+  <a class="btn btn-ghost" href="/render?topic={{ topic }}">→ 渲染中心</a>
+{% endblock %}
+
+{% block content %}
+<section class="card picker-toolbar-card">
+  <div class="picker-toolbar">
+    <div class="chip-group" id="source-chips">
+      <button type="button" class="chip is-active" data-src="all">全部</button>
+      {% for s in sources %}
+      <button type="button"
+              class="chip {% if not s.exists %}chip-empty{% endif %}"
+              data-src="{{ s.id }}"
+              {% if not s.exists %}disabled title="目录不存在: {{ s.rel_root }}"{% endif %}>
+        {{ s.label }}
+        <span class="chip-count">{{ s.count }}</span>
+      </button>
+      {% endfor %}
+    </div>
+
+    <div class="picker-search">
+      <input id="picker-search" type="search" placeholder="按文件名 / 路径过滤…" />
+      <label class="seg seg-inline">
+        <input type="checkbox" id="only-selected" />
+        <span>只看已选</span>
+      </label>
+    </div>
+  </div>
+</section>
+
+{% if not items %}
+  <section class="card empty-card">
+    <div class="empty-title">这个 topic 下没有可选素材</div>
+    <div class="empty-body">
+      先在素材库放点 <code>.mp4</code> / <code>.mov</code> 进来：<br>
+      <code>assets/envato/</code> · <code>assets/runway/</code> ·
+      <code>assets/pexels/</code> · <code>assets/pixabay/</code> ·
+      <code>topics/{{ topic }}/assets/raw/</code> ·
+      <code>topics/{{ topic }}/video/</code>
+    </div>
+  </section>
+{% else %}
+  <section class="card picker-grid-card">
+    <div class="asset-grid" id="asset-grid">
+      {% for it in items %}
+        <label class="asset-tile {% if it.selected %}is-selected{% endif %}"
+               data-src="{{ it.source }}"
+               data-search="{{ (it.filename ~ ' ' ~ it.rel_path)|lower }}">
+          <input type="checkbox"
+                 class="asset-check"
+                 data-source="{{ it.source }}"
+                 data-abs="{{ it.abs_path }}"
+                 data-rel="{{ it.rel_path }}"
+                 data-dur="{{ it.duration_sec }}"
+                 data-w="{{ it.width }}"
+                 data-h="{{ it.height }}"
+                 data-fps="{{ it.fps }}"
+                 {% if it.selected %}checked{% endif %} />
+          <div class="asset-tile-head">
+            <span class="asset-filename" title="{{ it.filename }}">{{ it.filename }}</span>
+            <span class="badge badge-sm badge-{{ {'envato':'blue','runway':'yellow','pexels':'green','pixabay':'green','topic_raw':'gray','topic_video':'gray','topic_envato':'gray'}.get(it.source, 'gray') }}">{{ it.label }}</span>
+          </div>
+          <div class="asset-tile-meta">
+            <span>{{ it.dur_str }}</span>
+            <span>·</span>
+            <span>{{ it.res_str }}</span>
+            <span>·</span>
+            <span>{{ it.size_mb }} MB</span>
+          </div>
+          <div class="asset-tile-path" title="{{ it.rel_path }}">{{ it.rel_path }}</div>
+        </label>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}
+
+<div class="picker-footer">
+  <div class="picker-footer-stat">
+    已选 <strong id="footer-count">{{ selected_count }}</strong>
+    · 总时长 <strong id="footer-dur">0.0s</strong>
+  </div>
+  <div class="picker-footer-actions">
+    <label class="seg seg-inline" title="渲染时每段的目标时长">
+      <span class="form-label" style="margin:0 8px 0 0;">每段</span>
+      <input id="per-clip-sec" type="number" min="2" max="20" step="0.5" value="6"
+             style="width:70px; padding:4px 6px; border:1px solid var(--border-strong); border-radius:6px; font-family:var(--mono);" />
+      <span style="margin-left:6px; color:var(--text-mute);">秒</span>
+    </label>
+    <button id="btn-clear" class="btn btn-ghost" type="button">清空</button>
+    <button id="btn-save" class="btn btn-primary" type="button">保存到 selected_assets.json</button>
+    <a id="btn-jump-render" class="btn btn-ghost" href="/render?topic={{ topic }}">→ 进入渲染</a>
+  </div>
+</div>
+
+<div id="save-feedback" class="save-feedback"></div>
+{% endblock %}
+
+{% block side %}
+  <div class="card stat-card">
+    <div class="stat-card-head">来源覆盖</div>
+    <ul class="stat-list">
+      {% for s in sources %}
+      <li>
+        <span class="stat-key">{{ s.label }}</span>
+        <span class="stat-val {% if not s.exists %}stat-mute{% endif %}">{{ s.count }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card stat-card">
+    <div class="stat-card-head">切换 topic</div>
+    {% if existing_topics %}
+      <ul class="recent-list">
+        {% for slug in existing_topics[:14] %}
+          <li class="recent-item">
+            <span class="recent-slug">{{ slug }}</span>
+            <a class="btn-link" href="/assets/picker?topic={{ slug }}">use</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="recent-empty">还没有 topic。</div>
+    {% endif %}
+  </div>
+
+  <div class="card suggest-card">
+    <div class="suggest-head">提示</div>
+    <div class="suggest-body">
+      勾选会保存到：<br>
+      <code>topics/{{ topic }}/mix/selected_assets.json</code><br>
+      已存在的会先归档到 <code>mix/archive/&lt;ts&gt;/</code>。
+    </div>
+  </div>
+{% endblock %}
+
+<script>
+(function () {
+  const grid     = document.getElementById('asset-grid');
+  const search   = document.getElementById('picker-search');
+  const chipsBox = document.getElementById('source-chips');
+  const onlySel  = document.getElementById('only-selected');
+  const fc       = document.getElementById('footer-count');
+  const fd       = document.getElementById('footer-dur');
+  const pc       = document.getElementById('picker-count');
+  const fb       = document.getElementById('save-feedback');
+
+  if (!grid) return;
+  let activeSrc = 'all';
+
+  function tiles() { return grid.querySelectorAll('.asset-tile'); }
+  function checks() { return grid.querySelectorAll('.asset-check'); }
+
+  function applyFilter() {
+    const q = (search.value || '').trim().toLowerCase();
+    const onlyChecked = onlySel.checked;
+    let shown = 0;
+    tiles().forEach(t => {
+      const src = t.getAttribute('data-src');
+      const txt = t.getAttribute('data-search');
+      const ck = t.querySelector('.asset-check').checked;
+      const matchSrc = (activeSrc === 'all') || (src === activeSrc);
+      const matchQ = !q || (txt && txt.indexOf(q) >= 0);
+      const matchSel = !onlyChecked || ck;
+      const visible = matchSrc && matchQ && matchSel;
+      t.style.display = visible ? '' : 'none';
+      if (visible) shown++;
+    });
+  }
+
+  function recount() {
+    let n = 0, dur = 0;
+    checks().forEach(c => {
+      if (c.checked) { n++; dur += parseFloat(c.getAttribute('data-dur') || '0'); }
+    });
+    fc.textContent = n;
+    fd.textContent = dur.toFixed(1) + 's';
+    if (pc) pc.textContent = n;
+  }
+
+  // Filter chips
+  chipsBox.addEventListener('click', (ev) => {
+    const t = ev.target.closest('.chip');
+    if (!t || t.disabled) return;
+    chipsBox.querySelectorAll('.chip').forEach(c => c.classList.remove('is-active'));
+    t.classList.add('is-active');
+    activeSrc = t.getAttribute('data-src');
+    applyFilter();
+  });
+
+  // Search + only-selected
+  search.addEventListener('input', applyFilter);
+  onlySel.addEventListener('change', applyFilter);
+
+  // Selection sync
+  grid.addEventListener('change', (ev) => {
+    if (!ev.target.classList.contains('asset-check')) return;
+    const tile = ev.target.closest('.asset-tile');
+    if (tile) tile.classList.toggle('is-selected', ev.target.checked);
+    recount();
+  });
+
+  // Clear
+  document.getElementById('btn-clear').addEventListener('click', () => {
+    if (!confirm('清空当前页面的勾选？(注意：还没保存的不会写入磁盘)')) return;
+    checks().forEach(c => { c.checked = false; });
+    grid.querySelectorAll('.asset-tile').forEach(t => t.classList.remove('is-selected'));
+    recount();
+  });
+
+  // Save
+  document.getElementById('btn-save').addEventListener('click', async () => {
+    const items = [];
+    checks().forEach(c => {
+      if (!c.checked) return;
+      items.push({
+        source: c.getAttribute('data-source'),
+        abs_path: c.getAttribute('data-abs'),
+        rel_path: c.getAttribute('data-rel'),
+        duration_sec: parseFloat(c.getAttribute('data-dur') || '0'),
+        width: parseInt(c.getAttribute('data-w') || '0', 10),
+        height: parseInt(c.getAttribute('data-h') || '0', 10),
+        fps: parseFloat(c.getAttribute('data-fps') || '0'),
+      });
+    });
+    if (items.length === 0) {
+      fb.className = 'save-feedback fb-err';
+      fb.textContent = '请至少勾选一个素材';
+      return;
+    }
+    fb.className = 'save-feedback fb-info';
+    fb.textContent = '保存中…';
+    const per_clip_sec = parseFloat(document.getElementById('per-clip-sec').value || '6');
+    const r = await fetch('/api/assets/select', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        topic: '{{ topic }}',
+        items: items,
+        per_clip_sec: per_clip_sec,
+        shuffle: false,
+      }),
+    });
+    let data = {};
+    try { data = await r.json(); } catch (_) {}
+    if (!r.ok || !data.ok) {
+      fb.className = 'save-feedback fb-err';
+      fb.textContent = 'HTTP ' + r.status + ': ' + (data.error || 'unknown error');
+      return;
+    }
+    fb.className = 'save-feedback fb-ok';
+    fb.textContent =
+      '✓ 已保存：' + data.items + ' 个素材，' + data.duration_sec.toFixed(1) + 's → ' +
+      data.selection_path +
+      (data.archive_dir ? '   (旧文件归档至 ' + data.archive_dir + ')' : '');
+  });
+
+  recount();
+  applyFilter();
+})();
+</script>

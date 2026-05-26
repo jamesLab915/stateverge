@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "schema": "location_recovery_rules_v1",
+  "rules": [
+    {
+      "rule_id": "times_square_midtown",
+      "description": "Times Square / Broadway theater district → Manhattan Midtown",
+      "path_contains": ["times square", "times sq", "tkts", "broadway & 7th"],
+      "borough": "Manhattan",
+      "neighborhood": "Midtown",
+      "landmark": "Times Square",
+      "confidence": 0.72,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "midtown_core",
+      "description": "Midtown Manhattan path tokens",
+      "path_contains": ["midtown", "empire state", "herald square", "penn station", "grand central"],
+      "borough": "Manhattan",
+      "neighborhood": "Midtown",
+      "confidence": 0.62,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "chinatown_manhattan",
+      "description": "Chinatown / Canal Street area",
+      "path_contains": ["chinatown", "canal street", "mott street", "grand street"],
+      "borough": "Manhattan",
+      "neighborhood": "Chinatown",
+      "confidence": 0.68,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "fidi_wall_street",
+      "description": "Financial District / Wall Street",
+      "path_contains": ["fidi", "wall street", "financial district", "nyse", "charging bull", "bowling green"],
+      "borough": "Manhattan",
+      "neighborhood": "Financial District",
+      "landmark": "Wall Street",
+      "confidence": 0.7,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "dumbo_brooklyn",
+      "description": "DUMBO / Brooklyn waterfront under bridge",
+      "path_contains": ["dumbo", "down under manhattan"],
+      "borough": "Brooklyn",
+      "neighborhood": "DUMBO",
+      "confidence": 0.74,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "brooklyn_bridge_brooklyn_side",
+      "description": "Brooklyn Bridge framing with DUMBO or Brooklyn path → Brooklyn",
+      "path_contains": ["brooklyn bridge"],
+      "parent_folder_contains": ["dumbo", "brooklyn"],
+      "borough": "Brooklyn",
+      "landmark": "Brooklyn Bridge",
+      "confidence": 0.63,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "brooklyn_bridge_manhattan_default",
+      "description": "Brooklyn Bridge default (Manhattan side / skyline shots)",
+      "path_contains": ["brooklyn bridge", "bk bridge"],
+      "borough": "Manhattan",
+      "landmark": "Brooklyn Bridge",
+      "confidence": 0.58,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "central_park",
+      "description": "Central Park greens / loops",
+      "path_contains": ["central park", "the mall central", "bethesda fountain", "great lawn", "sheep meadow"],
+      "borough": "Manhattan",
+      "neighborhood": "Upper West Side",
+      "landmark": "Central Park",
+      "confidence": 0.76,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "hudson_yards",
+      "description": "Hudson Yards / High Line north end",
+      "path_contains": ["hudson yards", "the vessel", "high line", "30 hudson"],
+      "borough": "Manhattan",
+      "neighborhood": "Hudson Yards",
+      "confidence": 0.66,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "long_island_city",
+      "description": "Long Island City / LIC waterfront",
+      "path_contains": ["long island city", "lic/", "/lic/", "lic_", "queensboro plaza", "gantry plaza", "court square"],
+      "borough": "Queens",
+      "neighborhood": "Long Island City",
+      "confidence": 0.7,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "queens_general",
+      "description": "Queens borough path cues (after LIC-specific)",
+      "path_contains": ["flushing", "astoria", "jackson heights", "forest hills", "jamaica queens", "/queens/", "queens ny"],
+      "borough": "Queens",
+      "confidence": 0.55,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "bronx_general",
+      "description": "Bronx neighborhoods",
+      "path_contains": ["bronx", "south bronx", "fordham", "yankee stadium", "riverdale", "pelham bay"],
+      "borough": "Bronx",
+      "confidence": 0.6,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "staten_island_general",
+      "description": "Staten Island path cues",
+      "path_contains": ["staten island", "st george terminal", "snug harbor", "richmond county"],
+      "borough": "Staten Island",
+      "confidence": 0.62,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "ferry_east_river_water",
+      "description": "Ferry / East River / NYC Ferry water transit (Manhattan default borough if empty)",
+      "path_contains": ["nyc ferry", "east river ferry", "staten island ferry", "/ferry/", " ferry ", "east river cruise", "east river"],
+      "borough": "Manhattan",
+      "neighborhood": "East River",
+      "landmark": "East River",
+      "confidence": 0.55,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "williamsburg_greenpoint",
+      "description": "North Brooklyn creative belt",
+      "path_contains": ["williamsburg", "greenpoint", "mccarren", "bedford ave"],
+      "borough": "Brooklyn",
+      "neighborhood": "Williamsburg",
+      "confidence": 0.61,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "brooklyn_borough_paths",
+      "description": "Generic Brooklyn folder/path tokens",
+      "path_contains": ["/brooklyn/", "brooklyn ny", "crown heights", "park slope", "coney island", "brighton beach"],
+      "borough": "Brooklyn",
+      "confidence": 0.52,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "manhattan_borough_paths",
+      "description": "Generic Manhattan folder/path tokens",
+      "path_contains": ["/manhattan/", "manhattan ny", "ues/", "uws/", "soho", "tribeca", "chelsea nyc", "harlem"],
+      "borough": "Manhattan",
+      "confidence": 0.5,
+      "source": "path_rule"
+    },
+    {
+      "rule_id": "gps_central_park_core",
+      "description": "GPS bbox Central Park interior",
+      "gps_bbox": { "lat_min": 40.764, "lat_max": 40.801, "lon_min": -73.981, "lon_max": -73.949 },
+      "borough": "Manhattan",
+      "neighborhood": "Central Park",
+      "landmark": "Central Park",
+      "confidence": 0.78,
+      "source": "gps_bbox_rule"
+    },
+    {
+      "rule_id": "gps_staten_island_core",
+      "description": "GPS bbox Staten Island north shore",
+      "gps_bbox": { "lat_min": 40.62, "lat_max": 40.65, "lon_min": -74.2, "lon_max": -74.05 },
+      "borough": "Staten Island",
+      "confidence": 0.65,
+      "source": "gps_bbox_rule"
+    },
+    {
+      "rule_id": "iphone_inbox_fallback",
+      "description": "Premium iPhone inbox on SV_TRANSFER — weak location prior only",
+      "default_source_root_hint": "/Volumes/SV_TRANSFER/00_INBOX/iphone",
+      "location_name": "Inbox (premium iPhone)",
+      "confidence": 0.15,
+      "source": "fallback"
+    }
+  ]
+}

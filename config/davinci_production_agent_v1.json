@@ -1,0 +1,15 @@
+{
+  "version": "professional_davinci_production_agent_v1",
+  "future_inventory_enabled": true,
+  "public_upload_disabled": true,
+  "review_before_public": true,
+  "upload_privacy": "unlisted",
+  "prefer_delivery_queue": true,
+  "long_inventory_days": 3,
+  "shorts_inventory_days": 5,
+  "idle_cpu_max_percent": 40,
+  "default_long_preset": "long_driving",
+  "default_shorts_preset": "shorts_cinematic",
+  "enable_resolve_render": true,
+  "enable_upload_from_queue": true
+}

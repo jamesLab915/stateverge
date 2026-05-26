@@ -1,0 +1,61 @@
+{
+  "version": "stateverge_thumbnail_presets_v1",
+  "pipeline": {
+    "frame_extract": "ffmpeg -ss {seek_pct} -i {video} -frames:v 1 -q:v 2 {out_jpg}",
+    "manifest_only_stub": "scripts/nyc_auto/thumbnail_ambient_v1.py",
+    "no_heavy_image_deps": true
+  },
+  "presets": {
+    "ferry": {
+      "time_of_day": ["day", "sunset", "golden_hour"],
+      "visual_rules": [
+        "prefer_water_and_skyline_in_frame",
+        "warm_sunset_grades_ok",
+        "avoid_busy_crowd_faces",
+        "horizontal_16_9_safe_crop_for_long"
+      ],
+      "text_overlay_words": ["NYC Ferry", "Harbor Calm", "Skyline Ride", "Real Sounds"],
+      "text_word_count": [2, 4],
+      "font_style": "bold_sans_white_shadow"
+    },
+    "night": {
+      "time_of_day": ["night", "evening", "rainy_night"],
+      "visual_rules": [
+        "city_lights_bokeh",
+        "wet_reflections_preferred_for_rain",
+        "no_blown_highlights",
+        "cool_blue_magenta_grade"
+      ],
+      "text_overlay_words": ["Night Drive", "Rainy NYC", "City Lights", "Calm Night"],
+      "text_word_count": [2, 4],
+      "font_style": "bold_sans_white_shadow"
+    },
+    "day": {
+      "time_of_day": ["day", "morning", "afternoon"],
+      "visual_rules": [
+        "soft_daylight",
+        "readable_street_context",
+        "avoid_harsh_midday_blown_sky",
+        "neutral_warm_grade"
+      ],
+      "text_overlay_words": ["NYC Drive", "Manhattan Calm", "City Ambience", "Peaceful NYC"],
+      "text_word_count": [2, 4],
+      "font_style": "bold_sans_dark_shadow_on_bright"
+    }
+  },
+  "selection_rules": {
+    "theme_to_preset": {
+      "ferry": "ferry",
+      "driving": "day",
+      "rain_night": "night",
+      "skyline_sequence": "day",
+      "unknown": "day"
+    },
+    "time_of_day_overrides": {
+      "night": "night",
+      "evening": "night",
+      "rain": "night",
+      "sunset": "ferry"
+    }
+  }
+}

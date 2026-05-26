@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "description": "StateVerge Semantic Music Selection v1 — keyword hints per nyc_long category (case-insensitive substring match on aggregated scene blob).",
+  "categories": {
+    "night_drive": [
+      "night",
+      "driving_fixed",
+      "bridge",
+      "tunnel",
+      "FDR",
+      "Midtown",
+      "Manhattan night"
+    ],
+    "calm_piano": [
+      "sunset",
+      "ferry",
+      "skyline",
+      "water",
+      "East River",
+      "Statue of Liberty",
+      "golden hour"
+    ],
+    "cinematic": [
+      "timelapse",
+      "skyline",
+      "high_view",
+      "clouds",
+      "Manhattan",
+      "dramatic light"
+    ],
+    "dark_documentary": [
+      "rain",
+      "fog",
+      "Times Square",
+      "night crowd",
+      "Financial District",
+      "documentary",
+      "tension"
+    ],
+    "ambient": [
+      "walking",
+      "daytime",
+      "park",
+      "Brooklyn",
+      "Queens",
+      "street",
+      "calm"
+    ]
+  },
+  "tie_break_priority": [
+    "night_drive",
+    "cinematic",
+    "ambient",
+    "calm_piano",
+    "dark_documentary"
+  ],
+  "hard_rules": {
+    "ferry_sunset_golden_hour_boost_calm_piano": 120.0,
+    "times_square_night_boost_dark_doc": 100.0,
+    "times_square_night_boost_cinematic": 85.0,
+    "driving_fixed_night_boost_night_drive": 150.0
+  }
+}

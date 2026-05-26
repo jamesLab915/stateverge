@@ -1,0 +1,99 @@
+{% extends "_base.html" %}
+
+{% block title %}财报分析 · StateVerge Studio{% endblock %}
+{% block page_title %}财报分析{% endblock %}
+
+{% block page_sub %}
+  扫描了 <strong>{{ panel.total }}</strong> 个 finance topic ·
+  <span class="pill pill-green">{{ panel.ready }} 就绪</span>
+  <span class="pill pill-blue">{{ panel.need_render }} 待渲染</span>
+{% endblock %}
+
+{% block topbar_actions %}
+  <button class="btn btn-ghost" onclick="window.location.reload()">↻ 刷新</button>
+  <a class="btn btn-primary" href="/api/finance" target="_blank">JSON</a>
+{% endblock %}
+
+{% block content %}
+  {% if panel.total == 0 %}
+    <section class="card empty-card">
+      <div class="empty-title">没有 finance topic</div>
+      <div class="empty-body">
+        在某个 topic 下创建 <code>finance/</code> 目录，并放入：<br>
+        <code>finance/data.json</code> ·
+        <code>finance/analysis.json</code> ·
+        旁白 <code>finance/narration_script.txt</code> 或 <code>brief/narration_script.txt</code> ·
+        <code>finance/voice.wav</code> ·
+        <code>finance/output/final_short.mp4</code>
+      </div>
+    </section>
+  {% else %}
+    <section class="card">
+      <div class="card-head">
+        <h2 class="card-title">财报状态表</h2>
+        <div class="card-sub">按最近修改时间排序</div>
+      </div>
+      <div class="table-wrap">
+        <table class="topic-table">
+          <thead>
+            <tr>
+              <th class="col-topic">Topic</th>
+              <th class="col-cell">Data</th>
+              <th class="col-cell">Analysis</th>
+              <th class="col-cell">Script</th>
+              <th class="col-script-path">Script 路径</th>
+              <th class="col-cell">Voice</th>
+              <th class="col-cell">Final Short</th>
+              <th class="col-status">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for f in finance|sort(attribute='last_modified', reverse=true) %}
+            <tr>
+              <td class="col-topic">
+                <div class="topic-slug">{{ f.slug }}</div>
+                <div class="topic-meta">{{ f.next_action }}</div>
+              </td>
+              <td class="col-cell">{% if f.has_data %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+              <td class="col-cell">{% if f.has_analysis %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+              <td class="col-cell">{% if f.has_script %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+              <td class="col-script-path">
+                {% if f.script_path %}
+                  <code class="finance-script-path" title="{{ f.script_path }}">{{ f.script_path }}</code>
+                {% else %}
+                  <span class="topic-meta">—</span>
+                {% endif %}
+              </td>
+              <td class="col-cell">{% if f.has_voice %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+              <td class="col-cell">{% if f.has_final_short %}<span class="dot dot-green" title="{{ f.final_short_path }}"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+              <td class="col-status">
+                {% set color = status_colors.get(f.status, 'gray') %}
+                <span class="badge badge-{{ color }}">{{ f.status }}</span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  {% endif %}
+{% endblock %}
+
+{% block side %}
+  <div class="card stat-card">
+    <div class="stat-card-head">财报状态</div>
+    <ul class="stat-list">
+      <li><span class="stat-key">可发布</span> <span class="stat-val stat-green">{{ panel.ready }}</span></li>
+      <li><span class="stat-key">缺数据</span> <span class="stat-val stat-red">{{ panel.missing_data }}</span></li>
+      <li><span class="stat-key">缺分析</span> <span class="stat-val stat-yellow">{{ panel.missing_analysis }}</span></li>
+      <li><span class="stat-key">缺脚本</span> <span class="stat-val stat-yellow">{{ panel.missing_script }}</span></li>
+      <li><span class="stat-key">缺旁白</span> <span class="stat-val stat-yellow">{{ panel.missing_voice }}</span></li>
+      <li><span class="stat-key">待渲染</span> <span class="stat-val stat-blue">{{ panel.need_render }}</span></li>
+    </ul>
+  </div>
+
+  <div class="card suggest-card">
+    <div class="suggest-head">下一步建议</div>
+    <div class="suggest-body">{{ suggestion }}</div>
+  </div>
+{% endblock %}

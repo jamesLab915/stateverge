@@ -1,0 +1,86 @@
+{% extends "_base.html" %}
+
+{% block title %}Shorts工厂 · StateVerge Studio{% endblock %}
+{% block page_title %}Shorts工厂{% endblock %}
+
+{% block page_sub %}
+  扫描了 <strong>{{ panel.total }}</strong> 个 short ·
+  <span class="pill pill-green">{{ panel.ready }} 就绪</span>
+  <span class="pill pill-blue">{{ panel.need_render }} 待渲染</span>
+  <span class="pill pill-red">{{ panel.missing_script + panel.missing_voice + panel.missing_subtitles }} 缺素材</span>
+{% endblock %}
+
+{% block topbar_actions %}
+  <button class="btn btn-ghost" onclick="window.location.reload()">↻ 刷新</button>
+  <a class="btn btn-primary" href="/api/shorts" target="_blank">JSON</a>
+{% endblock %}
+
+{% block content %}
+  {% if panel.total == 0 %}
+    <section class="card empty-card">
+      <div class="empty-title">没有 short</div>
+      <div class="empty-body">
+        在某个 topic 下创建 <code>shorts/</code> 目录，并放入：<br>
+        <code>shorts/script.txt</code> · <code>shorts/voice.wav</code> ·
+        <code>shorts/subtitles.srt</code> · <code>shorts/output/final_short.mp4</code>
+      </div>
+    </section>
+  {% else %}
+    <section class="card">
+      <div class="card-head">
+        <h2 class="card-title">Shorts 状态表</h2>
+        <div class="card-sub">按最近修改时间排序</div>
+      </div>
+      <div class="table-wrap">
+        <table class="topic-table">
+          <thead>
+            <tr>
+              <th class="col-topic">Topic</th>
+              <th class="col-cell">Script</th>
+              <th class="col-cell">Voice</th>
+              <th class="col-cell">Subtitles</th>
+              <th class="col-cell">Final Short</th>
+              <th class="col-status">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for s in shorts|sort(attribute='last_modified', reverse=true) %}
+            <tr>
+              <td class="col-topic">
+                <div class="topic-slug">{{ s.slug }}</div>
+                <div class="topic-meta">{{ s.next_action }}</div>
+              </td>
+              <td class="col-cell">{% if s.has_script %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+              <td class="col-cell">{% if s.has_voice %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+              <td class="col-cell">{% if s.has_subtitles %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+              <td class="col-cell">{% if s.has_final_short %}<span class="dot dot-green" title="{{ s.final_short_path }}"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+              <td class="col-status">
+                {% set color = status_colors.get(s.status, 'gray') %}
+                <span class="badge badge-{{ color }}">{{ s.status }}</span>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  {% endif %}
+{% endblock %}
+
+{% block side %}
+  <div class="card stat-card">
+    <div class="stat-card-head">Shorts 状态</div>
+    <ul class="stat-list">
+      <li><span class="stat-key">可发布</span> <span class="stat-val stat-green">{{ panel.ready }}</span></li>
+      <li><span class="stat-key">缺脚本</span> <span class="stat-val stat-red">{{ panel.missing_script }}</span></li>
+      <li><span class="stat-key">缺旁白</span> <span class="stat-val stat-red">{{ panel.missing_voice }}</span></li>
+      <li><span class="stat-key">缺字幕</span> <span class="stat-val stat-yellow">{{ panel.missing_subtitles }}</span></li>
+      <li><span class="stat-key">待渲染</span> <span class="stat-val stat-blue">{{ panel.need_render }}</span></li>
+    </ul>
+  </div>
+
+  <div class="card suggest-card">
+    <div class="suggest-head">下一步建议</div>
+    <div class="suggest-body">{{ suggestion }}</div>
+  </div>
+{% endblock %}

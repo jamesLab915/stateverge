@@ -1,0 +1,70 @@
+{% extends "_base.html" %}
+
+{% block title %}{{ page_label }} · StateVerge Studio{% endblock %}
+{% block page_title %}{{ page_label }}{% endblock %}
+{% block page_sub %}{{ page_help }}{% endblock %}
+
+{% block topbar_actions %}
+  <a class="btn btn-ghost" href="/" >← 返回总览</a>
+{% endblock %}
+
+{% block content %}
+<section class="card">
+  <div class="card-head">
+    <h2 class="card-title">选择 topic</h2>
+    <div class="card-sub">URL 形式：<code>{{ action_url }}?topic=&lt;slug&gt;</code></div>
+  </div>
+
+  {% if existing_topics %}
+    <div class="topic-chooser-grid">
+      {% for slug in existing_topics %}
+        <a class="topic-chooser-tile" href="{{ action_url }}?topic={{ slug }}">
+          <span class="topic-chooser-slug">{{ slug }}</span>
+          <span class="topic-chooser-arrow">→</span>
+        </a>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="empty-card">
+      <div class="empty-title">没有任何 topic</div>
+      <div class="empty-body">
+        先去 <a href="/create" class="link-accent">创作工作台</a> 生成一个。
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="card-head" style="border-top:1px solid var(--border);">
+    <h2 class="card-title">手动输入</h2>
+  </div>
+  <form class="topic-chooser-form" onsubmit="return goTopic(event)">
+    <input id="manual-topic" type="text" required
+           placeholder="例如 ai_future_cn"
+           pattern="[A-Za-z0-9][A-Za-z0-9._\-]{0,63}" />
+    <button type="submit" class="btn btn-primary">打开</button>
+  </form>
+</section>
+{% endblock %}
+
+{% block side %}
+  <div class="card suggest-card">
+    <div class="suggest-head">提示</div>
+    <div class="suggest-body">
+      也可以直接拼 URL：<br>
+      <code>{{ action_url }}?topic=ai_future_cn</code>
+    </div>
+  </div>
+{% endblock %}
+
+<script>
+function goTopic(ev) {
+  ev.preventDefault();
+  var v = (document.getElementById('manual-topic').value || '').trim();
+  if (!v) return false;
+  if (!/^[A-Za-z0-9][A-Za-z0-9._\-]{0,63}$/.test(v)) {
+    alert('topic slug 不合法：只允许字母 / 数字 / _-.，1-64 字符');
+    return false;
+  }
+  window.location.href = '{{ action_url }}?topic=' + encodeURIComponent(v);
+  return false;
+}
+</script>

@@ -1,0 +1,22 @@
+{
+  "version": "always_publish_schedule_v2",
+  "always_deliver_mode": "quota_guaranteed",
+  "daily_long_required": 1,
+  "daily_long_extra_optional": 1,
+  "daily_shorts_required": 4,
+  "long_daily_time": "10:00",
+  "long_special_every_days": 3,
+  "long_special_time": "16:00",
+  "shorts_times": ["09:30", "13:30", "17:30", "21:30"],
+  "privacy": "unlisted",
+  "review_required": true,
+  "fallback_enabled": true,
+  "max_daily_long": 1,
+  "max_daily_shorts": 4,
+  "content_types": [
+    "driving_1h_music",
+    "ferry_1h_realsound",
+    "long_3h_special_driving",
+    "long_3h_special_ferry"
+  ]
+}

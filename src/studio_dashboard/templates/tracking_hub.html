@@ -1,0 +1,140 @@
+{% extends "_base.html" %}
+
+{% block title %}证据档案 · IRS / EB-1 · NIW{% endblock %}
+{% block page_title %}证据档案{% endblock %}
+
+{% block page_sub %}
+  <code>docs/tracking/</code> · 浏览器内预览 · 终端命令可复制。
+  <span class="pill pill-yellow">非税务 / 非移民法律建议</span>
+{% endblock %}
+
+{% block topbar_actions %}
+  <button class="btn btn-ghost" onclick="window.location.reload()">↻ 刷新</button>
+  <a class="btn btn-primary" href="/tracking/view/readme">查看 README</a>
+{% endblock %}
+
+{% block content %}
+<div id="tracking-hub-root">
+  <section class="card toolbox-intro">
+    <div class="toolbox-intro-body">
+      <p>此处仅为<strong>个人工作笔记与资料索引</strong>；报税与移民申请请咨询持牌 CPA / 律师。</p>
+      <p>仓库路径：<span class="mono-soft">{{ repo_root }}/docs/tracking/</span></p>
+    </div>
+  </section>
+
+  {% if monthly_latest %}
+  <section class="card tracking-dash-highlight" id="sec-monthly-latest">
+    <div class="card-head">
+      <h2 class="card-title">最新月度汇总</h2>
+      <div class="card-sub">{{ monthly_latest.desc }}</div>
+    </div>
+    <div class="tracking-hub-actions">
+      <a class="btn btn-primary" href="/tracking/view/monthly-latest">浏览器查看</a>
+      <a class="btn btn-ghost" href="/tracking/raw/monthly-latest">下载原文</a>
+      <button type="button" class="btn btn-ghost btn-copy-path" data-path="{{ repo_root }}/{{ monthly_latest.rel }}">复制绝对路径</button>
+    </div>
+    <div class="tracking-hub-meta mono-soft">{{ monthly_latest.rel }}</div>
+  </section>
+  {% endif %}
+
+  {% for group in tracking_groups %}
+  <section class="card toolbox-section" id="sec-{{ group.id }}">
+    <div class="card-head">
+      <h2 class="card-title">{{ group.title }}</h2>
+      {% if group.blurb %}<div class="card-sub">{{ group.blurb }}</div>{% endif %}
+    </div>
+    <div class="toolbox-list">
+      {% for entry in group["entries"] %}
+      <div class="tool-row">
+        <div class="tool-title">{{ entry.title }}</div>
+        {% if entry.desc %}<div class="tool-desc">{{ entry.desc }}</div>{% endif %}
+        <div class="tool-note mono-soft">{{ entry.rel }}</div>
+        <div class="tracking-hub-actions">
+          <a class="btn btn-primary btn-xs" href="/tracking/view/{{ entry.slug }}">查看</a>
+          <a class="btn btn-ghost btn-xs" href="/tracking/raw/{{ entry.slug }}">下载</a>
+          <button type="button" class="btn btn-ghost btn-xs btn-copy-path" data-path="{{ repo_root }}/{{ entry.rel }}">复制路径</button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+
+  <section class="card toolbox-section" id="sec-commands">
+    <div class="card-head">
+      <h2 class="card-title">常用终端命令</h2>
+      <div class="card-sub">在仓库根目录执行；按需修改月份与参数。</div>
+    </div>
+    <div class="toolbox-list">
+      {% for qc in tracking_quick_commands %}
+      <div class="tool-row">
+        <div class="tool-title">{{ qc.title }}</div>
+        <div class="tool-cmd-wrap">
+          <pre class="tool-cmd">{{ qc.command }}</pre>
+          <button type="button" class="btn btn-ghost btn-copy">复制</button>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<div id="copy-toast" class="toolbox-toast" hidden>已复制</div>
+{% endblock %}
+
+{% block side %}
+  <div class="card stat-card">
+    <div class="stat-card-head">本节跳转</div>
+    <ul class="stat-list toolbox-toc">
+      {% if monthly_latest %}
+      <li><a href="#sec-monthly-latest" class="link-accent">最新月报</a></li>
+      {% endif %}
+      {% for group in tracking_groups %}
+      <li><a href="#sec-{{ group.id }}" class="link-accent">{{ group.title }}</a></li>
+      {% endfor %}
+      <li><a href="#sec-commands" class="link-accent">常用命令</a></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const root = document.getElementById('tracking-hub-root');
+  const toast = document.getElementById('copy-toast');
+  if (!root) return;
+
+  function flashToast(msg) {
+    if (!toast) return;
+    toast.textContent = msg || '已复制';
+    toast.hidden = false;
+    clearTimeout(flashToast._t);
+    flashToast._t = setTimeout(function () { toast.hidden = true; }, 1400);
+  }
+
+  root.addEventListener('click', function (ev) {
+    const copyBtn = ev.target.closest('.btn-copy');
+    if (copyBtn) {
+      const wrap = copyBtn.closest('.tool-cmd-wrap');
+      const pre = wrap && wrap.querySelector('.tool-cmd');
+      if (!pre) return;
+      const text = pre.textContent || '';
+      navigator.clipboard.writeText(text).then(function () {
+        flashToast('命令已复制');
+      }).catch(function () {
+        alert('复制失败（浏览器权限）');
+      });
+      return;
+    }
+    const pathBtn = ev.target.closest('.btn-copy-path');
+    if (pathBtn && pathBtn.dataset.path) {
+      navigator.clipboard.writeText(pathBtn.dataset.path).then(function () {
+        flashToast('路径已复制');
+      }).catch(function () {
+        alert('复制失败（浏览器权限）');
+      });
+    }
+  });
+})();
+</script>
+{% endblock %}

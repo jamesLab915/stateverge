@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "updated_at": "2026-05-07",
+  "policy_id": "timelapse_slice_only",
+  "summary_zh": "以下文件为人工确认的延时素材：自动化/成片管线只能使用切片片段，禁止整段单次作为一条镜头或整条 B-roll 使用。",
+  "rules": {
+    "allow_full_duration_single_use": false,
+    "require_slice_segments": true,
+    "notes_zh": "后续切片工具应从此清单读取路径；publish-pack / 粗剪 / 长片若引用这些文件，必须带 in/out 或 max_segment_seconds，不得默认用全长。"
+  },
+  "source_label": "premium_timelapse_hand_picked",
+  "files": [
+    {
+      "id": "tl-001",
+      "path": "/Volumes/SV_TRANSFER/00_INBOX/iphone/1.MP4",
+      "duration_sec": 40.1,
+      "likely_source_type": "timelapse",
+      "quality_hint": "premium"
+    },
+    {
+      "id": "tl-002",
+      "path": "/Volumes/SV_TRANSFER/00_INBOX/iphone/2.MP4",
+      "duration_sec": 64.433333,
+      "likely_source_type": "timelapse",
+      "quality_hint": "premium"
+    },
+    {
+      "id": "tl-003",
+      "path": "/Volumes/SV_TRANSFER/00_INBOX/iphone/3.MP4",
+      "duration_sec": 180.466667,
+      "likely_source_type": "timelapse",
+      "quality_hint": "premium"
+    },
+    {
+      "id": "tl-004",
+      "path": "/Volumes/SV_TRANSFER/00_INBOX/iphone/4.MP4",
+      "duration_sec": 54.533333,
+      "likely_source_type": "timelapse",
+      "quality_hint": "premium"
+    }
+  ]
+}

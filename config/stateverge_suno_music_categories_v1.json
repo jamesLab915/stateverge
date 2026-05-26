@@ -1,0 +1,55 @@
+{
+  "version": "stateverge_suno_music_categories_v1",
+  "library_roots": [
+    "/Volumes/SV_CACHE/inbox/suno",
+    "/Volumes/SV_TRANSFER/04_AUDIO/music/stateverge_suno"
+  ],
+  "theme_subdirs": {
+    "driving": ["driving", "suno/driving"],
+    "ferry": ["ferry", "suno/ferry"]
+  },
+  "music_index_path": "/Volumes/SV_TRANSFER/04_AUDIO/music/stateverge_suno/music_index.json",
+  "categories": [
+    "night_drive",
+    "rainy_drive",
+    "calm_piano",
+    "west_coast_drive",
+    "blues_city",
+    "midnight_manhattan",
+    "ferry_sunset",
+    "evening_drive",
+    "skyline_ambient",
+    "rainy_night"
+  ],
+  "selection_rules": {
+    "driving": {
+      "daytime": {
+        "primary": ["calm_piano", "west_coast_drive"],
+        "fallback": ["evening_drive", "skyline_ambient"]
+      },
+      "night": {
+        "primary": ["blues_city", "midnight_manhattan", "night_drive"],
+        "fallback": ["evening_drive"]
+      },
+      "rain": {
+        "primary": ["rainy_drive", "rainy_night"],
+        "fallback": ["calm_piano", "night_drive"]
+      }
+    },
+    "ferry": {
+      "note": "Ferry long-form uses real_sound_cleanup_gate — no Suno BGM",
+      "bgm_allowed": false
+    },
+    "extended_3h_themes": {
+      "ferry_sunset": ["ferry_sunset", "calm_piano"],
+      "rainy_night": ["rainy_night", "rainy_drive"],
+      "evening_drive": ["evening_drive", "blues_city"],
+      "skyline": ["skyline_ambient", "calm_piano"]
+    }
+  },
+  "scan": {
+    "extensions": [".mp3", ".m4a", ".wav", ".flac", ".aac", ".aiff", ".aif"],
+    "recursive_inbox_suno": true,
+    "max_files_per_scan": 4000
+  }
+}

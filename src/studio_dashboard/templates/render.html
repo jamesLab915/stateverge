@@ -1,0 +1,246 @@
+{% extends "_base.html" %}
+
+{% block title %}渲染中心 · {{ topic }} · StateVerge{% endblock %}
+{% block page_title %}渲染中心 — {{ topic }}{% endblock %}
+
+{% block page_sub %}
+  Shorts 渲染：1080×1920 · 30fps · AAC 48k
+  {% if can_render %}
+    <span class="pill pill-green">就绪</span>
+  {% else %}
+    <span class="pill pill-yellow">未就绪</span>
+  {% endif %}
+{% endblock %}
+
+{% block topbar_actions %}
+  <a class="btn btn-ghost" href="/render">↺ 切换 topic</a>
+  <a class="btn btn-ghost" href="/assets/picker?topic={{ topic }}">← 素材选择</a>
+{% endblock %}
+
+{% block content %}
+<section class="card">
+  <div class="card-head">
+    <h2 class="card-title">输入就绪检查</h2>
+    <div class="card-sub">三项都需要绿色才能渲染</div>
+  </div>
+  <div class="readiness-list">
+    <div class="readiness-row {% if readiness.voice_exists %}is-ok{% else %}is-bad{% endif %}">
+      <div class="readiness-key">
+        <span class="readiness-dot"></span>
+        <span class="readiness-label">旁白音频</span>
+      </div>
+      <div class="readiness-val">
+        {% if readiness.voice_exists %}
+          <code>{{ readiness.voice_path }}</code>
+          <span class="readiness-meta">{{ "%.2f"|format(readiness.voice_duration_sec) }}s</span>
+        {% else %}
+          <span class="readiness-missing">缺：<code>{{ readiness.voice_path }}</code></span>
+          <span class="readiness-action">→ 去 <a class="link-accent" href="/create">创作工作台</a> 生成旁白</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="readiness-row {% if readiness.selection_exists and readiness.selection_count > 0 %}is-ok{% else %}is-bad{% endif %}">
+      <div class="readiness-key">
+        <span class="readiness-dot"></span>
+        <span class="readiness-label">已选素材</span>
+      </div>
+      <div class="readiness-val">
+        {% if readiness.selection_exists and readiness.selection_count > 0 %}
+          <code>{{ readiness.selection_path }}</code>
+          <span class="readiness-meta">{{ readiness.selection_count }} 段 · 共 {{ "%.1f"|format(readiness.selection_duration_sec) }}s</span>
+        {% else %}
+          <span class="readiness-missing">
+            {% if not readiness.selection_exists %}缺：<code>{{ readiness.selection_path }}</code>
+            {% else %}selected_assets.json 里没有素材{% endif %}
+          </span>
+          <span class="readiness-action">→ 去 <a class="link-accent" href="/assets/picker?topic={{ topic }}">素材选择</a> 勾选</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="readiness-row {% if readiness.final_exists %}is-ok{% else %}is-info{% endif %}">
+      <div class="readiness-key">
+        <span class="readiness-dot"></span>
+        <span class="readiness-label">上次输出</span>
+      </div>
+      <div class="readiness-val">
+        {% if readiness.final_exists %}
+          <code>{{ readiness.final_path }}</code>
+          <span class="readiness-meta">
+            {{ "%.2f"|format(readiness.final_duration_sec) }}s ·
+            {{ readiness.final_width }}×{{ readiness.final_height }}
+          </span>
+        {% else %}
+          <span class="readiness-meta">尚未渲染</span>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if readiness.error_log_exists %}
+    <div class="readiness-row is-warn">
+      <div class="readiness-key">
+        <span class="readiness-dot"></span>
+        <span class="readiness-label">上次错误</span>
+      </div>
+      <div class="readiness-val">
+        <code>{{ readiness.error_log_path }}</code>
+        <span class="readiness-meta">查看上次失败原因</span>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+  <div class="render-actions">
+    <button id="btn-render" class="btn btn-primary"
+            {% if not can_render %}disabled title="请先满足上面三项"{% endif %}>
+      ▶ 渲染 final_short.mp4
+    </button>
+    {% if readiness.final_exists %}
+      <a class="btn btn-ghost"
+         href="/static-files/{{ readiness.final_path }}"
+         onclick="event.preventDefault(); navigator.clipboard.writeText('{{ readiness.final_path }}'); this.textContent='已复制路径';">
+        📋 复制路径
+      </a>
+    {% endif %}
+  </div>
+</section>
+
+<section class="card output-card">
+  <div class="card-head">
+    <h2 class="card-title">渲染日志</h2>
+    <div class="card-sub" id="render-meta">空闲</div>
+  </div>
+  <div id="render-log" class="out-log">
+    点击上面 “渲染” 开始。<br>
+    渲染过程：probe voice → build plan → 逐段编码（1080×1920 / 30fps / yuv420p）→ concat → mux → ffprobe 校验。<br>
+    如果失败，错误会写入 <code>topics/{{ topic }}/output/render_error.log</code>。
+  </div>
+  <div id="render-result" class="out-files"></div>
+</section>
+{% endblock %}
+
+{% block side %}
+  <div class="card stat-card">
+    <div class="stat-card-head">渲染参数</div>
+    <ul class="stat-list">
+      <li><span class="stat-key">分辨率</span> <span class="stat-val">1080×1920</span></li>
+      <li><span class="stat-key">帧率</span>   <span class="stat-val">30 fps</span></li>
+      <li><span class="stat-key">视频编码</span> <span class="stat-val">libx264 yuv420p</span></li>
+      <li><span class="stat-key">音频</span>   <span class="stat-val">AAC 48k stereo</span></li>
+      <li><span class="stat-key">CRF</span>    <span class="stat-val">20</span></li>
+      <li><span class="stat-key">faststart</span> <span class="stat-val">on</span></li>
+    </ul>
+  </div>
+
+  <div class="card stat-card">
+    <div class="stat-card-head">切换 topic</div>
+    {% if existing_topics %}
+      <ul class="recent-list">
+        {% for slug in existing_topics[:14] %}
+          <li class="recent-item">
+            <span class="recent-slug">{{ slug }}</span>
+            <a class="btn-link" href="/render?topic={{ slug }}">use</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <div class="recent-empty">还没有 topic。</div>
+    {% endif %}
+  </div>
+
+  <div class="card suggest-card">
+    <div class="suggest-head">输出位置</div>
+    <div class="suggest-body">
+      <code>topics/{{ topic }}/output/final_short.mp4</code><br>
+      旧文件会自动归档到 <code>output/archive/&lt;ts&gt;/</code>，从不覆盖删除。
+    </div>
+  </div>
+{% endblock %}
+
+<script>
+(function () {
+  const btn  = document.getElementById('btn-render');
+  const log  = document.getElementById('render-log');
+  const meta = document.getElementById('render-meta');
+  const res  = document.getElementById('render-result');
+
+  if (!btn) return;
+
+  function append(line, cls) {
+    const div = document.createElement('div');
+    div.className = 'log-line' + (cls ? ' log-' + cls : '');
+    div.textContent = line;
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function fmtMs(ms) {
+    if (!ms) return '';
+    if (ms < 1000) return ms + ' ms';
+    return (ms / 1000).toFixed(1) + ' s';
+  }
+
+  btn.addEventListener('click', async () => {
+    btn.disabled = true;
+    log.innerHTML = '';
+    res.innerHTML = '';
+    meta.textContent = '渲染中… (按段编码 + concat + mux，可能 30s-3min)';
+    append('POST /api/render/short  topic={{ topic }}');
+    const t0 = performance.now();
+    let r, data = {};
+    try {
+      r = await fetch('/api/render/short', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({topic: '{{ topic }}'}),
+      });
+      data = await r.json();
+    } catch (e) {
+      meta.textContent = '失败';
+      append('网络错误: ' + e, 'err');
+      btn.disabled = false;
+      return;
+    }
+    const elapsed = Math.round(performance.now() - t0);
+    if (!r.ok || !data.ok) {
+      meta.textContent = '失败';
+      append('HTTP ' + r.status + ': ' + (data.error || 'unknown error'), 'err');
+      append('详细错误已写入 ' + (data.error_log_path || 'output/render_error.log'), 'info');
+      btn.disabled = false;
+      return;
+    }
+    meta.textContent = '✓ 渲染完成';
+    append('✓ render ok  (' + fmtMs(data.duration_ms) +
+           ', client ' + fmtMs(elapsed) + ')', 'ok');
+    append('  voice ' + data.voice_duration_sec.toFixed(2) +
+           's → final ' + data.final_duration_sec.toFixed(2) +
+           's   (' + data.segment_count + ' 段)', 'info');
+    if (data.archive_dir) {
+      append('  旧 final_short.mp4 已归档 → ' + data.archive_dir, 'info');
+    }
+    res.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.className = 'file-list';
+    [
+      {label:'final_short.mp4', path:data.final_path,
+       extra: data.final_width + '×' + data.final_height +
+              ' · ' + (data.final_fps || 30) + 'fps · ' +
+              data.final_duration_sec.toFixed(2) + 's'},
+    ].forEach(it => {
+      const row = document.createElement('div');
+      row.className = 'file-row';
+      const left = document.createElement('div');
+      left.className = 'file-name';
+      left.textContent = it.label;
+      const right = document.createElement('div');
+      right.className = 'file-path';
+      right.textContent = it.path + (it.extra ? ' · ' + it.extra : '');
+      row.appendChild(left); row.appendChild(right);
+      wrap.appendChild(row);
+    });
+    res.appendChild(wrap);
+    btn.disabled = false;
+  });
+})();
+</script>

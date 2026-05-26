@@ -1,0 +1,57 @@
+{% extends "_base.html" %}
+
+{% block title %}{{ title }} · 证据档案{% endblock %}
+{% block page_title %}{{ title }}{% endblock %}
+
+{% block page_sub %}
+  {% if not missing %}
+  <span class="mono-soft">{{ filename }}</span>
+  {% endif %}
+{% endblock %}
+
+{% block topbar_actions %}
+  <a class="btn btn-ghost" href="/tracking">← 档案索引</a>
+  {% if not missing %}
+  <a class="btn btn-primary" href="/tracking/raw/{{ slug }}">下载原文</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if missing %}
+<section class="card">
+  <div class="toolbox-intro-body">
+    <p><strong>文件不存在或尚未生成。</strong></p>
+    <p>可在仓库根目录运行 <code>python scripts/tracking/generate_monthly_report.py --month YYYY-MM</code> 生成月报，或确认路径是否在 <code>docs/tracking/</code> 下。</p>
+    <p><a class="btn btn-primary" href="/tracking">返回证据档案</a></p>
+  </div>
+</section>
+{% elif is_csv %}
+<section class="card">
+  <div class="card-head">
+    <h2 class="card-title">表格预览</h2>
+    {% if truncated %}<div class="card-sub">仅显示前 {{ row_cap }} 行（完整内容请下载）</div>{% endif %}
+  </div>
+  <div class="table-wrap tracking-table-wrap">
+    <table class="topic-table tracking-csv-table">
+      <tbody>
+        {% for row in rows %}
+        <tr>
+          {% for cell in row %}
+          <td>{{ cell }}</td>
+          {% endfor %}
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% else %}
+<section class="card">
+  <div class="card-head">
+    <h2 class="card-title">文本预览</h2>
+    {% if truncated %}<div class="card-sub">仅显示前 {{ char_cap }} 字符（完整内容请下载）</div>{% endif %}
+  </div>
+  <pre class="tracking-pre">{{ body }}</pre>
+</section>
+{% endif %}
+{% endblock %}

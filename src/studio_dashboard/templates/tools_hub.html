@@ -1,0 +1,105 @@
+{% extends "_base.html" %}
+
+{% block title %}工具箱 · StateVerge Studio{% endblock %}
+{% block page_title %}工具箱{% endblock %}
+
+{% block page_sub %}
+  <strong>Topic / 创作 / 流水线</strong>等非 NYC 入口在本页「Topic · 创作 · 流水线」分组。
+  左侧栏仅：<strong>工具箱</strong> 与 <strong>NYC 发布监控</strong>。
+  <span class="topbar-meta">仓库</span>
+  <code title="{{ repo_root }}">{{ repo_root }}</code>
+{% endblock %}
+
+{% block topbar_actions %}
+  <button class="btn btn-ghost" onclick="window.location.reload()">↻ 刷新</button>
+  <a class="btn btn-primary" href="/api/tools/catalog" target="_blank">JSON</a>
+{% endblock %}
+
+{% block content %}
+<div id="tools-hub-root">
+  <section class="card toolbox-intro">
+    <div class="toolbox-intro-body">
+      <p><strong>怎么用：</strong>网页内的直接点「打开」；终端命令点「复制」后在 Terminal / iTerm 粘贴。
+        把命令里的 <code>TOPIC</code> 换成你的 topic slug。</p>
+      <p><strong>最全索引：</strong>仓库根目录
+        <code>StateVerge_COMMANDS.txt</code>
+        （路径：<span class="mono-soft">{{ repo_commands_hint }}</span>）</p>
+    </div>
+  </section>
+
+  {% for sec in sections %}
+  <section class="card toolbox-section" id="sec-{{ sec.id }}">
+    <div class="card-head">
+      <h2 class="card-title">{{ sec.title }}</h2>
+      {% if sec.blurb %}<div class="card-sub">{{ sec.blurb }}</div>{% endif %}
+    </div>
+    <div class="toolbox-list">
+      {% for it in sec["items"] %}
+      <div class="tool-row">
+        <div class="tool-row-main">
+          <div class="tool-title">{{ it.title }}</div>
+          {% if it.desc %}<div class="tool-desc">{{ it.desc }}</div>{% endif %}
+          {% if it.note %}<div class="tool-note">{{ it.note }}</div>{% endif %}
+          {% if it.kind == 'shell' and it.command %}
+          <div class="tool-cmd-wrap">
+            <pre class="tool-cmd">{{ it.command }}</pre>
+            <button type="button" class="btn btn-ghost btn-copy">复制</button>
+          </div>
+          {% endif %}
+          {% if it.kind == 'page' and it.href %}
+          <div class="tool-actions">
+            <a class="btn btn-primary btn-xs" href="{{ it.href }}">打开</a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+  {% endfor %}
+</div>
+
+<div id="copy-toast" class="toolbox-toast" hidden>已复制到剪贴板</div>
+{% endblock %}
+
+{% block side %}
+  <div class="card stat-card">
+    <div class="stat-card-head">本节跳转</div>
+    <ul class="stat-list toolbox-toc">
+      {% for sec in sections %}
+      <li><a href="#sec-{{ sec.id }}" class="link-accent">{{ sec.title }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const root = document.getElementById('tools-hub-root');
+  const toast = document.getElementById('copy-toast');
+  if (!root) return;
+
+  function flashToast() {
+    if (!toast) return;
+    toast.hidden = false;
+    clearTimeout(flashToast._t);
+    flashToast._t = setTimeout(function () { toast.hidden = true; }, 1400);
+  }
+
+  root.addEventListener('click', function (ev) {
+    const btn = ev.target.closest('.btn-copy');
+    if (!btn) return;
+    const wrap = btn.closest('.tool-cmd-wrap');
+    const pre = wrap && wrap.querySelector('.tool-cmd');
+    if (!pre) return;
+    const text = pre.textContent || '';
+    navigator.clipboard.writeText(text).then(function () {
+      flashToast();
+    }).catch(function () {
+      alert('复制失败（浏览器权限）');
+    });
+  });
+})();
+</script>
+{% endblock %}

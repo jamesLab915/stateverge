@@ -1,0 +1,27 @@
+{
+  "version": "davinci_ambient_audio_system_v1",
+  "enabled": true,
+  "prefer_resolve_fairlight": true,
+  "ffmpeg_fallback_when_resolve_unavailable": true,
+  "export_audio_chain_spec": true,
+  "default_chain_by_content_type": {
+    "driving": "driving_music_first_chain",
+    "ferry": "ferry_preserve_atmosphere",
+    "skyline_sequence": "streaming_immersive_ambient",
+    "rain_night": "broadcast_ambient_master",
+    "shorts": "streaming_immersive_ambient",
+    "short": "streaming_immersive_ambient",
+    "sleep": "sleep_calm_ambient",
+    "unknown": "broadcast_ambient_master"
+  },
+  "youtube_preset_ambient_chain": {
+    "youtube_long_calm": "driving_music_first_chain",
+    "youtube_ferry_real": "ferry_preserve_atmosphere",
+    "youtube_shorts_cinematic": "streaming_immersive_ambient"
+  },
+  "content_routing_integration": {
+    "config": "config/stateverge_content_routing_v1.json",
+    "audio_policy": "scripts/audio/stateverge_audio_policy_v1.json"
+  },
+  "docs": "docs/davinci_ambient_audio_system_v1.md"
+}

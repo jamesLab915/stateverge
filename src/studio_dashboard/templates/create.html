@@ -1,0 +1,346 @@
+{% extends "_base.html" %}
+
+{% block title %}创作工作台 · StateVerge Studio{% endblock %}
+{% block page_title %}创作工作台{% endblock %}
+
+{% block page_sub %}
+  从 topic + 标题，到旁白音频 ·
+  {% if openai_env.configured %}
+    <span class="pill pill-green">OpenAI ✓ {{ openai_env.model }}</span>
+  {% else %}
+    <span class="pill pill-red">OpenAI ✗ 未配置</span>
+  {% endif %}
+  {% if eleven_env.configured %}
+    <span class="pill pill-green">ElevenLabs ✓ {{ eleven_env.voice_id_tail }}</span>
+  {% else %}
+    <span class="pill pill-red">ElevenLabs ✗ 未配置</span>
+  {% endif %}
+{% endblock %}
+
+{% block topbar_actions %}
+  <a class="btn btn-ghost" href="/assets" target="_blank">↗ 素材库</a>
+  <a class="btn btn-ghost" href="/" >← 返回总览</a>
+{% endblock %}
+
+{% block content %}
+<section class="card create-card">
+  <div class="card-head">
+    <h2 class="card-title">基础信息</h2>
+    <div class="card-sub">topic slug 决定了写入的目录：<code>topics/&lt;slug&gt;/</code> — 已存在的文件会先归档到 <code>archive/&lt;ts&gt;/</code></div>
+  </div>
+
+  <form id="create-form" class="create-form" onsubmit="return false;">
+    <div class="form-row">
+      <label class="form-field">
+        <span class="form-label">Topic slug</span>
+        <input id="f-topic" name="topic" type="text" autocomplete="off" required
+               placeholder="例如 ai_future_cn / nokia_collapse / egypt_story"
+               list="existing-topics" pattern="[A-Za-z0-9][A-Za-z0-9._\-]{0,63}"
+               title="字母/数字/_-.，1-64 字符，必须以字母或数字开头" />
+        <datalist id="existing-topics">
+          {% for slug in existing_topics %}
+            <option value="{{ slug }}"></option>
+          {% endfor %}
+        </datalist>
+      </label>
+
+      <label class="form-field form-field-grow">
+        <span class="form-label">标题（可空，让模型自己起）</span>
+        <input id="f-title" name="title" type="text" autocomplete="off"
+               placeholder="例如：AI 正在改变世界，普通人还能做什么" />
+      </label>
+    </div>
+
+    <div class="form-row">
+      <fieldset class="form-field">
+        <legend class="form-label">长度</legend>
+        <div class="seg-group">
+          {% for opt in length_options %}
+          <label class="seg">
+            <input type="radio" name="length" value="{{ opt.value }}"
+                   {% if loop.first %}checked{% endif %} />
+            <span>{{ opt.label }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset class="form-field">
+        <legend class="form-label">语言</legend>
+        <div class="seg-group">
+          {% for opt in language_options %}
+          <label class="seg">
+            <input type="radio" name="language" value="{{ opt.value }}"
+                   {% if loop.first %}checked{% endif %} />
+            <span>{{ opt.label }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+
+      <fieldset class="form-field form-field-grow">
+        <legend class="form-label">风格</legend>
+        <div class="seg-group">
+          {% for opt in style_options %}
+          <label class="seg">
+            <input type="radio" name="style" value="{{ opt.value }}"
+                   {% if loop.index == 2 %}checked{% endif %} />
+            <span>{{ opt.label }}</span>
+          </label>
+          {% endfor %}
+        </div>
+      </fieldset>
+    </div>
+
+    <div class="action-bar">
+      <button id="btn-script" class="btn btn-primary" type="button">① 生成文案</button>
+      <button id="btn-voice"  class="btn btn-primary" type="button"
+              {% if not eleven_env.configured %}disabled title="ElevenLabs 未配置"{% endif %}>
+        ② 生成 ElevenLabs 旁白
+      </button>
+      <a id="btn-assets" class="btn btn-ghost" href="/assets">③ 进入素材选择</a>
+      <a id="btn-render" class="btn btn-ghost" href="#" aria-disabled="true"
+         title="渲染流水线接入中" onclick="return false;">④ 进入渲染 (soon)</a>
+    </div>
+  </form>
+</section>
+
+<section class="card output-card">
+  <div class="card-head">
+    <h2 class="card-title">输出 / 日志</h2>
+    <div class="card-sub" id="out-meta">空闲</div>
+  </div>
+  <div id="out-log" class="out-log" aria-live="polite">
+    点击 “生成文案” 开始。所有文件会写入 <code>topics/&lt;slug&gt;/brief/</code>，旁白会写入 <code>topics/&lt;slug&gt;/audio/</code>。
+  </div>
+  <div id="out-files" class="out-files"></div>
+</section>
+{% endblock %}
+
+{% block side %}
+  <div class="card stat-card">
+    <div class="stat-card-head">服务状态</div>
+    <ul class="stat-list">
+      <li>
+        <span class="stat-key">OpenAI</span>
+        {% if openai_env.configured %}
+          <span class="stat-val stat-green">on · {{ openai_env.key_tail }}</span>
+        {% else %}
+          <span class="stat-val stat-red">off</span>
+        {% endif %}
+      </li>
+      <li>
+        <span class="stat-key">Model</span>
+        <span class="stat-val">{{ openai_env.model }}</span>
+      </li>
+      <li>
+        <span class="stat-key">ElevenLabs</span>
+        {% if eleven_env.configured %}
+          <span class="stat-val stat-green">on</span>
+        {% else %}
+          <span class="stat-val stat-red">off</span>
+        {% endif %}
+      </li>
+      <li>
+        <span class="stat-key">Voice ID</span>
+        <span class="stat-val">{{ eleven_env.voice_id_tail or '—' }}</span>
+      </li>
+      <li>
+        <span class="stat-key">TTS Model</span>
+        <span class="stat-val">{{ eleven_env.model_id }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="card stat-card">
+    <div class="stat-card-head">已存在的 Topic</div>
+    {% if existing_topics %}
+      <ul class="recent-list">
+        {% for slug in existing_topics[:12] %}
+          <li class="recent-item">
+            <span class="recent-slug">{{ slug }}</span>
+            <button type="button" class="btn-link" data-pick="{{ slug }}">use</button>
+          </li>
+        {% endfor %}
+      </ul>
+      {% if existing_topics|length > 12 %}
+        <div class="recent-empty">… and {{ existing_topics|length - 12 }} more</div>
+      {% endif %}
+    {% else %}
+      <div class="recent-empty">还没有任何 topic 目录。</div>
+    {% endif %}
+  </div>
+
+  <div class="card suggest-card">
+    <div class="suggest-head">流程</div>
+    <div class="suggest-body">
+      ① 写入 <code>brief/narration_script.txt</code>、<code>brief/title.txt</code>、<code>brief/shot_prompts.json</code><br>
+      ② 写入 <code>audio/voice.mp3</code> + <code>audio/voice.wav</code><br>
+      ③ 在素材库挑 Envato / Pexels / Runway 片段<br>
+      ④ 进入渲染（接现有一键流水线）
+    </div>
+  </div>
+{% endblock %}
+
+{# ----- inline JS for the form ----- #}
+{% block scripts %}{% endblock %}
+
+<script>
+(function () {
+  const form    = document.getElementById('create-form');
+  const log     = document.getElementById('out-log');
+  const meta    = document.getElementById('out-meta');
+  const files   = document.getElementById('out-files');
+  const btnScr  = document.getElementById('btn-script');
+  const btnVox  = document.getElementById('btn-voice');
+  const btnAst  = document.getElementById('btn-assets');
+
+  function val(name) {
+    const el = form.elements.namedItem(name);
+    if (!el) return '';
+    if (el instanceof RadioNodeList) return el.value;
+    return (el.value || '').trim();
+  }
+
+  function setBusy(busy, hint) {
+    btnScr.disabled = busy;
+    if (busy) {
+      btnVox.dataset.prevDisabled = btnVox.disabled ? '1' : '';
+      btnVox.disabled = true;
+    } else if (btnVox.dataset.prevDisabled !== undefined) {
+      btnVox.disabled = btnVox.dataset.prevDisabled === '1';
+      delete btnVox.dataset.prevDisabled;
+    }
+    meta.textContent = busy ? (hint || '运行中…') : '空闲';
+  }
+
+  function appendLog(line, cls) {
+    const div = document.createElement('div');
+    div.className = 'log-line' + (cls ? ' log-' + cls : '');
+    div.textContent = line;
+    log.appendChild(div);
+    log.scrollTop = log.scrollHeight;
+  }
+
+  function clearLog() {
+    log.innerHTML = '';
+    files.innerHTML = '';
+  }
+
+  function renderFiles(items) {
+    files.innerHTML = '';
+    if (!items || !items.length) return;
+    const wrap = document.createElement('div');
+    wrap.className = 'file-list';
+    items.forEach(it => {
+      const row = document.createElement('div');
+      row.className = 'file-row';
+      const left = document.createElement('div');
+      left.className = 'file-name';
+      left.textContent = it.label;
+      const right = document.createElement('div');
+      right.className = 'file-path';
+      right.textContent = it.path + (it.extra ? ' · ' + it.extra : '');
+      row.appendChild(left);
+      row.appendChild(right);
+      wrap.appendChild(row);
+    });
+    files.appendChild(wrap);
+  }
+
+  function fmtMs(ms) {
+    if (!ms) return '';
+    if (ms < 1000) return ms + ' ms';
+    return (ms / 1000).toFixed(1) + ' s';
+  }
+
+  async function postJSON(url, body) {
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    let data;
+    try { data = await r.json(); } catch (_) { data = {}; }
+    return { ok: r.ok, status: r.status, data };
+  }
+
+  // --- ① Generate script ---
+  btnScr.addEventListener('click', async () => {
+    const topic = val('topic');
+    if (!topic) { appendLog('topic slug 不能为空', 'err'); return; }
+    clearLog();
+    appendLog('POST /api/create/script  topic=' + topic + '  ' +
+              'length=' + val('length') + '  language=' + val('language') +
+              '  style=' + val('style'));
+    setBusy(true, 'OpenAI 生成中…（30-90s）');
+    const t0 = performance.now();
+    const { ok, status, data } = await postJSON('/api/create/script', {
+      topic:    topic,
+      title:    val('title'),
+      length:   val('length'),
+      language: val('language'),
+      style:    val('style'),
+    });
+    setBusy(false);
+    const elapsed = Math.round(performance.now() - t0);
+    if (!ok || data.ok === false) {
+      appendLog('HTTP ' + status + ': ' + (data.error || 'unknown error'), 'err');
+      return;
+    }
+    appendLog('✓ 文案生成完成  (' + fmtMs(data.duration_ms) +
+              ', client ' + fmtMs(elapsed) + ')  model=' + data.model, 'ok');
+    if (data.archive_dir) {
+      appendLog('  旧文件已归档 → ' + data.archive_dir, 'info');
+    }
+    renderFiles([
+      { label: 'title.txt',           path: data.title_path,
+        extra: data.title_chars + ' 字' },
+      { label: 'narration_script.txt', path: data.narration_path,
+        extra: data.narration_chars + ' 字' },
+      { label: 'shot_prompts.json',    path: data.shot_prompts_path,
+        extra: data.shot_count + ' shots' },
+    ]);
+    btnAst.href = '/assets';
+  });
+
+  // --- ② Generate voice ---
+  btnVox.addEventListener('click', async () => {
+    const topic = val('topic');
+    if (!topic) { appendLog('topic slug 不能为空', 'err'); return; }
+    appendLog('POST /api/create/voice  topic=' + topic);
+    setBusy(true, 'ElevenLabs 渲染中…（按文本长度，可能 1-3 分钟）');
+    const t0 = performance.now();
+    const { ok, status, data } = await postJSON('/api/create/voice', {
+      topic: topic,
+    });
+    setBusy(false);
+    const elapsed = Math.round(performance.now() - t0);
+    if (!ok || data.ok === false) {
+      appendLog('HTTP ' + status + ': ' + (data.error || 'unknown error'), 'err');
+      return;
+    }
+    appendLog('✓ 旁白生成完成  (' + fmtMs(data.duration_ms) +
+              ', client ' + fmtMs(elapsed) + ')  chunks=' + data.chunks +
+              '  voice=' + (data.voice_id_tail || '?'), 'ok');
+    if (data.archive_dir) {
+      appendLog('  旧 voice.* 已归档 → ' + data.archive_dir, 'info');
+    }
+    renderFiles([
+      { label: 'voice.mp3', path: data.voice_mp3_path },
+      { label: 'voice.wav', path: data.voice_wav_path,
+        extra: data.duration_sec.toFixed(2) + 's · ' +
+               data.sample_rate + 'Hz · ' + data.channels + 'ch' },
+    ]);
+  });
+
+  // --- "use" buttons in side panel ---
+  document.querySelectorAll('[data-pick]').forEach(b => {
+    b.addEventListener('click', () => {
+      const slug = b.getAttribute('data-pick');
+      document.getElementById('f-topic').value = slug;
+      document.getElementById('f-topic').focus();
+    });
+  });
+})();
+</script>

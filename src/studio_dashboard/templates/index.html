@@ -1,0 +1,143 @@
+{% extends "_base.html" %}
+
+{% block title %}总览 · StateVerge Studio{% endblock %}
+{% block page_title %}总览{% endblock %}
+
+{% block page_sub %}
+  扫描了 <strong>{{ panel.total }}</strong> 个 topic ·
+  <span class="pill pill-green">{{ panel.ready }} 就绪</span>
+  <span class="pill pill-blue">{{ panel.need_mix + panel.need_package }} 待合成/包装</span>
+  <span class="pill pill-yellow">{{ panel.missing_assets }} 缺素材</span>
+  <span class="pill pill-red">{{ panel.missing_script + panel.missing_voice }} 缺旁白</span>
+{% endblock %}
+
+{% block topbar_actions %}
+  <button class="btn btn-ghost" onclick="window.location.reload()">↻ 刷新</button>
+  <a class="btn btn-primary" href="/api/topics" target="_blank">JSON</a>
+{% endblock %}
+
+{% block content %}
+  <!-- ===== 8 stage cards ===== -->
+  <section class="stages">
+    {% for s in stage_stats %}
+    <div class="stage-card stage-{{ s.color }}">
+      <div class="stage-card-head">
+        <span class="stage-num">{{ "%02d"|format(s.id) }}</span>
+        <span class="stage-name">{{ s.name }}</span>
+      </div>
+      <div class="stage-card-body">
+        <div class="stage-metric">
+          <span class="stage-num-big">{{ s.done }}</span>
+          <span class="stage-num-of">/ {{ panel.total }}</span>
+        </div>
+        <div class="stage-bar">
+          <div class="stage-bar-fill"
+               style="width: {% if panel.total %}{{ (s.done / panel.total * 100)|round(0, 'floor') }}{% else %}0{% endif %}%;">
+          </div>
+        </div>
+        <div class="stage-missing">缺 {{ s.missing }}</div>
+      </div>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section class="card tracking-overview-card">
+    <div class="card-head">
+      <h2 class="card-title">证据档案 · IRS / EB-1 · NIW</h2>
+      <div class="card-sub">研发与费用记录在 docs/tracking（浏览器预览与复制终端命令）</div>
+    </div>
+    <div class="tracking-overview-actions">
+      <a class="btn btn-primary" href="/tracking">打开证据档案</a>
+      <span class="pill pill-yellow">非税务 / 非移民法律建议</span>
+    </div>
+  </section>
+
+  <!-- ===== Topic table ===== -->
+  <section class="card">
+    <div class="card-head">
+      <h2 class="card-title">Topic 状态表</h2>
+      <div class="card-sub">按最近修改时间排序</div>
+    </div>
+    <div class="table-wrap">
+      <table class="topic-table">
+        <thead>
+          <tr>
+            <th class="col-topic">Topic</th>
+            <th class="col-cell">Script</th>
+            <th class="col-cell">Voice</th>
+            <th class="col-cell">Assets</th>
+            <th class="col-cell">Video</th>
+            <th class="col-cell">Envato</th>
+            <th class="col-cell">Final&nbsp;Mix</th>
+            <th class="col-cell">Final&nbsp;Packaged</th>
+            <th class="col-status">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in topics|sort(attribute='last_modified', reverse=true) %}
+          <tr>
+            <td class="col-topic">
+              <div class="topic-slug">{{ t.slug }}</div>
+              <div class="topic-meta">{% if t.script_chars %}{{ t.script_chars }} 字{% endif %}</div>
+            </td>
+            <td class="col-cell">{% if t.has_script %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+            <td class="col-cell">{% if t.has_voice %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+            <td class="col-cell">{% if t.has_manifest %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+            <td class="col-cell">{% if t.has_video_clips %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+            <td class="col-cell">{% if t.has_envato %}<span class="dot dot-green"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+            <td class="col-cell">{% if t.has_final_mix %}<span class="dot dot-green" title="{{ t.final_mix_path }}"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+            <td class="col-cell">{% if t.has_final_packaged %}<span class="dot dot-green" title="{{ t.final_packaged_path }}"></span>{% else %}<span class="dot dot-gray"></span>{% endif %}</td>
+            <td class="col-status">
+              {% set color = status_colors.get(t.status, 'gray') %}
+              <span class="badge badge-{{ color }}">{{ t.status }}</span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+{% endblock %}
+
+{% block side %}
+  <div class="card suggest-card">
+    <div class="suggest-head">入口</div>
+    <div class="suggest-body">
+      左侧导航已收紧为 NYC · 发布监控 / 工具箱；本页为 topic 总览。
+      创作 / 素材 / Shorts 等请从 <a class="link-accent" href="/tools">工具箱</a> 打开。
+    </div>
+  </div>
+
+  <div class="card stat-card">
+    <div class="stat-card-head">任务状态</div>
+    <ul class="stat-list">
+      <li><span class="stat-key">可发布</span> <span class="stat-val stat-green">{{ panel.ready }}</span></li>
+      <li><span class="stat-key">缺旁白脚本</span> <span class="stat-val stat-red">{{ panel.missing_script }}</span></li>
+      <li><span class="stat-key">缺旁白音频</span> <span class="stat-val stat-red">{{ panel.missing_voice }}</span></li>
+      <li><span class="stat-key">缺素材</span> <span class="stat-val stat-yellow">{{ panel.missing_assets }}</span></li>
+      <li><span class="stat-key">需要合成</span> <span class="stat-val stat-blue">{{ panel.need_mix }}</span></li>
+      <li><span class="stat-key">需要包装</span> <span class="stat-val stat-blue">{{ panel.need_package }}</span></li>
+    </ul>
+  </div>
+
+  <div class="card suggest-card">
+    <div class="suggest-head">下一步建议</div>
+    <div class="suggest-body">{{ suggestion }}</div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h3 class="card-title">最近修改</h3>
+    </div>
+    <ul class="recent-list">
+      {% for r in recent %}
+      <li class="recent-item">
+        <span class="recent-slug">{{ r.slug }}</span>
+        {% set color = status_colors.get(r.status, 'gray') %}
+        <span class="badge badge-{{ color }} badge-sm">{{ r.status }}</span>
+      </li>
+      {% endfor %}
+      {% if not recent %}<li class="recent-empty">（无）</li>{% endif %}
+    </ul>
+  </div>
+{% endblock %}

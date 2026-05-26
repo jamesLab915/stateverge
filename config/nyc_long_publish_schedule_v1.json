@@ -1,0 +1,17 @@
+{
+  "version": "nyc_long_publish_schedule_v1",
+  "daily_1h_enabled": true,
+  "every_n_days_3h": 3,
+  "target_duration_sec": { "standard": 3600, "extended": 10800 },
+  "music_roots_priority": [
+    "/Volumes/SV_CACHE/inbox/suno",
+    "/Volumes/SV_TRANSFER/04_AUDIO/music/stateverge_suno",
+    "/Volumes/SV_CACHE/inbox/souno",
+    "/Volumes/SV_TRANSFER/04_AUDIO/music/nyc_long"
+  ],
+  "music_priority": "suno_first",
+  "suno_categories_config": "config/stateverge_suno_music_categories_v1.json",
+  "ambient_volume_db": -24,
+  "music_volume_relative": 0.5,
+  "audio_mode_default": "music_first_low_ambient"
+}

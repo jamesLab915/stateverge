@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}StateVerge Studio{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="app">
+    <!-- ===== Left nav (shared) ===== -->
+    <aside class="nav">
+      <a href="/" class="nav-brand nav-brand-link" title="Topic 流水线总览">
+        <div class="nav-brand-mark">SV</div>
+        <div class="nav-brand-text">
+          <div class="nav-brand-title">StateVerge</div>
+          <div class="nav-brand-sub">Studio</div>
+        </div>
+      </a>
+      <nav class="nav-list">
+        {% for item in nav %}
+          {% if item.url %}
+            <a class="nav-item {% if item.active %}is-active{% endif %}" href="{{ item.url }}">
+              <span class="nav-dot"></span>
+              <span>{{ item.name }}</span>
+            </a>
+          {% else %}
+            <span class="nav-item nav-item-disabled" title="占位 / 未实装">
+              <span class="nav-dot"></span>
+              <span>{{ item.name }}</span>
+              <span class="nav-soon">soon</span>
+            </span>
+          {% endif %}
+        {% endfor %}
+      </nav>
+      <div class="nav-foot">
+        <div class="nav-foot-label">repo</div>
+        <div class="nav-foot-path" title="{{ repo_root }}">{{ repo_root }}</div>
+      </div>
+    </aside>
+
+    <!-- ===== Main column ===== -->
+    <main class="main">
+      <header class="topbar">
+        <div>
+          <h1 class="topbar-title">{% block page_title %}{% endblock %}</h1>
+          <div class="topbar-sub">{% block page_sub %}{% endblock %}</div>
+        </div>
+        <div class="topbar-actions">
+          {% block topbar_actions %}
+            <button class="btn btn-ghost" onclick="window.location.reload()">↻ 刷新</button>
+          {% endblock %}
+        </div>
+      </header>
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- ===== Right side panel (page-defined) ===== -->
+    <aside class="side">
+      {% block side %}{% endblock %}
+    </aside>
+  </div>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

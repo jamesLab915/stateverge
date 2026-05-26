@@ -1,0 +1,568 @@
+{% extends "_base.html" %}
+
+{% block title %}小红书工坊 · StateVerge Studio{% endblock %}
+{% block page_title %}小红书工坊{% endblock %}
+
+{% block page_sub %}
+  共 <strong>{{ note_count }}</strong> 个笔记包 ·
+  <span class="pill pill-blue">抓取 + 文案 + 1 分钟旁白 + 6 个 10s Runway 提示词 + 拼接 + 中文配音</span>
+  {% if openai_env.has_key %}
+    <span class="pill pill-green">OpenAI 已就绪</span>
+  {% else %}
+    <span class="pill pill-yellow">未检测到 OPENAI_API_KEY · 旁白将走离线模板</span>
+  {% endif %}
+  {% if eleven_env.configured %}
+    <span class="pill pill-green">ElevenLabs 已就绪 · voice {{ eleven_env.voice_id_tail }}</span>
+  {% else %}
+    <span class="pill pill-yellow">未检测到 ElevenLabs voice_id · 配音功能将不可用</span>
+  {% endif %}
+{% endblock %}
+
+{% block topbar_actions %}
+  <button class="btn btn-ghost" onclick="window.location.reload()">↻ 刷新</button>
+  <a class="btn btn-primary" href="/api/xhs/notes" target="_blank">JSON</a>
+{% endblock %}
+
+{% block content %}
+  <!-- ===== Input row ===== -->
+  <section class="card">
+    <div class="card-head">
+      <h2 class="card-title">一键完成</h2>
+      <div class="card-sub">
+        粘贴小红书分享链接（支持完整分享卡文本，自动提取 URL）。
+        默认抓完立即生成 1 分钟中文旁白 + 6 个 10s Runway prompts。
+      </div>
+    </div>
+    <div class="xhs-input-row">
+      <textarea id="xhs-urls" class="xhs-input"
+        rows="3"
+        placeholder="贴一条或多条 https://www.xiaohongshu.com/discovery/item/... 或者整段分享卡文字"></textarea>
+      <div class="xhs-input-side">
+        <label class="xhs-check">
+          <input type="checkbox" id="xhs-storyboard" checked>
+          抓完自动出 storyboard
+        </label>
+        <label class="xhs-check">
+          <input type="checkbox" id="xhs-force">
+          已存在则强制重生成
+        </label>
+        <button id="xhs-run-btn" class="btn btn-primary">
+          一键完成
+        </button>
+        <div id="xhs-run-status" class="xhs-status"></div>
+      </div>
+    </div>
+
+    <pre id="xhs-log" class="xhs-log" hidden></pre>
+  </section>
+
+  <!-- ===== Note gallery ===== -->
+  <section class="card">
+    <div class="card-head">
+      <h2 class="card-title">已生成的笔记包</h2>
+      <div class="card-sub">每张卡 = 一个独立文件夹 <code>{{ xhs_root }}/&lt;note_id&gt;/</code></div>
+    </div>
+
+    {% if not notes %}
+      <div class="empty-body" style="padding: 18px">
+        （还没有抓过任何笔记。粘贴一条小红书链接试试）
+      </div>
+    {% else %}
+      <div class="xhs-gallery">
+        {% for n in notes %}
+        <div class="xhs-card" id="xhs-card-{{ n.note_id }}">
+          <div class="xhs-card-head">
+            <div class="xhs-card-title" title="{{ n.title }}">{{ n.title }}</div>
+            <div class="xhs-card-meta">
+              <span class="badge badge-gray badge-sm">{{ n.image_count }} 图</span>
+              {% if n.video_count %}
+                <span class="badge badge-blue badge-sm">{{ n.video_count }} 视频</span>
+              {% endif %}
+              {% if n.has_narration %}
+                <span class="badge badge-green badge-sm">{{ n.narration_chars }} 字旁白</span>
+              {% else %}
+                <span class="badge badge-yellow badge-sm">未生成旁白</span>
+              {% endif %}
+              {% if n.scene_count %}
+                <span class="badge badge-green badge-sm">{{ n.scene_count }} × 10s prompts</span>
+              {% endif %}
+              <span class="xhs-card-time">{{ n.age_str }}</span>
+            </div>
+          </div>
+
+          {% if n.thumbnails %}
+          <div class="xhs-thumbs">
+            {% for t in n.thumbnails %}
+              {% set parts = t.split('/') %}
+              <img src="/xhs-asset/{{ n.note_id }}/{{ parts[-1] }}" alt="" loading="lazy">
+            {% endfor %}
+          </div>
+          {% endif %}
+
+          {% if n.desc_preview %}
+            <div class="xhs-card-desc">{{ n.desc_preview }}</div>
+          {% endif %}
+          {% if n.narration_preview %}
+            <div class="xhs-card-narration">
+              <span class="xhs-card-label">旁白预览</span>
+              {{ n.narration_preview }}{% if n.narration_chars > 140 %}…{% endif %}
+            </div>
+          {% endif %}
+
+          <div class="xhs-card-foot">
+            <code class="xhs-folder">{{ n.folder }}</code>
+            <div class="xhs-card-actions">
+              {% if n.has_storyboard %}
+                <a class="btn btn-ghost btn-xs"
+                   href="/xhs-asset/{{ n.note_id }}/storyboard.md" target="_blank">storyboard.md</a>
+              {% endif %}
+              {% if n.has_runway %}
+                <a class="btn btn-ghost btn-xs"
+                   href="/xhs-asset/{{ n.note_id }}/runway_prompts.json" target="_blank">runway.json</a>
+              {% endif %}
+              {% if n.has_narration %}
+                <a class="btn btn-ghost btn-xs"
+                   href="/xhs-asset/{{ n.note_id }}/narration_zh.txt" target="_blank">旁白</a>
+              {% endif %}
+              {% if n.src_url %}
+                <a class="btn btn-ghost btn-xs"
+                   href="{{ n.src_url }}" target="_blank">原帖↗</a>
+              {% endif %}
+              {% if n.has_runway %}
+                <button type="button" class="btn btn-primary btn-xs xhs-stitch-toggle"
+                        data-note-id="{{ n.note_id }}">📦 视频拼接</button>
+              {% endif %}
+            </div>
+          </div>
+
+          {% if n.has_runway %}
+          <div class="xhs-stitch-panel" id="xhs-stitch-{{ n.note_id }}" hidden>
+            <div class="xhs-stitch-row">
+              <label class="xhs-stitch-label">Runway 视频文件夹</label>
+              <input type="text" class="xhs-stitch-folder"
+                     placeholder="留空 = assets/xhs/{{ n.note_id }}/runway_clips/  ·  也可粘贴绝对路径"
+                     data-note-id="{{ n.note_id }}">
+              <button type="button" class="btn btn-ghost btn-xs xhs-stitch-scan"
+                      data-note-id="{{ n.note_id }}">扫描</button>
+            </div>
+            <div class="xhs-stitch-status" data-note-id="{{ n.note_id }}"></div>
+            <div class="xhs-stitch-slots" data-note-id="{{ n.note_id }}"></div>
+            <div class="xhs-stitch-actions" hidden>
+              <input type="text" class="xhs-stitch-output"
+                     value="stitched_60s.mp4" data-note-id="{{ n.note_id }}">
+              <label class="xhs-check xhs-voice-check"
+                     {% if not eleven_env.configured %}title="未检测到 ELEVENLABS_VOICE_ID"{% endif %}>
+                <input type="checkbox" class="xhs-stitch-with-voice"
+                       data-note-id="{{ n.note_id }}"
+                       {% if eleven_env.configured %}checked{% endif %}
+                       {% if not eleven_env.configured %}disabled{% endif %}>
+                配中文旁白 · ElevenLabs {{ eleven_env.voice_id_tail }}
+              </label>
+              <button type="button" class="btn btn-primary btn-xs xhs-stitch-go"
+                      data-note-id="{{ n.note_id }}">拼接 → 60s 成片</button>
+            </div>
+            <div class="xhs-stitch-result" data-note-id="{{ n.note_id }}"></div>
+          </div>
+          {% endif %}
+        </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </section>
+{% endblock %}
+
+{% block side %}
+  <div class="card">
+    <div class="card-head">
+      <h3 class="card-title">使用提示</h3>
+    </div>
+    <ul class="xhs-tips">
+      <li>第一次使用前请在终端执行
+        <code>./.venv/bin/python scripts/xhs_grab.py --login</code>
+        登录小红书账号一次即可（session 会保存）。</li>
+      <li>支持一次粘贴多条链接，会按顺序逐条抓。</li>
+      <li>每条结果独立放在
+        <code>{{ xhs_root }}/&lt;note_id&gt;/</code>
+        文件夹下：图片 + caption.txt + narration_zh.txt + runway_prompts.json + storyboard.md。</li>
+      <li>如果旁白不满意，可以在终端单独重跑：
+        <code>./.venv/bin/python scripts/xhs_storyboard.py {{ xhs_root }}/&lt;note_id&gt; --force</code></li>
+    </ul>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+  const $ = (id) => document.getElementById(id);
+  const runBtn = $("xhs-run-btn");
+  const urlsEl = $("xhs-urls");
+  const sbEl = $("xhs-storyboard");
+  const forceEl = $("xhs-force");
+  const statusEl = $("xhs-run-status");
+  const logEl = $("xhs-log");
+
+  let pollTimer = null;
+  let currentJobId = null;
+
+  function setStatus(text, kind) {
+    statusEl.textContent = text || "";
+    statusEl.className = "xhs-status" + (kind ? " xhs-status-" + kind : "");
+  }
+
+  function showLog(lines) {
+    logEl.hidden = false;
+    logEl.textContent = (lines || []).join("\n");
+    logEl.scrollTop = logEl.scrollHeight;
+  }
+
+  async function pollJob(jobId) {
+    try {
+      const r = await fetch("/api/xhs/jobs/" + jobId);
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const data = await r.json();
+      const job = data.job;
+      showLog(job.log);
+      const elapsed = Math.round(job.elapsed_sec || 0);
+      if (job.status === "running" || job.status === "queued") {
+        setStatus(
+          "运行中 · " + elapsed + "s · 已识别 " + (job.note_ids.length || 0) + " 条笔记",
+          "running"
+        );
+      } else if (job.status === "ok") {
+        setStatus(
+          "完成 · " + elapsed + "s · " + (job.note_ids.length || 0) + " 条笔记",
+          "ok"
+        );
+        clearInterval(pollTimer);
+        pollTimer = null;
+        runBtn.disabled = false;
+        // Refresh the gallery so the new card appears.
+        setTimeout(() => window.location.reload(), 800);
+      } else if (job.status === "failed") {
+        setStatus("失败 · " + (job.error || "exit " + job.exit_code), "fail");
+        clearInterval(pollTimer);
+        pollTimer = null;
+        runBtn.disabled = false;
+      }
+    } catch (e) {
+      setStatus("轮询失败：" + e.message, "fail");
+      clearInterval(pollTimer);
+      pollTimer = null;
+      runBtn.disabled = false;
+    }
+  }
+
+  runBtn.addEventListener("click", async () => {
+    const text = urlsEl.value.trim();
+    if (!text) {
+      setStatus("请先粘贴小红书链接", "fail");
+      return;
+    }
+    runBtn.disabled = true;
+    setStatus("提交中…", "running");
+    logEl.hidden = true;
+    try {
+      const r = await fetch("/api/xhs/run", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text: text,
+          storyboard: sbEl.checked,
+          force_storyboard: forceEl.checked,
+        }),
+      });
+      const data = await r.json();
+      if (!r.ok || !data.ok) {
+        setStatus("提交失败：" + (data.error || ("HTTP " + r.status)), "fail");
+        runBtn.disabled = false;
+        return;
+      }
+      currentJobId = data.job.job_id;
+      setStatus(
+        "已起任务 " + currentJobId + " · 准备运行 " + (data.job.urls.length || 0) + " 条…",
+        "running"
+      );
+      showLog(data.job.log);
+      if (pollTimer) clearInterval(pollTimer);
+      pollTimer = setInterval(() => pollJob(currentJobId), 1500);
+      pollJob(currentJobId);
+    } catch (e) {
+      setStatus("请求失败：" + e.message, "fail");
+      runBtn.disabled = false;
+    }
+  });
+
+  // ---------------------- Stitcher per-card panel ----------------------
+  const _scenesByNote = new Map();   // noteId -> [{index,prompt,image_ref}]
+  const _clipsByNote  = new Map();   // noteId -> [{name,path,duration_sec,thumb_url,...}]
+
+  function $$ (sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+  function byNote(sel, noteId) {
+    return document.querySelector(sel + '[data-note-id="' + noteId + '"]');
+  }
+
+  function setStitchStatus(noteId, msg, kind) {
+    const el = byNote('.xhs-stitch-status', noteId);
+    if (!el) return;
+    el.textContent = msg || '';
+    el.className = 'xhs-stitch-status' + (kind ? ' xhs-status-' + kind : '');
+  }
+
+  // Pick the best clip for a given scene index given a list of clip filenames.
+  // Match precedence:
+  //   1) filename contains "scene_<i>" / "scene<i>"
+  //   2) the i-th number in the filename equals scene index
+  //   3) natural sort order falls into position i
+  function autoMatchClip(clips, sceneIndex, used) {
+    const wanted = String(sceneIndex);
+    // strict patterns first
+    const patStrict = new RegExp("(?:^|[^0-9])scene[_-]?" + wanted + "(?![0-9])", "i");
+    for (const c of clips) {
+      if (used.has(c.path)) continue;
+      if (patStrict.test(c.name)) return c;
+    }
+    // any number == sceneIndex
+    for (const c of clips) {
+      if (used.has(c.path)) continue;
+      const nums = (c.name.match(/\d+/g) || []).map(Number);
+      if (nums.includes(sceneIndex)) return c;
+    }
+    // positional fallback (natural sort already applied server-side)
+    const pos = clips[sceneIndex - 1];
+    if (pos && !used.has(pos.path)) return pos;
+    return null;
+  }
+
+  function renderSlots(noteId) {
+    const scenes = _scenesByNote.get(noteId) || [];
+    const clips  = _clipsByNote.get(noteId)  || [];
+    const slotsEl = byNote('.xhs-stitch-slots', noteId);
+    const actionsEl = slotsEl.parentElement.querySelector('.xhs-stitch-actions');
+    if (!scenes.length) {
+      slotsEl.innerHTML = '<div class="xhs-empty-mini">没找到 runway_prompts.json 里的 scenes</div>';
+      actionsEl.hidden = true;
+      return;
+    }
+    if (!clips.length) {
+      slotsEl.innerHTML = '<div class="xhs-empty-mini">该文件夹下没有视频文件（mp4 / mov / m4v / webm）</div>';
+      actionsEl.hidden = true;
+      return;
+    }
+    const used = new Set();
+    const html = scenes.map(sc => {
+      const matched = autoMatchClip(clips, sc.index, used);
+      if (matched) used.add(matched.path);
+      const opts = ['<option value="">— 不使用 —</option>'].concat(
+        clips.map(c => {
+          const sel = (matched && c.path === matched.path) ? ' selected' : '';
+          const label = c.name + ' · ' + (c.duration_sec || 0).toFixed(1) + 's · '
+                      + c.width + 'x' + c.height + ' · ' + c.codec;
+          return '<option value="' + encodeURI(c.path) + '"' + sel + '>' + label + '</option>';
+        })
+      ).join('');
+      const thumb = matched && matched.thumb_url
+        ? '<img class="xhs-slot-thumb" src="' + matched.thumb_url + '" alt="">'
+        : '<div class="xhs-slot-thumb xhs-slot-thumb-empty">无预览</div>';
+      const promptShort = (sc.prompt || '').slice(0, 110);
+      return '<div class="xhs-slot" data-scene="' + sc.index + '">'
+           +   '<div class="xhs-slot-head">Scene ' + sc.index
+           +     ' · 10s · <code>' + (sc.image_ref || '') + '</code></div>'
+           +   '<div class="xhs-slot-prompt">' + promptShort + (sc.prompt && sc.prompt.length > 110 ? '…' : '') + '</div>'
+           +   '<div class="xhs-slot-pick">'
+           +     thumb
+           +     '<select class="xhs-slot-select">' + opts + '</select>'
+           +   '</div>'
+           + '</div>';
+    }).join('');
+    slotsEl.innerHTML = html;
+    actionsEl.hidden = false;
+
+    // Update thumbs when user changes selection
+    $$('.xhs-slot-select', slotsEl).forEach(sel => {
+      sel.addEventListener('change', () => {
+        const slot = sel.closest('.xhs-slot');
+        const url = sel.value ? decodeURI(sel.value) : '';
+        const clip = clips.find(c => c.path === url);
+        const thumbEl = slot.querySelector('.xhs-slot-thumb');
+        if (clip && clip.thumb_url) {
+          thumbEl.outerHTML = '<img class="xhs-slot-thumb" src="' + clip.thumb_url + '" alt="">';
+        } else {
+          thumbEl.outerHTML = '<div class="xhs-slot-thumb xhs-slot-thumb-empty">无预览</div>';
+        }
+      });
+    });
+  }
+
+  async function ensureScenes(noteId) {
+    if (_scenesByNote.has(noteId)) return _scenesByNote.get(noteId);
+    const r = await fetch('/api/xhs/notes/' + noteId);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    const scenes = (data.note && data.note.runway && data.note.runway.scenes) || [];
+    _scenesByNote.set(noteId, scenes);
+    return scenes;
+  }
+
+  async function scanClips(noteId, folder) {
+    const url = '/api/xhs/notes/' + noteId + '/clips'
+              + (folder ? ('?folder=' + encodeURIComponent(folder)) : '');
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    _clipsByNote.set(noteId, data.clips || []);
+    return data;
+  }
+
+  // Toggle panel
+  $$('.xhs-stitch-toggle').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const noteId = btn.dataset.noteId;
+      const panel = document.getElementById('xhs-stitch-' + noteId);
+      if (!panel) return;
+      const wasOpen = !panel.hidden;
+      panel.hidden = wasOpen;
+      if (wasOpen) return;
+      // First open: load scenes + auto-scan default folder
+      try {
+        await ensureScenes(noteId);
+        setStitchStatus(noteId, '扫描默认文件夹…', 'running');
+        const folderInput = byNote('.xhs-stitch-folder', noteId);
+        const data = await scanClips(noteId, folderInput.value.trim());
+        if (!data.folder_exists) {
+          setStitchStatus(noteId,
+            '文件夹不存在：' + data.folder + '  · 把生成好的视频放进去再点扫描', 'fail');
+        } else {
+          setStitchStatus(noteId,
+            '已扫描：' + data.folder + '  · 找到 ' + data.clip_count + ' 个视频', 'ok');
+        }
+        renderSlots(noteId);
+      } catch (e) {
+        setStitchStatus(noteId, '加载失败：' + e.message, 'fail');
+      }
+    });
+  });
+
+  // Manual rescan
+  $$('.xhs-stitch-scan').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const noteId = btn.dataset.noteId;
+      const folderInput = byNote('.xhs-stitch-folder', noteId);
+      try {
+        await ensureScenes(noteId);
+        setStitchStatus(noteId, '扫描中…', 'running');
+        const data = await scanClips(noteId, folderInput.value.trim());
+        setStitchStatus(noteId,
+          (data.folder_exists ? '已扫描：' : '不存在：')
+          + data.folder + '  · 找到 ' + data.clip_count + ' 个视频',
+          data.folder_exists ? 'ok' : 'fail');
+        renderSlots(noteId);
+      } catch (e) {
+        setStitchStatus(noteId, '扫描失败：' + e.message, 'fail');
+      }
+    });
+  });
+
+  function renderResult(noteId, videoUrl, captionParts) {
+    const resultEl = byNote('.xhs-stitch-result', noteId);
+    resultEl.innerHTML =
+        '<video class="xhs-result-video" src="' + videoUrl + '" controls preload="metadata"></video>'
+      + '<div class="xhs-result-foot">'
+      +   '<a class="btn btn-ghost btn-xs" href="' + videoUrl + '" target="_blank">下载/全屏</a>'
+      +   captionParts.map(p => '<code class="xhs-folder">' + p + '</code>').join('')
+      + '</div>';
+  }
+
+  async function chainVoiceMux(noteId, stitchedName) {
+    setStitchStatus(noteId,
+      '调用 ElevenLabs TTS 中文旁白 + 合成成片… 通常 10-30 秒',
+      'running');
+    try {
+      const r = await fetch('/api/xhs/notes/' + noteId + '/voice', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ mux_into: stitchedName }),
+      });
+      const data = await r.json();
+      if (!r.ok || !data.ok) {
+        setStitchStatus(noteId,
+          '配音失败：' + (data.error || data.detail || ('HTTP ' + r.status))
+          + ' · 静音版本仍然可用',
+          'fail');
+        const resultEl = byNote('.xhs-stitch-result', noteId);
+        if (data.log_tail && data.log_tail.length) {
+          const pre = document.createElement('pre');
+          pre.className = 'xhs-log';
+          pre.textContent = data.log_tail.join('\n');
+          resultEl.appendChild(pre);
+        }
+        return;
+      }
+      setStitchStatus(noteId,
+        '配音完成 · TTS ' + (data.voice_duration_sec || 0).toFixed(1) + 's '
+        + '(voice ' + (data.voice_id_tail || '?') + ') · 成片 ' + data.muxed_video_rel,
+        'ok');
+      renderResult(noteId, data.muxed_video_url, [
+        data.muxed_video_rel,
+        '🎙️ ' + data.voice_mp3_rel,
+      ]);
+    } catch (e) {
+      setStitchStatus(noteId, '配音请求失败：' + e.message, 'fail');
+    }
+  }
+
+  // Stitch (+ optional chained voice/mux)
+  $$('.xhs-stitch-go').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const noteId = btn.dataset.noteId;
+      const panel = document.getElementById('xhs-stitch-' + noteId);
+      const selects = $$('.xhs-slot-select', panel);
+      const clips = selects.map(s => s.value ? decodeURI(s.value) : '').filter(Boolean);
+      if (!clips.length) {
+        setStitchStatus(noteId, '至少需要选择一段视频', 'fail');
+        return;
+      }
+      const outputName = (byNote('.xhs-stitch-output', noteId).value || 'stitched_60s.mp4').trim();
+      const withVoiceEl = byNote('.xhs-stitch-with-voice', noteId);
+      const withVoice = !!(withVoiceEl && withVoiceEl.checked && !withVoiceEl.disabled);
+      btn.disabled = true;
+      setStitchStatus(noteId,
+        '拼接中（' + clips.length + ' 段）… 一致格式秒级完成；不一致会重编码（约 0.5-2 分钟）',
+        'running');
+      const resultEl = byNote('.xhs-stitch-result', noteId);
+      resultEl.innerHTML = '';
+      try {
+        const r = await fetch('/api/xhs/notes/' + noteId + '/stitch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clips: clips, output_name: outputName }),
+        });
+        const data = await r.json();
+        if (!r.ok || !data.ok) {
+          setStitchStatus(noteId,
+            '失败：' + (data.error || data.detail || ('HTTP ' + r.status)),
+            'fail');
+          if (data.log_tail && data.log_tail.length) {
+            resultEl.innerHTML = '<pre class="xhs-log">' + data.log_tail.join('\n') + '</pre>';
+          }
+          btn.disabled = false;
+          return;
+        }
+        // Show silent stitched first; we'll swap to muxed after voice step.
+        setStitchStatus(noteId,
+          '拼接完成 · ' + data.method + ' · ' + (data.duration_sec || 0).toFixed(1) + 's · ' + data.output_rel,
+          'ok');
+        renderResult(noteId, data.asset_url, [data.output_rel]);
+
+        if (withVoice) {
+          await chainVoiceMux(noteId, outputName);
+        }
+        btn.disabled = false;
+      } catch (e) {
+        setStitchStatus(noteId, '请求失败：' + e.message, 'fail');
+        btn.disabled = false;
+      }
+    });
+  });
+})();
+</script>
+{% endblock %}

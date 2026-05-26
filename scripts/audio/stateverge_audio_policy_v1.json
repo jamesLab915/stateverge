@@ -1,0 +1,49 @@
+{
+  "version": "stateverge_audio_policy_v1",
+  "music_fade_required": true,
+  "music_fade_defaults": {
+    "fade_in_sec": 2.0,
+    "fade_out_sec": 3.0,
+    "shorts_fade_in_sec": 0.8,
+    "shorts_fade_out_sec": 1.2,
+    "failopen_fade_sec": 2.0
+  },
+  "presets": {
+    "nyc_preserve_raw_v1": {
+      "description": "Preserve real NYC ambience with minimal processing",
+      "audio_filter": "loudnorm=I=-19:LRA=12:TP=-2",
+      "target_usage": [
+        "ferry",
+        "rain",
+        "quiet skyline",
+        "authentic ambience"
+      ],
+      "aggressive_denoise": false,
+      "music_first": false
+    },
+    "nyc_calm_ambient_v1": {
+      "description": "Main NYC calm long-form ambience preset",
+      "audio_filter": "volume=0.65,loudnorm=I=-18:LRA=11:TP=-2",
+      "target_usage": [
+        "driving",
+        "long background playback",
+        "ambient NYC"
+      ],
+      "aggressive_denoise": false,
+      "music_first": false
+    },
+    "nyc_cinematic_short_v1": {
+      "description": "Shorts cinematic emotional preset",
+      "audio_filter": "volume=0.55,loudnorm=I=-16:LRA=9:TP=-1.5",
+      "target_usage": [
+        "shorts",
+        "sunset",
+        "bridge",
+        "timelapse",
+        "music-first"
+      ],
+      "aggressive_denoise": false,
+      "music_first": true
+    }
+  }
+}

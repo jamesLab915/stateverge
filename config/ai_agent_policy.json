@@ -1,0 +1,31 @@
+{
+  "version": "controlled_openai_agent_intelligence_v1",
+  "enabled": true,
+  "default_model": "gpt-5.5-mini",
+  "fallback_model": "gpt-4o-mini",
+  "max_requests_per_day": 200,
+  "max_requests_per_task_per_day": 50,
+  "max_input_chars_per_request": 20000,
+  "max_output_chars": 1200,
+  "cache_enabled": true,
+  "log_prompts": false,
+  "log_prompt_summary": true,
+  "allow_image_analysis": false,
+  "allow_video_frame_analysis": false,
+  "allowed_tasks": [
+    "metadata_generation",
+    "shorts_highlight_scoring",
+    "long_video_story_analysis",
+    "ops_report_summary",
+    "upgrade_proposal",
+    "title_ab_test",
+    "asset_classification_summary"
+  ],
+  "blocked_tasks": [
+    "credential_processing",
+    "public_upload_decision",
+    "delete_decision",
+    "bypass_guard_decision",
+    "token_analysis"
+  ]
+}
