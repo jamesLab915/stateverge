@@ -19,7 +19,7 @@ SHORTS_LABEL = "com.stateverge.shorts.autopublish"
 NYC_LABEL = "com.stateverge.nyc.autopublish"
 LEGACY_YOUTUBE_LABEL = "com.stateverge.youtube.publish"
 
-SHORTS_EXPECT_SCHEDULE = {(9, 30), (13, 30), (17, 30), (21, 30)}
+SHORTS_EXPECT_SCHEDULE = {(18, 0), (21, 0), (0, 0), (2, 0), (4, 0), (5, 0)}
 NYC_EXPECT_SCHEDULE = {(10, 0), (16, 0)}
 
 LEGACY_AUTOMATION_NEEDLE = "/Volumes/StateVerge/07_AUTOMATION"

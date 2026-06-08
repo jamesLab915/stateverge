@@ -159,7 +159,32 @@ def build_preset(
     return cfg
 
 
+def _filter_chain_wind(cfg: dict[str, Any], *, with_nr: bool, with_loudnorm: bool) -> str:
+    """Outdoor / waterfront wind: cut rumble + hiss, mild broadband NR."""
+    gain = float(cfg["original_audio_gain"])
+    tp = float(cfg["peak_limit_db"])
+    t_lufs = float(cfg["target_lufs"])
+    parts: list[str] = [
+        "highpass=f=100",
+        "equalizer=f=250:width_type=h:width=180:g=-3.5",
+        "equalizer=f=600:width_type=h:width=400:g=-2",
+        (
+            "firequalizer="
+            "gain_entry='entry(3500, -2);entry(6000, -3);entry(9000, -4);entry(12000, -4)'"
+        ),
+    ]
+    if with_nr:
+        nr = int(cfg.get("afftdn_nr", 10))
+        parts.append(f"afftdn=nf=-28:nr={nr}:tn=1")
+    parts.append(f"volume={gain}")
+    if with_loudnorm:
+        parts.append(f"loudnorm=I={t_lufs}:LRA=11:TP={tp}")
+    return ",".join(parts)
+
+
 def _filter_chain_simple(cfg: dict[str, Any], *, with_nr: bool, with_loudnorm: bool) -> str:
+    if cfg.get("wind_cleanup"):
+        return _filter_chain_wind(cfg, with_nr=with_nr, with_loudnorm=with_loudnorm)
     hp = int(cfg["highpass_hz"])
     lp = int(cfg["lowpass_hz"])
     gain = float(cfg["original_audio_gain"])
@@ -763,6 +788,11 @@ def main() -> int:
     ap.add_argument("--no-afftdn", action="store_true", help="Disable afftdn noise reduction (default on).")
     ap.add_argument("--no-loudnorm", action="store_true", help="Disable loudnorm (default on).")
     ap.add_argument(
+        "--wind",
+        action="store_true",
+        help="Wind-noise preset: HP 100 Hz, rumble/hiss EQ, mild afftdn (outdoor/iPhone).",
+    )
+    ap.add_argument(
         "--preserve-ambient-audio",
         action="store_true",
         help="Compatibility flag (pipeline always preserves ambient by processing original track).",
@@ -858,6 +888,10 @@ def main() -> int:
         DEFAULT_CONFIG["apply_noise_reduction"] = False
     if bool(args.no_loudnorm):
         DEFAULT_CONFIG["apply_loudnorm"] = False
+    if bool(args.wind):
+        DEFAULT_CONFIG["wind_cleanup"] = True
+        DEFAULT_CONFIG["afftdn_nr"] = 10
+        DEFAULT_CONFIG["original_audio_gain"] = 0.72
 
     rep = run_cleanup(
         inp,

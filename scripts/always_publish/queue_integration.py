@@ -206,21 +206,25 @@ def run_long_upload_from_delivery_queue(args: Any, *, warnings: list[str], error
 
 
 def run_shorts_upload_from_delivery_queue(args: Any) -> int | None:
-    """Shorts runner: delivery_queue only when stabilization v1 active."""
+    """Shorts runner: upload from delivery_queue when ready; else fall through to cut+upload worker."""
     if not delivery_queue_upload_only():
         return None
     manifest = next_delivery_manifest_for_kind("shorts")
     if manifest is None:
-        print_blocked(
-            {
-                "status": "blocked",
-                "block_reason": "no_delivery_queue_shorts_ready",
-                "video_type": "short",
-                "channel": "SHORTS",
-                "delivery_queue_upload_only": True,
-            }
+        print(
+            json.dumps(
+                {
+                    "delivery_queue_shorts_empty": True,
+                    "fallback": "shorts_cut_upload_worker",
+                    "note": "No upload-ready manifest in publish_pack/delivery_queue/shorts; "
+                    "running highlight-pool worker (STATEVERGE_SHORTS_MATERIALS_DIR portrait videos).",
+                },
+                indent=2,
+                ensure_ascii=False,
+            ),
+            flush=True,
         )
-        return 0
+        return None
     _ensure_scripts_path()
     from davinci_production_agent.upload_from_queue import execute_upload  # noqa: WPS433
 

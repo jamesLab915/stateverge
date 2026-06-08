@@ -667,10 +667,10 @@ def generate_shorts_metadata(
             "A short rainy NYC night ambience clip with original street audio. "
             "Calm urban atmosphere for background viewing."
         )
-    elif sat == "image_motion_short":
+    elif sat in ("image_hard_cut_short", "image_motion_short"):
         desc = (
-            "A short NYC ambient photo-motion clip with original audio. "
-            "Relaxing urban moment for vertical Shorts."
+            "A short NYC still-image sequence with hard-cut vertical edits and "
+            "licensed background music (Suno or Envato). Relaxing urban moment for Shorts."
         )
     else:
         desc = (

@@ -17,6 +17,7 @@ from stateverge_paths import CODE_ROOT  # noqa: E402
 # Official paths (STATEVERGE_ROOT / ziweizhang StateVerge repo)
 OFFICIAL_LONG_TOKEN_PATH: Path = CODE_ROOT / "data" / "youtube" / "token.json"
 OFFICIAL_SHORTS_TOKEN_PATH: Path = CODE_ROOT / "data" / "youtube" / "token_shorts.json"
+OFFICIAL_MUSIC_TOKEN_PATH: Path = CODE_ROOT / "data" / "youtube" / "token_music.json"
 OFFICIAL_CLIENT_SECRETS_PATH: Path = CODE_ROOT / ".secrets" / "youtube" / "client_secrets.json"
 LEGACY_LONG_TOKEN_PATH: Path = CODE_ROOT / ".secrets" / "youtube" / "token.json"
 
@@ -40,6 +41,15 @@ def resolve_long_form_upload_token(cli_token: Path | None) -> tuple[Path, list[s
     return official, warnings
 
 
+def resolve_music_upload_token(cli_token: Path | None) -> tuple[Path, list[str]]:
+    """Resolve StateVerge Music channel token (``token_music.json`` only)."""
+    warnings: list[str] = []
+    if cli_token is not None:
+        return cli_token.expanduser().resolve(), warnings
+    official = OFFICIAL_MUSIC_TOKEN_PATH.expanduser().resolve()
+    return official, warnings
+
+
 def resolve_client_secrets(cli_secrets: Path | None) -> Path:
     if cli_secrets is not None:
         return cli_secrets.expanduser().resolve()
@@ -51,4 +61,12 @@ def long_token_invalid_grant_fix_command() -> str:
         "python3 scripts/nyc_auto/youtube_auth_init.py "
         f"--client-secrets {OFFICIAL_CLIENT_SECRETS_PATH} "
         f"--token {OFFICIAL_LONG_TOKEN_PATH}"
+    )
+
+
+def music_token_invalid_grant_fix_command() -> str:
+    return (
+        "python3 scripts/nyc_auto/youtube_auth_music.py "
+        f"--client-secrets {OFFICIAL_CLIENT_SECRETS_PATH} "
+        f"--token {OFFICIAL_MUSIC_TOKEN_PATH}"
     )

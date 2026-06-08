@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """Shorts cut + optional YouTube upload (Pro-only).
 
-**Source policy (independent of NYC long-form):** ``all_video_image_highlight_candidates``
-scans only formal iphone + cache inboxes for **all** compliant videos and images.
+**Source policy (independent of NYC long-form):** ``materials_dir_video``
+scans **only** ``STATEVERGE_SHORTS_MATERIALS_DIR`` (default ``/Volumes/SV_CACHE/air``).
+Portrait-only when ``STATEVERGE_SHORTS_PORTRAIT_ONLY=1``; default **off** (landscape allowed, center-crop to 9:16).
 No weekday 05:00–18:00, no driving-only pool, no chronological long assembly rules.
 
 - Highlight scoring + random pick from top-N.
 - Video: portrait pad or landscape center-crop to 1080×1920, CFR, yuv420p, no ``-c:v copy``.
-- Image: Ken Burns segments; HEIC/DNG/TIFF via ``sips`` cache (originals untouched).
+- Image: DaVinci-style **still frames + hard cut** concat (no Ken Burns); multi-image only.
+  Default audio is **source/original** (no Suno/Envato BGM). Image Shorts encode **silent** when no video track.
+  Never mix video and images in one Short.
+  HEIC/DNG/TIFF via ``sips`` cache (originals untouched).
 - Dedup ledger: ``publish_pack/shorts_uploads/shorts_used_assets.json`` (fcntl + atomic rewrite; segment
   reserved **before** encode; upload blocked if ``output_video`` already uploaded).
 - Concurrency: one global non-blocking flock per machine (``~/StateVerge/data/shorts_runtime/.shorts_cut_upload.global.lock``);
@@ -31,7 +35,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 JOB_TYPE = "shorts_cut_upload"
-SHORTS_SOURCE_POLICY = "all_video_image_highlight_candidates"
+SHORTS_SOURCE_POLICY = "materials_dir_video"
 SHORTS_USES_LONG_POLICY = False
 
 # Single-machine Shorts worker serialization (launchd + server + manual).
@@ -154,8 +158,19 @@ VIDEO_EXT = {".mp4", ".mov", ".m4v"}
 IMAGE_EXT = {".jpg", ".jpeg", ".png", ".heic", ".dng", ".tif", ".tiff"}
 MUSIC_SUBDIR = Path("04_AUDIO") / "music" / "shorts"
 MUSIC_LIBRARY_ROOT = Path("04_AUDIO") / "music"
-# Shorts default: Envato library only (no Suno default).
+# Video Shorts default: Envato. Image Shorts: Suno first, then Envato.
 SHORTS_ENVATO_CATEGORY_ORDER = ("ambient", "cinematic", "calm_piano")
+SHORTS_SUNO_RNB_DIR = Path("/Volumes/SV_TRANSFER/04_AUDIO/music/stateverge_suno/rnb")
+SHORTS_SUNO_CATEGORY_ORDER = (
+    "rnb",
+    "calm_piano",
+    "skyline_ambient",
+    "night_drive",
+    "rainy_night",
+    "evening_drive",
+    "west_coast_drive",
+    "midnight_manhattan",
+)
 SHORTS_ENVATO_EXCLUDED_NAME_FRAGMENTS = ("vocal", "vocals", "trailer", "edm", "dubstep", "drop", "hardstyle")
 METADATA_POLICY_VERSION = "stateverge_content_routing_v1"
 MUSIC_FALLBACK_ORDER = SHORTS_ENVATO_CATEGORY_ORDER + ("archive",)
@@ -175,16 +190,16 @@ def _is_source_audio_mode(mode: str) -> bool:
 
 
 def _uses_music_bed(mode: str) -> bool:
-    return str(mode or "").strip().lower() in ("music", "envato_music")
+    return str(mode or "").strip().lower() in ("music", "envato_music", "suno_music")
 
 
 def _normalize_encode_audio_mode(mode: str) -> str:
     m = str(mode or "").strip().lower()
     if m in SOURCE_AUDIO_MODES:
         return "original"
-    if m in ("music", "envato_music", "silent"):
+    if m in ("music", "envato_music", "suno_music", "silent"):
         return m
-    return "envato_music"
+    return "original"
 
 
 def _result_encode_audio_mode_label(mode: str) -> str:
@@ -193,6 +208,8 @@ def _result_encode_audio_mode_label(mode: str) -> str:
         return RESULT_AUDIO_SOURCE_ORIGINAL
     if m == "envato_music":
         return "envato_music"
+    if m == "suno_music":
+        return "suno_music"
     if m == "original_fallback":
         return "original_fallback"
     return m or RESULT_AUDIO_SOURCE_ORIGINAL
@@ -391,7 +408,14 @@ def _cache_inbox(cache: Path) -> Path:
 
 
 def candidate_roots(xfer: Path, cache: Path) -> list[Path]:
-    return [_iphone_inbox(xfer), _cache_inbox(cache)]
+    try:
+        from utils.shorts_paths import shorts_materials_dir
+
+        materials = shorts_materials_dir()
+    except Exception:
+        materials = cache / "air"
+    # Single pool for both Shorts channels (no inbox / police_clips fallback).
+    return [materials]
 
 
 def _quick_hash(path: Path) -> str:
@@ -406,7 +430,23 @@ def _quick_hash(path: Path) -> str:
     return h.hexdigest()[:32]
 
 
+def _ensure_ledger_file(ledger: Path, warnings: list[str] | None = None) -> Path:
+    """Recover when ``shorts_used_assets.json`` was accidentally created as a directory (exFAT)."""
+    if ledger.is_dir():
+        backup = ledger.with_name(ledger.name + ".bad_directory")
+        try:
+            ledger.rename(backup)
+            if warnings is not None:
+                warnings.append(f"ledger_was_directory_moved:{backup}")
+        except OSError as exc:
+            if warnings is not None:
+                warnings.append(f"ledger_directory_unrecoverable:{exc!r}")
+            return ledger.parent / "shorts_used_assets.recovered.json"
+    return ledger
+
+
 def _load_used_assets(ledger: Path) -> list[dict[str, Any]]:
+    ledger = _ensure_ledger_file(ledger)
     if not ledger.is_file():
         return []
     try:
@@ -841,6 +881,85 @@ def _pick_music_file(
     return pick, label
 
 
+def _shorts_suno_rnb_dir() -> Path:
+    override = os.environ.get("STATEVERGE_SHORTS_SUNO_RNB_DIR", "").strip()
+    if override:
+        return Path(override).expanduser()
+    return SHORTS_SUNO_RNB_DIR
+
+
+def _pick_rnb_suno_from_library(*, warnings: list[str] | None = None) -> tuple[Path | None, str]:
+    """Newest mp3/m4a/wav under ``stateverge_suno/rnb`` (Shorts default BGM)."""
+    root = _shorts_suno_rnb_dir()
+    if not root.is_dir():
+        if warnings is not None:
+            warnings.append(f"shorts_rnb_dir_missing:{root}")
+        return None, ""
+    cands = _collect_music_candidates(root, recursive=False)
+    if not cands:
+        cands = _collect_music_candidates(root, recursive=True)
+    pick = _newest_music(cands)
+    if pick:
+        return pick, "rnb"
+    return None, ""
+
+
+def _pick_suno_music_file(
+    category: str,
+    *,
+    warnings: list[str] | None = None,
+) -> tuple[Path | None, str]:
+    """Suno BGM: ``rnb`` bin first, then category bins under library_roots."""
+    cat = str(category or "rnb").strip() or "rnb"
+    if cat == "rnb":
+        pick, label = _pick_rnb_suno_from_library(warnings=warnings)
+        if pick:
+            return pick, label
+    try:
+        from music_selector import pick_suno_track_for_categories
+    except ImportError as exc:
+        if warnings is not None:
+            warnings.append(f"suno_music_selector_import_failed:{exc!r}")
+        return None, ""
+    cats = [cat]
+    cats.extend(c for c in SHORTS_SUNO_CATEGORY_ORDER if c not in cats)
+    pick, ccat, sw = pick_suno_track_for_categories(cats, theme="driving")
+    if warnings is not None:
+        warnings.extend(sw[:12])
+    return (pick if pick and pick.is_file() else None), str(ccat or "")
+
+
+def _pick_shorts_music_bed(
+    xfer: Path,
+    category: str,
+    *,
+    warnings: list[str] | None = None,
+    require_music: bool = False,
+) -> tuple[Path | None, str, str, bool]:
+    """Shorts BGM: Suno ``stateverge_suno/rnb`` first, other Suno cats, then Envato."""
+    w = warnings if warnings is not None else []
+    suno_pick, suno_cat = _pick_suno_music_file(category, warnings=w)
+    if suno_pick:
+        label = f"suno/{suno_cat}" if suno_cat else "suno/rnb"
+        return suno_pick, label, "suno", False
+    envato_pick, envato_cat, envato_fb = _pick_envato_music_file(xfer, category, warnings=w)
+    if envato_pick:
+        return envato_pick, envato_cat, "envato", envato_fb
+    if require_music:
+        w.append("shorts_suno_and_envato_missing")
+    return None, "", "none", True
+
+
+def _pick_image_shorts_music_bed(
+    xfer: Path,
+    category: str,
+    *,
+    warnings: list[str] | None = None,
+) -> tuple[Path | None, str, str, bool]:
+    """Image Shorts: Suno RNB + Envato only (no original/silent)."""
+    return _pick_shorts_music_bed(xfer, category, warnings=warnings, require_music=True)
+
+
 def _ffprobe_json(path: Path) -> dict[str, Any] | None:
     cmd = [FFPROBE, "-v", "error", "-print_format", "json", "-show_format", "-show_streams", str(path)]
     try:
@@ -870,15 +989,36 @@ def _duration_fp(path: Path, j: dict[str, Any] | None) -> float:
     return 0.0
 
 
+def _video_rotation_deg(st: dict[str, Any]) -> int:
+    rot = 0
+    tags = st.get("tags") or {}
+    try:
+        rot = int(tags.get("rotate") or 0)
+    except (TypeError, ValueError):
+        rot = 0
+    for sd in st.get("side_data_list") or []:
+        if "rotation" not in sd:
+            continue
+        try:
+            rot = int(sd["rotation"]) % 360
+        except (TypeError, ValueError):
+            pass
+    return int(rot) % 360
+
+
 def _video_dims(j: dict[str, Any] | None) -> tuple[int, int]:
+    """Display-oriented width/height (swap when rotation is 90°/270°)."""
     if not j:
         return 0, 0
     for st in j.get("streams") or []:
         if st.get("codec_type") == "video":
             try:
-                return int(st.get("width") or 0), int(st.get("height") or 0)
+                w, h = int(st.get("width") or 0), int(st.get("height") or 0)
             except (TypeError, ValueError):
                 return 0, 0
+            if abs(_video_rotation_deg(st)) in (90, 270):
+                w, h = h, w
+            return w, h
     return 0, 0
 
 
@@ -981,6 +1121,7 @@ def score_video_highlight(path: Path, prob: dict[str, Any] | None) -> dict[str, 
     duration_score = 14.0 if dur >= 20 else (6.0 if dur >= 8 else -10.0)
     if dur > 90:
         duration_score += 8.0
+    police_bonus = 24.0 if "police_clips" in str(path).lower() else 0.0
     timelapse_penalty = 0.0
     if "timelapse" in blob or "time-lapse" in blob:
         timelapse_penalty = 35.0
@@ -997,11 +1138,13 @@ def score_video_highlight(path: Path, prob: dict[str, Any] | None) -> dict[str, 
         + night_lights_score
         + location_score
         + duration_score
+        + police_bonus
         - timelapse_penalty
         - quality_penalty
     )
     return {
         "highlight_score": round(total, 3),
+        "police_bonus": police_bonus,
         "portrait_bonus": portrait_bonus,
         "sharpness_score": sharpness_score,
         "exposure_score": exposure_score,
@@ -1060,6 +1203,10 @@ def score_image_highlight(path: Path, *, warnings: list[str] | None = None) -> d
     }
 
 
+_SHORTS_HIGHLIGHT_SCAN_MAX_PER_ROOT = 3500
+_SHORTS_HIGHLIGHT_MIN_POOL = 48
+
+
 def discover_highlight_candidates(
     xfer: Path,
     cache: Path,
@@ -1070,11 +1217,23 @@ def discover_highlight_candidates(
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     videos: list[dict[str, Any]] = []
     images: list[dict[str, Any]] = []
-    for root in candidate_roots(xfer, cache):
+    roots = candidate_roots(xfer, cache)
+    try:
+        from utils.shorts_paths import shorts_portrait_only
+
+        portrait_only = shorts_portrait_only()
+    except Exception:
+        portrait_only = False
+    for root in roots:
         if not root.is_dir():
             continue
+        scanned = 0
         try:
             for p in root.rglob("*"):
+                scanned += 1
+                if scanned > _SHORTS_HIGHLIGHT_SCAN_MAX_PER_ROOT:
+                    log.append(f"highlight_scan_cap root={root} scanned={scanned}")
+                    break
                 if not p.is_file():
                     continue
                 if p.name.startswith("._") or p.name.startswith("."):
@@ -1092,19 +1251,25 @@ def discover_highlight_candidates(
                         continue
                     if not any(s.get("codec_type") == "video" for s in prob.get("streams") or []):
                         continue
+                    w, h = _video_dims(prob)
+                    if portrait_only and h <= w * 1.05:
+                        continue
                     dur = _duration_fp(p, prob)
                     if dur > 0 and dur < 1.0:
                         continue
                     detail = score_video_highlight(p, prob)
                     videos.append({"path": p, "kind": "video", "score": detail["highlight_score"], "detail": detail})
-                elif suf in IMAGE_EXT:
+                elif suf in IMAGE_EXT and not portrait_only:
                     detail = score_image_highlight(p, warnings=warnings)
                     images.append({"path": p, "kind": "image", "score": detail["highlight_score"], "detail": detail})
         except OSError:
             continue
     videos.sort(key=lambda x: float(x["score"]), reverse=True)
     images.sort(key=lambda x: float(x["score"]), reverse=True)
-    log.append(f"highlight_pool videos={len(videos)} images={len(images)} policy={SHORTS_SOURCE_POLICY}")
+    log.append(
+        f"highlight_pool videos={len(videos)} images={len(images)} "
+        f"policy={SHORTS_SOURCE_POLICY} portrait_only={portrait_only}"
+    )
     return videos, images
 
 
@@ -1323,7 +1488,7 @@ def _ensure_raster_image(src: Path, cache_dir: Path) -> Path | None:
     return None
 
 
-def _encode_image_ken_burns(
+def _encode_image_still_hard_cut(
     img_raster: Path,
     dst: Path,
     *,
@@ -1335,12 +1500,12 @@ def _encode_image_ken_burns(
     log: list[str],
     warnings: list[str],
 ) -> bool:
+    """Fixed 1080x1920 still (no zoom); segments are joined with hard concat (DaVinci-style)."""
     dst.parent.mkdir(parents=True, exist_ok=True)
-    d = max(1, int(segment_seconds * fps))
-    zexpr = "min(zoom+0.0015,1.28)"
     vf = (
-        f"scale=1440:2560:force_original_aspect_ratio=increase,zoompan=z='{zexpr}':"
-        f"x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={d}:s=1080x1920:fps={fps},format=yuv420p"
+        "scale=1080:1920:force_original_aspect_ratio=increase,"
+        "crop=1080:1920,"
+        f"setsar=1,fps={fps},format=yuv420p"
     )
     enc_vt = ["-c:v", "h264_videotoolbox", "-b:v", "10M", "-tag:v", "avc1"]
     enc_x264 = ["-c:v", "libx264", "-preset", "medium", "-crf", "21", "-tag:v", "avc1"]
@@ -1357,12 +1522,12 @@ def _encode_image_ken_burns(
             )
             cmd.extend(["-filter_complex", fc, "-map", "[v]", "-map", "[a]", *enc_args])
         elif _is_source_audio_mode(audio_mode) or audio_mode == "silent":
-            warnings.append("image_motion_no_source_audio_silent_track")
+            warnings.append("image_still_no_source_audio_silent_track")
             cmd.extend(["-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=48000"])
             fc = f"[0:v]{vf}[v];[1:a]atrim=end={segment_seconds},asetpts=PTS-STARTPTS[a]"
             cmd.extend(["-filter_complex", fc, "-map", "[v]", "-map", "[a]", *enc_args])
         else:
-            warnings.append("image_music_missing_silent_output")
+            warnings.append("image_still_music_missing_silent_output")
             cmd.extend(["-f", "lavfi", "-i", "anullsrc=channel_layout=stereo:sample_rate=48000"])
             fc = f"[0:v]{vf}[v];[1:a]atrim=end={segment_seconds},asetpts=PTS-STARTPTS[a]"
             cmd.extend(["-filter_complex", fc, "-map", "[v]", "-map", "[a]", *enc_args])
@@ -1370,13 +1535,40 @@ def _encode_image_ken_burns(
         try:
             r = subprocess.run(cmd, capture_output=True, text=True, timeout=max(300, int(segment_seconds) * 40), check=False)
         except subprocess.TimeoutExpired:
-            warnings.append(f"image_ffmpeg_timeout:{enc_name}")
+            warnings.append(f"image_still_ffmpeg_timeout:{enc_name}")
             continue
         if r.returncode == 0 and dst.is_file() and dst.stat().st_size > 512:
-            log.append(f"image_motion_ok encoder={enc_name}")
+            log.append(f"image_still_hard_cut_ok encoder={enc_name}")
             return True
-        warnings.append(f"image_motion_fail:{enc_name}")
+        warnings.append(f"image_still_fail:{enc_name}")
     return False
+
+
+def _encode_image_ken_burns(
+    img_raster: Path,
+    dst: Path,
+    *,
+    segment_seconds: float,
+    fps: int,
+    audio_mode: str,
+    music: Path | None,
+    music_volume: float,
+    log: list[str],
+    warnings: list[str],
+) -> bool:
+    """Deprecated: Ken Burns disabled for Shorts policy; use still hard-cut."""
+    warnings.append("ken_burns_disabled_using_davinci_hard_cut")
+    return _encode_image_still_hard_cut(
+        img_raster,
+        dst,
+        segment_seconds=segment_seconds,
+        fps=fps,
+        audio_mode=audio_mode,
+        music=music,
+        music_volume=music_volume,
+        log=log,
+        warnings=warnings,
+    )
 
 
 def _concat_segments(paths: list[Path], dst: Path, log: list[str], warnings: list[str]) -> bool:
@@ -1416,7 +1608,7 @@ def _concat_segments(paths: list[Path], dst: Path, log: list[str], warnings: lis
         return False
     ok = r.returncode == 0 and dst.is_file() and dst.stat().st_size > 512
     if ok:
-        log.append("concat_copy_ok")
+        log.append("davinci_hard_concat_copy_ok")
     else:
         warnings.append("concat_copy_failed_try_reencode")
         cmd2 = [
@@ -1462,14 +1654,23 @@ def main() -> int:
     ap.add_argument(
         "--audio-mode",
         choices=("envato_music", "original", "source_audio", "real_sound", "music", "silent"),
-        default="envato_music",
-        help="Encode audio: envato_music (default), original/source, music (manual), or silent.",
+        default="original",
+        help="Encode audio: original/source (default), envato_music/suno_music, music (manual), or silent.",
     )
     ap.add_argument("--music-volume", type=float, default=0.30)
     ap.add_argument("--original-volume", type=float, default=1.0)
-    ap.add_argument("--music-category", default="ambient", help="Envato category under 04_AUDIO/music/shorts/.")
+    ap.add_argument(
+        "--music-category",
+        default="rnb",
+        help="Suno/Envato category; default rnb → /Volumes/SV_TRANSFER/04_AUDIO/music/stateverge_suno/rnb",
+    )
     ap.add_argument("--fps", type=int, default=30, choices=(30, 60))
-    ap.add_argument("--asset-mode", choices=("auto", "video_only", "image_only", "mixed"), default="auto")
+    ap.add_argument(
+        "--asset-mode",
+        choices=("auto", "video_only", "image_only"),
+        default="video_only",
+        help="Default video_only (portrait vertical from materials dir). auto = video OR images.",
+    )
     ap.add_argument("--allow-images", dest="allow_images", action="store_true")
     ap.add_argument("--no-allow-images", dest="allow_images", action="store_false")
     ap.add_argument("--allow-videos", dest="allow_videos", action="store_true")
@@ -1479,6 +1680,12 @@ def main() -> int:
     ap.set_defaults(allow_images=True, allow_videos=True, highlight_mode=True)
     ap.add_argument("--upload", action="store_true")
     ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument(
+        "--upload-channel",
+        choices=("shorts", "nyc_long"),
+        default="shorts",
+        help="shorts=Real NYC Shorts (token_shorts); nyc_long=StateVerge NYC long token.",
+    )
     ap.add_argument("--privacy-status", choices=("private", "unlisted"), default="unlisted")
     ap.add_argument(
         "--no-real-sound-gate",
@@ -1546,7 +1753,7 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
     logs_root = _ensure_writable_dir(shorts_logs_root(verbose=False), "logs", warnings)
     renders_root = _ensure_writable_dir(shorts_renders_root(verbose=False), "renders", warnings)
     img_cache = _ensure_writable_dir(shorts_image_cache_dir(verbose=False), "image_cache", warnings)
-    ledger_path = pack_root / "shorts_used_assets.json"
+    ledger_path = _ensure_ledger_file(pack_root / "shorts_used_assets.json", warnings)
 
     for d in (ready_dir, pack_root, job_root, logs_root, renders_root, img_cache):
         try:
@@ -1728,6 +1935,21 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
         _write_job(job_path, job)
         _write_json(result_path, base_result)
         return 12
+    if asset_mode == "mixed":
+        base_result.update(
+            {
+                "status": "blocked",
+                "block_reason": "mixed_video_image_disabled",
+                "detail": "One Short must be all-video or all-image (DaVinci hard-cut stills).",
+            }
+        )
+        job["status"] = "blocked"
+        job["progress"] = 100
+        job["finished_at"] = _utc()
+        job["result"] = base_result
+        _write_job(job_path, job)
+        _write_json(result_path, base_result)
+        return 13
 
     def _vid_sel(c: dict[str, Any]) -> dict[str, Any]:
         return {
@@ -1746,24 +1968,11 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
         selected = [_vid_sel(c)]
         reason = "asset_mode_video_only_top_random"
     elif asset_mode == "image_only":
-        selected_type = "image_motion_short"
+        selected_type = "image_hard_cut_short"
         n_img = max(1, min(4, int(round(duration / 10))))
         picked = i_pool[:n_img]
         selected = [{"path": str(p["path"]), "kind": "image", "score": p["score"], "detail": p.get("detail")} for p in picked]
-        reason = f"asset_mode_image_only_count_{len(selected)}"
-    elif asset_mode == "mixed":
-        if not v_pool or not i_pool:
-            asset_mode = "auto"
-        else:
-            selected_type = "mixed_video_image_short"
-            selected_v = v_pool[0]
-            n_img = max(1, min(3, int(round((duration * 0.55) / 8))))
-            imgs = i_pool[:n_img]
-            selected = [_vid_sel(selected_v)]
-            selected.extend(
-                [{"path": str(p["path"]), "kind": "image", "score": p["score"], "detail": p.get("detail")} for p in imgs]
-            )
-            reason = "mixed_split_video_plus_images"
+        reason = f"asset_mode_image_only_hard_cut_count_{len(selected)}"
     if asset_mode == "auto":
         pick_video = bool(v_pool) and (not i_pool or v_score >= i_score - 5.0)
         if pick_video:
@@ -1772,13 +1981,24 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
             selected = [_vid_sel(c)]
             reason = "auto_prefer_video_highlight_score"
         else:
-            selected_type = "image_motion_short"
+            selected_type = "image_hard_cut_short"
             n_img = max(1, min(4, int(round(duration / 10))))
             picked = i_pool[:n_img]
             selected = [{"path": str(p["path"]), "kind": "image", "score": p["score"], "detail": p.get("detail")} for p in picked]
-            reason = "auto_prefer_image_highlight_score"
+            reason = "auto_prefer_image_hard_cut_score"
+
+    if selected and len({s.get("kind") for s in selected}) > 1:
+        base_result.update({"status": "blocked", "block_reason": "mixed_video_image_in_selection"})
+        job["status"] = "blocked"
+        job["progress"] = 100
+        job["finished_at"] = _utc()
+        job["result"] = base_result
+        _write_job(job_path, job)
+        _write_json(result_path, base_result)
+        return 14
 
     base_result["selected_asset_type"] = selected_type
+    base_result["image_edit_style"] = "davinci_hard_cut" if selected_type in ("image_hard_cut_short", "image_motion_short") else ""
     base_result["selected_assets"] = [s["path"] for s in selected]
     base_result["selected_highlight_scores"] = [float(s["score"]) for s in selected]
     base_result["selected_reason"] = reason
@@ -1788,13 +2008,52 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
 
     music_path: Path | None = None
     envato_fallback = False
-    if _uses_music_bed(str(args.audio_mode)):
-        music_path, mc, envato_fallback = _pick_envato_music_file(
-            xfer, str(args.music_category), warnings=warnings
+    is_image_short = selected_type in ("image_hard_cut_short", "image_motion_short")
+
+    if is_image_short:
+        if _uses_music_bed(str(args.audio_mode)):
+            music_path, mc, music_source, envato_fallback = _pick_image_shorts_music_bed(
+                xfer, str(args.music_category), warnings=warnings
+            )
+            log_lines.append(f"image_music_pick source={music_source} cat={mc} path={music_path}")
+            if music_path is None or not music_path.is_file():
+                base_result.update(
+                    {
+                        "status": "blocked",
+                        "block_reason": "image_shorts_music_required",
+                        "detail": "Suno and Envato music pools both empty; image Shorts with --audio-mode music need BGM.",
+                    }
+                )
+                job["status"] = "blocked"
+                job["progress"] = 100
+                job["finished_at"] = _utc()
+                job["result"] = base_result
+                _write_job(job_path, job)
+                _write_json(result_path, base_result)
+                return 18
+            args.audio_mode = "suno_music" if music_source == "suno" else "envato_music"
+            base_result["music_path"] = str(music_path)
+            base_result["selected_music_path"] = str(music_path)
+            base_result["music_category_used"] = mc
+            base_result["music_source"] = music_source
+            base_result["fallback_used"] = bool(envato_fallback)
+            base_result["audio_mode"] = _result_encode_audio_mode_label(str(args.audio_mode))
+            base_result["encode_audio_mode"] = base_result["audio_mode"]
+            base_result["music_disabled"] = False
+        else:
+            args.audio_mode = "silent"
+            base_result["music_source"] = "none"
+            base_result["music_disabled"] = True
+            base_result["audio_mode"] = "silent"
+            base_result["encode_audio_mode"] = "silent"
+            log_lines.append("image_short_silent_no_bgm")
+    elif _uses_music_bed(str(args.audio_mode)):
+        music_path, mc, music_source, envato_fallback = _pick_shorts_music_bed(
+            xfer, str(args.music_category), warnings=warnings, require_music=False
         )
-        log_lines.append(f"envato_music_pick cat={mc} path={music_path} fallback={envato_fallback}")
+        log_lines.append(f"shorts_music_pick source={music_source} cat={mc} path={music_path}")
         if music_path is None or not music_path.is_file():
-            warnings.append("envato_music_not_found_fallback_original")
+            warnings.append("shorts_music_not_found_fallback_original")
             args.audio_mode = "original"
             base_result["audio_mode"] = "original_fallback"
             base_result["encode_audio_mode"] = "original_fallback"
@@ -1804,8 +2063,12 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
             base_result["music_path"] = str(music_path)
             base_result["selected_music_path"] = str(music_path)
             base_result["music_category_used"] = mc
-            base_result["music_source"] = "envato"
+            base_result["music_source"] = music_source
             base_result["fallback_used"] = bool(envato_fallback)
+            if music_source == "suno":
+                args.audio_mode = "suno_music"
+                base_result["audio_mode"] = "suno_music"
+                base_result["encode_audio_mode"] = "suno_music"
 
     intermediate = work_dir / "final.mp4"
     ok_final = False
@@ -1826,7 +2089,28 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
             end = min(dur_all, start + duration)
             warnings.append("dedupe_overlap_using_random_window")
         w, h = _video_dims(prob)
-        landscape_crop = w > h * 1.05
+        try:
+            from utils.shorts_paths import shorts_portrait_only
+
+            portrait_only_encode = shorts_portrait_only()
+        except Exception:
+            portrait_only_encode = False
+        if portrait_only_encode and h <= w * 1.05:
+            base_result.update(
+                {
+                    "status": "blocked",
+                    "block_reason": "landscape_source_not_youtube_short",
+                    "detail": "STATEVERGE_SHORTS_PORTRAIT_ONLY requires vertical source; no landscape crop.",
+                }
+            )
+            job["status"] = "blocked"
+            job["progress"] = 100
+            job["finished_at"] = _utc()
+            job["result"] = base_result
+            _write_job(job_path, job)
+            _write_json(result_path, base_result)
+            return 16
+        landscape_crop = False if portrait_only_encode else w > h * 1.05
         base_result["selected_time_range"] = f"{start:.2f}-{end:.2f}"
         try:
             src_res = str(src.resolve())
@@ -1864,7 +2148,7 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
             log=log_lines,
             warnings=warnings,
         )
-    elif selected_type == "image_motion_short":
+    elif selected_type in ("image_hard_cut_short", "image_motion_short"):
         img_ok, img_fp = _try_reserve_image_bundle(
             ledger_path,
             job_id=job_id,
@@ -1892,7 +2176,7 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
                 warnings.append(f"image_raster_fail:{ip}")
                 continue
             seg = work_dir / f"imgseg_{i}.mp4"
-            if _encode_image_ken_burns(
+            if _encode_image_still_hard_cut(
                 raster,
                 seg,
                 segment_seconds=per,
@@ -1905,83 +2189,16 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
             ):
                 segs.append(seg)
         ok_final = _concat_segments(segs, intermediate, log_lines, warnings) if segs else False
-        enc_meta = {"segments": len(segs)}
+        enc_meta = {"segments": len(segs), "image_edit_style": "davinci_hard_cut"}
     elif selected_type == "mixed_video_image_short":
-        src = Path(selected[0]["path"])
-        prob = _ffprobe_json(src)
-        dur_all = _duration_fp(src, prob)
-        dv = max(8.0, duration * 0.42)
-        start_max = max(0.0, dur_all - dv)
-        start = rng.uniform(0.0, start_max) if start_max > 0 else 0.0
-        base_result["selected_time_range"] = f"{start:.2f}-{start + dv:.2f}"
-        try:
-            src_res_m = str(src.resolve())
-        except OSError:
-            src_res_m = str(src)
-        qh_m = _quick_hash(src)
-        if not _try_reserve_video_segment(
-            ledger_path,
-            job_id=job_id,
-            source_path=src_res_m,
-            qh=qh_m,
-            time_range=base_result["selected_time_range"],
-            selected_type=selected_type,
-            warnings=warnings,
-        ):
-            base_result.update({"status": "blocked", "block_reason": "shorts_segment_already_reserved_or_used"})
-            job["status"] = "blocked"
-            job["progress"] = 100
-            job["finished_at"] = _utc()
-            job["result"] = base_result
-            _write_job(job_path, job)
-            _write_json(result_path, base_result)
-            return 17
-        w, h = _video_dims(prob)
-        landscape_crop = w > h * 1.05
-        part_v = work_dir / "part_video.mp4"
-        ok_v, enc_meta_v = _encode_video_segment(
-            src,
-            part_v,
-            start=start,
-            chunk_seconds=dv,
-            fps=int(args.fps),
-            landscape_crop=landscape_crop,
-            audio_mode=str(args.audio_mode),
-            music=music_path,
-            music_volume=float(args.music_volume),
-            original_volume=float(args.original_volume),
-            log=log_lines,
-            warnings=warnings,
-        )
-        imgs_sel = selected[1:]
-        di = max(8.0, duration - dv)
-        per = di / max(1, len(imgs_sel))
-        per = max(3.0, min(10.0, per))
-        segs_img: list[Path] = []
-        for i, sel in enumerate(imgs_sel):
-            ip = Path(sel["path"])
-            raster = _ensure_raster_image(ip, img_cache)
-            if not raster:
-                continue
-            seg = work_dir / f"mix_img_{i}.mp4"
-            if _encode_image_ken_burns(
-                raster,
-                seg,
-                segment_seconds=per,
-                fps=int(args.fps),
-                audio_mode=str(args.audio_mode),
-                music=music_path,
-                music_volume=float(args.music_volume),
-                log=log_lines,
-                warnings=warnings,
-            ):
-                segs_img.append(seg)
-        parts: list[Path] = []
-        if ok_v:
-            parts.append(part_v)
-        parts.extend(segs_img)
-        ok_final = _concat_segments(parts, intermediate, log_lines, warnings) if parts else False
-        enc_meta = {"video_part": enc_meta_v, "image_segments": len(segs_img)}
+        base_result.update({"status": "blocked", "block_reason": "mixed_video_image_disabled"})
+        job["status"] = "blocked"
+        job["progress"] = 100
+        job["finished_at"] = _utc()
+        job["result"] = base_result
+        _write_job(job_path, job)
+        _write_json(result_path, base_result)
+        return 17
 
     if not ok_final:
         _ledger_patch_job_by_id(
@@ -2118,36 +2335,60 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
             pass
         return 0
 
-    if not token_shorts.is_file():
-        base_result["status"] = "blocked"
-        base_result["block_reason"] = "missing_token_shorts"
-        base_result["upload_attempted"] = False
-        job["status"] = "blocked"
-        job["progress"] = 100
-        job["finished_at"] = _utc()
-        job["result"] = base_result
-        _write_job(job_path, job)
-        _write_json(result_path, base_result)
-        return 8
+    upload_channel = str(getattr(args, "upload_channel", "shorts") or "shorts").strip().lower()
+    if upload_channel not in ("shorts", "nyc_long"):
+        upload_channel = "shorts"
+    upload_token = long_tok if upload_channel == "nyc_long" else token_shorts
+    base_result["upload_channel"] = upload_channel
 
-    if long_tok.resolve() == token_shorts.resolve():
-        warnings.append("token_path_equals_long_token_unexpected")
+    if upload_channel == "nyc_long":
+        base_result["channel"] = "NYC_LONG"
+        base_result["upload_surface"] = "long_channel_short"
+        if not upload_token.is_file():
+            base_result["status"] = "blocked"
+            base_result["block_reason"] = "missing_token_long"
+            base_result["upload_attempted"] = False
+            job["status"] = "blocked"
+            job["progress"] = 100
+            job["finished_at"] = _utc()
+            job["result"] = base_result
+            _write_job(job_path, job)
+            _write_json(result_path, base_result)
+            return 8
+        base_result["confirm_shorts_channel_ok"] = True
+        base_result["youtube_channel_title"] = "StateVerge NYC"
+    else:
+        base_result["channel"] = "SHORTS"
+        if not upload_token.is_file():
+            base_result["status"] = "blocked"
+            base_result["block_reason"] = "missing_token_shorts"
+            base_result["upload_attempted"] = False
+            job["status"] = "blocked"
+            job["progress"] = 100
+            job["finished_at"] = _utc()
+            job["result"] = base_result
+            _write_job(job_path, job)
+            _write_json(result_path, base_result)
+            return 8
 
-    conf = confirm_shorts_channel(token_path=token_shorts, client_secrets=client_sec)
-    base_result["confirm_shorts_channel_ok"] = conf.confirm_shorts_channel_ok
-    base_result["youtube_channel_title"] = conf.youtube_channel_title
-    base_result["youtube_channel_id"] = conf.youtube_channel_id
-    if not conf.ok:
-        base_result["status"] = "blocked"
-        base_result["block_reason"] = conf.block_reason or "shorts_channel_confirmation_failed"
-        base_result["upload_attempted"] = False
-        job["status"] = "blocked"
-        job["progress"] = 100
-        job["finished_at"] = _utc()
-        job["result"] = base_result
-        _write_job(job_path, job)
-        _write_json(result_path, base_result)
-        return 9
+        if long_tok.resolve() == upload_token.resolve():
+            warnings.append("token_path_equals_long_token_unexpected")
+
+        conf = confirm_shorts_channel(token_path=upload_token, client_secrets=client_sec)
+        base_result["confirm_shorts_channel_ok"] = conf.confirm_shorts_channel_ok
+        base_result["youtube_channel_title"] = conf.youtube_channel_title
+        base_result["youtube_channel_id"] = conf.youtube_channel_id
+        if not conf.ok:
+            base_result["status"] = "blocked"
+            base_result["block_reason"] = conf.block_reason or "shorts_channel_confirmation_failed"
+            base_result["upload_attempted"] = False
+            job["status"] = "blocked"
+            job["progress"] = 100
+            job["finished_at"] = _utc()
+            job["result"] = base_result
+            _write_job(job_path, job)
+            _write_json(result_path, base_result)
+            return 9
 
     try:
         out_qh_guard = triple_chunk_sha256(out_video)
@@ -2260,7 +2501,32 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
     except Exception as exc:  # noqa: BLE001
         warnings.append(f"davinci_audio_finish_exception:{exc!r}")
 
-    guard_ctx = assert_shorts_upload_context(Path(upload_target), token_shorts)
+    try:
+        from channel_guard import validate_youtube_shorts_file
+
+        sf_ok, sf_reason, sf_probe = validate_youtube_shorts_file(Path(upload_target))
+        base_result["shorts_format_probe"] = sf_probe
+        if not sf_ok:
+            base_result["status"] = "blocked"
+            base_result["block_reason"] = "shorts_format_guard_failed"
+            base_result["channel_guard_detail"] = sf_reason
+            base_result["upload_attempted"] = False
+            job["status"] = "blocked"
+            job["progress"] = 100
+            job["finished_at"] = _utc()
+            job["result"] = base_result
+            _write_job(job_path, job)
+            _write_json(result_path, base_result)
+            return 21
+    except Exception as exc:  # noqa: BLE001
+        warnings.append(f"shorts_format_precheck_failed:{exc!r}")
+
+    if upload_channel == "nyc_long":
+        from channel_guard import assert_long_channel_short_upload_context
+
+        guard_ctx = assert_long_channel_short_upload_context(Path(upload_target), upload_token)
+    else:
+        guard_ctx = assert_shorts_upload_context(Path(upload_target), upload_token)
     if guard_ctx:
         base_result["status"] = "blocked"
         base_result["block_reason"] = str(guard_ctx.get("block_reason") or "channel_guard_failed")
@@ -2327,7 +2593,7 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
         description=None,
         tags_str=None,
         dry_run=False,
-        token_path=token_shorts,
+        token_path=upload_token,
         client_secrets=client_sec,
         notify_subscribers=False,
         force_reupload=False,
@@ -2337,7 +2603,9 @@ def _main_body(args: argparse.Namespace, warnings: list[str]) -> int:
         review_queue=bool(getattr(args, "review_queue", True)),
         force_private=agent_pu,
         channel_type="short",
-        channel_guard_status="passed_shorts_worker",
+        channel_guard_status=(
+            "passed_nyc_long_short_worker" if upload_channel == "nyc_long" else "passed_shorts_worker"
+        ),
         dedupe_status="passed_shorts_duplicate_guards",
         dedupe_key=str(out_qh_guard or ""),
         automation_job_id=job_id,

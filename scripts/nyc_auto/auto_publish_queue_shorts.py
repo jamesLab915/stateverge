@@ -71,12 +71,22 @@ def main() -> int:
     )
     ap.add_argument("--no-public", action="store_true", help="Reject public privacy upstream.")
     ap.add_argument("--duration-seconds", type=float, default=30.0)
-    ap.add_argument("--asset-mode", choices=("auto", "video_only", "image_only", "mixed"), default="auto")
+    ap.add_argument(
+        "--asset-mode",
+        choices=("auto", "video_only", "image_only"),
+        default="video_only",
+        help="Default video_only from STATEVERGE_SHORTS_MATERIALS_DIR (portrait vertical).",
+    )
     ap.add_argument(
         "--audio-mode",
         choices=("envato_music", "original", "source_audio", "real_sound", "music", "silent"),
-        default="envato_music",
-        help="Forward to worker: envato_music (default) or original/source (manual).",
+        default="original",
+        help="Default: original/source audio (no BGM). Use envato_music/suno_music only when explicitly set.",
+    )
+    ap.add_argument(
+        "--music-category",
+        default="rnb",
+        help="Default: Suno RNB at /Volumes/SV_TRANSFER/04_AUDIO/music/stateverge_suno/rnb",
     )
     ap.add_argument("--music-volume", type=float, default=0.30)
     ap.add_argument("--original-volume", type=float, default=1.0)
@@ -203,6 +213,8 @@ def main() -> int:
         str(float(args.duration_seconds)),
         "--audio-mode",
         str(args.audio_mode),
+        "--music-category",
+        str(args.music_category),
         "--music-volume",
         str(float(args.music_volume)),
         "--original-volume",

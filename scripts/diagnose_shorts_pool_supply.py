@@ -18,6 +18,7 @@ for _p in (_SCRIPTS, _NYC):
 import auto_publish_queue as apq  # noqa: E402
 
 try:
+    from utils.shorts_paths import shorts_materials_dir  # noqa: E402
     from utils.storage_paths import get_sv_cache, get_sv_transfer, get_transfer_ready_to_upload  # noqa: E402
 except Exception:  # noqa: BLE001
 
@@ -29,6 +30,9 @@ except Exception:  # noqa: BLE001
 
     def get_transfer_ready_to_upload(*, verbose: bool = False) -> Path:  # type: ignore[misc]
         return Path("/Volumes/SV_TRANSFER/ready_to_upload")
+
+    def shorts_materials_dir(*, verbose: bool = False) -> Path:  # type: ignore[misc]
+        return Path("/Volumes/SV_CACHE/air")
 
 
 CONTROL_LOGS = Path.home() / "StateVerge_Control_Center" / "logs"
@@ -74,6 +78,7 @@ def main() -> int:
     shorts_fb = Path.home() / "StateVerge" / "data" / "shorts_runtime" / "shorts_ready_clips"
     iphone = xfer / "00_INBOX" / "iphone"
     cache_inbox = cache / "inbox"
+    materials = shorts_materials_dir(verbose=False)
 
     sv_transfer_mounted = xfer.is_dir()
     sv_cache_mounted = cache.is_dir()
@@ -91,7 +96,7 @@ def main() -> int:
 
     inbox_videos: list[Path] = []
     inbox_images: list[Path] = []
-    for root in (iphone, cache_inbox):
+    for root in (iphone, cache_inbox, materials):
         inbox_videos.extend(_list_files(root, VIDEO_EXTS))
         inbox_images.extend(_list_files(root, IMAGE_EXTS))
 
@@ -121,6 +126,8 @@ def main() -> int:
         "ready_shorts_has_video_count": ready_has_video,
         "inbox_video_count": len(inbox_videos),
         "inbox_image_count": len(inbox_images),
+        "shorts_materials_dir": str(materials),
+        "shorts_materials_mounted": materials.is_dir(),
         "candidate_source_paths_nonempty": candidate_nonempty,
         "sample_ready_paths": src_paths[:12],
         "sv_transfer_mounted": sv_transfer_mounted,
@@ -138,6 +145,8 @@ def main() -> int:
         f"- ready_shorts_has_video_count: **{summary['ready_shorts_has_video_count']}**",
         f"- inbox_video_count: **{summary['inbox_video_count']}**",
         f"- inbox_image_count: **{summary['inbox_image_count']}**",
+        f"- shorts_materials_dir: `{summary['shorts_materials_dir']}`",
+        f"- shorts_materials_mounted: **{summary['shorts_materials_mounted']}**",
         f"- candidate_source_paths_nonempty: **{summary['candidate_source_paths_nonempty']}**",
         f"- sv_transfer_mounted: **{summary['sv_transfer_mounted']}**",
         f"- sv_cache_mounted: **{summary['sv_cache_mounted']}**",

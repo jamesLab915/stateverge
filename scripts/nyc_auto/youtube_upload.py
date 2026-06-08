@@ -652,6 +652,26 @@ def upload_from_package_directory(
             )
 
     source_hint = read_project_source_path(project_id)
+    ct_norm = str(channel_type or "").strip().lower()
+    is_short_upload = ct_norm in ("short", "shorts", "short_form", "nyc_short")
+    if is_short_upload:
+        try:
+            from channel_guard import validate_youtube_shorts_file
+
+            ok_sf, sf_reason, sf_probe = validate_youtube_shorts_file(video_path)
+        except Exception as exc:  # noqa: BLE001
+            ok_sf, sf_reason, sf_probe = False, f"shorts_format_check_failed:{exc!r}", {}
+        if not ok_sf:
+            msg = f"shorts_format_rejected:{sf_reason}"
+            _youtube_log([f"[{project_id}] {msg} probe={sf_probe}"])
+            return UploadResult(
+                False,
+                "blocked_shorts_format",
+                error=msg,
+                token_path_used=token_path_used,
+                client_secrets_path_used=client_secrets_path_used,
+            )
+
     if not allow_test_assets and path_matches_test_asset_marker(
         str(package_dir),
         project_id,
@@ -691,6 +711,12 @@ def upload_from_package_directory(
     )
     if finfo.get("metadata_warnings") and tit.startswith("NYC_AUTO "):
         tit = "StateVerge NYC Video"[:TITLE_MAX]
+    if is_short_upload and "#shorts" not in tit.lower():
+        suffix = " #Shorts"
+        if len(tit) + len(suffix) <= TITLE_MAX:
+            tit = f"{tit}{suffix}"
+    if is_short_upload and "#shorts" not in desc.lower():
+        desc = f"{desc.rstrip()}\n\n#Shorts".strip()
     if len(tit) > TITLE_MAX:
         _youtube_log([f"[{project_id}] WARN title_truncated {len(tit)}->{TITLE_MAX}"])
         tit = tit[:TITLE_MAX]

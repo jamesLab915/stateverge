@@ -11,7 +11,7 @@ from always_publish.upload_counter import count_uploads_today, delivery_timezone
 
 DAILY_LONG_REQUIRED = 1
 DAILY_LONG_EXTRA_OPTIONAL = 1
-DAILY_SHORTS_REQUIRED = 4
+DAILY_SHORTS_REQUIRED = 8
 
 SOFT_COOLDOWN_MIN = 15
 SOFT_COOLDOWN_MAX = 30

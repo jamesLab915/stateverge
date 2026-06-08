@@ -56,6 +56,32 @@ python3 scripts/nyc_auto/youtube_auth_init.py \
 python3 scripts/nyc_auto/youtube_whoami.py
 ```
 
+Shorts 专用频道（Real NYC Shorts）：
+
+```bash
+python3 scripts/nyc_auto/youtube_whoami.py --token ~/StateVerge/data/youtube/token_shorts.json
+```
+
+---
+
+## 单文件直传（无需 publish_pack 目录）
+
+| 脚本 | OAuth | 频道 |
+|------|-------|------|
+| `youtube_upload_direct_nyc.py` | `data/youtube/token.json` | StateVerge NYC（长视频） |
+| `youtube_upload_direct_nyc_shorts.py` | `data/youtube/token.json` | StateVerge NYC 上发布 **Short 成片**（路径可含 `shorts_clips`） |
+| `youtube_upload_direct_shorts.py` | `data/youtube/token_shorts.json` | Real NYC Shorts |
+
+长频道发 Short 示例：
+
+```bash
+cd ~/StateVerge
+.venv/bin/python3 scripts/nyc_auto/youtube_upload_direct_nyc_shorts.py \
+  --video "/Volumes/SV_TRANSFER/ready_to_upload/shorts_clips/your_clip.mp4" \
+  --title "NYC Evening Walk #Shorts" \
+  --privacy unlisted
+```
+
 ---
 
 ## Dry-run（只打印计划上传内容，不调用 API）

@@ -131,6 +131,31 @@ def cmd_run_once(args: argparse.Namespace) -> dict[str, Any]:
         if r.returncode != 0:
             warnings.append(f"index_media_library_rc_{r.returncode}")
 
+    police_extract: dict[str, Any] | None = None
+    police_script = STATEVERGE / "scripts" / "jobs" / "idle_extract_police_clips.py"
+    if police_script.is_file() and args.allow_police_extract:
+        r2 = subprocess.run(
+            [_venv_py(), str(police_script), "--max-sources", "4", "--max-clips", "3"],
+            cwd=str(STATEVERGE),
+            capture_output=True,
+            text=True,
+            timeout=max(120, args.max_runtime_minutes * 12),
+            check=False,
+        )
+        touched += 1
+        if r2.returncode != 0:
+            warnings.append(f"idle_extract_police_clips_rc_{r2.returncode}")
+        elif (r2.stdout or "").strip():
+            try:
+                body = json.loads(r2.stdout)
+                police_extract = {
+                    "clips_extracted": body.get("clips_extracted"),
+                    "output_dir": body.get("output_dir"),
+                    "status": body.get("status"),
+                }
+            except json.JSONDecodeError:
+                warnings.append("police_extract_json_parse_failed")
+
     media_root = SV_TRANSFER / "media_index"
     try:
         media_root.mkdir(parents=True, exist_ok=True)
@@ -162,6 +187,8 @@ def cmd_run_once(args: argparse.Namespace) -> dict[str, Any]:
         "elapsed_sec": elapsed,
         "max_runtime_minutes": args.max_runtime_minutes,
     }
+    if police_extract is not None:
+        payload["police_extract"] = police_extract
     _write_outputs(payload)
     return payload
 
@@ -230,6 +257,12 @@ def main() -> int:
     ap.add_argument("--allow-thumbnail", action=argparse.BooleanOptionalAction, default=True)
     ap.add_argument("--allow-media-index", action=argparse.BooleanOptionalAction, default=True)
     ap.add_argument("--allow-classify", action=argparse.BooleanOptionalAction, default=True)
+    ap.add_argument(
+        "--allow-police-extract",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Idle-cut police/siren clips into 素材/police_clips for Shorts.",
+    )
     args = ap.parse_args()
     if args.mode == "diagnose":
         out = cmd_diagnose()

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-"""Shorts schedule completion guard — diagnose today's 4 slots + optional backfill.
+"""Shorts schedule completion guard — diagnose today's 6 slots + optional backfill.
 
-Schedule (America/New_York or system local): 09:30, 13:30, 17:30, 21:30.
+Schedule (America/New_York or system local): 18:00, 21:00, 00:00, 02:00, 04:00, 05:00.
 Writes JSON to SV_CACHE review_reports (fallback StateVerge logs) and MD to Control Center logs.
 """
 
@@ -27,10 +27,12 @@ _QUEUE = _REPO / "scripts" / "nyc_auto" / "auto_publish_queue_shorts.py"
 _PY = _REPO / ".venv_audio" / "bin" / "python3"
 
 _SLOTS: tuple[tuple[str, int, int], ...] = (
-    ("slot_0930", 9, 30),
-    ("slot_1330", 13, 30),
-    ("slot_1730", 17, 30),
-    ("slot_2130", 21, 30),
+    ("slot_1800", 18, 0),
+    ("slot_2100", 21, 0),
+    ("slot_0000", 0, 0),
+    ("slot_0200", 2, 0),
+    ("slot_0400", 4, 0),
+    ("slot_0500", 5, 0),
 )
 
 _LOG_TS = re.compile(r"\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\]")
