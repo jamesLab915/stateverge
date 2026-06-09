@@ -257,6 +257,26 @@ def _check_fmp() -> None:
         _line("FMP", "FAIL", str(e)[:400])
 
 
+def _check_broker_agent() -> None:
+    """Robinhood + Moomoo broker agent (optional)."""
+    rh_user = (os.environ.get("ROBINHOOD_USERNAME") or "").strip()
+    rh_pass = (os.environ.get("ROBINHOOD_PASSWORD") or "").strip()
+    mm_host = (os.environ.get("MOOMOO_OPEND_HOST") or "127.0.0.1").strip()
+    mm_port = (os.environ.get("MOOMOO_OPEND_PORT") or "11111").strip()
+
+    parts: list[str] = []
+    if rh_user and rh_pass:
+        parts.append("Robinhood: credentials present (login not tested here)")
+    else:
+        parts.append("Robinhood: ROBINHOOD_USERNAME/PASSWORD unset (optional)")
+
+    parts.append(f"Moomoo OpenD endpoint: {mm_host}:{mm_port} (requires local OpenD + moomoo-api)")
+    parts.append("CLI: PYTHONPATH=. python scripts/broker_agent/agent_v1.py diagnose")
+
+    status = "OK (optional)" if (rh_user and rh_pass) or mm_host else "SKIP (optional)"
+    _line("Broker agent", status, "\n".join(parts))
+
+
 def _check_envato() -> None:
     key = (os.environ.get("ENVATO_API_KEY") or "").strip()
     if not key:
@@ -283,6 +303,7 @@ def run() -> int:
     _check_ltx()
     _check_runway()
     _check_fmp()
+    _check_broker_agent()
     _check_envato()
     print("\n--- summary: missing or unset ---")
     missing: list[str] = []
@@ -310,6 +331,10 @@ def run() -> int:
         missing.append("ENVATO_API_KEY (optional; local assets in v1)")
     if not (os.environ.get("FMP_API_KEY") or "").strip():
         missing.append("FMP_API_KEY (optional; finance / earnings data)")
+    if not (os.environ.get("ROBINHOOD_USERNAME") or "").strip():
+        missing.append("ROBINHOOD_USERNAME (optional; broker agent)")
+    if not (os.environ.get("MOOMOO_OPEND_HOST") or "").strip():
+        missing.append("MOOMOO_OPEND_HOST (optional; broker agent — default 127.0.0.1)")
     if not missing:
         print("  (none of the required keys for your workflow are empty)")
     else:

@@ -17,6 +17,8 @@ from stateverge_paths import CODE_ROOT  # noqa: E402
 # Official paths (STATEVERGE_ROOT / ziweizhang StateVerge repo)
 OFFICIAL_LONG_TOKEN_PATH: Path = CODE_ROOT / "data" / "youtube" / "token.json"
 OFFICIAL_SHORTS_TOKEN_PATH: Path = CODE_ROOT / "data" / "youtube" / "token_shorts.json"
+# Repurposed: former Real NYC Shorts OAuth slot → 张子维 Ziwei Zhang 国语 MV 频道
+OFFICIAL_ZHANG_ZIWEI_TOKEN_PATH: Path = OFFICIAL_SHORTS_TOKEN_PATH
 OFFICIAL_MUSIC_TOKEN_PATH: Path = CODE_ROOT / "data" / "youtube" / "token_music.json"
 OFFICIAL_CLIENT_SECRETS_PATH: Path = CODE_ROOT / ".secrets" / "youtube" / "client_secrets.json"
 LEGACY_LONG_TOKEN_PATH: Path = CODE_ROOT / ".secrets" / "youtube" / "token.json"
@@ -48,6 +50,23 @@ def resolve_music_upload_token(cli_token: Path | None) -> tuple[Path, list[str]]
         return cli_token.expanduser().resolve(), warnings
     official = OFFICIAL_MUSIC_TOKEN_PATH.expanduser().resolve()
     return official, warnings
+
+
+def resolve_zhang_ziwei_upload_token(cli_token: Path | None) -> tuple[Path, list[str]]:
+    """Resolve 张子维 channel token (``token_shorts.json`` repurposed slot)."""
+    warnings: list[str] = []
+    if cli_token is not None:
+        return cli_token.expanduser().resolve(), warnings
+    official = OFFICIAL_ZHANG_ZIWEI_TOKEN_PATH.expanduser().resolve()
+    return official, warnings
+
+
+def zhang_ziwei_token_invalid_grant_fix_command() -> str:
+    return (
+        "python3 scripts/nyc_auto/youtube_auth_zhang_ziwei.py "
+        f"--client-secrets {OFFICIAL_CLIENT_SECRETS_PATH} "
+        f"--token {OFFICIAL_ZHANG_ZIWEI_TOKEN_PATH}"
+    )
 
 
 def resolve_client_secrets(cli_secrets: Path | None) -> Path:

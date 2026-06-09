@@ -70,7 +70,8 @@ python3 scripts/nyc_auto/youtube_whoami.py --token ~/StateVerge/data/youtube/tok
 |------|-------|------|
 | `youtube_upload_direct_nyc.py` | `data/youtube/token.json` | StateVerge NYC（长视频） |
 | `youtube_upload_direct_nyc_shorts.py` | `data/youtube/token.json` | StateVerge NYC 上发布 **Short 成片**（路径可含 `shorts_clips`） |
-| `youtube_upload_direct_shorts.py` | `data/youtube/token_shorts.json` | Real NYC Shorts |
+| `youtube_upload_direct_zhang_ziwei.py` | `data/youtube/token_shorts.json` | **国语音乐** 频道 · 张子维 MV（占用原 Shorts OAuth 槽位） |
+| ~~`youtube_upload_direct_shorts.py`~~ | — | **已停用**（channel guard: `shorts_channel_repurposed`） |
 
 长频道发 Short 示例：
 

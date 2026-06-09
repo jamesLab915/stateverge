@@ -18,15 +18,27 @@
       "rain_night": { "music_source": "suno", "envato_fallback": true }
     },
     "shorts": {
-      "default_audio_mode": "envato_music",
-      "music_source": "envato",
-      "category_priority": ["ambient", "cinematic", "calm_piano"],
-      "roots": [
-        "/Volumes/SV_TRANSFER/04_AUDIO/music/shorts",
-        "/Volumes/SV_TRANSFER/04_AUDIO/music/nyc_long"
+      "status": "repurposed",
+      "note": "token_shorts.json → 国语音乐频道（张子维 MV）; Shorts autopublish disabled",
+      "replacement": "zhang_ziwei"
+    },
+    "zhang_ziwei": {
+      "music_priority": "suno_zhang_ziwei_first",
+      "roots_priority": [
+        "/Volumes/SV_BACKUP/suno/stateverge_vocal_albums/zhang_ziwei_album_01_sanchongdaiji",
+        "/Volumes/SV_CACHE/inbox/suno",
+        "/Volumes/SV_TRANSFER/04_AUDIO/music/stateverge_suno"
       ],
-      "exclude_name_fragments": ["vocal", "vocals", "trailer", "edm", "dubstep", "drop"],
-      "fail_open_warning": "envato_music_not_found_fallback_original"
+      "mv_render_root": "/Volumes/SV_CACHE/renders/zhang_ziwei_mvs",
+      "mv_materials_same_as": "stateverge_music",
+      "footage_roots": [
+        "/Volumes/SV_CACHE/air",
+        "/Volumes/SV_TRANSFER/01_VIDEO/nyc_long"
+      ],
+      "oauth_token": "data/youtube/token_shorts.json",
+      "upload_script": "scripts/nyc_auto/youtube_upload_direct_zhang_ziwei.py",
+      "aspect": "16:9",
+      "language": "zh-CN"
     }
   },
 

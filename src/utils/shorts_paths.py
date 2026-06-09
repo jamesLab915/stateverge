@@ -12,7 +12,13 @@ from utils.storage_paths import code_root, get_sv_cache, get_sv_transfer
 
 
 def token_shorts_path() -> Path:
+    """Repurposed for 张子维 Ziwei Zhang 国语 MV — Real NYC Shorts 已停用."""
     return code_root() / "data" / "youtube" / "token_shorts.json"
+
+
+def token_zhang_ziwei_path() -> Path:
+    """Alias: 张子维国语频道 OAuth（与 token_shorts_path 相同文件）."""
+    return token_shorts_path()
 
 
 def youtube_client_secrets_path() -> Path:

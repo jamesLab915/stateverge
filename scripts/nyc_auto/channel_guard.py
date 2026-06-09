@@ -8,11 +8,17 @@ import subprocess
 from pathlib import Path
 from typing import Any
 
-from youtube_token_paths import OFFICIAL_LONG_TOKEN_PATH, OFFICIAL_MUSIC_TOKEN_PATH, OFFICIAL_SHORTS_TOKEN_PATH
+from youtube_token_paths import (
+    OFFICIAL_LONG_TOKEN_PATH,
+    OFFICIAL_MUSIC_TOKEN_PATH,
+    OFFICIAL_SHORTS_TOKEN_PATH,
+    OFFICIAL_ZHANG_ZIWEI_TOKEN_PATH,
+)
 
 UPLOADER_LONG = "NYC_LONG"
-UPLOADER_SHORTS = "SHORTS"
+UPLOADER_SHORTS = "SHORTS"  # legacy label — slot repurposed for 张子维
 UPLOADER_MUSIC = "STATEVERGE_MUSIC"
+UPLOADER_ZHANG_ZIWEI = "ZHANG_ZIWEI"
 
 SHORTS_PATH_MARKERS = ("shorts", "shorts_clips", "youtube_shorts", "shorts_uploads")
 LONG_CLIP_MARKERS = ("nyc_long_clips", "publish_pack/nyc_long_uploads", "long_runtime/long_uploads")
@@ -49,30 +55,38 @@ def validate_music_channel_token(token_path: Path) -> tuple[bool, str]:
     got = _resolve(token_path)
     want = _resolve(OFFICIAL_MUSIC_TOKEN_PATH)
     longp = _resolve(OFFICIAL_LONG_TOKEN_PATH)
-    shorts = _resolve(OFFICIAL_SHORTS_TOKEN_PATH)
+    ziwei = _resolve(OFFICIAL_ZHANG_ZIWEI_TOKEN_PATH)
     if got is None or want is None:
         return False, "token_path_unresolvable"
     if longp is not None and got == longp:
         return False, "music_queue_must_not_use_long_token_json"
-    if shorts is not None and got == shorts:
-        return False, "music_queue_must_not_use_token_shorts"
+    if ziwei is not None and got == ziwei:
+        return False, "music_queue_must_not_use_zhang_ziwei_token"
     if got != want:
         return False, "music_token_not_official_path"
     return True, ""
 
 
-def validate_shorts_channel_token(token_path: Path) -> tuple[bool, str]:
-    """Shorts uploads must use ``~/StateVerge/data/youtube/token_shorts.json``."""
+def validate_zhang_ziwei_channel_token(token_path: Path) -> tuple[bool, str]:
+    """张子维 MV uploads must use repurposed ``token_shorts.json`` only."""
     got = _resolve(token_path)
-    want = _resolve(OFFICIAL_SHORTS_TOKEN_PATH)
+    want = _resolve(OFFICIAL_ZHANG_ZIWEI_TOKEN_PATH)
     longp = _resolve(OFFICIAL_LONG_TOKEN_PATH)
+    music = _resolve(OFFICIAL_MUSIC_TOKEN_PATH)
     if got is None or want is None:
         return False, "token_path_unresolvable"
     if longp is not None and got == longp:
-        return False, "shorts_queue_must_not_use_long_token_json"
+        return False, "zhang_ziwei_queue_must_not_use_long_token_json"
+    if music is not None and got == music:
+        return False, "zhang_ziwei_queue_must_not_use_token_music"
     if got != want:
-        return False, "shorts_token_not_official_path"
+        return False, "zhang_ziwei_token_not_official_path"
     return True, ""
+
+
+def validate_shorts_channel_token(token_path: Path) -> tuple[bool, str]:
+    """Legacy Shorts slot — repurposed for 张子维; Real NYC Shorts uploads disabled."""
+    return False, "shorts_channel_repurposed_for_zhang_ziwei"
 
 
 def _video_rotation_deg(st: dict[str, Any]) -> int:
@@ -256,31 +270,42 @@ def assert_music_upload_context(video_path: Path, token_path: Path) -> dict[str,
     return None
 
 
-def assert_shorts_upload_context(video_path: Path, token_path: Path) -> dict[str, Any] | None:
-    """Return a blocked envelope if Shorts token path is wrong or asset is long-only path."""
-    s = str(video_path).replace("\\", "/").lower()
-    for m in LONG_CLIP_MARKERS:
-        if m in s:
-            return {
-                "status": "blocked",
-                "block_reason": "channel_guard_failed",
-                "channel_guard_detail": "shorts_upload_path_reserved_for_long_channel",
-                "video_type": "short",
-                "channel": UPLOADER_SHORTS,
-            }
-    ok, reason = validate_shorts_channel_token(token_path)
+def assert_zhang_ziwei_upload_context(video_path: Path, token_path: Path) -> dict[str, Any] | None:
+    """张子维 国语 MV — ``token_shorts.json`` repurposed slot; horizontal cinematic only."""
+    ok, reason = validate_zhang_ziwei_channel_token(token_path)
     if not ok:
         return {
             "status": "blocked",
             "block_reason": "channel_guard_failed",
             "channel_guard_detail": reason,
-            "video_type": "short",
-            "channel": UPLOADER_SHORTS,
+            "video_type": "zhang_ziwei_mv",
+            "channel": UPLOADER_ZHANG_ZIWEI,
         }
-    fmt_block = _shorts_format_block(video_path, channel=UPLOADER_SHORTS)
+    fmt_block = _shorts_format_block(
+        video_path, channel=UPLOADER_ZHANG_ZIWEI, upload_surface="zhang_ziwei_mv"
+    )
     if fmt_block:
+        fmt_block["block_reason"] = "zhang_ziwei_mv_must_be_landscape"
+        fmt_block["channel_guard_detail"] = (
+            "张子维频道为 16:9 电影感 MV，禁止竖屏 Shorts 格式"
+        )
         return fmt_block
     return None
+
+
+def assert_shorts_upload_context(video_path: Path, token_path: Path) -> dict[str, Any] | None:
+    """Real NYC Shorts 已停用 — ``token_shorts.json`` 划归张子维国语 MV 频道。"""
+    return {
+        "status": "blocked",
+        "block_reason": "shorts_channel_repurposed",
+        "channel_guard_detail": (
+            "token_shorts.json 已用于国语音乐频道（张子维 MV）；"
+            "请使用 youtube_upload_direct_zhang_ziwei.py"
+        ),
+        "video_type": "short",
+        "channel": UPLOADER_SHORTS,
+        "replacement_channel": UPLOADER_ZHANG_ZIWEI,
+    }
 
 
 def blocked_envelope_to_json(obj: dict[str, Any]) -> str:
