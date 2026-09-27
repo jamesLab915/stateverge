@@ -1,0 +1,37 @@
+{
+  "_说明": "示例人物与言论均为虚构(Alex Rivera)。真实数据请逐字复制原始逐字稿,不要改写。",
+  "claims": [
+    {
+      "person_name": "Alex Rivera",
+      "party": "Example Party",
+      "office": "Senator",
+      "topic": "Iran",
+      "subtopic": "troops",
+      "statement_date": "2025-03-01",
+      "claim_type": "PRESS_CONFERENCE",
+      "statement_text_original": "We will not send troops to Iran under any circumstances",
+      "statement_text_zh": "我们在任何情况下都不会向伊朗派兵",
+      "source_name": "White House",
+      "source_url": "https://www.whitehouse.gov/briefings-statements/example-2025-03-01/",
+      "video_url": "https://www.whitehouse.gov/videos/example-2025-03-01/",
+      "transcript_segments": [
+        {"start": 60.0, "end": 64.5, "text": "Reporter: Will you send troops to the region?"},
+        {"start": 64.5, "end": 70.0, "text": "We will not send troops to Iran under any circumstances."},
+        {"start": 70.0, "end": 72.0, "text": "Next question."}
+      ]
+    },
+    {
+      "person_name": "Alex Rivera",
+      "office": "Senator",
+      "topic": "Iran",
+      "subtopic": "troops",
+      "statement_date": "2026-09-20",
+      "claim_type": "INTERVIEW_STATEMENT",
+      "statement_text_original": "We will send troops to Iran under these circumstances",
+      "source_name": "C-SPAN",
+      "video_url": "https://www.c-span.org/video/?example",
+      "fair_use_purpose": "历史对比评论:与2025年讲话并列展示",
+      "transcript_file": "archive_import_example/rivera-2026-09-20.txt"
+    }
+  ]
+}

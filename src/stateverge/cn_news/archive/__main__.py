@@ -2,6 +2,8 @@
 
     init-db [--db PATH]                          create data/political_archive.db
     history PERSON TOPIC [--years N] [--db PATH] print 今天翻旧账 for PERSON on TOPIC
+    import FILE.json [--dry-run]                 import hand-curated statements (see
+                                                 docs/archive_import_example.json)
     x-post EARLIER_ID LATER_ID --reviewer NAME --context-reviewed
            --opinion-checked --corrections-checked [--post]
                                                  compare two stored claims, run the
@@ -14,7 +16,7 @@ from __future__ import annotations
 import argparse
 from datetime import date
 
-from . import publish_guard, x_publisher
+from . import importer, publish_guard, x_publisher
 from .claim_search import search_history
 from .contradiction import compare
 from .database import DEFAULT_DB_PATH, ArchiveDB
@@ -31,6 +33,9 @@ def main(argv: list[str] | None = None) -> int:
     hist.add_argument("person")
     hist.add_argument("topic")
     hist.add_argument("--years", type=int, default=10)
+    imp = sub.add_parser("import")
+    imp.add_argument("file")
+    imp.add_argument("--dry-run", action="store_true", help="validate only, write nothing")
     xp = sub.add_parser("x-post")
     xp.add_argument("earlier_id")
     xp.add_argument("later_id")
@@ -45,6 +50,10 @@ def main(argv: list[str] | None = None) -> int:
         if args.cmd == "init-db":
             print(f"initialised {db.path}")
             return 0
+        if args.cmd == "import":
+            report = importer.import_file(args.file, db, dry_run=args.dry_run)
+            print(report.render() + ("(dry run,未写入)" if args.dry_run else ""))
+            return 0 if report.failed == 0 else 1
         if args.cmd == "x-post":
             return _x_post(db, args)
         event = NewsEvent("cli", args.topic, people=[args.person], topics=[args.topic], event_date=date.today().isoformat())

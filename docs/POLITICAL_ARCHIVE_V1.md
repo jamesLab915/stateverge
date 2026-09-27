@@ -88,3 +88,18 @@ PYTHONPATH=src python3 -m stateverge.cn_news.archive x-post ... --post
 - 每张 Archive Card 只发一次(`x_posts` 表)。串推中途失败时,重跑会从断点接着回复,不会重复发帖。
 - 发布成功后,相关言论的 `archive_status` 改为 `PUBLISHED`。
 - v1 只发文字;视频片段上传(media upload)尚未实现。
+
+## 人工整理批量导入(`importer.py`)
+
+```bash
+PYTHONPATH=src python3 -m stateverge.cn_news.archive import 文件.json --dry-run   # 只检查
+PYTHONPATH=src python3 -m stateverge.cn_news.archive import 文件.json             # 写入数据库
+```
+
+格式见 `docs/archive_import_example.json`(虚构人物示例)。
+
+- 信源等级、版权类型由程序根据网址计算,文件里不能直接填写。
+- `transcript_verified` 不能在文件里声明;必须提供逐字稿(`transcript` 文本、`transcript_file` 文件,或带时间轴的 `transcript_segments`),原话逐字出现在逐字稿中才算核实。带时间轴时自动填入片段起止秒数。
+- 事实核查通过 `fact_check: {source, url, rating}` 录入,只接受公认机构。
+- 同一人物 + 日期 + 原话生成固定 ID;重复导入会更新内容,但保留发布状态与对比关系。
+- 某一条出错不影响其他条,报告会逐条列出错误和警告。
