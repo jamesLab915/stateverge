@@ -70,3 +70,21 @@ PYTHONPATH=src python3 -m stateverge.cn_news.archive history "Name" Iran   # 今
 - 真实采集器(C-SPAN、白宫、通讯社等):目前只有接口,需要按网站条款接入。
 - 视频下载:`download_status` 由外部流程维护;本模块只生成 ffmpeg 命令。
 - 测试夹具只使用虚构人物,仓库中不包含任何真实政治人物的言论数据。
+
+## 发布到 X(`x_publisher.py`)
+
+```bash
+export X_API_KEY=... X_API_SECRET=... X_ACCESS_TOKEN=... X_ACCESS_TOKEN_SECRET=...
+# 预览(默认,不发帖)
+PYTHONPATH=src python3 -m stateverge.cn_news.archive x-post <较早claim_id> <较新claim_id> \
+    --reviewer 名字 --context-reviewed --opinion-checked --corrections-checked
+# 确认无误后真正发布
+PYTHONPATH=src python3 -m stateverge.cn_news.archive x-post ... --post
+```
+
+- 使用 X API v2 `POST /2/tweets`,OAuth 1.0a 用户令牌(在 developer.x.com 的 App 设置里开启 Read and Write 后生成 Access Token)。
+- 发帖前一定经过 `publish_guard.check`;`BLOCK_PUBLISH` 时一条都不发。手动改过的文案也会重新检查。
+- 超过 280 字符(中文与 emoji 按 2 计,链接按 23 计)自动拆成串推,并标注 `1/2`、`2/2`。
+- 每张 Archive Card 只发一次(`x_posts` 表)。串推中途失败时,重跑会从断点接着回复,不会重复发帖。
+- 发布成功后,相关言论的 `archive_status` 改为 `PUBLISHED`。
+- v1 只发文字;视频片段上传(media upload)尚未实现。

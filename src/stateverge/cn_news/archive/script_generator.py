@@ -150,6 +150,10 @@ def status_line(card: ArchiveCard, a: PoliticalClaim, b: PoliticalClaim) -> str:
     }[card.status]
 
 
+def _source_lines(card: ArchiveCard) -> list[str]:
+    return list(dict.fromkeys(f"{e.source_name} {e.source_url}".strip() for e in card.evidence))
+
+
 def x_post(card: ArchiveCard) -> str:
     """Section 16 template."""
     a, b = _require_comparable(card)
@@ -174,7 +178,7 @@ def x_post(card: ArchiveCard) -> str:
         if sentence:
             lines += ["", sentence]
     lines += ["", "原始来源:"]
-    lines += [f"{e.source_name} {e.source_url}".strip() for e in card.evidence]
+    lines += _source_lines(card)
     lines += ["", "Stateverge Archive", "", "让原始记录自己说话。"]
     return "\n".join(lines)
 
@@ -225,7 +229,7 @@ def promise_text(card: ArchiveCard) -> str:
         body = f"“{text}”" if kind != "实际结果" else text
         lines.append(f"{zh_date(d)}|{kind}:{body}")
     lines += ["", "这是当时的承诺,这是后来发生的事情。", "", "原始来源:"]
-    lines += [f"{e.source_name} {e.source_url}".strip() for e in card.evidence]
+    lines += _source_lines(card)
     lines += ["", BRAND]
     return "\n".join(lines)
 

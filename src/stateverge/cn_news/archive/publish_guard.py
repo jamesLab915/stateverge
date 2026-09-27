@@ -125,6 +125,7 @@ def check(
         same = len(claims) == 2 and same_issue(claims[0], claims[1])
         same = same and card.status is not ComparisonStatus.INSUFFICIENT_EVIDENCE
     item("same_issue", same, "两句话讨论的不是同一问题,或证据不足")
+    item("human_reviewed", bool(attestation.reviewer.strip()), "缺少审核人署名")
     item("opinion_vs_fact", attestation.opinion_not_stated_as_fact, "审核人未确认没有把观点写成事实")
     hits = forbidden_terms_in(all_text)
     if card.status is ComparisonStatus.CONTEXT_CHANGED and "打脸" in all_text:
