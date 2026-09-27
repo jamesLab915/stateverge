@@ -57,3 +57,9 @@ logs/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Political Archive (Python): local DB and downloaded media stay out of git
+__pycache__/
+*.pyc
+/data/political_archive.db*
+/media/
