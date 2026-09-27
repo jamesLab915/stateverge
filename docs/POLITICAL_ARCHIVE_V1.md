@@ -103,3 +103,49 @@ PYTHONPATH=src python3 -m stateverge.cn_news.archive import 文件.json         
 - 事实核查通过 `fact_check: {source, url, rating}` 录入,只接受公认机构。
 - 同一人物 + 日期 + 原话生成固定 ID;重复导入会更新内容,但保留发布状态与对比关系。
 - 某一条出错不影响其他条,报告会逐条列出错误和警告。
+
+## 官方逐字稿采集(`govinfo_provider.py`)
+
+```bash
+export GOVINFO_API_KEY=...   # https://api.data.gov/signup 免费申请;不设则用 DEMO_KEY(限额很低)
+PYTHONPATH=src python3 -m stateverge.cn_news.archive collect "Donald Trump" Iran
+```
+
+- 总统:搜 CPD(总统文件汇编:讲话、记者会、采访、声明),按任期把文件归属到当时的总统。
+- 议员:搜 CREC(国会记录)中本人的发言。
+- 只截取目标人物本人发言中包含关键词的完整句子,原样保存;记者提问、其他人发言、标题行都不会被当成引语。全文作为逐字稿,自动核实并保存前后文。
+- 结果一律存为 `CANDIDATE`,需要人工审核;关键词命中不等于立场。
+- GovInfo 收录有几天到几周的延迟,最新讲话可能还查不到。
+
+## AI 立场判断(`stance_llm.py`)
+
+`x-post ... --llm` 或 `cloud-run --llm` 时使用 OpenAI(`OPENAI_API_KEY`,模型 `ARCHIVE_STANCE_MODEL`,默认 gpt-4o-mini,与项目其他 AI 功能一致)。
+
+- 读取两段言论和各自完整上下文,只回答 SAME / SHIFTED / OPPOSITE / UNCLEAR,不判断是否诚实。
+- 网络错误、格式错误、未知标签一律当作 UNCLEAR → `INSUFFICIENT_EVIDENCE`(保守方向)。
+- 语境检查、逐字稿、信源等级等规则仍在 AI 之前执行,AI 不能绕过。
+
+## 手机上云端运行(GitHub Actions,`.github/workflows/archive-cloud.yml`)
+
+不需要合并到 main:编辑下面的 JSON 文件并提交,推送就会触发云端任务,结果自动写回同一文件。
+
+1. 一次性设置:repo → Settings → Secrets and variables → Actions,添加
+   `X_API_KEY`、`X_API_SECRET`、`X_ACCESS_TOKEN`、`X_ACCESS_TOKEN_SECRET`,
+   可选 `GOVINFO_API_KEY`、`OPENAI_API_KEY`(有它就自动启用 AI 立场判断)。
+2. **采集**:编辑 `data/archive/collect_requests.json`:
+   ```json
+   [{"person": "Donald Trump", "topic": "Iran", "years": 10, "status": "pending"}]
+   ```
+   结果写入 `data/archive/claims/collected-*.json`。
+3. **发布**:编辑 `data/archive/publish_queue.json`:
+   ```json
+   [{"earlier_id": "…", "later_id": "…", "reviewer": "你的名字",
+     "context_reviewed": true, "opinion_checked": true, "corrections_checked": true,
+     "post": false, "status": "pending"}]
+   ```
+   先用 `"post": false` 预览:运行后 `status` 变成 `previewed`,`preview` 里是要发的串推。
+   确认后改成 `"post": true, "status": "pending"` 再提交,才会真正发到 X。
+   被拦截时 `status` 为 `blocked`,`failures` 写明原因。
+4. `data/archive/x_ledger.json` 记录已发内容,防止重复发帖,不要手动删除。
+
+数据文件都在公开 repo 里:只放公开言论,不要放任何密钥。

@@ -120,6 +120,9 @@ def search_history(
                     if claim.person_id != pid or not (since <= claim.statement_date <= until):
                         continue
                     resolve_claim(claim)
+                    # Providers tag hits with the search keyword; file them under the event's issue.
+                    if event.topics and not claim.subtopic:
+                        claim.topic = event.topics[0]
                     if store_candidates:
                         db.upsert(claim)
                     found.append(claim)

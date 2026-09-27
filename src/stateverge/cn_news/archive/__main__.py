@@ -4,6 +4,9 @@
     history PERSON TOPIC [--years N] [--db PATH] print 今天翻旧账 for PERSON on TOPIC
     import FILE.json [--dry-run]                 import hand-curated statements (see
                                                  docs/archive_import_example.json)
+    collect PERSON TOPIC [--years N]             search GovInfo (official transcripts) and
+                                                 store hits as CANDIDATE claims
+    cloud-run [--root data/archive] [--llm]      process collect/publish queues (GitHub Actions)
     x-post EARLIER_ID LATER_ID --reviewer NAME --context-reviewed
            --opinion-checked --corrections-checked [--post]
                                                  compare two stored claims, run the
@@ -15,9 +18,13 @@ from __future__ import annotations
 
 import argparse
 from datetime import date
+from pathlib import Path
 
 from . import importer, publish_guard, x_publisher
 from .claim_search import search_history
+from .cloud_runner import CloudRunner
+from .govinfo_provider import GovInfoProvider
+from .stance_llm import LLMStanceJudge
 from .contradiction import compare
 from .database import DEFAULT_DB_PATH, ArchiveDB
 from .models import NewsEvent
@@ -44,6 +51,14 @@ def main(argv: list[str] | None = None) -> int:
     xp.add_argument("--opinion-checked", action="store_true")
     xp.add_argument("--corrections-checked", action="store_true")
     xp.add_argument("--post", action="store_true", help="actually post (default: preview only)")
+    xp.add_argument("--llm", action="store_true", help="judge stance with the LLM (OPENAI_API_KEY)")
+    col = sub.add_parser("collect")
+    col.add_argument("person")
+    col.add_argument("topic")
+    col.add_argument("--years", type=int, default=10)
+    cr = sub.add_parser("cloud-run")
+    cr.add_argument("--root", default="data/archive")
+    cr.add_argument("--llm", action="store_true", help="judge stance with the LLM (OPENAI_API_KEY)")
     args = parser.parse_args(argv)
 
     with ArchiveDB(args.db) as db:
@@ -56,6 +71,12 @@ def main(argv: list[str] | None = None) -> int:
             return 0 if report.failed == 0 else 1
         if args.cmd == "x-post":
             return _x_post(db, args)
+        if args.cmd == "collect":
+            return _collect(db, args)
+        if args.cmd == "cloud-run":
+            runner = CloudRunner(Path(args.root), stance_judge=LLMStanceJudge() if args.llm else None)
+            print("\n".join(runner.run()) or "nothing pending")
+            return 0
         event = NewsEvent("cli", args.topic, people=[args.person], topics=[args.topic], event_date=date.today().isoformat())
         claims = search_history(event, db, years=args.years)[args.person]
         if not claims:
@@ -70,7 +91,10 @@ def _x_post(db: ArchiveDB, args: argparse.Namespace) -> int:
     if earlier is None or later is None:
         print("claim not found")
         return 1
-    card = card_from_comparison(compare(earlier, later))
+    judge = LLMStanceJudge() if args.llm else None
+    card = card_from_comparison(compare(earlier, later, stance_judge=judge))
+    if judge and judge.last_reason:
+        print(f"LLM: {judge.last_reason}")
     attestation = publish_guard.ReviewerAttestation(
         reviewer=args.reviewer,
         opinion_not_stated_as_fact=args.opinion_checked,
@@ -92,6 +116,16 @@ def _x_post(db: ArchiveDB, args: argparse.Namespace) -> int:
     elif result.decision == publish_guard.ALLOW_PUBLISH:
         print("\n(preview only — add --post to publish)")
     return 0 if result.decision == publish_guard.ALLOW_PUBLISH else 2
+
+
+def _collect(db: ArchiveDB, args: argparse.Namespace) -> int:
+    event = NewsEvent("cli", args.topic, people=[args.person], topics=[args.topic], event_date=date.today().isoformat())
+    claims = search_history(event, db, [GovInfoProvider()], years=args.years)[args.person]
+    for c in claims:
+        flag = "✓" if c.transcript_verified else "?"
+        print(f"{flag} [{c.claim_id}] {c.statement_date} {c.source_name}\n    “{c.statement_text_original}”")
+    print(f"\n{len(claims)} 条(新采集的均为 CANDIDATE,需人工审核)")
+    return 0
 
 
 if __name__ == "__main__":
