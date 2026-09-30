@@ -20,7 +20,7 @@ import argparse
 from datetime import date
 from pathlib import Path
 
-from . import importer, publish_guard, x_publisher
+from . import envfile, importer, publish_guard, x_publisher
 from .claim_search import search_history
 from .cloud_runner import CloudRunner
 from .govinfo_provider import GovInfoProvider
@@ -32,6 +32,7 @@ from .script_generator import card_from_comparison, card_from_history, history_t
 
 
 def main(argv: list[str] | None = None) -> int:
+    envfile.load()  # secrets from the git-ignored .env.local / .env, if present
     parser = argparse.ArgumentParser(prog="stateverge.cn_news.archive")
     parser.add_argument("--db", default=str(DEFAULT_DB_PATH))
     sub = parser.add_subparsers(dest="cmd", required=True)

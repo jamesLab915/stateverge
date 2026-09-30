@@ -149,3 +149,15 @@ PYTHONPATH=src python3 -m stateverge.cn_news.archive collect "Donald Trump" Iran
 4. `data/archive/x_ledger.json` 记录已发内容,防止重复发帖,不要手动删除。
 
 数据文件都在公开 repo 里:只放公开言论,不要放任何密钥。
+
+## 本地密钥文件(`.env.local`)
+
+在自己电脑上运行时,不必每次 `export`:
+
+```bash
+cp .env.example .env.local   # 然后用编辑器填入 X_API_KEY 等
+```
+
+- 程序启动时自动读取 `.env.local`,再读 `.env`;已经存在的环境变量(例如 GitHub Actions Secrets)优先,不会被覆盖。
+- `.env*` 已在 `.gitignore` 中,只有不含真实值的 `.env.example` 会进 repo。
+- 空值会被忽略,不会覆盖成空字符串。
