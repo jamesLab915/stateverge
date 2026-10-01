@@ -47,6 +47,8 @@ class TestEnvFile(unittest.TestCase):
         import subprocess
 
         root = Path(__file__).resolve().parents[2]
+        if not (root / ".git").exists():
+            self.skipTest("not a git checkout (e.g. unpacked ZIP)")
         r = subprocess.run(["git", "check-ignore", ".env", ".env.local"], cwd=root, capture_output=True, text=True)
         self.assertEqual(r.stdout.split(), [".env", ".env.local"])
 
