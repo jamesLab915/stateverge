@@ -8,6 +8,8 @@ Everything the cloud job needs lives in tracked JSON under ``data/archive/``:
                              "context_reviewed": true, "opinion_checked": true,
                              "corrections_checked": true, "post": false, "status": "pending"}]
     x_ledger.json          what has been posted to X (prevents double posting)
+    stats_requests.json    [{"status": "pending"}] → weekly account snapshot
+    x_stats.json           snapshot history (followers, impressions)
 
 Each run rebuilds a throwaway SQLite DB from these files, processes every
 ``pending`` request, and writes results back into the same files; the
@@ -22,7 +24,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from . import importer, publish_guard, x_publisher
+from . import importer, publish_guard, x_publisher, x_stats
 from .claim_search import search_history
 from .contradiction import compare
 from .database import ArchiveDB
@@ -183,10 +185,34 @@ class CloudRunner:
             _write(path, queue)
         self.save_ledger()
 
-    def run(self) -> list[str]:
+    # -- stats --------------------------------------------------------------
+
+    def run_stats(self, force: bool = False) -> None:
+        """Snapshot the account when a stats request is pending (or ``force``,
+        used by the weekly schedule)."""
+        path = self.root / "stats_requests.json"
+        requests = _read(path, [])
+        pending = [r for r in requests if r.get("status", "pending") == "pending"]
+        if not (pending or force):
+            return
+        client = self.x_client or x_publisher.XClient(x_publisher.XCredentials.from_env())
+        try:
+            report = x_stats.record(x_stats.take_snapshot(client), self.root / "x_stats.json")
+            outcome = {"status": "done", "report": report}
+        except x_publisher.XPublishError as e:
+            outcome = {"status": "error", "failures": [str(e)]}
+            report = f"统计失败:{e}"
+        for r in pending:
+            r.update(processed_at=_now(), **outcome)
+        if requests:
+            _write(path, requests)
+        self.log.append(report)
+
+    def run(self, stats: bool = False) -> list[str]:
         self.load()
         self.run_collect()
         self.run_publish()
+        self.run_stats(force=stats)
         return self.log
 
 

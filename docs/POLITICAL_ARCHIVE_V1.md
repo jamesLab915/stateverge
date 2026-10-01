@@ -161,3 +161,32 @@ cp .env.example .env.local   # 然后用编辑器填入 X_API_KEY 等
 - 程序启动时自动读取 `.env.local`,再读 `.env`;已经存在的环境变量(例如 GitHub Actions Secrets)优先,不会被覆盖。
 - `.env*` 已在 `.gitignore` 中,只有不含真实值的 `.env.example` 会进 repo。
 - 空值会被忽略,不会覆盖成空字符串。
+
+## 视频(`video_render.py`)与带视频发帖
+
+在自己电脑上运行(需要 ffmpeg,带 libass 字幕功能,以及中文字体;macOS 可用 `brew install ffmpeg`):
+
+```bash
+PYTHONPATH=src python3 -m stateverge.cn_news.archive x-video <较早id> <较新id> \
+    --source-earlier 原始视频1.mp4 --source-later 原始视频2.mp4 \
+    --reviewer 名字 --context-reviewed --opinion-checked --corrections-checked
+# 先看生成的 media/clips/*.mp4,确认后再加 --post
+```
+
+- 按第 15 节模板合成 1280×720 视频:片头「录像不会失忆。」→ 旧片段(日期、人物、来源、字幕)→ 定格 + 旁白 → 新片段 → 旁白/事实核查 → 时间线 → 结尾。
+- 片段时间来自逐字稿时间轴,遵守 3–12 秒规则(更长需 `--extend-reason`,上限 30 秒)。
+- 旁白为屏幕文字,不生成配音。字体可用 `ARCHIVE_FONT` 指定(默认 Noto Sans CJK SC)。
+- 原始视频需要你自己合法取得并放在本地;程序不下载视频,视频文件不进 repo。
+- `--post` 时视频按 X API v2 分块上传(initialize → append → finalize → 查询处理状态),附在串推第一条。
+
+## 账号数据周报(`x_stats.py`)
+
+```bash
+PYTHONPATH=src python3 -m stateverge.cn_news.archive x-stats
+```
+
+- 记录关注者、近 7 天帖子数/浏览/赞/转发/回复、近 90 天总浏览量,追加到 `data/archive/x_stats.json`,并显示与上周的变化。
+- **注意**:API 只提供总浏览量和总关注者;收益分成门槛只算认证(Premium)用户,所以进度是上限,准确数字以 Creator Studio 为准。
+- 手机上:在 `data/archive/stats_requests.json` 加 `[{"status": "pending"}]` 并提交,云端运行后结果写在同一文件的 `report` 里。
+- 工作流里已写好每周一自动统计,但 GitHub 只对默认分支(main)执行定时任务,合并前不会自动跑。
+- 按使用付费:每次统计会产生少量读取费用(默认最多读取 3 页帖子)。

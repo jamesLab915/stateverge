@@ -27,6 +27,7 @@ import urllib.request
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from typing import Callable
+from pathlib import Path
 from urllib.parse import quote
 
 from . import publish_guard
@@ -157,8 +158,10 @@ def oauth1_header(
     url: str,
     nonce: str | None = None,
     timestamp: str | None = None,
+    query: dict[str, str] | None = None,
 ) -> str:
-    """Authorization header for a JSON-body request (body is not signed)."""
+    """Authorization header. JSON and multipart bodies are not signed; query
+    string parameters (GET) are, and ``url`` must exclude the query string."""
     params = {
         "oauth_consumer_key": creds.api_key,
         "oauth_nonce": nonce or secrets.token_hex(16),
@@ -167,7 +170,8 @@ def oauth1_header(
         "oauth_token": creds.access_token,
         "oauth_version": "1.0",
     }
-    param_str = "&".join(f"{_pct(k)}={_pct(v)}" for k, v in sorted(params.items()))
+    signed = {**params, **(query or {})}
+    param_str = "&".join(f"{_pct(k)}={_pct(v)}" for k, v in sorted(signed.items()))
     base = "&".join([method.upper(), _pct(url), _pct(param_str)])
     key = f"{_pct(creds.api_secret)}&{_pct(creds.access_token_secret)}"
     sig = base64.b64encode(hmac.new(key.encode(), base.encode(), hashlib.sha1).digest()).decode()
@@ -178,6 +182,10 @@ def oauth1_header(
 # -- client -------------------------------------------------------------------
 
 Transport = Callable[[str, dict, bytes], tuple[int, bytes]]
+GetTransport = Callable[[str, dict], tuple[int, bytes]]
+
+MEDIA_URL = "https://api.x.com/2/media/upload"
+CHUNK_BYTES = 4 * 1024 * 1024  # X recommends <= 5 MB per APPEND segment
 
 
 def _urllib_transport(url: str, headers: dict, body: bytes) -> tuple[int, bytes]:
@@ -189,15 +197,84 @@ def _urllib_transport(url: str, headers: dict, body: bytes) -> tuple[int, bytes]
         return e.code, e.read()
 
 
+def _urllib_get(url: str, headers: dict) -> tuple[int, bytes]:
+    req = urllib.request.Request(url, headers=headers, method="GET")
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            return resp.status, resp.read()
+    except urllib.error.HTTPError as e:
+        return e.code, e.read()
+
+
+def _multipart(fields: dict[str, str], file_field: str, data: bytes) -> tuple[str, bytes]:
+    boundary = "----stateverge" + secrets.token_hex(12)
+    out = bytearray()
+    for name, value in fields.items():
+        out += f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n{value}\r\n'.encode()
+    out += (f'--{boundary}\r\nContent-Disposition: form-data; name="{file_field}"; filename="blob"\r\n'
+            "Content-Type: application/octet-stream\r\n\r\n").encode()
+    out += data + f"\r\n--{boundary}--\r\n".encode()
+    return f"multipart/form-data; boundary={boundary}", bytes(out)
+
+
 class XClient:
-    def __init__(self, creds: XCredentials, transport: Transport | None = None) -> None:
+    def __init__(
+        self,
+        creds: XCredentials,
+        transport: Transport | None = None,
+        get_transport: GetTransport | None = None,
+        sleep: Callable[[float], None] = time.sleep,
+    ) -> None:
         self.creds = creds
         self.transport = transport or _urllib_transport
+        self.get_transport = get_transport or _urllib_get
+        self.sleep = sleep
 
-    def create_post(self, text: str, reply_to: str | None = None) -> str:
+    def _check(self, status: int, body: bytes, what: str) -> dict:
+        if status not in (200, 201, 202, 204):
+            raise XPublishError(f"{what}: X API returned {status}: {body[:300].decode(errors='replace')}")
+        return json.loads(body) if body.strip() else {}
+
+    def upload_video(self, path: Path, max_wait: float = 600) -> str:
+        """Chunked upload (POST /2/media/upload/initialize → /{id}/append →
+        /{id}/finalize, then poll STATUS). Returns the media id."""
+        data = Path(path).read_bytes()
+        init_url = f"{MEDIA_URL}/initialize"
+        body = json.dumps({"media_type": "video/mp4", "total_bytes": len(data), "media_category": "tweet_video"})
+        headers = {"Authorization": oauth1_header(self.creds, "POST", init_url), "Content-Type": "application/json"}
+        media_id = str(self._check(*self.transport(init_url, headers, body.encode()), "initialize")["data"]["id"])
+
+        append_url = f"{MEDIA_URL}/{media_id}/append"
+        for index, offset in enumerate(range(0, len(data), CHUNK_BYTES)):
+            ctype, payload = _multipart({"segment_index": str(index)}, "media", data[offset : offset + CHUNK_BYTES])
+            headers = {"Authorization": oauth1_header(self.creds, "POST", append_url), "Content-Type": ctype}
+            self._check(*self.transport(append_url, headers, payload), f"append #{index}")
+
+        fin_url = f"{MEDIA_URL}/{media_id}/finalize"
+        headers = {"Authorization": oauth1_header(self.creds, "POST", fin_url)}
+        info = self._check(*self.transport(fin_url, headers, b""), "finalize").get("data", {}).get("processing_info")
+
+        waited = 0.0
+        while info and info.get("state") in ("pending", "in_progress"):
+            delay = float(info.get("check_after_secs", 5))
+            if waited + delay > max_wait:
+                raise XPublishError(f"video processing did not finish within {max_wait:.0f}s")
+            self.sleep(delay)
+            waited += delay
+            query = {"command": "STATUS", "media_id": media_id}
+            headers = {"Authorization": oauth1_header(self.creds, "GET", MEDIA_URL, query=query)}
+            url = f"{MEDIA_URL}?command=STATUS&media_id={quote(media_id)}"
+            info = self._check(*self.get_transport(url, headers), "status").get("data", {}).get("processing_info")
+        if info and info.get("state") == "failed":
+            raise XPublishError(f"video processing failed: {info.get('error', info)}")
+        return media_id
+
+    def create_post(self, text: str, reply_to: str | None = None, media_ids: list[str] | None = None) -> str:
         payload: dict = {"text": text}
         if reply_to:
             payload["reply"] = {"in_reply_to_tweet_id": reply_to}
+        if media_ids:
+            payload["media"] = {"media_ids": list(media_ids)}
         headers = {
             "Authorization": oauth1_header(self.creds, "POST", TWEETS_URL),
             "Content-Type": "application/json",
@@ -236,11 +313,17 @@ def publish_card(
     client: XClient | None = None,
     dry_run: bool = True,
     text: str | None = None,
+    video: Path | None = None,
 ) -> XPublishResult:
     """Guard-check and (unless ``dry_run``) post the card as an X thread.
 
     ``text`` defaults to the Section 16 template; any edited text is
-    re-checked by the guard, so edits cannot bypass it."""
+    re-checked by the guard, so edits cannot bypass it. ``video`` (rendered by
+    video_render) is attached to the first post; pass its ``clips`` so the
+    guard checks excerpt length and transformative content."""
+    if video is not None and not clips:
+        return XPublishResult(publish_guard.BLOCK_PUBLISH, failures=["video needs its clip plans for the guard"],
+                              dry_run=dry_run)
     if text is None:
         try:
             text = x_post(card)
@@ -268,7 +351,8 @@ def publish_card(
         if i in done:
             reply_to = done[i]
         else:
-            reply_to = client.create_post(part, reply_to)
+            media = [client.upload_video(Path(video))] if (i == 0 and video is not None) else None
+            reply_to = client.create_post(part, reply_to, media)
             with db.transaction() as conn:
                 conn.execute(
                     "INSERT INTO x_posts (card_key, part_index, tweet_id, text, posted_at) VALUES (?, ?, ?, ?, ?)",

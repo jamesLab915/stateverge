@@ -9,6 +9,12 @@ on:
     paths:
       - "data/archive/collect_requests.json"
       - "data/archive/publish_queue.json"
+      - "data/archive/stats_requests.json"
+  # Weekly account snapshot (Monday 13:07 UTC). GitHub only runs schedules for
+  # workflows on the default branch, so this activates once merged to main;
+  # until then, add {"status": "pending"} to stats_requests.json instead.
+  schedule:
+    - cron: "7 13 * * 1"
   workflow_dispatch:
 
 permissions:
@@ -43,9 +49,10 @@ jobs:
           X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
         run: |
-          LLM_FLAG=""
-          if [ -n "$OPENAI_API_KEY" ]; then LLM_FLAG="--llm"; fi
-          python -m stateverge.cn_news.archive cloud-run --root data/archive $LLM_FLAG | tee run.log
+          FLAGS=""
+          if [ -n "$OPENAI_API_KEY" ]; then FLAGS="--llm"; fi
+          if [ "${{ github.event_name }}" = "schedule" ]; then FLAGS="$FLAGS --stats"; fi
+          python -m stateverge.cn_news.archive cloud-run --root data/archive $FLAGS | tee run.log
           { echo '## Political Archive'; echo '```'; cat run.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
       # Commits made with GITHUB_TOKEN do not trigger another run.
