@@ -18,5 +18,9 @@
     "collected": 69,
     "candidates": 0,
     "preview": []
+  },
+  {
+    "status": "pending",
+    "note": "scan with OpenAI + Tavily coverage, scan only, no posting"
   }
 ]
