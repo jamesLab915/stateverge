@@ -96,7 +96,7 @@ def x_text(picks: list[ScoredSignal]) -> str:
     lines = [f"{HEADER}\n{SUBHEAD.format(n=len(picks))}"]
     for i, p in enumerate(picks):
         a = p.assessment
-        lines.append(f"{MARKS[i]} {a.x_line or a.headline_zh}\n为什么重要:{a.why_cn}\n🔗 {p.signal.url}")
+        lines.append(f"{MARKS[i]} {a.headline_zh or a.x_line}\n为什么重要:{a.why_cn}\n🔗 {p.signal.url}")
     lines.append("我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。")
     return "\n\n".join(lines)
 

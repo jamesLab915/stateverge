@@ -46,7 +46,7 @@ track 只能是:AI_TECH(AI/科技), MONEY(美国赚钱/小生意), US_LIFE(美�
  "headline_zh": "一句话标题,突出中文用户没注意到的变化",
  "what": "发生了什么", "why_now": "为什么现在出现", "how_used": "美国人在怎么用",
  "why_cn": "中国用户为什么应该注意", "opportunity": "有没有机会(没有就直说)", "risks": "限制/风险(必填)",
- "x_line": "适合 X 的一句话(60字以内)"}"""
+ "x_line": "一句话讲清发生了什么变化(60字以内,写事实,不写"适合谁看")"}"""
 
 Post = Callable[[str, dict, bytes], bytes]
 _DRAFT_FIELDS = ("headline_zh", "what", "why_now", "how_used", "why_cn", "opportunity", "risks", "x_line")
