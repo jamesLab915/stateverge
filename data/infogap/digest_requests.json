@@ -8,5 +8,9 @@
     "collected": 76,
     "candidates": 0,
     "preview": []
+  },
+  {
+    "status": "pending",
+    "note": "first scan with OpenAI drafts (no Brave), scan only, no posting"
   }
 ]
