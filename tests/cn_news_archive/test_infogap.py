@@ -257,3 +257,36 @@ class TestBalance(unittest.TestCase):
         scored = score(zh, Coverage(True, zh_results=0), a)
         self.assertEqual(scored.cn_scarcity, 10.0)
         self.assertIn("原文本身含中文", scored.notes[0])
+
+
+class TestTavily(unittest.TestCase):
+    def test_restricts_to_chinese_sites_and_counts_relevant(self):
+        from stateverge.cn_news.infogap.coverage import TavilyCoverage, ZH_DOMAINS
+
+        def post(url, headers, body):
+            req = json.loads(body)
+            self.assertEqual(headers["Authorization"], "Bearer k")
+            self.assertEqual(req["time_range"], "week")
+            self.assertEqual(req["include_domains"], ZH_DOMAINS)
+            return json.dumps({"results": [
+                {"title": "Ledgerly 记账 AI 上线", "url": "https://36kr.com/p/1", "content": ""},
+                {"title": "无关文章", "url": "https://ithome.com/2", "content": "别的"},
+            ]}).encode()
+        cov = TavilyCoverage("k", post).check(Signal("hackernews", "Show HN: Ledgerly, an AI agent", "u"))
+        self.assertEqual((cov.checked, cov.zh_results, cov.provider), (True, 1, "tavily"))
+
+    def test_default_prefers_tavily(self):
+        import os
+        from stateverge.cn_news.infogap import coverage
+        saved = {k: os.environ.pop(k, None) for k in ("TAVILY_API_KEY", "BRAVE_API_KEY")}
+        try:
+            self.assertEqual(coverage.default_coverage().name, "none")
+            os.environ["BRAVE_API_KEY"] = "b"
+            self.assertEqual(coverage.default_coverage().name, "brave")
+            os.environ["TAVILY_API_KEY"] = "t"
+            self.assertEqual(coverage.default_coverage().name, "tavily")
+        finally:
+            for k in ("TAVILY_API_KEY", "BRAVE_API_KEY"):
+                os.environ.pop(k, None)
+                if saved[k] is not None:
+                    os.environ[k] = saved[k]

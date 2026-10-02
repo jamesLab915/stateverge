@@ -1,8 +1,11 @@
 """中文互联网覆盖度检测.
 
 Asks a web search API how many Chinese-language pages from the past week
-already talk about the item. Provider: Brave Search API (free tier;
-``BRAVE_API_KEY``, https://brave.com/search/api/).
+already talk about the item. Providers, first configured wins:
+
+* Tavily (``TAVILY_API_KEY``, https://tavily.com — 1,000 free credits/month,
+  no card): searches only major Chinese tech/business/social sites.
+* Brave Search (``BRAVE_API_KEY``) — $5 monthly credit, card required.
 
 Without a key the check is skipped and recorded as unchecked — the score
 then uses a neutral scarcity and the review file says so. It never guesses.
@@ -72,6 +75,54 @@ class BraveCoverage:
         return Coverage(True, q, len(zh), [r.get("url", "") for r in zh[:5]], self.name)
 
 
+# Major Chinese-language tech / business / community sites.
+ZH_DOMAINS = [
+    "36kr.com", "huxiu.com", "ithome.com", "sspai.com", "zhihu.com", "juejin.cn", "csdn.net", "oschina.net",
+    "infoq.cn", "jiqizhixin.com", "qbitai.com", "geekpark.net", "tmtpost.com", "ifanr.com", "cnbeta.com.tw",
+    "v2ex.com", "weibo.com", "bilibili.com", "sohu.com", "163.com", "sina.com.cn", "qq.com", "thepaper.cn",
+    "jiemian.com", "caixin.com", "yicai.com", "cls.cn", "wallstreetcn.com", "xueqiu.com", "zaobao.com",
+    "bbc.com/zhongwen", "cn.nytimes.com", "cn.wsj.com", "ftchinese.com", "ithome.com.tw", "inside.com.tw",
+]
+
+
+class TavilyCoverage:
+    name = "tavily"
+    endpoint = "https://api.tavily.com/search"
+
+    def __init__(self, api_key: str | None = None, post=None) -> None:
+        self.api_key = api_key or os.environ.get("TAVILY_API_KEY", "")
+        self.post = post or _post
+
+    @property
+    def available(self) -> bool:
+        return bool(self.api_key)
+
+    def check(self, signal: Signal) -> Coverage:
+        q = query_for(signal)
+        if not self.available or not q:
+            return Coverage(checked=False, query=q, provider=self.name)
+        body = json.dumps({
+            "query": q, "search_depth": "basic", "time_range": "week", "max_results": 20,
+            "include_domains": ZH_DOMAINS,
+        }).encode()
+        headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
+        try:
+            data = json.loads(self.post(self.endpoint, headers, body))
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError):
+            return Coverage(checked=False, query=q, provider=self.name)
+        results = data.get("results", [])
+        # Only count pages that actually mention the query terms.
+        terms = [t.lower() for t in q.split() if len(t) > 2] or [q.lower()]
+        hits = [r for r in results if any(t in f"{r.get('title', '')} {r.get('content', '')}".lower() for t in terms)]
+        return Coverage(True, q, len(hits), [r.get("url", "") for r in hits[:5]], self.name)
+
+
+def _post(url: str, headers: dict, body: bytes) -> bytes:
+    req = urllib.request.Request(url, data=body, headers=headers, method="POST")
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        return resp.read()
+
+
 class NoCoverage:
     name = "none"
     available = False
@@ -80,6 +131,8 @@ class NoCoverage:
         return Coverage(checked=False, query=query_for(signal), provider=self.name)
 
 
-def default_coverage() -> BraveCoverage | NoCoverage:
-    brave = BraveCoverage()
-    return brave if brave.available else NoCoverage()
+def default_coverage():
+    for provider in (TavilyCoverage(), BraveCoverage()):
+        if provider.available:
+            return provider
+    return NoCoverage()

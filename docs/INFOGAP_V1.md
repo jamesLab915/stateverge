@@ -11,7 +11,7 @@
   Hacker News(热门)· GitHub(近 7 天新项目按星数)· Reddit(按主线选的版块,当天热门)
 → 按链接去重
 → 按海外热度取前 20 条(只对这 20 条做付费检测,控制成本)
-→ 中文覆盖度检测:Brave 搜索中文网页、近一周,数中文结果条数
+→ 中文覆盖度检测:Tavily 只搜 36 个中文主流科技/商业/社区网站(36氪、虎嗅、IT之家、知乎、掘金、微博、B站等)近一周,数相关结果条数;或用 Brave 搜中文网页
 → AI 评估 + 中文草稿(OpenAI,只能用原始材料,不许编造)
 → Information Gap Score ≥ 70 分进入候选(5–10 条)
 → 最多选 3 条,尽量覆盖不同主线
@@ -57,7 +57,7 @@ Reddit 默认版块:artificial, LocalLLaMA, SaaS, SideProject, Entrepreneur, sma
    可选 `"picks": [1, 3, 4]` 按审核稿编号换选题;可选 `"text": "..."` 用你改过的文案(仍会检查)。
 4. 提交后云端发到 X,条目变成 `posted` 并附链接;被拦截时为 `blocked` 并写明原因。
 
-需要的 GitHub Secrets:`OPENAI_API_KEY`(写草稿)、`BRAVE_API_KEY`(中文覆盖度)、四个 `X_*`(发帖)。缺 OpenAI 时只出评分和空白草稿;缺 Brave 时稀缺度按 50 计。
+需要的 GitHub Secrets:`OPENAI_API_KEY`(写草稿)、`TAVILY_API_KEY`(中文覆盖度,免费 1,000 次/月,每天扫描约用 20 次)、四个 `X_*`(发帖)。缺 OpenAI 时只出评分和空白草稿;缺 Brave 时稀缺度按 50 计。
 
 ## 电脑上
 

@@ -108,7 +108,7 @@ def review_markdown(result: ScanResult) -> str:
     if result.by_source:
         out.append("- 各来源抓取:" + "、".join(f"{k} {v}" for k, v in sorted(result.by_source.items())))
     if not result.coverage_checked:
-        out.append("- ⚠️ 未检测中文覆盖度(没有 BRAVE_API_KEY),稀缺度按 50 计")
+        out.append("- ⚠️ 未检测中文覆盖度(没有 TAVILY_API_KEY / BRAVE_API_KEY),稀缺度按 50 计")
     if not result.llm_used:
         out.append(f"- ⚠️ 未使用 AI(没有 OPENAI_API_KEY),草稿为 {PLACEHOLDER},需要人工撰写")
     out.append("")
