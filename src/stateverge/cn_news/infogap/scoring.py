@@ -79,8 +79,14 @@ def heuristic_assessment(signal: Signal) -> Assessment:
     )
 
 
+_CJK = re.compile(r"[\u4e00-\u9fff]")
+
+
 def score(signal: Signal, coverage: Coverage, assessment: Assessment) -> ScoredSignal:
     h, s = heat(signal), scarcity(coverage)
+    native_zh = bool(_CJK.search(f"{signal.title} {signal.summary}"))
+    if native_zh:
+        s = min(s, 10.0)  # the source itself is Chinese-facing: no gap to bridge
     total = (
         WEIGHTS["overseas_heat"] * h
         + WEIGHTS["cn_scarcity"] * s
@@ -89,7 +95,9 @@ def score(signal: Signal, coverage: Coverage, assessment: Assessment) -> ScoredS
         + WEIGHTS["visual"] * assessment.visual
     )
     notes = []
-    if not coverage.checked:
+    if native_zh:
+        notes.append("原文本身含中文,已面向中文用户(稀缺度按 10 计)")
+    elif not coverage.checked:
         notes.append("中文覆盖度未检测(稀缺度按 50 计)")
     elif coverage.zh_results:
         notes.append(f"中文近一周已有 {coverage.zh_results} 条相关结果")

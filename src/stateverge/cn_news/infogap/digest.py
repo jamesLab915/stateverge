@@ -8,6 +8,7 @@
 from __future__ import annotations
 
 import re
+from collections import Counter
 from dataclasses import dataclass, field
 from datetime import date, datetime, timezone
 
@@ -31,14 +32,16 @@ class ScanResult:
     picks: list[ScoredSignal]  # what the digest will post
     coverage_checked: bool
     llm_used: bool
+    by_source: dict[str, int] = field(default_factory=dict)
 
 
 def scan(collectors, coverage, assessor: LLMAssessor, hours: int = 24, shortlist: int = 20,
          max_candidates: int = 10, max_picks: int = 3, now: datetime | None = None) -> ScanResult:
     now = now or datetime.now(timezone.utc)
     signals = collect_all(collectors, hours=hours, now=now)
-    # Only the hottest items get the (paid) coverage + LLM calls.
-    top = sorted(signals, key=heat, reverse=True)[:shortlist]
+    # Only the hottest items get the (paid) coverage + LLM calls, with a
+    # per-source quota so one source (e.g. GitHub) cannot fill the list.
+    top = shortlist_balanced(signals, shortlist)
     scored = [score(s, coverage.check(s), assessor.assess(s)) for s in top]
     scored.sort(key=lambda x: x.total, reverse=True)
     candidates = [s for s in scored if s.is_gap][:max_candidates]
@@ -50,7 +53,25 @@ def scan(collectors, coverage, assessor: LLMAssessor, hours: int = 24, shortlist
         picks=pick(candidates, max_picks),
         coverage_checked=any(s.coverage.checked for s in scored),
         llm_used=any(s.assessment.by_llm for s in scored),
+        by_source=dict(Counter(_family(s) for s in signals)),
     )
+
+
+def _family(s) -> str:
+    return s.source.split(":", 1)[0]
+
+
+def shortlist_balanced(signals, n: int):
+    """Round-robin the hottest items of each source family, then fill by heat."""
+    groups: dict[str, list] = {}
+    for s in sorted(signals, key=heat, reverse=True):
+        groups.setdefault(_family(s), []).append(s)
+    out: list = []
+    while len(out) < n and any(groups.values()):
+        for fam in sorted(groups):
+            if groups[fam] and len(out) < n:
+                out.append(groups[fam].pop(0))
+    return out
 
 
 def pick(candidates: list[ScoredSignal], n: int = 3) -> list[ScoredSignal]:
@@ -84,6 +105,8 @@ def review_markdown(result: ScanResult) -> str:
     out = [f"# Stateverge · 24H 信息差 审核稿 {result.scanned_at[:10]}", ""]
     out.append(f"- 抓取 {result.collected} 条,按热度评估 {len(result.shortlisted)} 条,≥{THRESHOLD:.0f} 分 "
                f"{len(result.candidates)} 条,入选 {len(result.picks)} 条")
+    if result.by_source:
+        out.append("- 各来源抓取:" + "、".join(f"{k} {v}" for k, v in sorted(result.by_source.items())))
     if not result.coverage_checked:
         out.append("- ⚠️ 未检测中文覆盖度(没有 BRAVE_API_KEY),稀缺度按 50 计")
     if not result.llm_used:

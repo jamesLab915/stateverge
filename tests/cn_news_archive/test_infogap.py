@@ -244,3 +244,16 @@ class TestRunner(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestBalance(unittest.TestCase):
+    def test_shortlist_quota_and_native_chinese(self):
+        sigs = [Signal("github", f"g/{i}", f"https://g/{i}", points=5000) for i in range(30)]
+        sigs += [Signal("hackernews", f"h{i}", f"https://h/{i}", points=300) for i in range(5)]
+        top = digest.shortlist_balanced(sigs, 10)
+        self.assertEqual(sum(s.source == "hackernews" for s in top), 5)
+        zh = Signal("github", "x/aihot", "https://g/zh", summary="AI 热点日报", points=2000)
+        a = heuristic_assessment(zh)
+        scored = score(zh, Coverage(True, zh_results=0), a)
+        self.assertEqual(scored.cn_scarcity, 10.0)
+        self.assertIn("原文本身含中文", scored.notes[0])
