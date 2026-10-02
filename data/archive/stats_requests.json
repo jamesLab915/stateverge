@@ -1,1 +1,8 @@
-[{"status": "pending", "note": "credential check: read-only stats, no posting"}]
+[
+  {
+    "status": "done",
+    "note": "credential check: read-only stats, no posting",
+    "processed_at": "2026-10-02T15:52:06+00:00",
+    "report": "📊 @StatevergeCN 周报 2026-10-02\n关注者:2 \n近 7 天:3 帖,浏览 7,赞 0,转发 0,回复 0\n近 90 天浏览:54 / 5,000,000(≤0.0%)\n关注者进度:2 / 500(≤0%)\n注:API 只有总浏览量和总关注者;收益分成只算认证(Premium)用户,实际进度以 Creator Studio 为准。"
+  }
+]
