@@ -10,6 +10,7 @@ on:
       - "data/archive/collect_requests.json"
       - "data/archive/publish_queue.json"
       - "data/archive/stats_requests.json"
+      - "data/infogap/digest_requests.json"
   # Weekly account snapshot (Monday 13:07 UTC). GitHub only runs schedules for
   # workflows on the default branch, so this activates once merged to main;
   # until then, add {"status": "pending"} to stats_requests.json instead.
@@ -55,12 +56,26 @@ jobs:
           python -m stateverge.cn_news.archive cloud-run --root data/archive $FLAGS | tee run.log
           { echo '## Political Archive'; echo '```'; cat run.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
+      - name: 24H information-gap digest
+        env:
+          PYTHONPATH: src
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          python -m stateverge.cn_news.infogap cloud-run --root data/infogap | tee infogap.log
+          { echo '## 24H 信息差'; echo '```'; cat infogap.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
       # Commits made with GITHUB_TOKEN do not trigger another run.
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/archive
+          git add data/archive data/infogap
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -m "archive: cloud run results"
           git push

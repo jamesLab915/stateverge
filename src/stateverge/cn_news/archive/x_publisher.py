@@ -21,6 +21,7 @@ import json
 import os
 import re
 import secrets
+import sqlite3
 import time
 import urllib.error
 import urllib.request
@@ -301,6 +302,37 @@ class XPublishResult:
         return f"https://x.com/i/status/{self.tweet_ids[0]}" if self.tweet_ids else None
 
 
+def post_thread(
+    client: XClient,
+    parts: list[str],
+    key: str,
+    conn: sqlite3.Connection,
+    video: Path | None = None,
+) -> list[str]:
+    """Post ``parts`` as a reply chain, recording each post under ``key`` in
+    ``x_posts`` so a retry resumes the thread instead of duplicating it."""
+    conn.executescript(X_POSTS_SCHEMA)
+    done = {
+        row[0]: row[1]
+        for row in conn.execute("SELECT part_index, tweet_id FROM x_posts WHERE card_key = ?", (key,))
+    }
+    ids: list[str] = []
+    reply_to: str | None = None
+    for i, part in enumerate(parts):
+        if i in done:
+            reply_to = done[i]
+        else:
+            media = [client.upload_video(Path(video))] if (i == 0 and video is not None) else None
+            reply_to = client.create_post(part, reply_to, media)
+            with conn:
+                conn.execute(
+                    "INSERT INTO x_posts (card_key, part_index, tweet_id, text, posted_at) VALUES (?, ?, ?, ?, ?)",
+                    (key, i, reply_to, part, datetime.now(timezone.utc).replace(microsecond=0).isoformat()),
+                )
+        ids.append(reply_to)
+    return ids
+
+
 def card_key(card: ArchiveCard) -> str:
     return card.kind + ":" + ",".join(sorted(c.claim_id for c in card.claims))
 
@@ -339,26 +371,7 @@ def publish_card(
         raise XPublishError("a database is required when posting (dedupe + archive_status)")
     if client is None:
         client = XClient(XCredentials.from_env())
-    db.conn.executescript(X_POSTS_SCHEMA)
-    key = card_key(card)
-
-    done = {
-        row["part_index"]: row["tweet_id"]
-        for row in db.conn.execute("SELECT part_index, tweet_id FROM x_posts WHERE card_key = ?", (key,))
-    }
-    reply_to: str | None = None
-    for i, part in enumerate(parts):
-        if i in done:
-            reply_to = done[i]
-        else:
-            media = [client.upload_video(Path(video))] if (i == 0 and video is not None) else None
-            reply_to = client.create_post(part, reply_to, media)
-            with db.transaction() as conn:
-                conn.execute(
-                    "INSERT INTO x_posts (card_key, part_index, tweet_id, text, posted_at) VALUES (?, ?, ?, ?, ?)",
-                    (key, i, reply_to, part, datetime.now(timezone.utc).replace(microsecond=0).isoformat()),
-                )
-        result.tweet_ids.append(reply_to)
+    result.tweet_ids = post_thread(client, parts, card_key(card), db.conn, video=video)
 
     for claim in card.claims:
         stored = db.get(claim.claim_id)
