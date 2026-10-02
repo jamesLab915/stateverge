@@ -82,7 +82,7 @@
     ]
   },
   {
-    "status": "drafted",
+    "status": "pending",
     "note": "scan with OpenAI web-search coverage, scan only, no posting",
     "processed_at": "2026-10-02T19:30:54+00:00",
     "digest": "digests/2026-10-02.json",
@@ -94,6 +94,17 @@
       "② 适合IT安全从业者和Linux用户关注，及时更新系统以保障安全。\n为什么重要:中国用户和企业在使用Linux系统时，需关注这些漏洞并及时更新，以防止数据泄露和系统被攻击。\n🔗 https://lwn.net/Articles/1097401/\n2/4",
       "③ 适合关注网络隐私和法律变化的用户，了解VPN使用的法律风险。\n为什么重要:中国用户应关注此事件，因为类似的法律可能影响到VPN的使用和网络隐私保护，尤其是在全球范围内的法律变化。\n🔗 https://www.eff.org/deeplinks/2026/10/court-agrees-eff-utahs-vpn-law-demands-technical-impossibility\n3/4",
       "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n4/4"
-    ]
+    ],
+    "post": true,
+    "picks": [
+      1,
+      4,
+      6
+    ],
+    "reviewer": "james",
+    "facts_checked": true,
+    "access_checked": true,
+    "text": "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① 有人把用 Claude Opus 5.5 做出的爆款视频和对应提示词,整理成了 GitHub 合集\n为什么重要:想用 AI 做视频的中文创作者,可以直接参考创作思路;素材版权需自行注意。\n🔗 https://github.com/yihui-dev/awesome-opus5-5-videos\n\n② 一位开发者做了个实验:给 Opus 5.5 一块「模拟画布」,让 AI 自己动笔作画(个人项目,非 Anthropic 官方功能)\n为什么重要:AI 不只会生成图片,也开始被拿来「模拟创作过程」,适合做内容选题。\n🔗 https://stillwet.art/\n\n③ 开源、跨平台的多轨音频编辑器 Audionaut 登上 Hacker News\n为什么重要:做播客、配音的中文创作者多了一个免费工具;开源项目的稳定性需自行评估。\n🔗 https://github.com/kvoltmer/Audionaut\n\n我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。",
+    "approved_note": "james 已核对三条原文链接(2026-10-02),同意发布编辑修正版文案"
   }
 ]
