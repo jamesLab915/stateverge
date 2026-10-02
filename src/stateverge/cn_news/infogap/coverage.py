@@ -6,6 +6,10 @@ already talk about the item. Providers, first configured wins:
 * Tavily (``TAVILY_API_KEY``, https://tavily.com — 1,000 free credits/month,
   no card): searches only major Chinese tech/business/social sites.
 * Brave Search (``BRAVE_API_KEY``) — $5 monthly credit, card required.
+* OpenAI web search (``OPENAI_API_KEY``, Responses API ``web_search`` tool)
+  — no extra account; each search is billed by OpenAI.
+
+``INFOGAP_COVERAGE=openai|tavily|brave|none`` forces a provider.
 
 Without a key the check is skipped and recorded as unchecked — the score
 then uses a neutral scarcity and the review file says so. It never guesses.
@@ -144,6 +148,75 @@ def _post(url: str, headers: dict, body: bytes) -> bytes:
         return resp.read()
 
 
+class OpenAICoverage:
+    """Ask an OpenAI model with the web_search tool to find past-week Chinese
+    coverage, restricted to the Chinese sites above, and count the distinct
+    Chinese sources it cites. Citations are counted, not the model's opinion."""
+
+    name = "openai"
+    endpoint = "https://api.openai.com/v1/responses"
+
+    def __init__(self, api_key: str | None = None, model: str | None = None, post=None) -> None:
+        self.api_key = (api_key or os.environ.get("OPENAI_API_KEY", "")).strip()
+        self.model = model or os.environ.get("INFOGAP_SEARCH_MODEL") or "gpt-4o-mini"
+        self.post = post or _post
+
+    @property
+    def available(self) -> bool:
+        return bool(self.api_key)
+
+    def _request(self, q: str, title: str, with_filters: bool) -> dict:
+        prompt = (
+            f"用中文网页搜索过去 7 天里中文媒体或社区对「{q}」(英文原标题:{title})的报道或讨论。"
+            "只找中文页面。列出你找到的中文页面标题和链接;如果没有找到,只回答 NONE。"
+        )
+        tool: dict = {"type": "web_search"}
+        if with_filters:
+            tool["filters"] = {"allowed_domains": ZH_DOMAINS}
+        body = json.dumps({"model": self.model, "tools": [tool], "input": prompt}).encode()
+        headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
+        return json.loads(self.post(self.endpoint, headers, body))
+
+    def check(self, signal: Signal) -> Coverage:
+        q = query_for(signal)
+        if not self.available or not q:
+            return Coverage(checked=False, query=q, provider=self.name)
+        try:
+            try:
+                data = self._request(q, signal.title, with_filters=True)
+            except urllib.error.HTTPError as e:
+                if e.code != 400:
+                    raise
+                data = self._request(q, signal.title, with_filters=False)  # filters unsupported → plain search
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError) as e:
+            return Coverage(checked=False, query=q, provider=self.name, error=_describe(e))
+        urls = cited_chinese_urls(data)
+        return Coverage(True, q, len(urls), urls[:5], self.name)
+
+
+def _host(url: str) -> str:
+    host = re.sub(r"^https?://", "", url.lower()).split("/", 1)[0]
+    return host[4:] if host.startswith("www.") else host
+
+
+def cited_chinese_urls(response: dict) -> list[str]:
+    """Distinct cited URLs that are Chinese: on a listed Chinese site or with a Chinese title."""
+    seen: list[str] = []
+    for item in response.get("output", []):
+        if item.get("type") != "message":
+            continue
+        for part in item.get("content", []):
+            for ann in part.get("annotations", []) or []:
+                if ann.get("type") != "url_citation":
+                    continue
+                url, title = ann.get("url", ""), ann.get("title", "")
+                host = _host(url)
+                zh_site = any(host == d or host.endswith("." + d) for d in ZH_DOMAINS)
+                if (zh_site or _CJK.search(title)) and url not in seen:
+                    seen.append(url)
+    return seen
+
+
 class NoCoverage:
     name = "none"
     available = False
@@ -153,7 +226,14 @@ class NoCoverage:
 
 
 def default_coverage():
-    for provider in (TavilyCoverage(), BraveCoverage()):
+    forced = os.environ.get("INFOGAP_COVERAGE", "").strip().lower()
+    providers = {"tavily": TavilyCoverage, "brave": BraveCoverage, "openai": OpenAICoverage}
+    if forced == "none":
+        return NoCoverage()
+    if forced in providers:
+        p = providers[forced]()
+        return p if p.available else NoCoverage()
+    for provider in (TavilyCoverage(), BraveCoverage(), OpenAICoverage()):
         if provider.available:
             return provider
     return NoCoverage()

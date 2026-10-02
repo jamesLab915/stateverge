@@ -314,3 +314,63 @@ class TestKeyShape(unittest.TestCase):
         self.assertIn("starts with tvly-", shape)
         self.assertIn("unexpected", key_shape("tvly-abc•••"))
         self.assertIn("NOT", key_shape("sk-abc"))
+
+
+def _responses(annotations):
+    return {"output": [
+        {"type": "web_search_call", "action": {"query": "x"}},
+        {"type": "message", "content": [{"type": "output_text", "text": "...", "annotations": annotations}]},
+    ]}
+
+
+class TestOpenAICoverage(unittest.TestCase):
+    def test_counts_distinct_chinese_citations(self):
+        from stateverge.cn_news.infogap.coverage import OpenAICoverage
+
+        sent = []
+
+        def post(url, headers, body):
+            sent.append(json.loads(body))
+            self.assertTrue(url.endswith("/v1/responses"))
+            return json.dumps(_responses([
+                {"type": "url_citation", "url": "https://36kr.com/p/1", "title": "Ledgerly"},
+                {"type": "url_citation", "url": "https://36kr.com/p/1", "title": "dup"},
+                {"type": "url_citation", "url": "https://blog.example/x", "title": "Ledgerly 中文评测"},
+                {"type": "url_citation", "url": "https://techcrunch.com/x", "title": "English only"},
+            ])).encode()
+        cov = OpenAICoverage("k", post=post).check(Signal("hackernews", "Show HN: Ledgerly agent", "u"))
+        self.assertEqual((cov.checked, cov.zh_results, cov.provider), (True, 2, "openai"))
+        self.assertEqual(sent[0]["tools"][0]["type"], "web_search")
+        self.assertIn("allowed_domains", sent[0]["tools"][0]["filters"])
+
+    def test_retries_without_filters_on_400(self):
+        import io
+        import urllib.error
+        from stateverge.cn_news.infogap.coverage import OpenAICoverage
+
+        calls = []
+
+        def post(url, headers, body):
+            calls.append(json.loads(body))
+            if len(calls) == 1:
+                raise urllib.error.HTTPError(url, 400, "Bad", {}, io.BytesIO(b"filters not supported"))
+            return json.dumps(_responses([])).encode()
+        cov = OpenAICoverage("k", post=post).check(Signal("hackernews", "Ledgerly agent", "u"))
+        self.assertEqual((cov.checked, cov.zh_results), (True, 0))
+        self.assertNotIn("filters", calls[1]["tools"][0])
+
+    def test_forced_provider(self):
+        import os
+        from stateverge.cn_news.infogap import coverage
+        keys = ("INFOGAP_COVERAGE", "OPENAI_API_KEY", "TAVILY_API_KEY", "BRAVE_API_KEY")
+        saved = {k: os.environ.pop(k, None) for k in keys}
+        try:
+            os.environ.update(INFOGAP_COVERAGE="openai", OPENAI_API_KEY="o", TAVILY_API_KEY="bad")
+            self.assertEqual(coverage.default_coverage().name, "openai")
+            os.environ["INFOGAP_COVERAGE"] = "none"
+            self.assertEqual(coverage.default_coverage().name, "none")
+        finally:
+            for k in keys:
+                os.environ.pop(k, None)
+                if saved[k] is not None:
+                    os.environ[k] = saved[k]

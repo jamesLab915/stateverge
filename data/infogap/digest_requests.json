@@ -80,5 +80,9 @@
     "coverage_errors": [
       "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n} [key shape: does NOT start with tvly-, length 31]"
     ]
+  },
+  {
+    "status": "pending",
+    "note": "scan with OpenAI web-search coverage, scan only, no posting"
   }
 ]

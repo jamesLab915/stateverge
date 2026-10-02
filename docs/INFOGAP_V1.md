@@ -57,6 +57,8 @@ Reddit 默认版块:artificial, LocalLLaMA, SaaS, SideProject, Entrepreneur, sma
    可选 `"picks": [1, 3, 4]` 按审核稿编号换选题;可选 `"text": "..."` 用你改过的文案(仍会检查)。
 4. 提交后云端发到 X,条目变成 `posted` 并附链接;被拦截时为 `blocked` 并写明原因。
 
+中文覆盖度检测目前用 **OpenAI 联网搜索**(工作流里 `INFOGAP_COVERAGE: openai`):只需要 `OPENAI_API_KEY`,每次搜索由 OpenAI 另外计费;程序只数 AI 实际引用的中文来源链接,不采信 AI 的主观判断。也可改成 `tavily`(免费,需 `TAVILY_API_KEY`)或 `brave`。
+
 需要的 GitHub Secrets:`OPENAI_API_KEY`(写草稿)、`TAVILY_API_KEY`(中文覆盖度,免费 1,000 次/月,每天扫描约用 20 次)、四个 `X_*`(发帖)。缺 OpenAI 时只出评分和空白草稿;缺 Brave 时稀缺度按 50 计。
 
 ## 电脑上

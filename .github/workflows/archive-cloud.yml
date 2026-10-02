@@ -60,6 +60,8 @@ jobs:
         env:
           PYTHONPATH: src
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Chinese-coverage check: openai (web search) | tavily | brave | none
+          INFOGAP_COVERAGE: openai
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           BRAVE_API_KEY: ${{ secrets.BRAVE_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
