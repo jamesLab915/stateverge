@@ -75,7 +75,7 @@ def placeholder_assessment(signal: Signal) -> Assessment:
 
 class LLMAssessor:
     def __init__(self, api_key: str | None = None, model: str | None = None, post: Post | None = None) -> None:
-        self.api_key = api_key or os.environ.get("OPENAI_API_KEY", "")
+        self.api_key = (api_key or os.environ.get("OPENAI_API_KEY", "")).strip()
         self.model = model or os.environ.get("INFOGAP_MODEL") or DEFAULT_MODEL
         self.post = post or _http
         self.last_error = ""

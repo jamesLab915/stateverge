@@ -157,7 +157,7 @@ class GovInfoProvider:
         page_size: int = 20,
         max_quotes_per_doc: int = 3,
     ) -> None:
-        self.api_key = api_key or os.environ.get("GOVINFO_API_KEY") or "DEMO_KEY"
+        self.api_key = (api_key or os.environ.get("GOVINFO_API_KEY", "")).strip() or "DEMO_KEY"
         self.fetch = fetch or _http
         self.page_size = page_size
         self.max_quotes_per_doc = max_quotes_per_doc

@@ -143,10 +143,10 @@ class XCredentials:
     @classmethod
     def from_env(cls) -> "XCredentials":
         names = ("X_API_KEY", "X_API_SECRET", "X_ACCESS_TOKEN", "X_ACCESS_TOKEN_SECRET")
-        missing = [n for n in names if not os.environ.get(n)]
+        missing = [n for n in names if not os.environ.get(n, "").strip()]
         if missing:
             raise XPublishError(f"missing environment variables: {', '.join(missing)}")
-        return cls(*(os.environ[n] for n in names))
+        return cls(*(os.environ[n].strip() for n in names))
 
 
 def _pct(s: str) -> str:

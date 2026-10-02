@@ -54,7 +54,7 @@ class BraveCoverage:
     endpoint = "https://api.search.brave.com/res/v1/web/search"
 
     def __init__(self, api_key: str | None = None, fetch: Fetch | None = None) -> None:
-        self.api_key = api_key or os.environ.get("BRAVE_API_KEY", "")
+        self.api_key = (api_key or os.environ.get("BRAVE_API_KEY", "")).strip()
         self.fetch = fetch or _http
 
     @property
@@ -90,7 +90,7 @@ class TavilyCoverage:
     endpoint = "https://api.tavily.com/search"
 
     def __init__(self, api_key: str | None = None, post=None) -> None:
-        self.api_key = api_key or os.environ.get("TAVILY_API_KEY", "")
+        self.api_key = (api_key or os.environ.get("TAVILY_API_KEY", "")).strip()
         self.post = post or _post
 
     @property
