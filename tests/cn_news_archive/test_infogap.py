@@ -374,3 +374,10 @@ class TestOpenAICoverage(unittest.TestCase):
                 os.environ.pop(k, None)
                 if saved[k] is not None:
                     os.environ[k] = saved[k]
+
+
+class TestPromptRules(unittest.TestCase):
+    def test_prompt_requires_attribution(self):
+        from stateverge.cn_news.infogap.assessor import SYSTEM_PROMPT
+        self.assertIn("Show HN", SYSTEM_PROMPT)
+        self.assertIn("不得写成", SYSTEM_PROMPT)
