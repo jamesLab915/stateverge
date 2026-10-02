@@ -103,6 +103,9 @@ class InfoGapRunner:
             candidates=len(result.candidates),
             preview=x_publisher.split_thread(x_text(result.picks)) if result.picks else [],
         )
+        errors = sorted({s.coverage.error for s in result.shortlisted if s.coverage.error})
+        if errors:
+            item["coverage_errors"] = errors[:3]
         self.log.append(f"扫描:抓取 {result.collected} 条,候选 {len(result.candidates)} 条,入选 {len(result.picks)} 条 → {md.name}")
 
     def _post(self, item: dict) -> None:

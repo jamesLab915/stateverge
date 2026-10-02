@@ -68,8 +68,8 @@ class BraveCoverage:
         params = {"q": q, "search_lang": "zh-hans", "freshness": "pw", "count": "20"}
         try:
             data = json.loads(self.fetch(f"{self.endpoint}?{urlencode(params)}", {"X-Subscription-Token": self.api_key}))
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError):
-            return Coverage(checked=False, query=q, provider=self.name)
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError) as e:
+            return Coverage(checked=False, query=q, provider=self.name, error=_describe(e))
         results = data.get("web", {}).get("results", [])
         zh = [r for r in results if _CJK.search(f"{r.get('title', '')} {r.get('description', '')}")]
         return Coverage(True, q, len(zh), [r.get("url", "") for r in zh[:5]], self.name)
@@ -81,7 +81,7 @@ ZH_DOMAINS = [
     "infoq.cn", "jiqizhixin.com", "qbitai.com", "geekpark.net", "tmtpost.com", "ifanr.com", "cnbeta.com.tw",
     "v2ex.com", "weibo.com", "bilibili.com", "sohu.com", "163.com", "sina.com.cn", "qq.com", "thepaper.cn",
     "jiemian.com", "caixin.com", "yicai.com", "cls.cn", "wallstreetcn.com", "xueqiu.com", "zaobao.com",
-    "bbc.com/zhongwen", "cn.nytimes.com", "cn.wsj.com", "ftchinese.com", "ithome.com.tw", "inside.com.tw",
+    "cn.nytimes.com", "cn.wsj.com", "ftchinese.com", "ithome.com.tw", "inside.com.tw",
 ]
 
 
@@ -108,13 +108,23 @@ class TavilyCoverage:
         headers = {"Authorization": f"Bearer {self.api_key}", "Content-Type": "application/json"}
         try:
             data = json.loads(self.post(self.endpoint, headers, body))
-        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError):
-            return Coverage(checked=False, query=q, provider=self.name)
+        except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError) as e:
+            return Coverage(checked=False, query=q, provider=self.name, error=_describe(e))
         results = data.get("results", [])
         # Only count pages that actually mention the query terms.
         terms = [t.lower() for t in q.split() if len(t) > 2] or [q.lower()]
         hits = [r for r in results if any(t in f"{r.get('title', '')} {r.get('content', '')}".lower() for t in terms)]
         return Coverage(True, q, len(hits), [r.get("url", "") for r in hits[:5]], self.name)
+
+
+def _describe(e: Exception) -> str:
+    if isinstance(e, urllib.error.HTTPError):
+        try:
+            detail = e.read()[:200].decode(errors="replace")
+        except Exception:  # noqa: BLE001 - best effort
+            detail = ""
+        return f"HTTP {e.code} {detail}".strip()
+    return f"{type(e).__name__}: {e}"[:200]
 
 
 def _post(url: str, headers: dict, body: bytes) -> bytes:

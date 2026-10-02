@@ -28,5 +28,9 @@
     "collected": 74,
     "candidates": 0,
     "preview": []
+  },
+  {
+    "status": "pending",
+    "note": "re-scan: Tavily diagnostics, scan only, no posting"
   }
 ]

@@ -290,3 +290,17 @@ class TestTavily(unittest.TestCase):
                 os.environ.pop(k, None)
                 if saved[k] is not None:
                     os.environ[k] = saved[k]
+
+
+class TestCoverageErrors(unittest.TestCase):
+    def test_http_error_is_recorded(self):
+        import io
+        import urllib.error
+        from stateverge.cn_news.infogap.coverage import TavilyCoverage
+
+        def post(url, headers, body):
+            raise urllib.error.HTTPError(url, 401, "Unauthorized", {}, io.BytesIO(b'{"detail": "invalid key"}'))
+        cov = TavilyCoverage("k", post).check(Signal("hackernews", "Ledgerly agent", "u"))
+        self.assertFalse(cov.checked)
+        self.assertIn("HTTP 401", cov.error)
+        self.assertIn("invalid key", cov.error)

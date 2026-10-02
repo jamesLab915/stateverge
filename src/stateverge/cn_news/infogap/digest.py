@@ -107,6 +107,9 @@ def review_markdown(result: ScanResult) -> str:
                f"{len(result.candidates)} 条,入选 {len(result.picks)} 条")
     if result.by_source:
         out.append("- 各来源抓取:" + "、".join(f"{k} {v}" for k, v in sorted(result.by_source.items())))
+    errors = sorted({s.coverage.error for s in result.shortlisted if s.coverage.error})
+    if errors:
+        out.append(f"- ❌ 中文覆盖度检测出错({result.shortlisted[0].coverage.provider}):" + ";".join(errors[:3]))
     if not result.coverage_checked:
         out.append("- ⚠️ 未检测中文覆盖度(没有 TAVILY_API_KEY / BRAVE_API_KEY),稀缺度按 50 计")
     if not result.llm_used:

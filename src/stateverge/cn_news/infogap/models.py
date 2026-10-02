@@ -75,6 +75,7 @@ class Coverage:
     zh_results: int = 0
     sample_urls: list[str] = field(default_factory=list)
     provider: str = ""
+    error: str = ""  # why the check failed, if it did
 
 
 @dataclass
