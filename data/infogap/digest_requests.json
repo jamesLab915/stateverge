@@ -67,5 +67,9 @@
     "coverage_errors": [
       "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
     ]
+  },
+  {
+    "status": "pending",
+    "note": "re-scan with Tavily body auth + key-shape diagnostics, scan only, no posting"
   }
 ]

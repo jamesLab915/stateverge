@@ -102,6 +102,7 @@ class TavilyCoverage:
         if not self.available or not q:
             return Coverage(checked=False, query=q, provider=self.name)
         body = json.dumps({
+            "api_key": self.api_key,  # legacy body auth, alongside the Bearer header
             "query": q, "search_depth": "basic", "time_range": "week", "max_results": 20,
             "include_domains": ZH_DOMAINS,
         }).encode()
@@ -109,12 +110,22 @@ class TavilyCoverage:
         try:
             data = json.loads(self.post(self.endpoint, headers, body))
         except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError) as e:
-            return Coverage(checked=False, query=q, provider=self.name, error=_describe(e))
+            error = _describe(e)
+            if error.startswith("HTTP 401"):
+                error += f" [key shape: {key_shape(self.api_key)}]"
+            return Coverage(checked=False, query=q, provider=self.name, error=error)
         results = data.get("results", [])
         # Only count pages that actually mention the query terms.
         terms = [t.lower() for t in q.split() if len(t) > 2] or [q.lower()]
         hits = [r for r in results if any(t in f"{r.get('title', '')} {r.get('content', '')}".lower() for t in terms)]
         return Coverage(True, q, len(hits), [r.get("url", "") for r in hits[:5]], self.name)
+
+
+def key_shape(key: str) -> str:
+    """Describe a key without revealing it: expected prefix and length only."""
+    prefix = "starts with tvly-" if key.startswith("tvly-") else "does NOT start with tvly-"
+    odd = [c for c in key if not (c.isalnum() or c in "-_")]
+    return f"{prefix}, length {len(key)}" + (f", {len(odd)} unexpected characters" if odd else "")
 
 
 def _describe(e: Exception) -> str:

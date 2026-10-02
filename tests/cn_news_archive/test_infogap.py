@@ -304,3 +304,13 @@ class TestCoverageErrors(unittest.TestCase):
         self.assertFalse(cov.checked)
         self.assertIn("HTTP 401", cov.error)
         self.assertIn("invalid key", cov.error)
+
+
+class TestKeyShape(unittest.TestCase):
+    def test_never_reveals_key(self):
+        from stateverge.cn_news.infogap.coverage import key_shape
+        shape = key_shape("tvly-SECRETVALUE123")
+        self.assertNotIn("SECRET", shape)
+        self.assertIn("starts with tvly-", shape)
+        self.assertIn("unexpected", key_shape("tvly-abc•••"))
+        self.assertIn("NOT", key_shape("sk-abc"))
