@@ -1,1 +1,12 @@
-[{"status": "pending", "note": "live test 2: balanced shortlist, scan only, no posting"}]
+[
+  {
+    "status": "drafted",
+    "note": "live test 2: balanced shortlist, scan only, no posting",
+    "processed_at": "2026-10-02T13:25:42+00:00",
+    "digest": "digests/2026-10-02.json",
+    "review": "digests/2026-10-02.md",
+    "collected": 76,
+    "candidates": 0,
+    "preview": []
+  }
+]

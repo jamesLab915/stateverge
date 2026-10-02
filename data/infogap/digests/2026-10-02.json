@@ -1,60 +1,7 @@
 {
-  "scanned_at": "2026-10-02T13:23:20+00:00",
+  "scanned_at": "2026-10-02T13:25:42+00:00",
   "collected": 76,
   "shortlisted": [
-    {
-      "signal": {
-        "source": "github",
-        "title": "KKKKhazix/AIHOT",
-        "url": "https://github.com/KKKKhazix/AIHOT",
-        "discussion_url": "",
-        "summary": "一个自己找热点、自己写日报的网站框架。把信源和精选标准换成你的，它就是你的行业热点站。",
-        "created_at": "2026-09-28T23:40:05Z",
-        "points": 4909,
-        "comments": 1335,
-        "tags": [
-          "ai",
-          "content-curation",
-          "llm",
-          "mcp",
-          "news-aggregator",
-          "rss",
-          "self-hosted",
-          "typescript",
-          "TypeScript"
-        ]
-      },
-      "coverage": {
-        "checked": false,
-        "query": "AIHOT",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "none"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 55,
-        "discussion": 50,
-        "visual": 50,
-        "by_llm": false,
-        "headline_zh": "【待编辑】 KKKKhazix/AIHOT",
-        "what": "【待编辑】",
-        "why_now": "【待编辑】",
-        "how_used": "【待编辑】",
-        "why_cn": "【待编辑】",
-        "opportunity": "【待编辑】",
-        "risks": "【待编辑】",
-        "x_line": "【待编辑】"
-      },
-      "overseas_heat": 100.0,
-      "cn_scarcity": 50.0,
-      "total": 66.0,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)",
-        "实用价值等为关键词估算,未经 AI 评估"
-      ],
-      "signal_id": "832b3c2318766afd"
-    },
     {
       "signal": {
         "source": "github",
@@ -110,67 +57,13 @@
     {
       "signal": {
         "source": "github",
-        "title": "edenfunf/reelmimic",
-        "url": "https://github.com/edenfunf/reelmimic",
-        "discussion_url": "",
-        "summary": "Show it a video you love. Get a new video in the same style. An AI crew (Claude Code or Codex) plans, builds and reviews it with you.",
-        "created_at": "2026-09-28T19:14:59Z",
-        "points": 888,
-        "comments": 122,
-        "tags": [
-          "2d-animation",
-          "ai-agents",
-          "ai-video",
-          "animation",
-          "claude-code",
-          "codex",
-          "multi-agent",
-          "style-transfer",
-          "video-generation",
-          "JavaScript"
-        ]
-      },
-      "coverage": {
-        "checked": false,
-        "query": "reelmimic",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "none"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 55,
-        "discussion": 32.2,
-        "visual": 70,
-        "by_llm": false,
-        "headline_zh": "【待编辑】 edenfunf/reelmimic",
-        "what": "【待编辑】",
-        "why_now": "【待编辑】",
-        "how_used": "【待编辑】",
-        "why_cn": "【待编辑】",
-        "opportunity": "【待编辑】",
-        "risks": "【待编辑】",
-        "x_line": "【待编辑】"
-      },
-      "overseas_heat": 90.2,
-      "cn_scarcity": 50.0,
-      "total": 63.3,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)",
-        "实用价值等为关键词估算,未经 AI 评估"
-      ],
-      "signal_id": "1f07f2678f8feb0d"
-    },
-    {
-      "signal": {
-        "source": "github",
         "title": "Louis-CFM/coucou",
         "url": "https://github.com/Louis-CFM/coucou",
         "discussion_url": "",
         "summary": "A tiny friend that lives in your notch (macOS) or at the top of your screen (Windows, Linux) and keeps an eye on your coding agents: Claude Code, Gemini CLI, Antigravity and more.",
         "created_at": "2026-09-27T21:54:12Z",
         "points": 2761,
-        "comments": 407,
+        "comments": 408,
         "tags": [
           "ai-agents",
           "anthropic",
@@ -286,51 +179,6 @@
         "实用价值等为关键词估算,未经 AI 评估"
       ],
       "signal_id": "4fa69a98f246f97e"
-    },
-    {
-      "signal": {
-        "source": "github",
-        "title": "echris6/motion-video-kit",
-        "url": "https://github.com/echris6/motion-video-kit",
-        "discussion_url": "",
-        "summary": "Claude Code skill kit for premium AI-assisted business videos: independent critic loop, motion principles from 28 launch films, quality bar, sound design, business offers, Three.js patterns, scripts",
-        "created_at": "2026-09-27T14:11:14Z",
-        "points": 941,
-        "comments": 82,
-        "tags": [
-          "Python"
-        ]
-      },
-      "coverage": {
-        "checked": false,
-        "query": "motion video kit",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "none"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 55,
-        "discussion": 28.2,
-        "visual": 70,
-        "by_llm": false,
-        "headline_zh": "【待编辑】 echris6/motion-video-kit",
-        "what": "【待编辑】",
-        "why_now": "【待编辑】",
-        "how_used": "【待编辑】",
-        "why_cn": "【待编辑】",
-        "opportunity": "【待编辑】",
-        "risks": "【待编辑】",
-        "x_line": "【待编辑】"
-      },
-      "overseas_heat": 90.6,
-      "cn_scarcity": 50.0,
-      "total": 63.0,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)",
-        "实用价值等为关键词估算,未经 AI 评估"
-      ],
-      "signal_id": "b08674ceecff786c"
     },
     {
       "signal": {
@@ -451,7 +299,7 @@
         "summary": "",
         "created_at": "2026-09-29T02:57:30Z",
         "points": 1267,
-        "comments": 264,
+        "comments": 265,
         "tags": [
           "HTML"
         ]
@@ -466,7 +314,7 @@
       "assessment": {
         "track": "AI_TECH",
         "practical_value": 40,
-        "discussion": 46.4,
+        "discussion": 46.5,
         "visual": 50,
         "by_llm": false,
         "headline_zh": "【待编辑】 wy51ai/floorplan-3d",
@@ -495,7 +343,7 @@
         "discussion_url": "",
         "summary": "Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod almost any PC game you own: recon, reverse engineering, fal-generated art/3D/audio, in-game testing, showcase videos.",
         "created_at": "2026-09-30T05:00:35Z",
-        "points": 1830,
+        "points": 1833,
         "comments": 134,
         "tags": [
           "age-of-empires",
@@ -541,65 +389,6 @@
         "实用价值等为关键词估算,未经 AI 评估"
       ],
       "signal_id": "e461cc3b5013b4a5"
-    },
-    {
-      "signal": {
-        "source": "github",
-        "title": "nanaism/yomiyasu",
-        "url": "https://github.com/nanaism/yomiyasu",
-        "discussion_url": "",
-        "summary": "AI生成の日本語を自然な日本語へ推敲するAgent Skill / Agent Skill for Refining AI-Generated Japanese into Natural Japanese",
-        "created_at": "2026-09-30T11:49:32Z",
-        "points": 1139,
-        "comments": 25,
-        "tags": [
-          "agent-skills",
-          "ai-writing",
-          "antigravity",
-          "claude-code",
-          "codex",
-          "cursor",
-          "gemini",
-          "japanese",
-          "linter",
-          "llm",
-          "nlp",
-          "writing",
-          "writing-assistant",
-          "writing-tool",
-          "Python"
-        ]
-      },
-      "coverage": {
-        "checked": false,
-        "query": "yomiyasu",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "none"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 55,
-        "discussion": 22.5,
-        "visual": 50,
-        "by_llm": false,
-        "headline_zh": "【待编辑】 nanaism/yomiyasu",
-        "what": "【待编辑】",
-        "why_now": "【待编辑】",
-        "how_used": "【待编辑】",
-        "why_cn": "【待编辑】",
-        "opportunity": "【待编辑】",
-        "risks": "【待编辑】",
-        "x_line": "【待编辑】"
-      },
-      "overseas_heat": 92.7,
-      "cn_scarcity": 50.0,
-      "total": 61.1,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)",
-        "实用价值等为关键词估算,未经 AI 评估"
-      ],
-      "signal_id": "7980f4c1fcf931ce"
     },
     {
       "signal": {
@@ -656,74 +445,14 @@
     },
     {
       "signal": {
-        "source": "github",
-        "title": "lemomo-ai/lemo-opuscar",
-        "url": "https://github.com/lemomo-ai/lemo-opuscar",
-        "discussion_url": "",
-        "summary": "43 film styles, each a reusable style prompt plus a short film made entirely in code by Claude Opus 5.5. Pick a style, bring your own story, and let your agent direct. | Opus5.5 x 43 种影片风格：风格提示词 + 纯代码样片 + 导演与技术指南",
-        "created_at": "2026-09-26T10:10:41Z",
-        "points": 801,
-        "comments": 95,
-        "tags": [
-          "ai-agents",
-          "ai-video",
-          "animation",
-          "canvas",
-          "claude",
-          "claude-code",
-          "creative-coding",
-          "ffmpeg",
-          "filmmaking",
-          "motion-graphics",
-          "prompt-library",
-          "text-to-speech",
-          "threejs",
-          "video-production",
-          "webgl",
-          "JavaScript"
-        ]
-      },
-      "coverage": {
-        "checked": false,
-        "query": "lemo opuscar",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "none"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 40,
-        "discussion": 29.5,
-        "visual": 70,
-        "by_llm": false,
-        "headline_zh": "【待编辑】 lemomo-ai/lemo-opuscar",
-        "what": "【待编辑】",
-        "why_now": "【待编辑】",
-        "how_used": "【待编辑】",
-        "why_cn": "【待编辑】",
-        "opportunity": "【待编辑】",
-        "risks": "【待编辑】",
-        "x_line": "【待编辑】"
-      },
-      "overseas_heat": 88.7,
-      "cn_scarcity": 50.0,
-      "total": 59.6,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)",
-        "实用价值等为关键词估算,未经 AI 评估"
-      ],
-      "signal_id": "db27664e2ea07ca8"
-    },
-    {
-      "signal": {
         "source": "hackernews",
         "title": "Pi 1.0",
         "url": "https://earendil.com/posts/pi-1-0/",
         "discussion_url": "https://news.ycombinator.com/item?id=49926069",
         "summary": "",
         "created_at": "2026-10-01T19:33:05+00:00",
-        "points": 1457,
-        "comments": 479,
+        "points": 1458,
+        "comments": 480,
         "tags": []
       },
       "coverage": {
@@ -804,104 +533,14 @@
     },
     {
       "signal": {
-        "source": "github",
-        "title": "CopilotKit/OpenDots",
-        "url": "https://github.com/CopilotKit/OpenDots",
-        "discussion_url": "",
-        "summary": "Your always-on AI coworkers that move between text, calls, and Slack.",
-        "created_at": "2026-09-29T17:13:58Z",
-        "points": 966,
-        "comments": 115,
-        "tags": [
-          "TypeScript"
-        ]
-      },
-      "coverage": {
-        "checked": false,
-        "query": "OpenDots",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "none"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 40,
-        "discussion": 31.5,
-        "visual": 50,
-        "by_llm": false,
-        "headline_zh": "【待编辑】 CopilotKit/OpenDots",
-        "what": "【待编辑】",
-        "why_now": "【待编辑】",
-        "how_used": "【待编辑】",
-        "why_cn": "【待编辑】",
-        "opportunity": "【待编辑】",
-        "risks": "【待编辑】",
-        "x_line": "【待编辑】"
-      },
-      "overseas_heat": 91.2,
-      "cn_scarcity": 50.0,
-      "total": 58.5,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)",
-        "实用价值等为关键词估算,未经 AI 评估"
-      ],
-      "signal_id": "4b85c26fb9a4a496"
-    },
-    {
-      "signal": {
-        "source": "github",
-        "title": "supermemoryai/company-brain",
-        "url": "https://github.com/supermemoryai/company-brain",
-        "discussion_url": "",
-        "summary": "Open-sourcing our company brain - A teammate in your Slack that remembers everything your team says, and can go do the work.",
-        "created_at": "2026-09-25T22:48:14Z",
-        "points": 896,
-        "comments": 130,
-        "tags": [
-          "TypeScript"
-        ]
-      },
-      "coverage": {
-        "checked": false,
-        "query": "company brain",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "none"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 40,
-        "discussion": 33.0,
-        "visual": 50,
-        "by_llm": false,
-        "headline_zh": "【待编辑】 supermemoryai/company-brain",
-        "what": "【待编辑】",
-        "why_now": "【待编辑】",
-        "how_used": "【待编辑】",
-        "why_cn": "【待编辑】",
-        "opportunity": "【待编辑】",
-        "risks": "【待编辑】",
-        "x_line": "【待编辑】"
-      },
-      "overseas_heat": 90.4,
-      "cn_scarcity": 50.0,
-      "total": 58.4,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)",
-        "实用价值等为关键词估算,未经 AI 评估"
-      ],
-      "signal_id": "d8b4370308651ad2"
-    },
-    {
-      "signal": {
         "source": "hackernews",
         "title": "Git 3.0's upcoming SHA-256 default will be a costly mistake",
         "url": "https://blog.gitbutler.com/git-3-sha-256",
         "discussion_url": "https://news.ycombinator.com/item?id=49924179",
         "summary": "",
         "created_at": "2026-10-01T16:57:03+00:00",
-        "points": 436,
-        "comments": 411,
+        "points": 437,
+        "comments": 412,
         "tags": []
       },
       "coverage": {
@@ -944,7 +583,7 @@
         "summary": "",
         "created_at": "2026-10-01T23:10:44+00:00",
         "points": 398,
-        "comments": 288,
+        "comments": 289,
         "tags": []
       },
       "coverage": {
@@ -957,7 +596,7 @@
       "assessment": {
         "track": "OTHER",
         "practical_value": 30,
-        "discussion": 48.8,
+        "discussion": 48.9,
         "visual": 30,
         "by_llm": false,
         "headline_zh": "【待编辑】 Several vulnerabilities have been discovered in the Linux kernel",
@@ -969,7 +608,7 @@
         "risks": "【待编辑】",
         "x_line": "【待编辑】"
       },
-      "overseas_heat": 91.1,
+      "overseas_heat": 91.2,
       "cn_scarcity": 50.0,
       "total": 56.2,
       "notes": [
@@ -986,7 +625,7 @@
         "discussion_url": "https://news.ycombinator.com/item?id=49923692",
         "summary": "",
         "created_at": "2026-10-01T16:18:57+00:00",
-        "points": 549,
+        "points": 550,
         "comments": 195,
         "tags": []
       },
@@ -1020,10 +659,325 @@
         "实用价值等为关键词估算,未经 AI 评估"
       ],
       "signal_id": "80aad0891366f081"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Ask HN: Who wants to be hired? (October 2026)",
+        "url": "https://news.ycombinator.com/item?id=49922568",
+        "discussion_url": "https://news.ycombinator.com/item?id=49922568",
+        "summary": "",
+        "created_at": "2026-10-01T15:02:07+00:00",
+        "points": 115,
+        "comments": 379,
+        "tags": []
+      },
+      "coverage": {
+        "checked": false,
+        "query": "October",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "none"
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 30,
+        "discussion": 70,
+        "visual": 30,
+        "by_llm": false,
+        "headline_zh": "【待编辑】 Ask HN: Who wants to be hired? (October 2026)",
+        "what": "【待编辑】",
+        "why_now": "【待编辑】",
+        "how_used": "【待编辑】",
+        "why_cn": "【待编辑】",
+        "opportunity": "【待编辑】",
+        "risks": "【待编辑】",
+        "x_line": "【待编辑】"
+      },
+      "overseas_heat": 82.8,
+      "cn_scarcity": 50.0,
+      "total": 55.8,
+      "notes": [
+        "中文覆盖度未检测(稀缺度按 50 计)",
+        "实用价值等为关键词估算,未经 AI 评估"
+      ],
+      "signal_id": "6802d89cd112c2e4"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "KKKKhazix/AIHOT",
+        "url": "https://github.com/KKKKhazix/AIHOT",
+        "discussion_url": "",
+        "summary": "一个自己找热点、自己写日报的网站框架。把信源和精选标准换成你的，它就是你的行业热点站。",
+        "created_at": "2026-09-28T23:40:05Z",
+        "points": 4909,
+        "comments": 1335,
+        "tags": [
+          "ai",
+          "content-curation",
+          "llm",
+          "mcp",
+          "news-aggregator",
+          "rss",
+          "self-hosted",
+          "typescript",
+          "TypeScript"
+        ]
+      },
+      "coverage": {
+        "checked": false,
+        "query": "AIHOT",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "none"
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 55,
+        "discussion": 50,
+        "visual": 50,
+        "by_llm": false,
+        "headline_zh": "【待编辑】 KKKKhazix/AIHOT",
+        "what": "【待编辑】",
+        "why_now": "【待编辑】",
+        "how_used": "【待编辑】",
+        "why_cn": "【待编辑】",
+        "opportunity": "【待编辑】",
+        "risks": "【待编辑】",
+        "x_line": "【待编辑】"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 10.0,
+      "total": 54.0,
+      "notes": [
+        "原文本身含中文,已面向中文用户(稀缺度按 10 计)",
+        "实用价值等为关键词估算,未经 AI 评估"
+      ],
+      "signal_id": "832b3c2318766afd"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Cops Can Bypass iPhone's Automatic Reboot to Get into Locked Phones",
+        "url": "https://www.404media.co/cops-can-bypass-iphone-automatic-inactivity-reboot-graykey/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49922278",
+        "summary": "",
+        "created_at": "2026-10-01T14:38:35+00:00",
+        "points": 269,
+        "comments": 212,
+        "tags": []
+      },
+      "coverage": {
+        "checked": false,
+        "query": "Cops Can Bypass",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "none"
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 30,
+        "discussion": 41.2,
+        "visual": 30,
+        "by_llm": false,
+        "headline_zh": "【待编辑】 Cops Can Bypass iPhone's Automatic Reboot to Get into Locked Phones",
+        "what": "【待编辑】",
+        "why_now": "【待编辑】",
+        "how_used": "【待编辑】",
+        "why_cn": "【待编辑】",
+        "opportunity": "【待编辑】",
+        "risks": "【待编辑】",
+        "x_line": "【待编辑】"
+      },
+      "overseas_heat": 85.8,
+      "cn_scarcity": 50.0,
+      "total": 53.9,
+      "notes": [
+        "中文覆盖度未检测(稀缺度按 50 计)",
+        "实用价值等为关键词估算,未经 AI 评估"
+      ],
+      "signal_id": "506eaf3a2bb5c279"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "SvelteKit 3",
+        "url": "https://svelte.dev/blog/sveltekit-3-is-here",
+        "discussion_url": "https://news.ycombinator.com/item?id=49926536",
+        "summary": "",
+        "created_at": "2026-10-01T20:14:23+00:00",
+        "points": 332,
+        "comments": 136,
+        "tags": []
+      },
+      "coverage": {
+        "checked": false,
+        "query": "SvelteKit",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "none"
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 30,
+        "discussion": 33.6,
+        "visual": 30,
+        "by_llm": false,
+        "headline_zh": "【待编辑】 SvelteKit 3",
+        "what": "【待编辑】",
+        "why_now": "【待编辑】",
+        "how_used": "【待编辑】",
+        "why_cn": "【待编辑】",
+        "opportunity": "【待编辑】",
+        "risks": "【待编辑】",
+        "x_line": "【待编辑】"
+      },
+      "overseas_heat": 86.8,
+      "cn_scarcity": 50.0,
+      "total": 53.4,
+      "notes": [
+        "中文覆盖度未检测(稀缺度按 50 计)",
+        "实用价值等为关键词估算,未经 AI 评估"
+      ],
+      "signal_id": "3b619c77612fc4e9"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Pi Durable",
+        "url": "https://earendil.com/posts/pi-durable/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49925969",
+        "summary": "",
+        "created_at": "2026-10-01T19:24:08+00:00",
+        "points": 423,
+        "comments": 56,
+        "tags": []
+      },
+      "coverage": {
+        "checked": false,
+        "query": "Pi Durable",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "none"
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 30,
+        "discussion": 25.6,
+        "visual": 30,
+        "by_llm": false,
+        "headline_zh": "【待编辑】 Pi Durable",
+        "what": "【待编辑】",
+        "why_now": "【待编辑】",
+        "how_used": "【待编辑】",
+        "why_cn": "【待编辑】",
+        "opportunity": "【待编辑】",
+        "risks": "【待编辑】",
+        "x_line": "【待编辑】"
+      },
+      "overseas_heat": 88.5,
+      "cn_scarcity": 50.0,
+      "total": 53.1,
+      "notes": [
+        "中文覆盖度未检测(稀缺度按 50 计)",
+        "实用价值等为关键词估算,未经 AI 评估"
+      ],
+      "signal_id": "d581499965d178c8"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "DeepSeek Harness Desktop for macOS and Windows",
+        "url": "https://www.deepseek.com/en/harness/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49929489",
+        "summary": "",
+        "created_at": "2026-10-02T03:11:20+00:00",
+        "points": 287,
+        "comments": 150,
+        "tags": []
+      },
+      "coverage": {
+        "checked": false,
+        "query": "DeepSeek Harness Desktop",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "none"
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 30,
+        "discussion": 35.0,
+        "visual": 30,
+        "by_llm": false,
+        "headline_zh": "【待编辑】 DeepSeek Harness Desktop for macOS and Windows",
+        "what": "【待编辑】",
+        "why_now": "【待编辑】",
+        "how_used": "【待编辑】",
+        "why_cn": "【待编辑】",
+        "opportunity": "【待编辑】",
+        "risks": "【待编辑】",
+        "x_line": "【待编辑】"
+      },
+      "overseas_heat": 85.3,
+      "cn_scarcity": 50.0,
+      "total": 53.1,
+      "notes": [
+        "中文覆盖度未检测(稀缺度按 50 计)",
+        "实用价值等为关键词估算,未经 AI 评估"
+      ],
+      "signal_id": "df44edeab7aac64b"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "RIP, vector database",
+        "url": "https://turbopuffer.com/blog/rip-vector-database",
+        "discussion_url": "https://news.ycombinator.com/item?id=49923466",
+        "summary": "",
+        "created_at": "2026-10-01T16:01:56+00:00",
+        "points": 348,
+        "comments": 99,
+        "tags": []
+      },
+      "coverage": {
+        "checked": false,
+        "query": "RIP",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "none"
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 30,
+        "discussion": 29.9,
+        "visual": 30,
+        "by_llm": false,
+        "headline_zh": "【待编辑】 RIP, vector database",
+        "what": "【待编辑】",
+        "why_now": "【待编辑】",
+        "how_used": "【待编辑】",
+        "why_cn": "【待编辑】",
+        "opportunity": "【待编辑】",
+        "risks": "【待编辑】",
+        "x_line": "【待编辑】"
+      },
+      "overseas_heat": 86.7,
+      "cn_scarcity": 50.0,
+      "total": 53.0,
+      "notes": [
+        "中文覆盖度未检测(稀缺度按 50 计)",
+        "实用价值等为关键词估算,未经 AI 评估"
+      ],
+      "signal_id": "21792918a32f9243"
     }
   ],
   "candidates": [],
   "picks": [],
   "coverage_checked": false,
-  "llm_used": false
+  "llm_used": false,
+  "by_source": {
+    "hackernews": 46,
+    "github": 30
+  }
 }
