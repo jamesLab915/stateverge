@@ -1,7 +1,50 @@
 {
-  "scanned_at": "2026-10-02T18:40:22+00:00",
-  "collected": 74,
+  "scanned_at": "2026-10-02T18:43:52+00:00",
+  "collected": 75,
   "shortlisted": [
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "DeepSeek Harness Desktop for macOS and Windows",
+        "url": "https://www.deepseek.com/en/harness/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49929489",
+        "summary": "",
+        "created_at": "2026-10-02T03:11:20+00:00",
+        "points": 378,
+        "comments": 199,
+        "tags": []
+      },
+      "coverage": {
+        "checked": false,
+        "query": "DeepSeek Harness Desktop",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 60.0,
+        "visual": 50.0,
+        "by_llm": true,
+        "headline_zh": "DeepSeek推出适用于macOS和Windows的桌面工具，提升搜索效率",
+        "what": "DeepSeek推出了名为Harness的桌面应用，支持macOS和Windows系统，旨在提升用户的搜索效率。",
+        "why_now": "随着信息量的激增，用户对高效搜索工具的需求日益增加，DeepSeek希望借此满足市场需求。",
+        "how_used": "美国用户可以通过DeepSeek的Harness工具快速找到所需信息，提升工作和学习效率。",
+        "why_cn": "中国用户应关注这一工具，因为它可能为信息检索提供新的思路，尤其是在数据量庞大的情况下。",
+        "opportunity": "目前尚无明确的商业机会，需自行探索如何在中文环境中应用该工具。",
+        "risks": "需自行确认该工具在中国大陆的可用性及网络限制。",
+        "x_line": "适合需要高效信息检索的用户，尤其是在数据量大的工作环境中。"
+      },
+      "overseas_heat": 89.3,
+      "cn_scarcity": 50.0,
+      "total": 66.8,
+      "notes": [
+        "中文覆盖度未检测(稀缺度按 50 计)"
+      ],
+      "signal_id": "df44edeab7aac64b"
+    },
     {
       "signal": {
         "source": "hackernews",
@@ -19,7 +62,8 @@
         "query": "SvelteKit",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -27,14 +71,14 @@
         "discussion": 60.0,
         "visual": 50.0,
         "by_llm": true,
-        "headline_zh": "SvelteKit 3 发布，前端开发者的新选择",
-        "what": "SvelteKit 3 正式发布，带来了多项新特性和改进，旨在提升前端开发效率。",
-        "why_now": "随着前端技术的快速发展，开发者对框架的需求不断变化，SvelteKit 3 旨在满足这些新需求。",
-        "how_used": "美国开发者可以利用 SvelteKit 3 的新特性，快速构建现代化的 web 应用，提升开发效率。",
-        "why_cn": "中国用户应关注 SvelteKit 3，因为它可能成为未来前端开发的新趋势，尤其是在构建高性能应用时。",
-        "opportunity": "对于前端开发者来说，学习和使用 SvelteKit 3 可能带来新的项目机会。",
-        "risks": "需自行确认 SvelteKit 3 的社区支持和学习曲线，可能需要时间适应新框架。",
-        "x_line": "适合前端开发者，想要提升开发效率和构建现代化应用的用户。"
+        "headline_zh": "SvelteKit 3 发布，中文开发者需关注的新特性",
+        "what": "SvelteKit 3 正式发布，带来了多项新特性和改进。",
+        "why_now": "随着前端框架的快速发展，开发者需要更高效的工具来提升开发体验。",
+        "how_used": "美国开发者正在利用 SvelteKit 3 的新特性来构建更快速和高效的 web 应用。",
+        "why_cn": "中国开发者可以借鉴 SvelteKit 3 的新特性，提升自己的开发效率，尤其是在构建现代化的前端应用时。",
+        "opportunity": "如果你是前端开发者，可以尝试 SvelteKit 3，提升项目开发效率。",
+        "risks": "需自行确认 SvelteKit 3 的兼容性和社区支持情况，可能需要适应新的开发方式。",
+        "x_line": "适合前端开发者探索新框架和提升开发效率。"
       },
       "overseas_heat": 89.0,
       "cn_scarcity": 50.0,
@@ -43,48 +87,6 @@
         "中文覆盖度未检测(稀缺度按 50 计)"
       ],
       "signal_id": "3b619c77612fc4e9"
-    },
-    {
-      "signal": {
-        "source": "hackernews",
-        "title": "DeepSeek Harness Desktop for macOS and Windows",
-        "url": "https://www.deepseek.com/en/harness/",
-        "discussion_url": "https://news.ycombinator.com/item?id=49929489",
-        "summary": "",
-        "created_at": "2026-10-02T03:11:20+00:00",
-        "points": 377,
-        "comments": 199,
-        "tags": []
-      },
-      "coverage": {
-        "checked": false,
-        "query": "DeepSeek Harness Desktop",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "tavily"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 60.0,
-        "discussion": 70.0,
-        "visual": 50.0,
-        "by_llm": true,
-        "headline_zh": "DeepSeek推出适用于macOS和Windows的Harness桌面版，提升用户体验",
-        "what": "DeepSeek推出了Harness桌面应用程序，支持macOS和Windows系统，旨在提升用户的搜索和数据处理体验。",
-        "why_now": "随着数据量的激增，用户对高效搜索和数据处理工具的需求日益增加，DeepSeek的推出正好满足了这一市场需求。",
-        "how_used": "美国用户可以通过下载DeepSeek的Harness应用，利用其强大的搜索功能来提高工作效率，尤其是在处理大量数据时。",
-        "why_cn": "中国用户可以关注这一工具的功能，尤其是在数据分析和信息检索方面，可能会对他们的工作产生积极影响。",
-        "opportunity": "如果你在数据处理或信息检索方面有需求，可以尝试使用DeepSeek的Harness，提升工作效率。",
-        "risks": "需自行确认是否能在中国大陆使用，可能存在网络和支付限制。",
-        "x_line": "适合需要高效数据处理和搜索工具的用户，提升工作效率。"
-      },
-      "overseas_heat": 89.3,
-      "cn_scarcity": 50.0,
-      "total": 65.8,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)"
-      ],
-      "signal_id": "df44edeab7aac64b"
     },
     {
       "signal": {
@@ -113,7 +115,8 @@
         "query": "awesome opus5 5 videos",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -121,14 +124,14 @@
         "discussion": 0.0,
         "visual": 80.0,
         "by_llm": true,
-        "headline_zh": "使用Claude Opus 5.5制作的病毒视频集，中文用户可借鉴创意",
-        "what": "GitHub上发布了一个名为'awesome-opus5-5-videos'的项目，收集了使用Claude Opus 5.5制作的病毒视频及其提示。",
-        "why_now": "随着AI视频生成技术的进步，越来越多的创作者开始利用这些工具制作引人注目的内容。",
-        "how_used": "美国用户可以通过查看这些视频和提示，学习如何使用Claude Opus 5.5进行创作，甚至在Skillry上进行实时重制。",
-        "why_cn": "中国用户可以关注这一动态，借鉴视频创作的灵感，提升自己的内容创作能力。",
-        "opportunity": "对于有兴趣于视频创作的用户，了解这些工具和创意提示可能带来新的创作机会。",
-        "risks": "需自行确认Claude Opus 5.5在中国的可用性及相关法律限制。",
-        "x_line": "适合视频创作者和AI技术爱好者，探索新工具和创意灵感。"
+        "headline_zh": "Claude Opus 5.5 视频创作工具的崛起，中文用户不可忽视",
+        "what": "GitHub 上出现了一个名为 'awesome-opus5-5-videos' 的项目，汇集了使用 Claude Opus 5.5 制作的病毒视频及其创作提示。",
+        "why_now": "随着 AI 技术的发展，视频创作变得更加便捷，Claude Opus 5.5 提供了强大的工具，吸引了越来越多的创作者。",
+        "how_used": "美国用户通过该项目观看原始视频和实时重制视频，获取灵感和创作提示，提升自己的视频制作能力。",
+        "why_cn": "中国用户应关注这一趋势，因为 AI 视频创作工具可能会改变内容创作的方式，提供新的创作机会。",
+        "opportunity": "如果你对视频创作感兴趣，可以借助这些资源提升自己的技能，探索新的创作方向。",
+        "risks": "需自行确认工具的可用性和适用性，可能存在语言障碍和文化差异。",
+        "x_line": "适合对 AI 视频创作感兴趣的用户，提供灵感和技术支持。"
       },
       "overseas_heat": 95.9,
       "cn_scarcity": 50.0,
@@ -155,7 +158,8 @@
         "query": "Several Linux",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -163,14 +167,14 @@
         "discussion": 80.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "Linux内核发现多个漏洞，影响广泛",
-        "what": "最近发现多个影响Linux内核的安全漏洞，这可能影响到使用Linux系统的设备和服务。",
-        "why_now": "随着Linux在服务器和嵌入式设备中的广泛应用，安全问题变得尤为重要，及时修复漏洞至关重要。",
-        "how_used": "美国的开发者和企业正在积极更新系统，修补这些漏洞以保护数据安全。",
-        "why_cn": "中国用户在使用Linux系统时，需关注这些漏洞的修复情况，以确保系统安全，特别是在企业和开发环境中。",
-        "opportunity": "对于网络安全领域的专业人士来说，了解和修复这些漏洞可能带来职业发展机会。",
-        "risks": "如果不及时更新系统，可能会导致数据泄露和系统被攻击的风险。",
-        "x_line": "适合关注网络安全的开发者和企业，及时更新Linux系统以防范潜在风险。"
+        "headline_zh": "Linux内核发现多个漏洞，可能影响广泛用户",
+        "what": "Linux内核中发现了多个安全漏洞，这可能影响使用该系统的设备和应用程序的安全性。",
+        "why_now": "随着Linux在服务器和嵌入式设备中的广泛应用，安全漏洞的曝光引发了对系统安全性的关注。",
+        "how_used": "美国的开发者和系统管理员需要及时更新系统，以防止潜在的安全风险。",
+        "why_cn": "中国用户在使用Linux系统时应关注这些漏洞，及时更新以保障系统安全，特别是在企业和开发环境中。",
+        "opportunity": "虽然没有直接的赚钱机会，但及时更新和修复漏洞可以降低安全风险，保护资产。",
+        "risks": "如果不及时更新，可能会导致系统被攻击，造成数据泄露或服务中断。",
+        "x_line": "适合使用Linux系统的开发者和企业关注安全更新，确保系统安全。"
       },
       "overseas_heat": 95.2,
       "cn_scarcity": 50.0,
@@ -183,75 +187,13 @@
     {
       "signal": {
         "source": "github",
-        "title": "Louis-CFM/coucou",
-        "url": "https://github.com/Louis-CFM/coucou",
-        "discussion_url": "",
-        "summary": "A tiny friend that lives in your notch (macOS) or at the top of your screen (Windows, Linux) and keeps an eye on your coding agents: Claude Code, Codex, Cursor, Gemini CLI, Antigravity and more.",
-        "created_at": "2026-09-27T21:54:12Z",
-        "points": 2877,
-        "comments": 438,
-        "tags": [
-          "ai-agents",
-          "anthropic",
-          "antigravity",
-          "claude",
-          "claude-code",
-          "codex",
-          "cursor",
-          "dynamic-island",
-          "gemini-cli",
-          "linux",
-          "macos",
-          "macos-app",
-          "menubar-app",
-          "notch",
-          "open-source",
-          "swift",
-          "swiftui",
-          "windows",
-          "Swift"
-        ]
-      },
-      "coverage": {
-        "checked": false,
-        "query": "coucou",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "tavily"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 70.0,
-        "discussion": 0.0,
-        "visual": 0.0,
-        "by_llm": true,
-        "headline_zh": "新工具Coucou：为编程助手提供实时监控",
-        "what": "Coucou是一个小工具，可以在macOS的凹槽或Windows、Linux的屏幕顶部运行，监控多个编程助手如Claude Code、Codex等的状态。",
-        "why_now": "随着AI编程助手的普及，开发者需要更便捷的工具来管理和监控这些助手的状态。",
-        "how_used": "美国开发者可以将Coucou放置在屏幕上，实时查看不同编程助手的运行情况，提升工作效率。",
-        "why_cn": "中国开发者也在使用AI编程助手，Coucou可以帮助他们更好地管理这些工具，提高编程效率。",
-        "opportunity": "如果你是开发者，使用Coucou可以提升工作效率，尤其是在多任务处理时。",
-        "risks": "需自行确认Coucou在中国的可用性及兼容性，可能存在网络或地区限制。",
-        "x_line": "适合需要同时管理多个AI编程助手的开发者。"
-      },
-      "overseas_heat": 100.0,
-      "cn_scarcity": 50.0,
-      "total": 59.0,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)"
-      ],
-      "signal_id": "fbe4115fc604387f"
-    },
-    {
-      "signal": {
-        "source": "github",
         "title": "feder-cr/dots",
         "url": "https://github.com/feder-cr/dots",
         "discussion_url": "",
         "summary": "Open-source dots for the web: an AI agent with its own browser, one that does not get blocked.",
         "created_at": "2026-09-29T23:06:00Z",
-        "points": 2438,
-        "comments": 425,
+        "points": 2439,
+        "comments": 426,
         "tags": [
           "ai-agent",
           "ai-agents",
@@ -281,7 +223,8 @@
         "query": "dots",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -289,14 +232,14 @@
         "discussion": 0.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "开源AI代理浏览器：突破网络限制的新工具",
-        "what": "一个开源项目推出了一个AI代理浏览器，旨在避免被封锁。",
-        "why_now": "随着网络监控和封锁的加剧，用户对隐私和自由浏览的需求日益增加。",
-        "how_used": "美国用户可以利用这个浏览器进行自动化网页操作，提升在线隐私和安全性。",
-        "why_cn": "中国用户需要关注这一工具，因为它可能提供更安全的网络访问方式，尤其是在信息受限的环境中。",
-        "opportunity": "有机会探索如何利用这一工具进行更安全的网络活动，但需具备一定的技术背景。",
-        "risks": "使用此类工具可能面临法律风险和技术挑战，需自行确认合规性和可用性。",
-        "x_line": "适合希望提升在线隐私和安全的用户，尤其是在受限网络环境中。"
+        "headline_zh": "开源AI代理浏览器：突破网络封锁的新选择",
+        "what": "GitHub上发布了一个名为'dots'的开源项目，提供一个AI代理浏览器，能够在不被封锁的情况下进行网页浏览。",
+        "why_now": "随着对网络隐私和反检测技术的需求增加，开发者寻求更灵活的浏览器解决方案。",
+        "how_used": "美国用户可以利用这个AI代理浏览器进行自动化网页操作，提升工作效率，尤其是在需要规避网络限制的场景中。",
+        "why_cn": "中国用户应关注这一技术，因为它可能为绕过网络审查提供新的工具，尤其是在需要访问被限制内容时。",
+        "opportunity": "有机会探索如何使用这一工具进行网页自动化和信息获取，但需具备一定的技术背景。",
+        "risks": "使用此类工具可能面临法律风险，且需自行确认在中国的可用性和合规性。",
+        "x_line": "适合需要突破网络限制、进行网页自动化的技术用户。"
       },
       "overseas_heat": 100.0,
       "cn_scarcity": 50.0,
@@ -337,7 +280,8 @@
         "query": "jevgrep",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -345,14 +289,14 @@
         "discussion": 0.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "新工具：通过提问找到代码，提升开发效率",
-        "what": "dzhng发布了一个名为jevgrep的CLI工具，允许开发者通过询问代码的功能来查找相关文件和源上下文。",
-        "why_now": "随着开发者对代码搜索和上下文理解的需求增加，类似的工具应运而生，以提高开发效率。",
-        "how_used": "美国开发者可以通过命令行界面输入问题，使用jevgrep快速找到所需的代码片段。",
-        "why_cn": "中国开发者在进行代码搜索时，可能会面临效率低下的问题，jevgrep提供了一种新的解决方案，值得关注。",
-        "opportunity": "对于需要频繁查找代码的开发者，jevgrep可以显著提升工作效率。",
-        "risks": "需自行确认是否适用于特定的开发环境和项目，且可能需要一定的学习成本。",
-        "x_line": "适合需要快速查找代码片段的开发者，提升编程效率。"
+        "headline_zh": "新工具让代码搜索更智能：通过提问找到代码功能",
+        "what": "dzhng/jevgrep 是一个命令行工具，允许开发者通过询问代码的功能来寻找相关文件和上下文。",
+        "why_now": "随着代码库的日益庞大，传统的代码搜索方式难以满足开发者的需求，智能化的搜索工具应运而生。",
+        "how_used": "美国开发者可以通过命令行界面输入问题，快速找到与其需求相关的代码片段，提高开发效率。",
+        "why_cn": "中国开发者在面对复杂代码时，使用此工具可以更高效地定位所需功能，节省时间和精力。",
+        "opportunity": "对于希望提升代码搜索效率的开发者来说，这是一个值得尝试的工具。",
+        "risks": "需自行确认是否支持中文环境和相关技术栈的兼容性。",
+        "x_line": "适合希望提高代码搜索效率的开发者，尤其是在大型项目中。"
       },
       "overseas_heat": 100.0,
       "cn_scarcity": 50.0,
@@ -391,7 +335,8 @@
         "query": "universal modder",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -399,14 +344,14 @@
         "discussion": 0.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "新工具让游戏修改变得更简单，中文用户也能尝试",
-        "what": "Universal Modder 是一个新工具，允许用户通过 Claude 进行游戏修改，支持几乎所有 PC 游戏。",
-        "why_now": "随着游戏修改需求的增加，开发者推出了这一工具以简化游戏 mod 制作过程。",
-        "how_used": "美国用户可以通过该工具进行游戏的技能、工具和艺术资源的修改，提升游戏体验。",
-        "why_cn": "中国用户可以关注这一工具，尝试在自己喜欢的游戏中进行个性化修改，提升游戏乐趣。",
-        "opportunity": "对于有编程基础的用户，可以利用该工具进行游戏 mod 制作，可能带来创作和分享的机会。",
-        "risks": "使用游戏修改工具可能违反游戏的使用条款，存在封号风险；需自行确认工具的兼容性和安全性。",
-        "x_line": "适合热爱游戏和编程的用户，探索游戏修改的无限可能。"
+        "headline_zh": "Claude Code 让游戏修改变得更简单，中文用户可借鉴",
+        "what": "一个名为 Universal Modder 的项目发布，允许用户使用 Claude Code 对几乎所有 PC 游戏进行修改。",
+        "why_now": "随着游戏 modding 社区的不断壮大，玩家对自定义内容的需求日益增加。",
+        "how_used": "美国玩家可以利用这个工具进行游戏反向工程，创建自定义内容，并进行游戏内测试和展示。",
+        "why_cn": "中国用户可以关注这一工具，以便在游戏中实现更多个性化和创意的修改，提升游戏体验。",
+        "opportunity": "对于游戏开发者和爱好者来说，可能存在利用该工具进行创作和分享的机会。",
+        "risks": "需注意游戏版权问题，使用修改工具可能会导致游戏账号被封禁，且对技术要求较高。",
+        "x_line": "适合游戏开发者和爱好者，想要提升游戏体验和创作能力的用户。"
       },
       "overseas_heat": 100.0,
       "cn_scarcity": 50.0,
@@ -443,7 +388,8 @@
         "query": "logo design skill",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -451,14 +397,14 @@
         "discussion": 0.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "AI 设计技能：全面提升你的标志设计能力",
-        "what": "GitHub 上发布了一项针对 Claude 和其他 AI 代理的全面标志设计技能，包含设计原则、流程、SVG 制作、测试工具以及超过 1400 个标志的参考库。",
-        "why_now": "随着 AI 技术的快速发展，越来越多的设计工具和技能被整合进 AI 代理中，帮助用户提升设计效率和质量。",
-        "how_used": "美国用户可以利用这一技能，通过 AI 代理快速生成和优化标志设计，参考丰富的设计库来激发创意。",
-        "why_cn": "中国用户可以关注这一技能，了解如何利用 AI 提升自己的设计能力，尤其是在品牌建设和标志设计方面。",
-        "opportunity": "对于设计师和品牌经理来说，这是一个提升设计效率和创意的机会。",
-        "risks": "需自行确认 AI 工具的使用限制和适用性，特别是在中国大陆的网络和支付环境下。",
-        "x_line": "适合设计师和品牌经理使用，借助 AI 提升标志设计效率和创意。"
+        "headline_zh": "AI 设计技能库：全新 Logo 设计工具助力品牌塑造",
+        "what": "GitHub 上发布了一个全面的 Logo 设计技能库，适用于 Claude、Gemini CLI 和 Codex 等 AI 工具，包含设计原则、流程、SVG 制作及测试工具，并提供超过1400个 Logo 参考库。",
+        "why_now": "随着品牌竞争加剧，企业和个人对专业 Logo 设计的需求不断增长，AI 技术的应用使得设计过程更加高效。",
+        "how_used": "美国的设计师和企业可以利用这一技能库，快速创建和测试 Logo 设计，提高品牌识别度。",
+        "why_cn": "中国用户在品牌建设和市场推广中也面临 Logo 设计的挑战，掌握 AI 工具可以提升设计效率和创意水平。",
+        "opportunity": "如果你在品牌设计或相关领域工作，可以利用这一工具提升自己的设计能力。",
+        "risks": "需自行确认是否能在中国大陆使用相关 AI 工具，且设计成果的版权和使用权需明确。",
+        "x_line": "适合品牌设计师和创业者，提升 Logo 设计效率，助力品牌建设。"
       },
       "overseas_heat": 96.5,
       "cn_scarcity": 50.0,
@@ -487,7 +433,8 @@
         "query": "jeff",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -495,14 +442,14 @@
         "discussion": 0.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "新开源模型助力快速决策，中文用户需关注其应用潜力",
-        "what": "GitHub 上发布了一个名为 Jeff 的开源模型，旨在通过校准概率在不同选项中进行快速决策。",
-        "why_now": "随着 AI 技术的快速发展，快速决策的需求在各个领域日益增加，尤其是在商业和技术应用中。",
-        "how_used": "美国用户可以将该模型部署在自己的硬件上，利用其快速决策能力来优化工作流程或提升决策效率。",
-        "why_cn": "中国用户可以关注这一模型的应用，尤其是在需要快速决策的行业，如金融、营销等，可能会带来新的工具和思路。",
-        "opportunity": "如果你在相关领域工作，可以尝试使用该模型来提升决策效率，尤其是在数据驱动的决策场景中。",
-        "risks": "需自行确认模型的适用性和性能，特别是在特定行业或数据环境下的表现。",
-        "x_line": "适合需要快速决策的企业和开发者，提升决策效率和准确性。"
+        "headline_zh": "新开源模型Jeff：助力快速决策，适用于多领域",
+        "what": "Jeff是一个开源的“系统1”模型，能够在毫秒内根据选项做出决策，具有校准的概率输出。",
+        "why_now": "随着AI技术的进步，快速决策的需求在各个领域日益增长，Jeff应运而生。",
+        "how_used": "美国用户可以在自己的硬件上部署Jeff，利用其快速决策能力来优化业务流程或个人决策。",
+        "why_cn": "中国用户可以关注这一模型的应用潜力，特别是在需要快速反应的行业，如金融、营销等。",
+        "opportunity": "如果你在相关领域工作，可以尝试使用Jeff来提升决策效率。",
+        "risks": "需自行确认是否符合你的硬件要求，且模型的使用效果可能因具体应用场景而异。",
+        "x_line": "适合需要快速决策的行业，如金融、营销和数据分析。"
       },
       "overseas_heat": 94.8,
       "cn_scarcity": 50.0,
@@ -520,7 +467,7 @@
         "discussion_url": "",
         "summary": "Your always-on AI coworkers that move between text, calls, and Slack.",
         "created_at": "2026-09-29T17:13:58Z",
-        "points": 1274,
+        "points": 1275,
         "comments": 151,
         "tags": [
           "TypeScript"
@@ -531,7 +478,71 @@
         "query": "OpenDots",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "新工具OpenDots：AI同事在文本、通话和Slack间无缝切换",
+        "what": "OpenDots是一个新的AI工具，能够在文本、通话和Slack等平台间无缝切换，充当用户的AI同事。",
+        "why_now": "随着远程工作的普及，企业对提高沟通效率和协作能力的需求日益增加。",
+        "how_used": "美国用户可以利用OpenDots在不同的沟通平台上获得实时的AI支持，提升工作效率。",
+        "why_cn": "中国用户应关注这一工具的出现，因为它可能会影响未来的工作方式和团队协作模式。",
+        "opportunity": "如果能够利用这一工具，可能会提升工作效率，但需关注其适用性和集成难度。",
+        "risks": "需自行确认是否能在中国大陆使用，可能存在网络和地区限制。",
+        "x_line": "适合希望提升团队沟通效率的企业和个人使用。"
+      },
+      "overseas_heat": 94.8,
+      "cn_scarcity": 50.0,
+      "total": 57.4,
+      "notes": [
+        "中文覆盖度未检测(稀缺度按 50 计)"
+      ],
+      "signal_id": "4b85c26fb9a4a496"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "Louis-CFM/coucou",
+        "url": "https://github.com/Louis-CFM/coucou",
+        "discussion_url": "",
+        "summary": "A tiny friend that lives in your notch (macOS) or at the top of your screen (Windows, Linux) and keeps an eye on your coding agents: Claude Code, Codex, Cursor, Gemini CLI, Antigravity and more.",
+        "created_at": "2026-09-27T21:54:12Z",
+        "points": 2878,
+        "comments": 438,
+        "tags": [
+          "ai-agents",
+          "anthropic",
+          "antigravity",
+          "claude",
+          "claude-code",
+          "codex",
+          "cursor",
+          "dynamic-island",
+          "gemini-cli",
+          "linux",
+          "macos",
+          "macos-app",
+          "menubar-app",
+          "notch",
+          "open-source",
+          "swift",
+          "swiftui",
+          "windows",
+          "Swift"
+        ]
+      },
+      "coverage": {
+        "checked": false,
+        "query": "coucou",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -539,22 +550,22 @@
         "discussion": 0.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "AI 助手在文本、电话和 Slack 之间无缝切换的工具",
-        "what": "CopilotKit 发布了 OpenDots，一个可以在文本、电话和 Slack 中无缝工作的 AI 助手",
-        "why_now": "随着远程工作和在线沟通的普及，团队协作对 AI 助手的需求日益增加",
-        "how_used": "美国用户可以利用 OpenDots 在不同的沟通平台上提高工作效率",
-        "why_cn": "中国用户可以关注这一工具的多功能性，考虑其在团队协作中的潜在应用",
-        "opportunity": "暂无直接的商业机会，但可以借鉴其功能提升团队协作",
-        "risks": "需自行确认是否符合中国网络和使用政策",
-        "x_line": "适合希望提升团队沟通效率的企业和个人使用"
+        "headline_zh": "新开源工具：让你的编程助手随时待命",
+        "what": "一个名为Coucou的开源工具，可以在macOS的刘海区域或Windows、Linux的屏幕顶部显示，帮助用户监控多个编程助手。",
+        "why_now": "随着AI编程助手的普及，开发者需要更便捷的方式来管理和监控这些工具的使用。",
+        "how_used": "美国开发者可以通过Coucou在编程时实时查看和管理Claude Code、Codex等AI助手的状态，提高工作效率。",
+        "why_cn": "中国用户应关注这一工具，因为它展示了AI助手在编程中的集成方式，可能影响未来的开发工具使用习惯。",
+        "opportunity": "对于开发者来说，使用Coucou可以提升工作效率，但需具备一定的编程基础来进行安装和配置。",
+        "risks": "需自行确认是否能在中国大陆使用，且开源工具可能存在安全性和稳定性风险。",
+        "x_line": "适合需要高效管理多个AI编程助手的开发者使用。"
       },
-      "overseas_heat": 94.8,
+      "overseas_heat": 100.0,
       "cn_scarcity": 50.0,
-      "total": 55.4,
+      "total": 57.0,
       "notes": [
         "中文覆盖度未检测(稀缺度按 50 计)"
       ],
-      "signal_id": "4b85c26fb9a4a496"
+      "signal_id": "fbe4115fc604387f"
     },
     {
       "signal": {
@@ -565,7 +576,7 @@
         "summary": "",
         "created_at": "2026-10-01T19:33:05+00:00",
         "points": 1624,
-        "comments": 558,
+        "comments": 559,
         "tags": []
       },
       "coverage": {
@@ -573,7 +584,8 @@
         "query": "Pi",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -581,14 +593,14 @@
         "discussion": 80.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "Pi 1.0 发布，可能影响未来的AI应用",
-        "what": "Pi 1.0 是一个新的技术版本发布，可能会影响AI领域的应用和开发。",
-        "why_now": "随着AI技术的快速发展，新的工具和平台的推出显得尤为重要。",
-        "how_used": "美国的开发者可能会利用Pi 1.0来构建更高效的AI模型和应用。",
-        "why_cn": "中国用户应关注这一技术进展，以便在AI领域保持竞争力。",
+        "headline_zh": "Pi 1.0 发布引发热议，中文用户需关注其潜在影响",
+        "what": "Pi 1.0 版本的发布引起了广泛讨论，尤其是在技术社区中。",
+        "why_now": "当前技术更新迅速，Pi 1.0 的推出可能是为了满足市场对新功能的需求。",
+        "how_used": "美国的开发者和技术爱好者可能会尝试使用 Pi 1.0 来开发新应用或改进现有项目。",
+        "why_cn": "中国用户应关注 Pi 1.0 的发展，以便了解其在技术领域的应用和潜在影响。",
         "opportunity": "原文未提及",
         "risks": "需自行确认该技术在中国的可用性和适用性。",
-        "x_line": "适合对AI技术感兴趣的开发者和研究者关注。"
+        "x_line": "适合对新技术感兴趣的开发者和技术爱好者。"
       },
       "overseas_heat": 100.0,
       "cn_scarcity": 50.0,
@@ -615,7 +627,8 @@
         "query": "Automatic Transmission",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "OTHER",
@@ -623,14 +636,14 @@
         "discussion": 80.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "连接车辆的数据隐私研究揭示潜在风险",
-        "what": "一项关于连接车辆的数据隐私研究揭示了这些车辆在数据收集和使用方面的潜在风险。",
-        "why_now": "随着连接车辆的普及，数据隐私问题变得越来越重要，消费者对个人信息的保护需求上升。",
-        "how_used": "美国消费者在使用连接车辆时，可能并未充分意识到其数据被收集和使用的方式。",
-        "why_cn": "中国用户应关注连接车辆的数据隐私问题，以便在未来的汽车选择中做出更明智的决策。",
-        "opportunity": "原文未提及",
-        "risks": "连接车辆可能会收集用户的个人数据，存在隐私泄露的风险，用户需谨慎使用。",
-        "x_line": "适合关注数据隐私和汽车科技发展的用户。"
+        "headline_zh": "连接汽车的数据隐私研究揭示新风险",
+        "what": "一项关于连接汽车的数据隐私研究揭示了潜在的隐私风险和数据泄露问题。",
+        "why_now": "随着连接汽车的普及，数据隐私问题变得越来越重要，公众对此的关注也在上升。",
+        "how_used": "美国人可能会通过这项研究了解连接汽车在数据隐私方面的潜在风险，从而做出更明智的购车决策。",
+        "why_cn": "中国用户应关注这一研究，因为连接汽车在中国市场也在快速增长，隐私保护问题同样重要。",
+        "opportunity": "没有明显的机会。",
+        "risks": "连接汽车可能面临数据泄露和隐私侵犯的风险，用户需谨慎选择和使用相关产品。",
+        "x_line": "适合关注数据隐私和汽车科技的用户，了解连接汽车的潜在风险。"
       },
       "overseas_heat": 84.6,
       "cn_scarcity": 50.0,
@@ -667,7 +680,8 @@
         "query": "AIHOT",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -675,14 +689,14 @@
         "discussion": 0.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "自建热点资讯网站框架，助力内容创作与聚合",
-        "what": "KKKKhazix发布了一个名为AIHOT的开源框架，用户可以自定义信源和内容标准，创建个性化的行业热点资讯网站。",
-        "why_now": "随着信息量的激增，个性化内容聚合的需求日益增加，用户希望能够快速获取相关领域的最新动态。",
-        "how_used": "美国用户可以利用这个框架，设置自己关注的新闻源，自动生成行业日报，以便于跟踪热点话题。",
-        "why_cn": "中国用户可以关注这一工具，尤其是在快速变化的行业中，能够帮助他们快速获取和整理行业信息。",
-        "opportunity": "对于内容创作者和行业分析师来说，这是一个自建资讯平台的机会，可以提高信息获取效率。",
-        "risks": "需要一定的技术背景来搭建和维护，且内容质量依赖于用户自定义的信源和标准。",
-        "x_line": "适合内容创作者和行业分析师使用，快速聚合和发布行业热点信息。"
+        "headline_zh": "自定义热点新闻聚合框架，适合行业用户",
+        "what": "KKKKhazix发布了一个名为AIHOT的自托管网站框架，用户可以根据自己的需求定制信源和内容标准，自动生成行业热点日报。",
+        "why_now": "随着信息量的激增，个性化和定制化的信息获取方式越来越受到重视。",
+        "how_used": "美国用户可以利用这个框架，搭建自己的新闻聚合网站，聚焦特定行业或领域，提升信息获取效率。",
+        "why_cn": "中国用户可以关注这一工具，以便在信息过载的环境中实现个性化的信息筛选和聚合，提升工作效率。",
+        "opportunity": "对于希望建立行业资讯平台的用户，这是一个值得尝试的工具。",
+        "risks": "需自行确认是否符合当地法律法规，且需要一定的技术能力进行自托管和定制。",
+        "x_line": "适合希望定制行业热点资讯的用户，提升信息获取的精准度和效率。"
       },
       "overseas_heat": 100.0,
       "cn_scarcity": 10.0,
@@ -695,13 +709,56 @@
     {
       "signal": {
         "source": "hackernews",
+        "title": "Using Opus 5.5 to discover a new eyewitness record of the dodo",
+        "url": "https://resobscura.substack.com/p/using-opus-55-to-discover-a-new-eyewitness",
+        "discussion_url": "https://news.ycombinator.com/item?id=49926917",
+        "summary": "",
+        "created_at": "2026-10-01T20:48:37+00:00",
+        "points": 214,
+        "comments": 70,
+        "tags": []
+      },
+      "coverage": {
+        "checked": false,
+        "query": "Opus",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 70.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Opus 5.5助力发现渡渡鸟新目击记录，中文用户需关注AI在历史研究中的应用",
+        "what": "使用Opus 5.5工具发现了关于渡渡鸟的新目击记录。",
+        "why_now": "随着AI技术的发展，越来越多的历史文献和数据被重新审视，提供新的视角。",
+        "how_used": "美国研究人员利用Opus 5.5分析历史文献，提取出未被注意的目击信息。",
+        "why_cn": "中国用户应关注AI在历史研究中的应用，可能为文化遗产保护和研究提供新思路。",
+        "opportunity": "没有直接的商业机会，但对历史研究和文化探索感兴趣的用户可以借鉴这种方法。",
+        "risks": "需自行确认Opus 5.5的使用权限和相关数据的可获取性。",
+        "x_line": "适合对历史研究和AI应用感兴趣的用户，探索新技术如何改变传统学科。"
+      },
+      "overseas_heat": 79.9,
+      "cn_scarcity": 50.0,
+      "total": 46.0,
+      "notes": [
+        "中文覆盖度未检测(稀缺度按 50 计)"
+      ],
+      "signal_id": "abd7c899253e2139"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
         "title": "The Legend of von Neumann (1973) [pdf]",
         "url": "https://gwern.net/doc/math/1973-halmos.pdf",
         "discussion_url": "https://news.ycombinator.com/item?id=49933235",
         "summary": "",
         "created_at": "2026-10-02T13:18:32+00:00",
-        "points": 189,
-        "comments": 105,
+        "points": 190,
+        "comments": 104,
         "tags": []
       },
       "coverage": {
@@ -709,22 +766,23 @@
         "query": "Legend Neumann",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
-        "track": "OTHER",
+        "track": "AI_TECH",
         "practical_value": 0.0,
         "discussion": 70.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "《冯·诺依曼的传奇》：数学巨匠的深刻影响值得关注",
-        "what": "一篇关于冯·诺依曼的论文被分享，探讨了他的贡献和影响。",
+        "headline_zh": "冯·诺依曼的传奇：值得关注的经典文献",
+        "what": "一份关于冯·诺依曼的1973年文献被分享，探讨了他的贡献与影响。",
         "why_now": "随着人工智能和计算机科学的发展，冯·诺依曼的理论和思想再次受到重视。",
-        "how_used": "美国的学者和学生通过阅读这篇论文，深入理解冯·诺依曼的数学和计算机科学贡献。",
-        "why_cn": "中国用户可以通过这篇论文了解冯·诺依曼的思想，对数学和计算机科学的发展有更深刻的认识。",
-        "opportunity": "没有直接的商业机会，但可以提升学术和技术理解。",
-        "risks": "需自行确认论文的可用性和相关知识背景。",
-        "x_line": "适合对数学和计算机科学感兴趣的读者，深入了解冯·诺依曼的贡献。"
+        "how_used": "美国的研究人员和学生可能会利用这份文献来深入理解冯·诺依曼的理论。",
+        "why_cn": "中国用户可以通过这份文献了解计算机科学的基础理论，提升自己的学术视野。",
+        "opportunity": "没有直接的商业机会，但可用于学术研究和学习。",
+        "risks": "需自行确认文献的可用性和相关背景知识。",
+        "x_line": "适合对计算机科学和数学感兴趣的读者，深入了解冯·诺依曼的理论贡献。"
       },
       "overseas_heat": 79.5,
       "cn_scarcity": 50.0,
@@ -753,7 +811,8 @@
         "query": "floorplan 3d",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -761,14 +820,14 @@
         "discussion": 0.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "GitHub上新发布的3D楼层平面图工具，值得关注",
-        "what": "GitHub上发布了一个名为floorplan-3d的项目，旨在提供3D楼层平面图的创建工具。",
-        "why_now": "随着建筑设计和室内装修需求的增加，3D可视化工具变得越来越重要。",
-        "how_used": "美国用户可以利用该工具进行建筑设计、室内布局规划等，提升设计的可视化效果。",
-        "why_cn": "中国用户在建筑设计和室内装修领域也可能需要类似的工具，关注此类项目有助于了解国际趋势。",
-        "opportunity": "原文未提及",
-        "risks": "需自行确认该工具的使用限制和兼容性。",
-        "x_line": "适合建筑设计师和室内装修师使用的3D平面图工具。"
+        "headline_zh": "GitHub 上新工具：Floorplan 3D 让室内设计更简单",
+        "what": "Floorplan 3D 是一个开源项目，旨在帮助用户创建三维室内平面图。",
+        "why_now": "随着室内设计和家居装修需求的增加，用户对可视化工具的需求也在上升。",
+        "how_used": "美国用户可以通过该工具轻松设计和可视化他们的室内空间，适合设计师和普通用户使用。",
+        "why_cn": "中国用户可以关注这一工具，以便在室内设计中使用更直观的三维效果，提升设计效率。",
+        "opportunity": "没有直接的商业机会，但可用于个人项目或设计工作。",
+        "risks": "需自行确认是否符合个人需求，开源项目可能存在不稳定性。",
+        "x_line": "适合室内设计师和家居爱好者使用，提升设计效率和可视化效果。"
       },
       "overseas_heat": 95.6,
       "cn_scarcity": 50.0,
@@ -786,7 +845,7 @@
         "discussion_url": "https://news.ycombinator.com/item?id=49927760",
         "summary": "",
         "created_at": "2026-10-01T22:23:38+00:00",
-        "points": 519,
+        "points": 521,
         "comments": 118,
         "tags": []
       },
@@ -795,7 +854,8 @@
         "query": "Frog Toad Increasingly",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "AI_TECH",
@@ -803,14 +863,14 @@
         "discussion": 1.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "机器能力提升，中文用户需关注AI技术的未来发展",
-        "what": "讨论了机器能力的不断提升及其对社会的影响。",
-        "why_now": "随着AI技术的快速发展，越来越多的行业开始应用这些技术。",
-        "how_used": "美国人利用AI技术提高工作效率，改善生活质量。",
-        "why_cn": "中国用户应关注AI技术的发展，以便把握未来的机遇和挑战。",
+        "headline_zh": "AI 机器能力提升引发的讨论，中文用户需关注",
+        "what": "关于AI机器能力提升的讨论在Hacker News上引发热议，涉及其对未来的影响。",
+        "why_now": "随着AI技术的快速发展，越来越多的机器具备了更强的能力，值得关注。",
+        "how_used": "美国用户在讨论中分享了他们对AI机器在各领域应用的看法，包括工作、生活等。",
+        "why_cn": "中国用户应关注AI机器能力的提升，理解其可能带来的行业变革和生活影响。",
         "opportunity": "原文未提及",
-        "risks": "技术发展可能带来的就业替代和伦理问题。",
-        "x_line": "适合对AI技术感兴趣的用户，关注未来趋势和应用。"
+        "risks": "需自行确认AI技术的适用性和潜在风险。",
+        "x_line": "适合对AI技术感兴趣的用户，了解其能力提升的趋势和影响。"
       },
       "overseas_heat": 92.1,
       "cn_scarcity": 50.0,
@@ -837,7 +897,8 @@
         "query": "Pi Durable",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "OTHER",
@@ -845,14 +906,14 @@
         "discussion": 0.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "Pi Durable：一种新兴的耐用性理念，值得关注",
-        "what": "Pi Durable 是一种强调耐用性的新理念，旨在提升产品的使用寿命和可持续性。",
-        "why_now": "随着环保意识的增强，消费者对耐用产品的需求不断上升，推动了这一理念的兴起。",
-        "how_used": "美国消费者和企业正在采用这一理念，设计和生产更耐用的产品，以满足市场需求。",
-        "why_cn": "中国用户应关注这一趋势，以便在未来的消费中选择更环保和可持续的产品。",
+        "headline_zh": "Pi Durable：一种新型耐用材料的潜力尚未被广泛关注",
+        "what": "出现了一种名为Pi Durable的新型耐用材料，可能会对多个行业产生影响。",
+        "why_now": "随着可持续发展和环保意识的提升，耐用材料的需求正在增加。",
+        "how_used": "美国的制造业和建筑行业可能会开始探索这种材料的应用。",
+        "why_cn": "中国用户应关注新材料的研发动态，以便在未来的市场中把握机会。",
         "opportunity": "原文未提及",
-        "risks": "需自行确认耐用产品的市场接受度和价格竞争力。",
-        "x_line": "适合关注可持续消费和环保产品的用户。"
+        "risks": "需自行确认该材料在中国的适用性及相关法规。",
+        "x_line": "适合关注新材料和可持续发展的行业人士。"
       },
       "overseas_heat": 90.2,
       "cn_scarcity": 50.0,
@@ -879,7 +940,8 @@
         "query": "Shimano Bicycle Museum",
         "zh_results": 0,
         "sample_urls": [],
-        "provider": "tavily"
+        "provider": "tavily",
+        "error": "HTTP 401 {\n    \"detail\": {\n        \"error\": \"Unauthorized: missing or invalid API key.\"\n    }\n}"
       },
       "assessment": {
         "track": "US_LIFE",
@@ -887,14 +949,14 @@
         "discussion": 1.0,
         "visual": 0.0,
         "by_llm": true,
-        "headline_zh": "Shimano自行车博物馆：美国人如何体验自行车文化的魅力",
-        "what": "Shimano自行车博物馆的评测引发了热议，展示了自行车文化的深厚底蕴。",
-        "why_now": "随着人们对骑行和环保出行的关注增加，自行车文化逐渐受到重视。",
-        "how_used": "美国人通过参观博物馆，了解自行车的发展历史和技术创新。",
-        "why_cn": "中国用户可以关注自行车文化的国际趋势，了解如何在国内推广骑行活动。",
+        "headline_zh": "Shimano自行车博物馆引发热议，值得关注的文化现象",
+        "what": "Shimano自行车博物馆的评论引发了热烈讨论，吸引了众多自行车爱好者的关注。",
+        "why_now": "随着自行车文化的复兴和环保出行的趋势，自行车博物馆的受欢迎程度逐渐上升。",
+        "how_used": "美国的自行车爱好者和游客通过参观博物馆，了解自行车的历史和技术进步。",
+        "why_cn": "中国用户可以关注这一文化现象，了解自行车在全球的影响力及其历史背景。",
         "opportunity": "原文未提及",
-        "risks": "需自行确认是否能够访问该博物馆及相关设施。",
-        "x_line": "适合对自行车文化感兴趣的用户，了解国际骑行趋势。"
+        "risks": "需自行确认是否能够访问博物馆，可能存在语言障碍。",
+        "x_line": "适合自行车爱好者和文化探索者的关注点。"
       },
       "overseas_heat": 82.9,
       "cn_scarcity": 50.0,
@@ -903,48 +965,6 @@
         "中文覆盖度未检测(稀缺度按 50 计)"
       ],
       "signal_id": "a9e2a719d523c94a"
-    },
-    {
-      "signal": {
-        "source": "hackernews",
-        "title": "Using Opus 5.5 to discover a new eyewitness record of the dodo",
-        "url": "https://resobscura.substack.com/p/using-opus-55-to-discover-a-new-eyewitness",
-        "discussion_url": "https://news.ycombinator.com/item?id=49926917",
-        "summary": "",
-        "created_at": "2026-10-01T20:48:37+00:00",
-        "points": 214,
-        "comments": 70,
-        "tags": []
-      },
-      "coverage": {
-        "checked": false,
-        "query": "Opus",
-        "zh_results": 0,
-        "sample_urls": [],
-        "provider": "tavily"
-      },
-      "assessment": {
-        "track": "AI_TECH",
-        "practical_value": 0.0,
-        "discussion": 1.0,
-        "visual": 0.0,
-        "by_llm": true,
-        "headline_zh": "Opus 5.5揭示了关于渡渡鸟的新目击记录，中文用户需关注",
-        "what": "研究人员使用Opus 5.5工具发现了关于渡渡鸟的新目击记录，这一发现可能改变我们对这一物种的理解。",
-        "why_now": "随着科技的发展，新的数据分析工具使得历史文献的重新审视成为可能，尤其是在生物多样性和保护领域。",
-        "how_used": "美国的研究人员通过Opus 5.5分析历史文献，提取出有关渡渡鸟的目击信息，帮助重建其生态背景。",
-        "why_cn": "中国用户应关注这一发现，因为它展示了如何利用现代科技重新审视历史数据，可能对生物保护和生态研究有启示。",
-        "opportunity": "原文未提及",
-        "risks": "需自行确认相关工具的使用权限和数据的可靠性。",
-        "x_line": "适合对生物多样性和历史生态研究感兴趣的用户。"
-      },
-      "overseas_heat": 79.9,
-      "cn_scarcity": 50.0,
-      "total": 39.1,
-      "notes": [
-        "中文覆盖度未检测(稀缺度按 50 计)"
-      ],
-      "signal_id": "abd7c899253e2139"
     }
   ],
   "candidates": [],
@@ -952,7 +972,7 @@
   "coverage_checked": false,
   "llm_used": true,
   "by_source": {
-    "hackernews": 44,
+    "hackernews": 45,
     "github": 30
   }
 }
