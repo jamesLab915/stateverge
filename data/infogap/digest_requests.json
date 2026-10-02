@@ -82,7 +82,18 @@
     ]
   },
   {
-    "status": "pending",
-    "note": "scan with OpenAI web-search coverage, scan only, no posting"
+    "status": "drafted",
+    "note": "scan with OpenAI web-search coverage, scan only, no posting",
+    "processed_at": "2026-10-02T19:30:54+00:00",
+    "digest": "digests/2026-10-02.json",
+    "review": "digests/2026-10-02.md",
+    "collected": 80,
+    "candidates": 10,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① 适合对 AI 视频创作感兴趣的内容创作者，提升创作灵感和技巧。\n为什么重要:中国用户可以借鉴这些创作思路，尝试使用类似的 AI 工具进行视频制作，提升内容创作能力。\n🔗 https://github.com/yihui-dev/awesome-opus5-5-videos\n1/4",
+      "② 适合IT安全从业者和Linux用户关注，及时更新系统以保障安全。\n为什么重要:中国用户和企业在使用Linux系统时，需关注这些漏洞并及时更新，以防止数据泄露和系统被攻击。\n🔗 https://lwn.net/Articles/1097401/\n2/4",
+      "③ 适合关注网络隐私和法律变化的用户，了解VPN使用的法律风险。\n为什么重要:中国用户应关注此事件，因为类似的法律可能影响到VPN的使用和网络隐私保护，尤其是在全球范围内的法律变化。\n🔗 https://www.eff.org/deeplinks/2026/10/court-agrees-eff-utahs-vpn-law-demands-technical-impossibility\n3/4",
+      "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n4/4"
+    ]
   }
 ]
