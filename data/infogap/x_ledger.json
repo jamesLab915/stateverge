@@ -1,1 +1,23 @@
-[]
+[
+  {
+    "card_key": "INFOGAP24H:2026-10-02",
+    "part_index": 0,
+    "tweet_id": "2106147420006477991",
+    "text": "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① 有人把用 Claude Opus 5.5 做出的爆款视频和对应提示词,整理成了 GitHub 合集\n为什么重要:想用 AI 做视频的中文创作者,可以直接参考创作思路;素材版权需自行注意。\n🔗 https://github.com/yihui-dev/awesome-opus5-5-videos\n1/3",
+    "posted_at": "2026-10-02T22:20:50+00:00"
+  },
+  {
+    "card_key": "INFOGAP24H:2026-10-02",
+    "part_index": 1,
+    "tweet_id": "2106147421411532823",
+    "text": "② 一位开发者做了个实验:给 Opus 5.5 一块「模拟画布」,让 AI 自己动笔作画(个人项目,非 Anthropic 官方功能)\n为什么重要:AI 不只会生成图片,也开始被拿来「模拟创作过程」,适合做内容选题。\n🔗 https://stillwet.art/\n2/3",
+    "posted_at": "2026-10-02T22:20:50+00:00"
+  },
+  {
+    "card_key": "INFOGAP24H:2026-10-02",
+    "part_index": 2,
+    "tweet_id": "2106147422820843945",
+    "text": "③ 开源、跨平台的多轨音频编辑器 Audionaut 登上 Hacker News\n为什么重要:做播客、配音的中文创作者多了一个免费工具;开源项目的稳定性需自行评估。\n🔗 https://github.com/kvoltmer/Audionaut\n\n我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n3/3",
+    "posted_at": "2026-10-02T22:20:50+00:00"
+  }
+]
