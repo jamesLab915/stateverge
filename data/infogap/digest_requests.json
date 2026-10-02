@@ -20,7 +20,13 @@
     "preview": []
   },
   {
-    "status": "pending",
-    "note": "scan with OpenAI + Tavily coverage, scan only, no posting"
+    "status": "drafted",
+    "note": "scan with OpenAI + Tavily coverage, scan only, no posting",
+    "processed_at": "2026-10-02T18:40:22+00:00",
+    "digest": "digests/2026-10-02.json",
+    "review": "digests/2026-10-02.md",
+    "collected": 74,
+    "candidates": 0,
+    "preview": []
   }
 ]
