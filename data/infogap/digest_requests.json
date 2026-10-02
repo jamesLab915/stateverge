@@ -10,7 +10,13 @@
     "preview": []
   },
   {
-    "status": "pending",
-    "note": "first scan with OpenAI drafts (no Brave), scan only, no posting"
+    "status": "drafted",
+    "note": "first scan with OpenAI drafts (no Brave), scan only, no posting",
+    "processed_at": "2026-10-02T18:06:01+00:00",
+    "digest": "digests/2026-10-02.json",
+    "review": "digests/2026-10-02.md",
+    "collected": 69,
+    "candidates": 0,
+    "preview": []
   }
 ]
