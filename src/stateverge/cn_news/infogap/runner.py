@@ -107,13 +107,30 @@ class InfoGapRunner:
         rows = [dict(zip(cols, r, strict=True)) for r in self.conn.execute(f"SELECT {', '.join(cols)} FROM x_posts ORDER BY posted_at")]
         _write(self.root / "x_ledger.json", rows)
 
+    def seen_ids(self, today: str) -> set[str]:
+        """Candidates and picks from earlier digests (not today's, so a re-scan
+        of the same day does not hide its own results)."""
+        seen: set[str] = set()
+        for f in sorted((self.root / "digests").glob("*.json")):
+            if f.stem >= today:
+                continue
+            data = _read(f, {})
+            seen.update(c.get("signal_id", "") for c in data.get("candidates", []))
+            seen.update(data.get("picks", []))
+        for item in _read(self.root / "digest_requests.json", []):
+            seen.update(item.get("auto_signal_ids", []) if item.get("status") == "posted" else [])
+        seen.discard("")
+        return seen
+
     def _scan(self, item: dict, now: datetime | None = None) -> None:
+        today = (now or datetime.now(timezone.utc)).date().isoformat()
         result = scan(
             self.collectors if self.collectors is not None else default_collectors(),
             self.coverage or default_coverage(),
             self.assessor or LLMAssessor(),
             hours=int(item.get("hours", 24)),
             now=now,
+            exclude_ids=self.seen_ids(today),
         )
         js, md = save_scan(result, self.root)
         item.update(
@@ -121,6 +138,7 @@ class InfoGapRunner:
             digest=str(js.relative_to(self.root)),
             review=str(md.relative_to(self.root)),
             collected=result.collected,
+            skipped_seen=result.skipped_seen,
             candidates=len(result.candidates),
             preview=x_publisher.split_thread(x_text(result.picks)) if result.picks else [],
         )

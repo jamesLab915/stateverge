@@ -442,3 +442,38 @@ class TestVetoWindow(unittest.TestCase):
         picks = r.candidates[:2]
         self.assertTrue(check_auto(picks, auto_text(picks)).allowed)
         self.assertFalse(check_auto(picks, digest.x_text(picks)).allowed)  # footer required
+
+
+class TestSeenDedupe(unittest.TestCase):
+    def test_earlier_candidates_are_skipped_next_day(self):
+        from datetime import timedelta
+        root = Path(tempfile.mkdtemp())
+        (root / "digest_requests.json").write_text('[{"status": "pending"}]')
+        InfoGapRunner(root, collectors(), brave({}), llm()).run(now=NOW)
+        first = json.loads((root / "digest_requests.json").read_text())[0]
+        self.assertGreater(first["candidates"], 0)
+
+        # Same signals the next day (fixtures re-dated) must be skipped.
+        q = json.loads((root / "digest_requests.json").read_text())
+        q.append({"status": "pending"})
+        (root / "digest_requests.json").write_text(json.dumps(q))
+        tomorrow = NOW + timedelta(days=1)
+
+        def shifted(url, headers):
+            data = fake_web(url, headers)
+            return data.replace(str(T).encode(), str(T + 86400).encode())
+
+        cols = [HackerNewsCollector(shifted), GitHubCollector(shifted), RedditCollector(shifted, ["SideProject", "Costco"])]
+        InfoGapRunner(root, cols, brave({}), llm()).run(now=tomorrow)
+        second = json.loads((root / "digest_requests.json").read_text())[1]
+        self.assertGreater(second["skipped_seen"], 0)
+        self.assertEqual(second["candidates"], 0)
+        self.assertIn("已跳过", (root / second["review"]).read_text())
+
+    def test_same_day_rescan_not_hidden(self):
+        root = Path(tempfile.mkdtemp())
+        (root / "digest_requests.json").write_text('[{"status": "pending"}, {"status": "pending"}]')
+        InfoGapRunner(root, collectors(), brave({}), llm()).run(now=NOW)
+        a, b = json.loads((root / "digest_requests.json").read_text())
+        self.assertEqual(a["candidates"], b["candidates"])
+        self.assertEqual(b["skipped_seen"], 0)
