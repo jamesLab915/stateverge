@@ -201,7 +201,7 @@ class TestRunner(unittest.TestCase):
     def test_scan_then_post_once(self):
         root = Path(tempfile.mkdtemp())
         (root / "digest_requests.json").write_text('[{"status": "pending"}]')
-        InfoGapRunner(root, collectors(), brave({}), llm()).run()
+        InfoGapRunner(root, collectors(), brave({}), llm()).run(now=NOW)
         item = json.loads((root / "digest_requests.json").read_text())[0]
         self.assertEqual(item["status"], "drafted")
         self.assertTrue((root / item["review"]).exists())
@@ -225,7 +225,7 @@ class TestRunner(unittest.TestCase):
     def test_post_blocked_without_review(self):
         root = Path(tempfile.mkdtemp())
         (root / "digest_requests.json").write_text('[{"status": "pending"}]')
-        InfoGapRunner(root, collectors(), brave({}), llm()).run()
+        InfoGapRunner(root, collectors(), brave({}), llm()).run(now=NOW)
         item = json.loads((root / "digest_requests.json").read_text())[0]
         item.update(post=True, status="pending")
         (root / "digest_requests.json").write_text(json.dumps([item]))
@@ -387,7 +387,7 @@ class TestVetoWindow(unittest.TestCase):
     def _scan_auto(self, assessor=None):
         root = Path(tempfile.mkdtemp())
         (root / "digest_requests.json").write_text('[{"status": "pending", "auto": true}]')
-        InfoGapRunner(root, collectors(), brave({}), assessor or llm()).run()
+        InfoGapRunner(root, collectors(), brave({}), assessor or llm()).run(now=NOW)
         return root, json.loads((root / "digest_requests.json").read_text())[0]
 
     def test_scheduled_then_posted_after_window(self):

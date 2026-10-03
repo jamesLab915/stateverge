@@ -107,12 +107,13 @@ class InfoGapRunner:
         rows = [dict(zip(cols, r, strict=True)) for r in self.conn.execute(f"SELECT {', '.join(cols)} FROM x_posts ORDER BY posted_at")]
         _write(self.root / "x_ledger.json", rows)
 
-    def _scan(self, item: dict) -> None:
+    def _scan(self, item: dict, now: datetime | None = None) -> None:
         result = scan(
             self.collectors if self.collectors is not None else default_collectors(),
             self.coverage or default_coverage(),
             self.assessor or LLMAssessor(),
             hours=int(item.get("hours", 24)),
+            now=now,
         )
         js, md = save_scan(result, self.root)
         item.update(
@@ -130,7 +131,7 @@ class InfoGapRunner:
             picks, skipped = auto_picks(result.candidates)
             item["auto_skipped"] = skipped[:10]
             if len(picks) >= 2:
-                post_after = datetime.now(timezone.utc) + timedelta(hours=float(item.get("veto_hours", DEFAULT_VETO_HOURS)))
+                post_after = (now or datetime.now(timezone.utc)) + timedelta(hours=float(item.get("veto_hours", DEFAULT_VETO_HOURS)))
                 item.update(
                     status="scheduled",
                     auto_signal_ids=[p.signal.signal_id for p in picks],
@@ -214,7 +215,7 @@ class InfoGapRunner:
                     continue
                 self._post(item)
             else:
-                self._scan(item)
+                self._scan(item, now)
         if queue:
             _write(path, queue)
         return self.log

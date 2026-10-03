@@ -111,6 +111,7 @@
   {
     "status": "pending",
     "auto": true,
-    "note": "daily auto scan 2026-10-03"
+    "note": "daily auto scan 2026-10-03",
+    "retry": "CI tests failed on first attempt (date-dependent test); re-run"
   }
 ]
