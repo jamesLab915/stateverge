@@ -381,3 +381,64 @@ class TestPromptRules(unittest.TestCase):
         from stateverge.cn_news.infogap.assessor import SYSTEM_PROMPT
         self.assertIn("Show HN", SYSTEM_PROMPT)
         self.assertIn("不得写成", SYSTEM_PROMPT)
+
+
+class TestVetoWindow(unittest.TestCase):
+    def _scan_auto(self, assessor=None):
+        root = Path(tempfile.mkdtemp())
+        (root / "digest_requests.json").write_text('[{"status": "pending", "auto": true}]')
+        InfoGapRunner(root, collectors(), brave({}), assessor or llm()).run()
+        return root, json.loads((root / "digest_requests.json").read_text())[0]
+
+    def test_scheduled_then_posted_after_window(self):
+        from datetime import datetime, timedelta, timezone
+        root, item = self._scan_auto()
+        self.assertEqual(item["status"], "scheduled", item)
+        due = datetime.fromisoformat(item["post_after"])
+        self.assertTrue(item["preview"][-1].rstrip().endswith("3/3") or "AI 辅助整理" in "".join(item["preview"]))
+
+        t = FakeTransport()
+        InfoGapRunner(root, x_client=xp.XClient(CREDS, t)).run(now=due - timedelta(minutes=5))
+        self.assertEqual(t.calls, [])  # still inside the veto window
+
+        InfoGapRunner(root, x_client=xp.XClient(CREDS, t)).run(now=due + timedelta(minutes=1))
+        item = json.loads((root / "digest_requests.json").read_text())[0]
+        self.assertEqual(item["status"], "posted", item.get("failures"))
+        self.assertIn("auto", item["approved_by"])
+        self.assertIn("AI 辅助整理", "".join(c["body"]["text"] for c in t.calls))
+
+        t2 = FakeTransport()
+        InfoGapRunner(root, x_client=xp.XClient(CREDS, t2)).run(now=datetime.now(timezone.utc) + timedelta(days=1))
+        self.assertEqual(t2.calls, [])  # posted once
+
+    def test_veto(self):
+        from datetime import datetime, timedelta
+        root, item = self._scan_auto()
+        due = datetime.fromisoformat(item["post_after"])
+        item["status"] = "vetoed"
+        (root / "digest_requests.json").write_text(json.dumps([item]))
+        t = FakeTransport()
+        InfoGapRunner(root, x_client=xp.XClient(CREDS, t)).run(now=due + timedelta(hours=1))
+        self.assertEqual(t.calls, [])
+        self.assertEqual(json.loads((root / "digest_requests.json").read_text())[0]["status"], "vetoed")
+
+    def test_official_claim_on_personal_project_not_auto(self):
+        from stateverge.cn_news.infogap.digest import auto_eligible
+        r = digest.scan(collectors(), brave({}), llm(), now=NOW)
+        c = next(x for x in r.candidates if x.signal.source == "github")
+        c.assessment.headline_zh = "Acme 官方推出语音克隆工具"
+        ok, why = auto_eligible(c)
+        self.assertFalse(ok)
+        self.assertIn("官方", why)
+
+    def test_not_enough_eligible_stays_drafted(self):
+        root, item = self._scan_auto(assessor=LLMAssessor(""))  # no AI → placeholders → nothing eligible
+        self.assertEqual(item["status"], "drafted")
+        self.assertIn("note_auto", item)
+
+    def test_auto_guard_never_fakes_human_review(self):
+        from stateverge.cn_news.infogap.digest import auto_text, check_auto
+        r = digest.scan(collectors(), brave({}), llm(), now=NOW)
+        picks = r.candidates[:2]
+        self.assertTrue(check_auto(picks, auto_text(picks)).allowed)
+        self.assertFalse(check_auto(picks, digest.x_text(picks)).allowed)  # footer required

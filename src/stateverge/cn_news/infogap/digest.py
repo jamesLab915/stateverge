@@ -187,5 +187,71 @@ def check(picks: list[ScoredSignal], text: str, review: DigestReview) -> DigestG
     return DigestGuard(DIGEST_BLOCK if failures else DIGEST_ALLOW, failures)
 
 
+# -- veto-window auto mode ----------------------------------------------------
+
+AUTO_MIN_SCORE = 80.0
+AUTO_MIN_ITEMS = 2
+AUTO_FOOTER = "(AI 辅助整理,以原文为准)"
+# A personal project / repo presented as an official launch — the error seen
+# in the first live digest. Such items are never auto-posted.
+_OFFICIAL_WORDS = ("官方", "推出", "发布了", "正式发布", "宣布")
+
+
+def auto_eligible(c: ScoredSignal) -> tuple[bool, str]:
+    """Stricter bar for posting without a human sign-off."""
+    a, s = c.assessment, c.signal
+    if c.total < AUTO_MIN_SCORE:
+        return False, f"低于自动发布门槛 {AUTO_MIN_SCORE:.0f} 分"
+    if not c.coverage.checked or c.coverage.error:
+        return False, "中文覆盖度未成功检测"
+    if not a.by_llm or PLACEHOLDER in (a.headline_zh + a.why_cn + a.risks):
+        return False, "草稿不完整"
+    if not a.risks.strip():
+        return False, "缺少限制/风险"
+    community = s.source == "github" or s.title.lower().startswith(("show hn", "ask hn"))
+    if community and any(w in a.headline_zh for w in _OFFICIAL_WORDS):
+        return False, "个人/开源项目的标题写成了官方发布,需人工改写"
+    if any(w in a.headline_zh + a.why_cn for w in HYPE_WORDS):
+        return False, "含夸大用语"
+    return True, ""
+
+
+def auto_picks(candidates: list[ScoredSignal], n: int = 3) -> tuple[list[ScoredSignal], list[str]]:
+    ok, skipped = [], []
+    for c in candidates:
+        good, why = auto_eligible(c)
+        if good:
+            ok.append(c)
+        else:
+            skipped.append(f"{c.assessment.headline_zh or c.signal.title}:{why}")
+    return pick(ok, n), skipped
+
+
+def auto_text(picks: list[ScoredSignal]) -> str:
+    return x_text(picks) + "\n" + AUTO_FOOTER
+
+
+def check_auto(picks: list[ScoredSignal], text: str) -> DigestGuard:
+    """Guard for veto-window posts: the automated criteria replace the human
+    attestations (which are never faked)."""
+    failures = []
+    if len(picks) < AUTO_MIN_ITEMS:
+        failures.append(f"自动入选不足 {AUTO_MIN_ITEMS} 条")
+    for p in picks:
+        good, why = auto_eligible(p)
+        if not good:
+            failures.append(f"{p.signal.title}:{why}")
+        if p.signal.url not in text:
+            failures.append(f"缺少原文链接:{p.signal.title}")
+    if PLACEHOLDER in text:
+        failures.append(f"文案仍有 {PLACEHOLDER} 占位内容")
+    hype = sorted({w for w in HYPE_WORDS if w in text})
+    if hype:
+        failures.append(f"出现夸大承诺用语:{hype}")
+    if AUTO_FOOTER not in text:
+        failures.append("自动发布必须带「AI 辅助整理」标注")
+    return DigestGuard(DIGEST_BLOCK if failures else DIGEST_ALLOW, failures)
+
+
 def digest_key(day: str | None = None) -> str:
     return f"INFOGAP24H:{day or date.today().isoformat()}"

@@ -13,6 +13,12 @@
     optional "text": "..."        your edited X text (re-checked by the guard)
     → status "posted" + url, or "blocked" + failures
 
+Veto-window mode — ``{"status": "pending", "auto": true}`` (written daily by
+the scheduler): after the scan, if at least 2 items pass the stricter auto
+criteria, the entry becomes ``"scheduled"`` with ``post_after`` (+3h by
+default). Any run after that time posts it unless you changed the status to
+``"vetoed"`` first. You can also approve early the normal way (post: true …).
+
 Posted threads are recorded in ``x_ledger.json`` so a re-run never double-posts.
 """
 
@@ -21,7 +27,7 @@ from __future__ import annotations
 import json
 import sqlite3
 from dataclasses import asdict
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
 
@@ -29,8 +35,22 @@ from ..archive import x_publisher
 from .assessor import LLMAssessor
 from .collectors import default_collectors
 from .coverage import default_coverage
-from .digest import DigestReview, ScanResult, check, digest_key, pick, review_markdown, scan, x_text
+from .digest import (
+    DigestReview,
+    ScanResult,
+    auto_picks,
+    auto_text,
+    check,
+    check_auto,
+    digest_key,
+    pick,
+    review_markdown,
+    scan,
+    x_text,
+)
 from .models import ScoredSignal
+
+DEFAULT_VETO_HOURS = 3
 
 
 def _now() -> str:
@@ -106,6 +126,20 @@ class InfoGapRunner:
         errors = sorted({s.coverage.error for s in result.shortlisted if s.coverage.error})
         if errors:
             item["coverage_errors"] = errors[:3]
+        if item.get("auto"):
+            picks, skipped = auto_picks(result.candidates)
+            item["auto_skipped"] = skipped[:10]
+            if len(picks) >= 2:
+                post_after = datetime.now(timezone.utc) + timedelta(hours=float(item.get("veto_hours", DEFAULT_VETO_HOURS)))
+                item.update(
+                    status="scheduled",
+                    auto_signal_ids=[p.signal.signal_id for p in picks],
+                    post_after=post_after.replace(microsecond=0).isoformat(),
+                    preview=x_publisher.split_thread(auto_text(picks)),
+                    how_to_veto='把 "status" 改成 "vetoed" 并提交,即可取消这次自动发布',
+                )
+            else:
+                item["note_auto"] = "符合自动发布条件的不足 2 条,今天不自动发;可人工审核后发"
         self.log.append(f"扫描:抓取 {result.collected} 条,候选 {len(result.candidates)} 条,入选 {len(result.picks)} 条 → {md.name}")
 
     def _post(self, item: dict) -> None:
@@ -137,10 +171,40 @@ class InfoGapRunner:
         item.update(status="posted", url=f"https://x.com/i/status/{ids[0]}")
         self.log.append(f"已发布:{item['url']}")
 
-    def run(self) -> list[str]:
+    def _post_scheduled(self, item: dict) -> None:
+        candidates, _ = load_candidates(self.root / item.get("digest", ""))
+        by_id = {c.signal.signal_id: c for c in candidates}
+        picks = [by_id[i] for i in item.get("auto_signal_ids", []) if i in by_id]
+        text = auto_text(picks)
+        guard = check_auto(picks, text)
+        item.update(processed_at=_now(), failures=guard.failures, preview=x_publisher.split_thread(text))
+        if not guard.allowed:
+            item["status"] = "blocked"
+            self.log.append(f"自动发布被拦截:{'; '.join(guard.failures)}")
+            return
+        client = self.x_client or x_publisher.XClient(x_publisher.XCredentials.from_env())
+        day = Path(item.get("digest", "")).stem or None
+        try:
+            ids = x_publisher.post_thread(client, item["preview"], digest_key(day), self.conn)
+        except x_publisher.XPublishError as e:
+            item.update(status="error", failures=[str(e)])
+            return
+        finally:
+            self._save_ledger()
+        item.update(status="posted", approved_by="auto (no veto before post_after)",
+                    url=f"https://x.com/i/status/{ids[0]}")
+        self.log.append(f"自动发布:{item['url']}")
+
+    def run(self, now: datetime | None = None) -> list[str]:
+        now = now or datetime.now(timezone.utc)
         path = self.root / "digest_requests.json"
         queue = _read(path, [])
         for item in queue:
+            if item.get("status") == "scheduled":
+                due = datetime.fromisoformat(item["post_after"])
+                if due <= now:
+                    self._post_scheduled(item)
+                continue
             if item.get("status", "pending") != "pending":
                 continue
             item["processed_at"] = _now()

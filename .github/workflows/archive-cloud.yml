@@ -11,6 +11,8 @@ on:
       - "data/archive/publish_queue.json"
       - "data/archive/stats_requests.json"
       - "data/infogap/digest_requests.json"
+      # Touched by the daily scheduler to post veto-window items that are due.
+      - "data/infogap/tick.txt"
   # Weekly account snapshot (Monday 13:07 UTC). GitHub only runs schedules for
   # workflows on the default branch, so this activates once merged to main;
   # until then, add {"status": "pending"} to stats_requests.json instead.
