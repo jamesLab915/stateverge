@@ -1,0 +1,1196 @@
+{
+  "scanned_at": "2026-10-03T20:58:01+00:00",
+  "collected": 53,
+  "shortlisted": [
+    {
+      "signal": {
+        "source": "github",
+        "title": "rehan-remade/universal-modder",
+        "url": "https://github.com/rehan-remade/universal-modder",
+        "discussion_url": "",
+        "summary": "Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod almost any PC game you own: recon, reverse engineering, fal-generated art/3D/audio, in-game testing, showcase videos.",
+        "created_at": "2026-09-30T05:00:35Z",
+        "points": 2568,
+        "comments": 216,
+        "tags": [
+          "age-of-empires",
+          "claude-code",
+          "claude-code-plugin",
+          "fal",
+          "game-assets",
+          "game-modding",
+          "mcp",
+          "modding",
+          "reverse-engineering",
+          "tmodloader",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "universal modder",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开发者推出通用游戏修改工具，支持多种PC游戏",
+        "what": "一个开源项目Universal Modder允许用户使用Claude进行几乎所有PC游戏的修改，包括技能、工具和艺术生成等功能。",
+        "why_now": "随着游戏修改和自定义内容的需求增加，开发者希望提供更灵活的工具来满足玩家的创作需求。",
+        "how_used": "美国玩家可以通过这个工具对他们的游戏进行修改，创造自定义内容，提升游戏体验。",
+        "why_cn": "中国用户可能对游戏修改和自定义内容感兴趣，尤其是在热门游戏中，使用这样的工具可以增强游戏乐趣。",
+        "opportunity": "有机会通过游戏修改创造独特内容，吸引更多玩家关注和使用。",
+        "risks": "使用游戏修改工具可能会违反游戏的使用条款，导致账号被封禁，需自行确认相关风险。",
+        "x_line": "Universal Modder是一个开源项目，允许用户通过Claude对几乎所有PC游戏进行修改，提升游戏体验。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 74.0,
+      "notes": [],
+      "signal_id": "e461cc3b5013b4a5"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "dzhng/jevgrep",
+        "url": "https://github.com/dzhng/jevgrep",
+        "discussion_url": "",
+        "summary": "Find code by asking what it does. A CLI for coding agents that uses Jev to discover relevant files and source context.",
+        "created_at": "2026-09-26T04:06:56Z",
+        "points": 2159,
+        "comments": 145,
+        "tags": [
+          "ai-sdk",
+          "claude-code",
+          "cli",
+          "code-search",
+          "codex",
+          "coding-agents",
+          "context-retrieval",
+          "developer-tools",
+          "jev",
+          "semantic-search",
+          "typescript",
+          "vercel-ai-gateway",
+          "TypeScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "jevgrep",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "新CLI工具让代码搜索更智能，中文用户可借鉴",
+        "what": "一个开源项目Jevgrep提供了一个命令行工具，用户可以通过自然语言询问代码的功能，从而找到相关文件和源代码上下文。",
+        "why_now": "随着AI技术的发展，开发者对智能代码搜索工具的需求日益增加，Jevgrep正好满足了这一需求。",
+        "how_used": "美国开发者可以通过命令行输入自然语言问题，Jevgrep会返回相关的代码文件和上下文，提升开发效率。",
+        "why_cn": "中国开发者可以借鉴这一工具，提升代码搜索的效率，尤其在处理大型项目时，能够更快速找到所需代码。",
+        "opportunity": "如果你是开发者，可以尝试使用这个工具来优化自己的开发流程。",
+        "risks": "需自行确认是否适合自己的开发环境，并注意开源软件可能存在的安全隐患。",
+        "x_line": "Jevgrep是一个命令行工具，用户可以通过自然语言查询代码功能，提升代码搜索效率。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 74.0,
+      "notes": [],
+      "signal_id": "db89f3a2e4cbab7d"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "kaankiziltug/logo-design-skill",
+        "url": "https://github.com/kaankiziltug/logo-design-skill",
+        "discussion_url": "",
+        "summary": "A comprehensive logo-design skill for Claude, Gemini CLI, Codex and other AI agents: principles, process, SVG craft, testing tools and a 1,400+ logo reference library.",
+        "created_at": "2026-09-26T08:23:34Z",
+        "points": 1681,
+        "comments": 99,
+        "tags": [
+          "agent-skills",
+          "branding",
+          "claude",
+          "claude-skills",
+          "codex",
+          "gemini-cli",
+          "logo-design",
+          "svg",
+          "HTML"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "logo design skill",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "AI 设计师工具：全面的 Logo 设计技能库",
+        "what": "一个开源项目提供了全面的 Logo 设计技能，适用于 Claude、Gemini CLI 和 Codex 等 AI 代理，包含设计原则、流程、SVG 工具和超过 1400 个 Logo 参考库。",
+        "why_now": "随着 AI 技术的快速发展，设计领域也开始利用 AI 提高效率和创意，尤其是在品牌设计方面。",
+        "how_used": "美国的设计师和品牌经理可以利用这个工具来生成和测试 Logo 设计，提高工作效率。",
+        "why_cn": "中国用户可以关注这个项目，以了解如何利用 AI 工具提升设计能力，尤其是在品牌建设方面。",
+        "opportunity": "如果你是设计师或品牌经理，可以尝试使用这个工具来提高设计效率和创意。",
+        "risks": "需自行确认是否符合个人或企业的设计需求，且使用 AI 工具可能需要一定的学习成本。",
+        "x_line": "一个开源项目提供了全面的 Logo 设计技能，适用于多种 AI 代理，助力设计师提升创作效率。"
+      },
+      "overseas_heat": 98.1,
+      "cn_scarcity": 100.0,
+      "total": 73.4,
+      "notes": [],
+      "signal_id": "05e16c4bbee29b72"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "Louis-CFM/coucou",
+        "url": "https://github.com/Louis-CFM/coucou",
+        "discussion_url": "",
+        "summary": "A tiny friend that lives in your notch (macOS) or at the top of your screen (Windows, Linux) and keeps an eye on your coding agents: Claude Code, Codex, Cursor, Gemini CLI, Antigravity and more.",
+        "created_at": "2026-09-27T21:54:12Z",
+        "points": 3208,
+        "comments": 499,
+        "tags": [
+          "ai-agents",
+          "anthropic",
+          "antigravity",
+          "claude",
+          "claude-code",
+          "codex",
+          "cursor",
+          "dynamic-island",
+          "gemini-cli",
+          "linux",
+          "macos",
+          "macos-app",
+          "menubar-app",
+          "notch",
+          "open-source",
+          "swift",
+          "swiftui",
+          "windows",
+          "Swift"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "coucou",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 60.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "一个开源工具帮助开发者管理多种AI编程助手",
+        "what": "开发者创建了一个名为Coucou的开源工具，可以在macOS的凹槽或Windows、Linux的屏幕顶部显示，帮助用户监控多个AI编程助手的状态。",
+        "why_now": "随着AI编程助手的普及，开发者需要更高效的工具来管理和监控这些助手的使用情况。",
+        "how_used": "美国开发者可以将Coucou安装在其设备上，实时查看和管理Claude Code、Codex等AI助手的状态，提高编程效率。",
+        "why_cn": "中国用户应关注这一工具，因为它展示了如何利用AI助手提升编程效率，可能对提升工作效率有帮助。",
+        "opportunity": "没有直接的商业机会，但可以借鉴其设计思路开发类似工具。",
+        "risks": "需自行确认在中国大陆的可用性和兼容性。",
+        "x_line": "Coucou是一个开源工具，帮助开发者在不同操作系统上监控和管理多个AI编程助手的状态。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 72.0,
+      "notes": [],
+      "signal_id": "fbe4115fc604387f"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "yihui-dev/awesome-opus5-5-videos",
+        "url": "https://github.com/yihui-dev/awesome-opus5-5-videos",
+        "discussion_url": "",
+        "summary": "A growing collection of viral videos made with Claude Opus 5.5 and the prompts behind them. Watch each original next to a live remake on Skillry. Updated regularly.",
+        "created_at": "2026-09-27T06:19:36Z",
+        "points": 1544,
+        "comments": 166,
+        "tags": [
+          "ai-video",
+          "awesome",
+          "awesome-list",
+          "claude",
+          "claude-opus",
+          "creative-coding",
+          "motion-graphics",
+          "prompts",
+          "threejs"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "awesome opus5 5 videos",
+        "zh_results": 4,
+        "sample_urls": [
+          "https://finance.sina.com.cn/stock/t/2026-09-27/doc-inithkfx9425127.shtml?utm_source=openai",
+          "https://t.cj.sina.com.cn/articles/view/5703921756/153faf05c01904wrkq?utm_source=openai",
+          "https://www.itbear.com.cn/html/2026-09/1567325.html?utm_source=openai",
+          "https://www.infoq.cn/article/YdQ7vD3WwZpib8yuzNfF?utm_source=openai"
+        ],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 80.0,
+        "by_llm": true,
+        "headline_zh": "使用Claude Opus 5.5制作的病毒视频合集，中文用户也能借鉴创意",
+        "what": "一个GitHub项目汇集了使用Claude Opus 5.5制作的病毒视频及其创作提示。",
+        "why_now": "随着AI视频生成技术的发展，越来越多的创作者开始探索如何利用这些工具制作引人注目的视频内容。",
+        "how_used": "美国用户可以通过该项目获取灵感，使用提供的提示和技术制作自己的视频作品。",
+        "why_cn": "中国用户可以借鉴这些创意和技术，提升自己在视频创作中的竞争力，尤其是在短视频平台上。",
+        "opportunity": "有机会通过学习和模仿这些视频创作技巧，提升个人或品牌的曝光率。",
+        "risks": "需自行确认使用Claude Opus 5.5的可用性和相关政策，可能面临版权和内容合规性风险。",
+        "x_line": "GitHub项目展示了使用Claude Opus 5.5制作的病毒视频及其创作提示，适合视频创作者借鉴。"
+      },
+      "overseas_heat": 97.3,
+      "cn_scarcity": 60.0,
+      "total": 69.2,
+      "notes": [
+        "中文近一周已有 4 条相关结果"
+      ],
+      "signal_id": "20075a2a702e66dc"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Newgrounds.com – A community of games, music, and art",
+        "url": "https://www.newgrounds.com/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49940394",
+        "summary": "",
+        "created_at": "2026-10-03T00:55:25+00:00",
+        "points": 416,
+        "comments": 123,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Newgrounds.com",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 70.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Newgrounds.com 重新焕发活力，吸引创作者和玩家的社区",
+        "what": "Newgrounds.com 是一个集游戏、音乐和艺术于一体的社区，近年来重新吸引了大量用户和创作者。",
+        "why_now": "随着独立创作和社区互动的兴起，Newgrounds.com 迎来了新的发展机遇。",
+        "how_used": "美国用户在平台上分享和发现独立游戏、音乐作品以及艺术创作，参与社区讨论和互动。",
+        "why_cn": "中国用户可以关注这个平台，了解独立创作的趋势和社区文化，或许能找到灵感或合作机会。",
+        "opportunity": "没有明确的商业机会，主要是文化和创作交流的空间。",
+        "risks": "需自行确认是否可以访问该网站，可能存在内容适合性和版权问题。",
+        "x_line": "Newgrounds.com 作为一个创作社区，正在吸引越来越多的独立开发者和艺术家，值得关注。"
+      },
+      "overseas_heat": 89.3,
+      "cn_scarcity": 100.0,
+      "total": 63.8,
+      "notes": [],
+      "signal_id": "3b7cae5835849310"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "feder-cr/dots",
+        "url": "https://github.com/feder-cr/dots",
+        "discussion_url": "",
+        "summary": "Open-source dots for the web: an AI agent with its own browser, one that does not get blocked.",
+        "created_at": "2026-09-29T23:06:00Z",
+        "points": 2573,
+        "comments": 435,
+        "tags": [
+          "ai-agent",
+          "ai-agents",
+          "ai-browser",
+          "anti-detect-browser",
+          "browser-agent",
+          "browser-automation",
+          "chatgpt",
+          "dotfiles",
+          "dots",
+          "firefox",
+          "llm-agent",
+          "mcp",
+          "open-source-alternative",
+          "openai",
+          "openai-dots",
+          "openrouter",
+          "playwright",
+          "stealth-browser",
+          "web-agent",
+          "web-automation",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "dots",
+        "zh_results": 3,
+        "sample_urls": [
+          "https://weibo.com/2/detail/5348790165832139?utm_source=openai",
+          "https://weibo.com/2/detail/5348799557145202?utm_source=openai",
+          "https://weibo.com/2/detail/5348787685950050?utm_source=openai"
+        ],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开源AI代理浏览器，突破网页封锁",
+        "what": "一个开源项目推出了一个AI代理浏览器，能够在不被封锁的情况下进行网页自动化操作。",
+        "why_now": "随着对网络隐私和自动化需求的增加，开发者们正在寻找更灵活的工具来进行网页交互。",
+        "how_used": "美国用户可以利用这个浏览器进行自动化测试、数据抓取或其他需要绕过检测的操作。",
+        "why_cn": "中国用户可能会关注这个项目，因为它展示了如何在网页交互中使用AI技术，尤其是在网络限制日益严格的环境中。",
+        "opportunity": "有机会通过学习和使用这个开源项目来提升自己的技术能力，尤其是在网页自动化和AI应用方面。",
+        "risks": "使用此类工具可能面临法律风险，尤其是在某些国家或地区，自动化访问网站可能违反相关法律法规。",
+        "x_line": "一个开源项目推出了AI代理浏览器，能够在不被封锁的情况下进行网页自动化操作。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 60.0,
+      "total": 62.0,
+      "notes": [
+        "中文近一周已有 3 条相关结果"
+      ],
+      "signal_id": "4fa69a98f246f97e"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "City building games have a Soul Problem pt.2",
+        "url": "https://www.radical-elements.com/minor-epiphanies/city-building-games-have-a-soul-problem-pt2",
+        "discussion_url": "https://news.ycombinator.com/item?id=49945323",
+        "summary": "",
+        "created_at": "2026-10-03T15:52:07+00:00",
+        "points": 119,
+        "comments": 113,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "City Soul Problem",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "城市建设游戏面临的灵魂问题引发热议",
+        "what": "一篇文章探讨了城市建设游戏在设计和玩家体验中的灵魂问题。",
+        "why_now": "随着城市建设游戏的流行，玩家对游戏深度和情感连接的期待越来越高。",
+        "how_used": "美国玩家在讨论如何提升城市建设游戏的情感深度和玩家投入感。",
+        "why_cn": "中国用户可以关注这一讨论，以了解全球游戏设计趋势和玩家需求变化。",
+        "opportunity": "原文未提及",
+        "risks": "原文未提及",
+        "x_line": "一篇文章探讨城市建设游戏的设计缺陷，引发了玩家对游戏深度的思考。"
+      },
+      "overseas_heat": 74.9,
+      "cn_scarcity": 100.0,
+      "total": 60.5,
+      "notes": [],
+      "signal_id": "95d9f1077d46296b"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Pop!_OS bans AI-generated code from much of its codebase",
+        "url": "https://www.neowin.net/news/system76-bans-ai-generated-code-across-many-of-its-cosmic-codebases/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49946321",
+        "summary": "",
+        "created_at": "2026-10-03T17:57:03+00:00",
+        "points": 86,
+        "comments": 99,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Pop OS AI-generated",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Pop!_OS 禁止在其大部分代码库中使用 AI 生成的代码",
+        "what": "Pop!_OS 团队决定在其大部分代码库中禁止使用 AI 生成的代码，旨在保护代码质量和项目的可维护性。",
+        "why_now": "随着 AI 生成代码的普及，许多开源项目开始重新审视其代码来源，以确保代码的可靠性和安全性。",
+        "how_used": "美国的开发者可能会选择使用传统的手动编码方式，或寻找其他不受限制的代码生成工具。",
+        "why_cn": "中国用户应关注这一趋势，因为它可能影响开源软件的开发方式，尤其是在 AI 技术日益普及的背景下。",
+        "opportunity": "没有明显的机会。",
+        "risks": "可能会影响到依赖 AI 生成代码的开发者，导致项目进展缓慢或需要重新审视代码质量。",
+        "x_line": "Pop!_OS 团队禁止在其大部分代码库中使用 AI 生成的代码，以维护代码质量和项目的可持续性。"
+      },
+      "overseas_heat": 71.2,
+      "cn_scarcity": 100.0,
+      "total": 59.4,
+      "notes": [],
+      "signal_id": "78dec6585c3cd012"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "wy51ai/floorplan-3d",
+        "url": "https://github.com/wy51ai/floorplan-3d",
+        "discussion_url": "",
+        "summary": "",
+        "created_at": "2026-09-29T02:57:30Z",
+        "points": 1360,
+        "comments": 277,
+        "tags": [
+          "HTML"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "floorplan 3d",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "一个开源项目帮助用户生成3D平面图",
+        "what": "一个开源项目floorplan-3d被发布，允许用户创建3D平面图。",
+        "why_now": "随着家居设计和建筑可视化需求的增加，3D平面图的需求也在上升。",
+        "how_used": "美国用户可以利用这个项目在线生成和分享他们的3D平面图。",
+        "why_cn": "中国用户可以关注这一工具，了解如何在家居设计中应用3D平面图。",
+        "opportunity": "有机会通过学习和使用该工具提升设计技能。",
+        "risks": "需自行确认该项目的使用限制和兼容性。",
+        "x_line": "一个开源项目floorplan-3d允许用户轻松创建3D平面图，满足家居设计需求。"
+      },
+      "overseas_heat": 96.2,
+      "cn_scarcity": 100.0,
+      "total": 58.9,
+      "notes": [],
+      "signal_id": "fb87ce61db271b1a"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "feitangyuan/onetake",
+        "url": "https://github.com/feitangyuan/onetake",
+        "discussion_url": "",
+        "summary": "Motion films that never cut to the next slide: every beat grows out of the one before, one continuous camera, continuity measured by an oracle. A Claude Agent Skill for product launch films and feature demos.",
+        "created_at": "2026-09-26T05:35:17Z",
+        "points": 1439,
+        "comments": 89,
+        "tags": [
+          "agent-skill",
+          "animation",
+          "canvas",
+          "claude-skill",
+          "launch-video",
+          "motion-graphics",
+          "video",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "onetake",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 1.0,
+        "by_llm": true,
+        "headline_zh": "开源项目OneTake实现无缝动画视频制作",
+        "what": "一个开源项目OneTake被开发出来，旨在制作无缝的动画视频，适用于产品发布和功能演示。",
+        "why_now": "随着视频内容需求的增加，尤其是在产品营销和展示方面，开发者希望通过无缝动画提升观众体验。",
+        "how_used": "美国的开发者和创作者可以使用OneTake制作流畅的动画视频，以增强产品展示的吸引力。",
+        "why_cn": "中国用户在视频营销和产品展示中也可以借助此工具提高内容质量，吸引更多观众。",
+        "opportunity": "有机会通过使用此工具提升视频制作水平，但需具备一定的编程和动画制作基础。",
+        "risks": "使用此项目需要一定的技术门槛，且可能需要自行解决相关的技术问题。",
+        "x_line": "开源项目OneTake提供了一种新方式制作无缝动画视频，适合产品发布和功能演示。"
+      },
+      "overseas_heat": 96.1,
+      "cn_scarcity": 100.0,
+      "total": 58.9,
+      "notes": [],
+      "signal_id": "ba05fa13959f3714"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Kolibri: A Sovereign Open-Weight Model",
+        "url": "https://aleph-alpha.com/en/blog/kolibri-has-landed-a-sovereign-open-weight-model/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49942706",
+        "summary": "",
+        "created_at": "2026-10-03T09:36:04+00:00",
+        "points": 401,
+        "comments": 255,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Kolibri Sovereign Open-Weight",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Kolibri：一个主权开放权重模型，引发AI领域关注",
+        "what": "Kolibri是一个新的开放权重模型，旨在提供更大的自主性和控制权。",
+        "why_now": "随着对AI模型透明性和可控性的需求增加，Kolibri的发布正逢其时。",
+        "how_used": "美国的开发者可能会利用Kolibri进行定制化的AI应用开发。",
+        "why_cn": "中国用户应关注这一模型，因为它可能影响未来AI技术的使用和开发方向。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认该模型在中国的可用性及相关法律法规。",
+        "x_line": "Kolibri是一个新发布的主权开放权重模型，旨在增强AI模型的自主性和控制权。"
+      },
+      "overseas_heat": 90.8,
+      "cn_scarcity": 100.0,
+      "total": 57.3,
+      "notes": [],
+      "signal_id": "38d417a9f6600530"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "ADHD, autism or complex trauma? [pdf]",
+        "url": "https://www.cambridge.org/core/services/aop-cambridge-core/content/view/30CC4826561366615BFAEC807CDE28A7/S0007125026108046a.pdf/adhd-autism-or-complex-trauma-the-complicated-nature-of-the-question.pdf",
+        "discussion_url": "https://news.ycombinator.com/item?id=49946403",
+        "summary": "",
+        "created_at": "2026-10-03T18:08:28+00:00",
+        "points": 173,
+        "comments": 150,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "ADHD",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "ADHD、自闭症与复杂创伤的关系探讨引发热议",
+        "what": "一篇关于ADHD、自闭症和复杂创伤之间关系的学术论文引起了广泛讨论。",
+        "why_now": "随着心理健康问题的关注度上升，相关研究逐渐受到重视。",
+        "how_used": "美国人可能在讨论心理健康时引用此论文，帮助理解不同心理状态的复杂性。",
+        "why_cn": "中国用户应关注心理健康领域的研究动态，以便更好地理解和应对相关问题。",
+        "opportunity": "没有直接的机会。",
+        "risks": "需自行确认论文内容的适用性和科学性，可能存在信息误解的风险。",
+        "x_line": "一篇探讨ADHD、自闭症与复杂创伤关系的论文引发了热烈讨论，反映了心理健康研究的复杂性。"
+      },
+      "overseas_heat": 79.9,
+      "cn_scarcity": 100.0,
+      "total": 54.1,
+      "notes": [],
+      "signal_id": "c76a02c644a8189e"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "CopilotKit/OpenDots",
+        "url": "https://github.com/CopilotKit/OpenDots",
+        "discussion_url": "",
+        "summary": "Your always-on AI coworkers that move between text, calls, and Slack.",
+        "created_at": "2026-09-29T17:13:58Z",
+        "points": 2327,
+        "comments": 294,
+        "tags": [
+          "TypeScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "OpenDots",
+        "zh_results": 1,
+        "sample_urls": [
+          "https://weibo.com/2/detail/5349540619881447?utm_source=openai"
+        ],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "AI 助手在文本、通话和 Slack 之间无缝切换",
+        "what": "开发者推出了 OpenDots，一个可以在文本、通话和 Slack 之间无缝切换的 AI 助手",
+        "why_now": "随着远程工作和在线沟通的普及，企业对高效沟通工具的需求不断增加",
+        "how_used": "美国用户可以将 OpenDots 集成到他们的工作流程中，以提高沟通效率",
+        "why_cn": "中国用户可以关注这一趋势，了解如何利用 AI 工具提升工作效率",
+        "opportunity": "需自行确认是否有相关的使用机会",
+        "risks": "需自行确认网络和地区限制",
+        "x_line": "OpenDots 是一个可以在多种沟通方式中无缝切换的 AI 助手，适应现代工作环境的需求。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 80.0,
+      "total": 54.0,
+      "notes": [
+        "中文近一周已有 1 条相关结果"
+      ],
+      "signal_id": "4b85c26fb9a4a496"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Cloudflare OHTTP gateway",
+        "url": "https://blog.cloudflare.com/announcing-cloudflare-ohttp-gateway/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49941091",
+        "summary": "",
+        "created_at": "2026-10-03T03:15:05+00:00",
+        "points": 177,
+        "comments": 81,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Cloudflare OHTTP",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Cloudflare推出OHTTP网关，提升网络安全性和隐私保护",
+        "what": "Cloudflare推出了OHTTP网关，旨在增强用户的网络安全和隐私保护。",
+        "why_now": "随着网络安全威胁的增加，用户对隐私保护的需求日益增强。",
+        "how_used": "美国用户可以通过Cloudflare的OHTTP网关来保护他们的网络通信，避免数据泄露。",
+        "why_cn": "中国用户应关注这一技术进展，以了解如何在日益复杂的网络环境中保护个人隐私。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认是否可以在中国大陆使用Cloudflare的服务。",
+        "x_line": "Cloudflare推出OHTTP网关，旨在提升用户的网络安全和隐私保护。"
+      },
+      "overseas_heat": 78.0,
+      "cn_scarcity": 100.0,
+      "total": 53.4,
+      "notes": [],
+      "signal_id": "8c18d8206b40d3b7"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "An Update on Orion for Linux and Windows",
+        "url": "https://blog.kagi.com/update-orion-linux-windows",
+        "discussion_url": "https://news.ycombinator.com/item?id=49941447",
+        "summary": "",
+        "created_at": "2026-10-03T04:53:57+00:00",
+        "points": 167,
+        "comments": 96,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Update Orion Linux",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Orion 在 Linux 和 Windows 上的更新引发关注",
+        "what": "有开发者更新了 Orion 在 Linux 和 Windows 系统上的进展。",
+        "why_now": "随着跨平台应用需求的增加，开发者对 Orion 的更新引起了用户的关注。",
+        "how_used": "美国用户可能在不同操作系统上使用 Orion 进行特定的任务或开发。",
+        "why_cn": "中国用户可能对跨平台工具的更新感兴趣，尤其是在开发和应用方面。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认是否适合在中国大陆使用。",
+        "x_line": "开发者更新了 Orion 在 Linux 和 Windows 系统上的进展，吸引了用户的关注。"
+      },
+      "overseas_heat": 77.8,
+      "cn_scarcity": 100.0,
+      "total": 53.3,
+      "notes": [],
+      "signal_id": "73cf804654485570"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "FTL: A new operating system for clouds",
+        "url": "https://ftl-os.org/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49944912",
+        "summary": "",
+        "created_at": "2026-10-03T15:02:36+00:00",
+        "points": 121,
+        "comments": 49,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "FTL",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "FTL：一种新型云操作系统的出现",
+        "what": "FTL是一个新开发的云操作系统，旨在提升云计算的效率和灵活性。",
+        "why_now": "随着云计算需求的增加，新的操作系统可以更好地满足现代应用的需求。",
+        "how_used": "美国的开发者可能会利用FTL来构建和管理云基础设施，以提高资源利用率。",
+        "why_cn": "中国用户应关注FTL的进展，以便了解云计算领域的新趋势和技术。",
+        "opportunity": "目前没有明确的机会。",
+        "risks": "需自行确认FTL的兼容性和适用性，特别是在中国的网络和政策环境下。",
+        "x_line": "FTL是一个新型的云操作系统，旨在提升云计算的效率和灵活性，适应现代应用需求。"
+      },
+      "overseas_heat": 72.2,
+      "cn_scarcity": 100.0,
+      "total": 51.7,
+      "notes": [],
+      "signal_id": "563203ee15b1e5a9"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Extra Big Ass Intelligence",
+        "url": "https://www.extrabigassintelligence.com/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49941114",
+        "summary": "",
+        "created_at": "2026-10-03T03:19:10+00:00",
+        "points": 471,
+        "comments": 110,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Extra Big Ass",
+        "zh_results": 1,
+        "sample_urls": [
+          "https://www.kongchang.com/articles/extra-big-ass-intelligence-yi-chang-dui-aichao-zuo-de-you-mo-fan-feng?utm_source=openai"
+        ],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "新兴的人工智能平台引发热议，中文用户需关注其潜在影响",
+        "what": "一个名为Extra Big Ass Intelligence的新人工智能平台引发了广泛讨论。",
+        "why_now": "随着人工智能技术的快速发展，新平台的出现引发了人们对其应用和影响的关注。",
+        "how_used": "美国用户可能在探索该平台的功能和应用场景，尤其是在数据处理和分析方面。",
+        "why_cn": "中国用户应该关注这一新兴平台，了解其可能带来的技术趋势和应用机会。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认该平台在中国的可用性及相关法律法规限制。",
+        "x_line": "Extra Big Ass Intelligence新平台的出现引发了热烈讨论，值得关注其对未来AI应用的影响。"
+      },
+      "overseas_heat": 90.7,
+      "cn_scarcity": 80.0,
+      "total": 51.3,
+      "notes": [
+        "中文近一周已有 1 条相关结果"
+      ],
+      "signal_id": "dfb6f8a06ac52527"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Hole Punch: Sling your spaceship around gravitational fields",
+        "url": "https://notoriousbfg.com/hole-punch/",
+        "discussion_url": "https://news.ycombinator.com/item?id=49946393",
+        "summary": "",
+        "created_at": "2026-10-03T18:06:45+00:00",
+        "points": 104,
+        "comments": 33,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Hole Punch Sling",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "新工具Hole Punch助力太空飞船在引力场中灵活移动",
+        "what": "开发者推出了Hole Punch，一个帮助太空飞船在引力场中更灵活移动的工具。",
+        "why_now": "随着太空探索的不断发展，如何在复杂的引力场中有效操控飞船变得越来越重要。",
+        "how_used": "美国的太空探索团队可能会利用这个工具来优化飞船的轨道和飞行路径。",
+        "why_cn": "中国用户应关注这一技术，因为它可能影响未来的太空探索和航天技术发展。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认是否适用于中国大陆用户的技术和使用限制。",
+        "x_line": "Hole Punch是一个新工具，旨在提升太空飞船在引力场中的操控能力。"
+      },
+      "overseas_heat": 69.5,
+      "cn_scarcity": 100.0,
+      "total": 50.8,
+      "notes": [],
+      "signal_id": "13a2ac8e19a4a3ed"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "KKKKhazix/AIHOT",
+        "url": "https://github.com/KKKKhazix/AIHOT",
+        "discussion_url": "",
+        "summary": "一个自己找热点、自己写日报的网站框架。把信源和精选标准换成你的，它就是你的行业热点站。",
+        "created_at": "2026-09-28T23:40:05Z",
+        "points": 5374,
+        "comments": 1422,
+        "tags": [
+          "ai",
+          "content-curation",
+          "llm",
+          "mcp",
+          "news-aggregator",
+          "rss",
+          "self-hosted",
+          "typescript",
+          "TypeScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "AIHOT",
+        "zh_results": 2,
+        "sample_urls": [
+          "https://www.aiboss88.com/en/news/project-aihot?utm_source=openai",
+          "https://toolin.ai/tools/aihot?utm_source=openai"
+        ],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "一个开源框架让你轻松打造行业热点网站",
+        "what": "有开发者做了一个名为AIHOT的开源框架，允许用户自定义信源和精选标准，自动生成行业热点日报。",
+        "why_now": "随着信息量的激增，个性化内容聚合工具越来越受到重视，用户希望能快速获取相关行业的热点信息。",
+        "how_used": "美国用户可以使用这个框架搭建自己的新闻聚合网站，选择感兴趣的内容源，自动生成日报，方便获取行业动态。",
+        "why_cn": "中国用户可以关注这一工具，尤其是在信息过载的时代，能够自定义热点信息的获取方式，提升工作效率。",
+        "opportunity": "如果你有特定行业的需求，可以利用这个框架搭建自己的内容聚合平台，提供定制化的信息服务。",
+        "risks": "需自行确认是否符合当地法律法规，且需要一定的技术能力进行搭建和维护。",
+        "x_line": "AIHOT是一个开源框架，允许用户自定义内容源和标准，自动生成行业热点日报。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 10.0,
+      "total": 47.0,
+      "notes": [
+        "原文本身含中文,已面向中文用户(稀缺度按 10 计)"
+      ],
+      "signal_id": "832b3c2318766afd"
+    }
+  ],
+  "candidates": [
+    {
+      "signal": {
+        "source": "github",
+        "title": "rehan-remade/universal-modder",
+        "url": "https://github.com/rehan-remade/universal-modder",
+        "discussion_url": "",
+        "summary": "Point Claude at any game. Skills, tools and the fal MCP that let Claude Code mod almost any PC game you own: recon, reverse engineering, fal-generated art/3D/audio, in-game testing, showcase videos.",
+        "created_at": "2026-09-30T05:00:35Z",
+        "points": 2568,
+        "comments": 216,
+        "tags": [
+          "age-of-empires",
+          "claude-code",
+          "claude-code-plugin",
+          "fal",
+          "game-assets",
+          "game-modding",
+          "mcp",
+          "modding",
+          "reverse-engineering",
+          "tmodloader",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "universal modder",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开发者推出通用游戏修改工具，支持多种PC游戏",
+        "what": "一个开源项目Universal Modder允许用户使用Claude进行几乎所有PC游戏的修改，包括技能、工具和艺术生成等功能。",
+        "why_now": "随着游戏修改和自定义内容的需求增加，开发者希望提供更灵活的工具来满足玩家的创作需求。",
+        "how_used": "美国玩家可以通过这个工具对他们的游戏进行修改，创造自定义内容，提升游戏体验。",
+        "why_cn": "中国用户可能对游戏修改和自定义内容感兴趣，尤其是在热门游戏中，使用这样的工具可以增强游戏乐趣。",
+        "opportunity": "有机会通过游戏修改创造独特内容，吸引更多玩家关注和使用。",
+        "risks": "使用游戏修改工具可能会违反游戏的使用条款，导致账号被封禁，需自行确认相关风险。",
+        "x_line": "Universal Modder是一个开源项目，允许用户通过Claude对几乎所有PC游戏进行修改，提升游戏体验。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 74.0,
+      "notes": [],
+      "signal_id": "e461cc3b5013b4a5"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "dzhng/jevgrep",
+        "url": "https://github.com/dzhng/jevgrep",
+        "discussion_url": "",
+        "summary": "Find code by asking what it does. A CLI for coding agents that uses Jev to discover relevant files and source context.",
+        "created_at": "2026-09-26T04:06:56Z",
+        "points": 2159,
+        "comments": 145,
+        "tags": [
+          "ai-sdk",
+          "claude-code",
+          "cli",
+          "code-search",
+          "codex",
+          "coding-agents",
+          "context-retrieval",
+          "developer-tools",
+          "jev",
+          "semantic-search",
+          "typescript",
+          "vercel-ai-gateway",
+          "TypeScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "jevgrep",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "新CLI工具让代码搜索更智能，中文用户可借鉴",
+        "what": "一个开源项目Jevgrep提供了一个命令行工具，用户可以通过自然语言询问代码的功能，从而找到相关文件和源代码上下文。",
+        "why_now": "随着AI技术的发展，开发者对智能代码搜索工具的需求日益增加，Jevgrep正好满足了这一需求。",
+        "how_used": "美国开发者可以通过命令行输入自然语言问题，Jevgrep会返回相关的代码文件和上下文，提升开发效率。",
+        "why_cn": "中国开发者可以借鉴这一工具，提升代码搜索的效率，尤其在处理大型项目时，能够更快速找到所需代码。",
+        "opportunity": "如果你是开发者，可以尝试使用这个工具来优化自己的开发流程。",
+        "risks": "需自行确认是否适合自己的开发环境，并注意开源软件可能存在的安全隐患。",
+        "x_line": "Jevgrep是一个命令行工具，用户可以通过自然语言查询代码功能，提升代码搜索效率。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 74.0,
+      "notes": [],
+      "signal_id": "db89f3a2e4cbab7d"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "kaankiziltug/logo-design-skill",
+        "url": "https://github.com/kaankiziltug/logo-design-skill",
+        "discussion_url": "",
+        "summary": "A comprehensive logo-design skill for Claude, Gemini CLI, Codex and other AI agents: principles, process, SVG craft, testing tools and a 1,400+ logo reference library.",
+        "created_at": "2026-09-26T08:23:34Z",
+        "points": 1681,
+        "comments": 99,
+        "tags": [
+          "agent-skills",
+          "branding",
+          "claude",
+          "claude-skills",
+          "codex",
+          "gemini-cli",
+          "logo-design",
+          "svg",
+          "HTML"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "logo design skill",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "AI 设计师工具：全面的 Logo 设计技能库",
+        "what": "一个开源项目提供了全面的 Logo 设计技能，适用于 Claude、Gemini CLI 和 Codex 等 AI 代理，包含设计原则、流程、SVG 工具和超过 1400 个 Logo 参考库。",
+        "why_now": "随着 AI 技术的快速发展，设计领域也开始利用 AI 提高效率和创意，尤其是在品牌设计方面。",
+        "how_used": "美国的设计师和品牌经理可以利用这个工具来生成和测试 Logo 设计，提高工作效率。",
+        "why_cn": "中国用户可以关注这个项目，以了解如何利用 AI 工具提升设计能力，尤其是在品牌建设方面。",
+        "opportunity": "如果你是设计师或品牌经理，可以尝试使用这个工具来提高设计效率和创意。",
+        "risks": "需自行确认是否符合个人或企业的设计需求，且使用 AI 工具可能需要一定的学习成本。",
+        "x_line": "一个开源项目提供了全面的 Logo 设计技能，适用于多种 AI 代理，助力设计师提升创作效率。"
+      },
+      "overseas_heat": 98.1,
+      "cn_scarcity": 100.0,
+      "total": 73.4,
+      "notes": [],
+      "signal_id": "05e16c4bbee29b72"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "Louis-CFM/coucou",
+        "url": "https://github.com/Louis-CFM/coucou",
+        "discussion_url": "",
+        "summary": "A tiny friend that lives in your notch (macOS) or at the top of your screen (Windows, Linux) and keeps an eye on your coding agents: Claude Code, Codex, Cursor, Gemini CLI, Antigravity and more.",
+        "created_at": "2026-09-27T21:54:12Z",
+        "points": 3208,
+        "comments": 499,
+        "tags": [
+          "ai-agents",
+          "anthropic",
+          "antigravity",
+          "claude",
+          "claude-code",
+          "codex",
+          "cursor",
+          "dynamic-island",
+          "gemini-cli",
+          "linux",
+          "macos",
+          "macos-app",
+          "menubar-app",
+          "notch",
+          "open-source",
+          "swift",
+          "swiftui",
+          "windows",
+          "Swift"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "coucou",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 60.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "一个开源工具帮助开发者管理多种AI编程助手",
+        "what": "开发者创建了一个名为Coucou的开源工具，可以在macOS的凹槽或Windows、Linux的屏幕顶部显示，帮助用户监控多个AI编程助手的状态。",
+        "why_now": "随着AI编程助手的普及，开发者需要更高效的工具来管理和监控这些助手的使用情况。",
+        "how_used": "美国开发者可以将Coucou安装在其设备上，实时查看和管理Claude Code、Codex等AI助手的状态，提高编程效率。",
+        "why_cn": "中国用户应关注这一工具，因为它展示了如何利用AI助手提升编程效率，可能对提升工作效率有帮助。",
+        "opportunity": "没有直接的商业机会，但可以借鉴其设计思路开发类似工具。",
+        "risks": "需自行确认在中国大陆的可用性和兼容性。",
+        "x_line": "Coucou是一个开源工具，帮助开发者在不同操作系统上监控和管理多个AI编程助手的状态。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 72.0,
+      "notes": [],
+      "signal_id": "fbe4115fc604387f"
+    }
+  ],
+  "picks": [
+    "e461cc3b5013b4a5",
+    "db89f3a2e4cbab7d",
+    "05e16c4bbee29b72"
+  ],
+  "coverage_checked": true,
+  "llm_used": true,
+  "by_source": {
+    "hackernews": 23,
+    "github": 30
+  }
+}

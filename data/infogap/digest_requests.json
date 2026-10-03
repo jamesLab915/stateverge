@@ -109,9 +109,26 @@
     "url": "https://x.com/i/status/2106147420006477991"
   },
   {
-    "status": "pending",
+    "status": "drafted",
     "auto": true,
     "note": "daily auto scan 2026-10-03",
-    "retry": "CI tests failed on first attempt (date-dependent test); re-run"
+    "retry": "CI tests failed on first attempt (date-dependent test); re-run",
+    "processed_at": "2026-10-03T20:58:01+00:00",
+    "digest": "digests/2026-10-03.json",
+    "review": "digests/2026-10-03.md",
+    "collected": 53,
+    "candidates": 4,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① 开发者推出通用游戏修改工具，支持多种PC游戏\n为什么重要:中国用户可能对游戏修改和自定义内容感兴趣，尤其是在热门游戏中，使用这样的工具可以增强游戏乐趣。\n🔗 https://github.com/rehan-remade/universal-modder\n1/3",
+      "② 新CLI工具让代码搜索更智能，中文用户可借鉴\n为什么重要:中国开发者可以借鉴这一工具，提升代码搜索的效率，尤其在处理大型项目时，能够更快速找到所需代码。\n🔗 https://github.com/dzhng/jevgrep\n2/3",
+      "③ AI 设计师工具：全面的 Logo 设计技能库\n为什么重要:中国用户可以关注这个项目，以了解如何利用 AI 工具提升设计能力，尤其是在品牌建设方面。\n🔗 https://github.com/kaankiziltug/logo-design-skill\n\n我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n3/3"
+    ],
+    "auto_skipped": [
+      "开发者推出通用游戏修改工具，支持多种PC游戏:低于自动发布门槛 80 分",
+      "新CLI工具让代码搜索更智能，中文用户可借鉴:低于自动发布门槛 80 分",
+      "AI 设计师工具：全面的 Logo 设计技能库:低于自动发布门槛 80 分",
+      "一个开源工具帮助开发者管理多种AI编程助手:低于自动发布门槛 80 分"
+    ],
+    "note_auto": "符合自动发布条件的不足 2 条,今天不自动发;可人工审核后发"
   }
 ]
