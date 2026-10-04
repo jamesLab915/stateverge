@@ -1,0 +1,36 @@
+{
+  "model": "sora-2",
+  "size": "1280x720",
+  "shots": [
+    {
+      "id": "001",
+      "ok": false,
+      "error": "HTTP 404 "
+    },
+    {
+      "id": "003",
+      "ok": false,
+      "error": "HTTP 404 "
+    },
+    {
+      "id": "006",
+      "ok": false,
+      "error": "HTTP 404 "
+    },
+    {
+      "id": "012",
+      "ok": false,
+      "error": "HTTP 404 "
+    },
+    {
+      "id": "027",
+      "ok": false,
+      "error": "HTTP 404 "
+    },
+    {
+      "id": "031",
+      "ok": false,
+      "error": "HTTP 404 "
+    }
+  ]
+}
