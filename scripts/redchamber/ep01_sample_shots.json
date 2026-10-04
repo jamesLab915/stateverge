@@ -1,0 +1,46 @@
+{
+  "project": "Dream of the Red Chamber — Cinematic Adaptation",
+  "episode": "EP01 林黛玉进贾府 / Lin Daiyu Enters the Jia Household — sample cut",
+  "style": "Photorealistic live-action prestige historical cinema, shot on 35mm film with an anamorphic look, natural film grain, 24fps motion. Qing-dynasty elite Chinese domestic world in early autumn, historically grounded architecture, costume and props: aged wood, worn stone, slightly faded paint, natural silk and cotton. Restrained naturalistic performances, real skin texture with pores and natural asymmetry. Motivated natural light only. Beautiful but quietly fragile.",
+  "negative": "No fantasy, no xianxia, no wuxia, no idol-drama look, no beauty filter, no modern makeup, no modern objects, no electric light, no plastic, no CGI look, no slow motion, no petal storms, no on-screen text, no subtitles, no watermark, nobody looks at the camera.",
+  "characters": {
+    "daiyu": "Lin Daiyu: a slender, delicate young woman in her late teens with a small refined oval face, soft jawline, naturally pale (not white) complexion, dark intelligent slightly elongated eyes, fine straight nose, small natural lips, delicate natural eyebrows, long dark hair in a simple historically plausible young-noblewoman arrangement with one small plain hairpin. No makeup look. She wears a pale celadon-green silk jacket over a soft ivory skirt, understated embroidery. Light, controlled, cautious movement; emotion shows first in her eyes.",
+    "grandmother": "Grandmother Jia: a real elderly aristocratic woman around seventy, visible wrinkles and natural aging, warm but commanding eyes, dark brown and deep blue silk robes appropriate to age, a simple dark headband with one jade ornament, seated upright with dignity."
+  },
+  "shots": [
+    {
+      "id": "001",
+      "seconds": 8,
+      "prompt": "Establishing shot. Early morning in an old Chinese capital waking beneath pale autumn mist. Gray tiled roofs stretch into the distance, thin smoke rises from household kitchens, small human figures move through narrow damp streets, a wooden cart passes. Inhabited, cold, old and real; no palace. Camera: 24mm lens from a high but physically plausible elevated position, extremely slow push forward. Light: cold diffused dawn. Sound: distant temple bell, wooden cart wheels, a dog barking, faint morning vendors, wind. No music."
+    },
+    {
+      "id": "003",
+      "seconds": 8,
+      "chars": ["daiyu"],
+      "prompt": "Inside a small enclosed wooden sedan chair moving through the city. Soft daylight enters through a small side window with a thin gauze curtain. {daiyu} She sits quietly, face partly obscured by shadow and the curtain edge, not posing, watching the unfamiliar street slide past outside. Her fingers move slightly in her lap, revealing nervousness. Camera: 85mm, close observational framing, gentle sway of the chair. Sound: muffled footsteps of bearers, creak of wood, fabric rustle, distant street voices. No dialogue, no music."
+    },
+    {
+      "id": "006",
+      "seconds": 4,
+      "chars": ["daiyu"],
+      "prompt": "Detail shot at the high wooden threshold of an aristocratic mansion gate, stone worn smooth by generations. A small embroidered silk shoe and the hem of a pale celadon skirt step over the threshold; the foot hesitates for less than a second, then continues. Camera: 85mm, low detail framing, shallow depth of field. Light: overcast morning. Sound: soft footstep on stone, silk movement, distant servants' voices. No music."
+    },
+    {
+      "id": "012",
+      "seconds": 8,
+      "chars": ["grandmother", "daiyu"],
+      "prompt": "Inside the matriarch's quarters, a quiet room of dark carved wood furniture, lattice windows with soft daylight, women and maids standing at respectful distance. {grandmother} She sees her young granddaughter arrive; for a moment her authority dissolves beneath genuine emotion, her eyes change and she slowly reaches out a hand. In the soft-focus foreground, seen from behind, a slender young woman in a pale celadon jacket bows slightly. Camera: 85mm on Grandmother Jia, static, allowing silence. Sound: breathing, fabric, very quiet room tone. No dialogue, no music swell."
+    },
+    {
+      "id": "027",
+      "seconds": 8,
+      "chars": ["daiyu"],
+      "prompt": "Night. A small guest bedroom in the mansion. {daiyu} She sits alone beside a carved lattice window; a single oil lamp gives warm light on her face, while cold blue moonlight lies outside on the dark garden and bamboo. A cloth travel bundle and a wooden chest stand partly unpacked nearby. She looks out at the unfamiliar garden, uncertain and quietly apprehensive, not crying. Camera: 50mm, slow push inward from the doorway. Sound: wind in bamboo, the lamp flame, distant footsteps in a corridor. No music."
+    },
+    {
+      "id": "031",
+      "seconds": 8,
+      "prompt": "Final image. Night exterior of a vast dark aristocratic mansion complex. One small window glows warm with lamplight; a slender figure is barely visible inside. Bamboo moves in the night wind in the foreground; a distant lantern passes along a covered corridor. Everything else is dark tiled roofs and cold moonlight. Camera: 35mm, very slow withdrawal backward. Sound: wind, bamboo, distant footsteps, faint household sounds, then near silence. No music."
+    }
+  ]
+}
