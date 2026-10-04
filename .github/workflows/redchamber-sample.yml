@@ -1,6 +1,6 @@
 # Dream of the Red Chamber — EP01 sample cut via OpenAI Sora.
 # Commit a change to data/redchamber/sample_request.json to render; the
-# finished cut is committed to media/redchamber/ on the same branch.
+# finished cut is committed to data/redchamber/out/ on the same branch.
 name: Red Chamber sample render
 
 on:
@@ -29,18 +29,18 @@ jobs:
         run: |
           SHOTS=$(python3 -c "import json;print(','.join(json.load(open('data/redchamber/sample_request.json')).get('shots',[])))")
           MODEL=$(python3 -c "import json;print(json.load(open('data/redchamber/sample_request.json')).get('model','sora-2'))")
-          python3 scripts/redchamber/sora_sample.py --shots "$SHOTS" --model "$MODEL" --out media/redchamber | tee render.log || true
+          python3 scripts/redchamber/sora_sample.py --shots "$SHOTS" --model "$MODEL" --out data/redchamber/out | tee render.log || true
           { echo '## Red Chamber sample'; echo '```'; cat render.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/upload-artifact@v4
         with:
           name: redchamber-clips
-          path: media/redchamber/clips/
+          path: data/redchamber/out/clips/
           if-no-files-found: ignore
       - name: Commit result
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for f in media/redchamber/report.json media/redchamber/ep01_sample_cut.mp4; do
+          for f in data/redchamber/out/report.json data/redchamber/out/ep01_sample_cut.mp4; do
             if [ -f "$f" ]; then git add "$f"; fi
           done
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi

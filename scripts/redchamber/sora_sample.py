@@ -1,6 +1,6 @@
 """Render the EP01 sample cut with OpenAI Sora (GitHub Actions, OPENAI_API_KEY).
 
-    python3 scripts/redchamber/sora_sample.py [--shots 001,003] [--model sora-2] [--out media/redchamber]
+    python3 scripts/redchamber/sora_sample.py [--shots 001,003] [--model sora-2] [--out data/redchamber/out]
 
 Each shot prompt = style + character bible line(s) + shot + negatives, from
 ep01_sample_shots.json. Shots render in parallel; finished clips are cropped
@@ -119,7 +119,7 @@ def main() -> int:
     ap.add_argument("--shots", default="")
     ap.add_argument("--model", default=os.environ.get("SORA_MODEL", "sora-2"))
     ap.add_argument("--size", default="1280x720")
-    ap.add_argument("--out", default="media/redchamber")
+    ap.add_argument("--out", default="data/redchamber/out")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
     spec = json.loads(Path(a.spec).read_text(encoding="utf-8"))
