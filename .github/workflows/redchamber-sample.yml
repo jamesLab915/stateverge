@@ -40,8 +40,9 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add media/redchamber/report.json
-          [ -f media/redchamber/ep01_sample_cut.mp4 ] && git add media/redchamber/ep01_sample_cut.mp4
+          for f in media/redchamber/report.json media/redchamber/ep01_sample_cut.mp4; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -m "redchamber: EP01 sample render"
           git pull --rebase -q origin "${GITHUB_REF_NAME}"

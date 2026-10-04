@@ -131,10 +131,12 @@ def main() -> int:
             print(f"--- SHOT {sid} ---\n{p}\n")
         return 0
     key = os.environ.get("OPENAI_API_KEY", "").strip()
+    out = Path(a.out)
     if not key:
+        out.mkdir(parents=True, exist_ok=True)
+        (out / "report.json").write_text('{"error": "OPENAI_API_KEY missing"}\n', encoding="utf-8")
         print("OPENAI_API_KEY missing")
         return 1
-    out = Path(a.out)
     clips = out / "clips"
     clips.mkdir(parents=True, exist_ok=True)
     with ThreadPoolExecutor(max_workers=len(shots)) as pool:
