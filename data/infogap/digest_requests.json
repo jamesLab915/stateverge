@@ -156,8 +156,28 @@
     "note_auto": "符合自动发布条件的不足 2 条,今天不自动发;可人工审核后发"
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-05"
+    "note": "daily auto scan 2026-10-05",
+    "processed_at": "2026-10-05T21:03:40+00:00",
+    "digest": "digests/2026-10-05.json",
+    "review": "digests/2026-10-05.md",
+    "collected": 62,
+    "skipped_seen": 5,
+    "candidates": 3,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① 开源项目重塑Photoshop，中文用户可探索新选择\n为什么重要:中国用户可以关注这个项目，作为Photoshop的替代方案，尤其是对开源软件感兴趣的用户。\n🔗 https://github.com/storytold/photocraft\n1/4",
+      "② 一个命令即可关闭macOS 27的Apple Intelligence，释放磁盘空间\n为什么重要:中国用户在使用macOS时，可能会面临存储空间不足的问题，了解此工具可以帮助他们优化系统性能。\n🔗 https://github.com/omlahore/RemoveMacAI\n2/4",
+      "③ AI辅助编程工具Vibe-Wise助力开发者学习构建项目\n为什么重要:中国用户应关注此工具，因为它可能为编程学习和项目开发提供新的思路和方法，尤其是在AI编程日益普及的背景下。\n🔗 https://github.com/nykooi1/vibe-wise\n3/4",
+      "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n4/4"
+    ],
+    "auto_skipped": [],
+    "auto_signal_ids": [
+      "4829da8511f17437",
+      "85e340c03ffea12e",
+      "4f1fe09f34de6fb7"
+    ],
+    "post_after": "2026-10-06T00:03:40+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]
