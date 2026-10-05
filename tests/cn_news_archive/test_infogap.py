@@ -436,6 +436,36 @@ class TestVetoWindow(unittest.TestCase):
         self.assertEqual(item["status"], "drafted")
         self.assertIn("note_auto", item)
 
+    def test_floor_items_fill_daily_post(self):
+        from stateverge.cn_news.infogap.digest import AUTO_MIN_SCORE, auto_picks, check_auto, auto_text
+        r = digest.scan(collectors(), brave({}), llm(), now=NOW)
+        for c in r.candidates:  # nobody reaches the preferred bar
+            c.total = min(c.total, AUTO_MIN_SCORE - 5)
+        picks, _ = auto_picks(r.candidates)
+        self.assertGreaterEqual(len(picks), 1)
+        self.assertTrue(check_auto(picks, auto_text(picks)).allowed)
+        one = picks[:1]
+        self.assertTrue(check_auto(one, auto_text(one)).allowed)  # a single safe item still posts
+
+    def test_preferred_items_go_first(self):
+        from stateverge.cn_news.infogap.digest import AUTO_MIN_SCORE, auto_picks
+        r = digest.scan(collectors(), brave({}), llm(), now=NOW)
+        low, high = r.candidates[0], r.candidates[-1]
+        for c in r.candidates:
+            c.total = 72.0
+        high.total = low.total = AUTO_MIN_SCORE + 5
+        picks, _ = auto_picks(r.candidates, n=2)
+        self.assertEqual({p.signal.signal_id for p in picks}, {low.signal.signal_id, high.signal.signal_id})
+
+    def test_network_evasion_never_auto(self):
+        from stateverge.cn_news.infogap.digest import auto_eligible
+        r = digest.scan(collectors(), brave({}), llm(), now=NOW)
+        c = r.candidates[0]
+        c.assessment.headline_zh = "开源AI代理浏览器,突破网络限制"
+        ok, why = auto_eligible(c)
+        self.assertFalse(ok)
+        self.assertIn("网络管制", why)
+
     def test_auto_guard_never_fakes_human_review(self):
         from stateverge.cn_news.infogap.digest import auto_text, check_auto
         r = digest.scan(collectors(), brave({}), llm(), now=NOW)

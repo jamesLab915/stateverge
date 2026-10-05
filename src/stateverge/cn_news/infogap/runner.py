@@ -14,8 +14,8 @@
     → status "posted" + url, or "blocked" + failures
 
 Veto-window mode — ``{"status": "pending", "auto": true}`` (written daily by
-the scheduler): after the scan, if at least 2 items pass the stricter auto
-criteria, the entry becomes ``"scheduled"`` with ``post_after`` (+3h by
+the scheduler): after the scan, if at least one item passes the auto safety
+criteria (80+ preferred, 70+ used to fill), the entry becomes ``"scheduled"`` with ``post_after`` (+3h by
 default). Any run after that time posts it unless you changed the status to
 ``"vetoed"`` first. You can also approve early the normal way (post: true …).
 
@@ -36,6 +36,7 @@ from .assessor import LLMAssessor
 from .collectors import default_collectors
 from .coverage import default_coverage
 from .digest import (
+    AUTO_MIN_ITEMS,
     DigestReview,
     ScanResult,
     auto_picks,
@@ -148,7 +149,7 @@ class InfoGapRunner:
         if item.get("auto"):
             picks, skipped = auto_picks(result.candidates)
             item["auto_skipped"] = skipped[:10]
-            if len(picks) >= 2:
+            if len(picks) >= AUTO_MIN_ITEMS:
                 post_after = (now or datetime.now(timezone.utc)) + timedelta(hours=float(item.get("veto_hours", DEFAULT_VETO_HOURS)))
                 item.update(
                     status="scheduled",
@@ -158,7 +159,7 @@ class InfoGapRunner:
                     how_to_veto='把 "status" 改成 "vetoed" 并提交,即可取消这次自动发布',
                 )
             else:
-                item["note_auto"] = "符合自动发布条件的不足 2 条,今天不自动发;可人工审核后发"
+                item["note_auto"] = "今天没有通过安全检查的内容,不自动发;可人工审核后发"
         self.log.append(f"扫描:抓取 {result.collected} 条,候选 {len(result.candidates)} 条,入选 {len(result.picks)} 条 → {md.name}")
 
     def _post(self, item: dict) -> None:

@@ -196,19 +196,23 @@ def check(picks: list[ScoredSignal], text: str, review: DigestReview) -> DigestG
 
 # -- veto-window auto mode ----------------------------------------------------
 
-AUTO_MIN_SCORE = 80.0
-AUTO_MIN_ITEMS = 2
+AUTO_MIN_SCORE = 80.0  # preferred bar: these go first
+AUTO_FLOOR_SCORE = 70.0  # daily-post fallback when too few items reach the preferred bar
+AUTO_PREFERRED_ITEMS = 2
+AUTO_MIN_ITEMS = 1  # every day posts if at least one safe item exists
 AUTO_FOOTER = "(AI 辅助整理,以原文为准)"
 # A personal project / repo presented as an official launch — the error seen
 # in the first live digest. Such items are never auto-posted.
 _OFFICIAL_WORDS = ("官方", "推出", "发布了", "正式发布", "宣布")
+# Never auto-post content framed around evading network controls.
+SENSITIVE_WORDS = ("翻墙", "突破网络限制", "绕过网络", "绕过限制", "绕过审查", "科学上网", "防火长城")
 
 
-def auto_eligible(c: ScoredSignal) -> tuple[bool, str]:
+def auto_eligible(c: ScoredSignal, min_score: float = AUTO_FLOOR_SCORE) -> tuple[bool, str]:
     """Stricter bar for posting without a human sign-off."""
     a, s = c.assessment, c.signal
-    if c.total < AUTO_MIN_SCORE:
-        return False, f"低于自动发布门槛 {AUTO_MIN_SCORE:.0f} 分"
+    if c.total < min_score:
+        return False, f"低于自动发布门槛 {min_score:.0f} 分"
     if not c.coverage.checked or c.coverage.error:
         return False, "中文覆盖度未成功检测"
     if not a.by_llm or PLACEHOLDER in (a.headline_zh + a.why_cn + a.risks):
@@ -220,18 +224,28 @@ def auto_eligible(c: ScoredSignal) -> tuple[bool, str]:
         return False, "个人/开源项目的标题写成了官方发布,需人工改写"
     if any(w in a.headline_zh + a.why_cn for w in HYPE_WORDS):
         return False, "含夸大用语"
+    if any(w in a.headline_zh + a.why_cn + a.x_line for w in SENSITIVE_WORDS):
+        return False, "涉及绕过网络管制,不自动发"
     return True, ""
 
 
 def auto_picks(candidates: list[ScoredSignal], n: int = 3) -> tuple[list[ScoredSignal], list[str]]:
-    ok, skipped = [], []
+    """Items at the preferred bar first; if fewer than AUTO_PREFERRED_ITEMS
+    reach it, top up from items that pass every safety check at the floor
+    score, so a day with any safe item still posts."""
+    preferred, floor, skipped = [], [], []
     for c in candidates:
         good, why = auto_eligible(c)
-        if good:
-            ok.append(c)
-        else:
+        if not good:
             skipped.append(f"{c.assessment.headline_zh or c.signal.title}:{why}")
-    return pick(ok, n), skipped
+        elif c.total >= AUTO_MIN_SCORE:
+            preferred.append(c)
+        else:
+            floor.append(c)
+    chosen = pick(preferred, n)
+    if len(chosen) < AUTO_PREFERRED_ITEMS:
+        chosen += pick(floor, n - len(chosen))
+    return chosen, skipped
 
 
 def auto_text(picks: list[ScoredSignal]) -> str:
