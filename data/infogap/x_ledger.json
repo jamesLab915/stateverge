@@ -19,5 +19,33 @@
     "tweet_id": "2106147422820843945",
     "text": "③ 开源、跨平台的多轨音频编辑器 Audionaut 登上 Hacker News\n为什么重要:做播客、配音的中文创作者多了一个免费工具;开源项目的稳定性需自行评估。\n🔗 https://github.com/kvoltmer/Audionaut\n\n我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n3/3",
     "posted_at": "2026-10-02T22:20:50+00:00"
+  },
+  {
+    "card_key": "INFOGAP24H:2026-10-05",
+    "part_index": 0,
+    "tweet_id": "2107261777520246864",
+    "text": "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① 开源项目重塑Photoshop，中文用户可探索新选择\n为什么重要:中国用户可以关注这个项目，作为Photoshop的替代方案，尤其是对开源软件感兴趣的用户。\n🔗 https://github.com/storytold/photocraft\n1/4",
+    "posted_at": "2026-10-06T00:08:53+00:00"
+  },
+  {
+    "card_key": "INFOGAP24H:2026-10-05",
+    "part_index": 1,
+    "tweet_id": "2107261778942136633",
+    "text": "② 一个命令即可关闭macOS 27的Apple Intelligence，释放磁盘空间\n为什么重要:中国用户在使用macOS时，可能会面临存储空间不足的问题，了解此工具可以帮助他们优化系统性能。\n🔗 https://github.com/omlahore/RemoveMacAI\n2/4",
+    "posted_at": "2026-10-06T00:08:53+00:00"
+  },
+  {
+    "card_key": "INFOGAP24H:2026-10-05",
+    "part_index": 2,
+    "tweet_id": "2107261780275982716",
+    "text": "③ AI辅助编程工具Vibe-Wise助力开发者学习构建项目\n为什么重要:中国用户应关注此工具，因为它可能为编程学习和项目开发提供新的思路和方法，尤其是在AI编程日益普及的背景下。\n🔗 https://github.com/nykooi1/vibe-wise\n3/4",
+    "posted_at": "2026-10-06T00:08:54+00:00"
+  },
+  {
+    "card_key": "INFOGAP24H:2026-10-05",
+    "part_index": 3,
+    "tweet_id": "2107261781681058116",
+    "text": "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n4/4",
+    "posted_at": "2026-10-06T00:08:54+00:00"
   }
 ]

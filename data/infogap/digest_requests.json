@@ -156,10 +156,10 @@
     "note_auto": "符合自动发布条件的不足 2 条,今天不自动发;可人工审核后发"
   },
   {
-    "status": "scheduled",
+    "status": "posted",
     "auto": true,
     "note": "daily auto scan 2026-10-05",
-    "processed_at": "2026-10-05T21:03:40+00:00",
+    "processed_at": "2026-10-06T00:08:53+00:00",
     "digest": "digests/2026-10-05.json",
     "review": "digests/2026-10-05.md",
     "collected": 62,
@@ -178,6 +178,9 @@
       "4f1fe09f34de6fb7"
     ],
     "post_after": "2026-10-06T00:03:40+00:00",
-    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布",
+    "failures": [],
+    "approved_by": "auto (no veto before post_after)",
+    "url": "https://x.com/i/status/2107261777520246864"
   }
 ]
