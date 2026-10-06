@@ -184,8 +184,28 @@
     "url": "https://x.com/i/status/2107261777520246864"
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-06"
+    "note": "daily auto scan 2026-10-06",
+    "processed_at": "2026-10-06T20:53:29+00:00",
+    "digest": "digests/2026-10-06.json",
+    "review": "digests/2026-10-06.md",
+    "collected": 66,
+    "skipped_seen": 6,
+    "candidates": 4,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① Polars 2.0 发布，数据处理速度大幅提升\n为什么重要:中国用户在处理大数据时，可以借助 Polars 2.0 提升效率，尤其是在数据分析和机器学习领域。\n🔗 https://pola.rs/posts/release-polars-2/\n1/4",
+      "② 新工具可提前编译游戏着色器，减少卡顿现象\n为什么重要:对于希望提升游戏体验的中国玩家来说，了解这一工具可以帮助他们在游戏中获得更流畅的表现。\n🔗 https://github.com/BlueHeisenberg/SCSKiller\n2/4",
+      "③ 开源项目Lightcraft：用Rust重构Adobe Lightroom，摄影爱好者的新选择\n为什么重要:中国用户可以关注这个项目，特别是摄影爱好者，寻找开源替代方案以降低软件成本。\n🔗 https://github.com/storytold/lightcraft\n3/4",
+      "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n4/4"
+    ],
+    "auto_skipped": [],
+    "auto_signal_ids": [
+      "139b43f9bf8a3423",
+      "9768c8d067623e06",
+      "58c042bbd7155a9e"
+    ],
+    "post_after": "2026-10-06T23:53:29+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]
