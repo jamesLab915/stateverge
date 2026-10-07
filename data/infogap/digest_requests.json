@@ -184,10 +184,10 @@
     "url": "https://x.com/i/status/2107261777520246864"
   },
   {
-    "status": "scheduled",
+    "status": "error",
     "auto": true,
     "note": "daily auto scan 2026-10-06",
-    "processed_at": "2026-10-06T20:53:29+00:00",
+    "processed_at": "2026-10-07T00:08:42+00:00",
     "digest": "digests/2026-10-06.json",
     "review": "digests/2026-10-06.md",
     "collected": 66,
@@ -206,6 +206,9 @@
       "58c042bbd7155a9e"
     ],
     "post_after": "2026-10-06T23:53:29+00:00",
-    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布",
+    "failures": [
+      "X API returned 401: {\n  \"title\": \"Unauthorized\",\n  \"type\": \"about:blank\",\n  \"status\": 401,\n  \"detail\": \"Unauthorized\"\n}"
+    ]
   }
 ]
