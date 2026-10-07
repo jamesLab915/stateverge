@@ -212,8 +212,29 @@
     ]
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-07"
+    "note": "daily auto scan 2026-10-07",
+    "processed_at": "2026-10-07T20:53:10+00:00",
+    "digest": "digests/2026-10-07.json",
+    "review": "digests/2026-10-07.md",
+    "collected": 74,
+    "skipped_seen": 4,
+    "candidates": 3,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n1/5",
+      "① 开源项目Vectorcraft：用Rust重构Adobe Illustrator，提供全新设计工具\n为什么重要:中国用户可以关注这个项目，作为Adobe Illustrator的替代品，尤其是在预算有限的情况下，提供了一个新的选择。\n🔗 https://github.com/storytold/vectorcraft\n2/5",
+      "② Bigwords.page：将任何屏幕变成标识的工具，中文用户可借鉴\n为什么重要:中国用户可以关注这种工具的应用，尤其是在商业展示和远程沟通中，提升信息传达的效率。\n🔗 https://bigwords.page/\n3/5",
+      "③ 开源项目重塑Adobe Acrobat，提供纯Rust实现的PDF处理工具\n为什么重要:中国用户可以关注这个项目，特别是在寻找开源替代Adobe软件的情况下，可能会有助于降低软件成本。\n🔗 https://github.com/storytold/pdfcraft\n4/5",
+      "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n5/5"
+    ],
+    "auto_skipped": [],
+    "auto_signal_ids": [
+      "67e0a293dc0a3b01",
+      "20398fa796c37ea2",
+      "3a0d80397de02a5d"
+    ],
+    "post_after": "2026-10-07T23:53:10+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]
