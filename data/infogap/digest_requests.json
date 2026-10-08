@@ -241,8 +241,28 @@
     ]
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-08"
+    "note": "daily auto scan 2026-10-08",
+    "processed_at": "2026-10-08T20:53:38+00:00",
+    "digest": "digests/2026-10-08.json",
+    "review": "digests/2026-10-08.md",
+    "collected": 71,
+    "skipped_seen": 0,
+    "candidates": 3,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① 全球范围内，4小时电池储能安装成本低于燃气轮机\n为什么重要:中国在可再生能源转型中面临类似挑战，了解全球趋势有助于把握未来投资方向。\n🔗 https://www.solarpowerworldonline.com/2026/10/4-hour-battery-storage-is-cheaper-to-install-than-gas-turbines-all-across-globe/\n1/4",
+      "② Whistle：仅16.9 MB的语音转文本工具引发关注\n为什么重要:中国用户可以关注这一轻量级工具，可能在语音转文本需求上找到新的解决方案。\n🔗 https://cactuscompute.com/blog/whistle\n2/4",
+      "③ AI 视觉化《看不见的城市》，探索创意的边界\n为什么重要:中国用户可以关注 AI 在艺术创作中的应用，了解如何利用这些工具进行创新和表达。\n🔗 https://quesma.com/blog/invisible-cities-one-shot/\n3/4",
+      "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n4/4"
+    ],
+    "auto_skipped": [],
+    "auto_signal_ids": [
+      "01e61b69b21f1814",
+      "8b96243ec001c561",
+      "0f3b415bbe643e67"
+    ],
+    "post_after": "2026-10-08T23:53:38+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]
