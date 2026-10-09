@@ -269,8 +269,27 @@
     ]
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-09"
+    "note": "daily auto scan 2026-10-09",
+    "processed_at": "2026-10-09T20:53:47+00:00",
+    "digest": "digests/2026-10-09.json",
+    "review": "digests/2026-10-09.md",
+    "collected": 66,
+    "skipped_seen": 0,
+    "candidates": 4,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① AI代理可以在屏幕上绘制大箭头、框和文本，提升视觉指引\n为什么重要:中国用户在进行远程协作或在线教学时，可以借助此工具提升沟通效率。\n🔗 https://github.com/franzenzenhofer/big-arrow-on-the-screen\n1/3",
+      "② Python 3.15 发布，带来新特性和性能提升\n为什么重要:中国用户应关注 Python 3.15 的新特性，以便在项目中应用最新技术，提高开发效率。\n🔗 https://www.python.org/downloads/release/python-3150/\n2/3",
+      "③ Windows与Mac键盘的差异，影响你的使用体验\n为什么重要:中国用户在使用不同操作系统时，了解键盘差异可以帮助提高打字效率和使用体验。\n🔗 https://unsung.aresluna.org/deeper-dive-keyboard-differences-between-windows-and-macs/\n\n我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n3/3"
+    ],
+    "auto_skipped": [],
+    "auto_signal_ids": [
+      "c5dae7c788427289",
+      "e70ff223488da831",
+      "14985d2258a32b49"
+    ],
+    "post_after": "2026-10-09T23:53:47+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]
