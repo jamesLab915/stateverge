@@ -269,10 +269,10 @@
     ]
   },
   {
-    "status": "scheduled",
+    "status": "error",
     "auto": true,
     "note": "daily auto scan 2026-10-09",
-    "processed_at": "2026-10-09T20:53:47+00:00",
+    "processed_at": "2026-10-10T00:08:37+00:00",
     "digest": "digests/2026-10-09.json",
     "review": "digests/2026-10-09.md",
     "collected": 66,
@@ -290,6 +290,9 @@
       "14985d2258a32b49"
     ],
     "post_after": "2026-10-09T23:53:47+00:00",
-    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布",
+    "failures": [
+      "X API returned 401: {\n  \"title\": \"Unauthorized\",\n  \"type\": \"about:blank\",\n  \"status\": 401,\n  \"detail\": \"Unauthorized\"\n}"
+    ]
   }
 ]
