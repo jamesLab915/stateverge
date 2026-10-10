@@ -296,8 +296,29 @@
     ]
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-10"
+    "note": "daily auto scan 2026-10-10",
+    "processed_at": "2026-10-10T20:53:21+00:00",
+    "digest": "digests/2026-10-10.json",
+    "review": "digests/2026-10-10.md",
+    "collected": 61,
+    "skipped_seen": 1,
+    "candidates": 5,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① Talorys：一个可自托管的个人AI代理，利用Cloudflare免费套餐\n为什么重要:中国用户可能对自托管AI代理的概念感兴趣，尤其是在数据隐私和个性化服务方面。\n🔗 https://github.com/rociiu/talorys\n1/3",
+      "② 开源个人财务应用：AI 财务顾问助你追踪资产与投资\n为什么重要:中国用户可以关注这一趋势，了解如何利用 AI 技术来改善个人财务管理，但需注意软件的使用限制。\n🔗 https://github.com/LosaLosSantos/aurelio-finance\n2/3",
+      "③ 开源项目Wordcraft：用Rust重构的Microsoft Word\n为什么重要:中国用户可能对开源替代品感兴趣，尤其是在寻找更安全的办公软件时。\n🔗 https://github.com/storytold/wordcraft\n\n我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n3/3"
+    ],
+    "auto_skipped": [
+      "开发者推出免费工具，轻松克隆和优化应用:个人/开源项目的标题写成了官方发布,需人工改写"
+    ],
+    "auto_signal_ids": [
+      "03111b7b91c81dfe",
+      "889f0e3869a21eb4",
+      "a652d1548c7a77bc"
+    ],
+    "post_after": "2026-10-10T23:53:21+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]

@@ -1,0 +1,1134 @@
+{
+  "scanned_at": "2026-10-10T20:53:21+00:00",
+  "collected": 61,
+  "shortlisted": [
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Talorys – A self-hosted personal AI agent on Cloudflare's free tier",
+        "url": "https://github.com/rociiu/talorys",
+        "discussion_url": "https://news.ycombinator.com/item?id=50031614",
+        "summary": "",
+        "created_at": "2026-10-10T10:52:09+00:00",
+        "points": 208,
+        "comments": 106,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Talorys AI Cloudflare",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 60.0,
+        "visual": 50.0,
+        "by_llm": true,
+        "headline_zh": "Talorys：一个可自托管的个人AI代理，利用Cloudflare免费套餐",
+        "what": "Talorys是一个可以自托管的个人AI代理，用户可以在Cloudflare的免费套餐上运行它。",
+        "why_now": "随着个人化AI工具的需求增加，越来越多的人希望能够自主管理自己的AI代理。",
+        "how_used": "美国用户可以通过在Cloudflare上部署Talorys，创建一个自己的AI助手，用于处理日常任务或信息查询。",
+        "why_cn": "中国用户可能对自托管AI代理的概念感兴趣，尤其是在数据隐私和个性化服务方面。",
+        "opportunity": "有机会通过自托管的方式使用AI工具，但需要一定的技术基础。",
+        "risks": "需自行确认Cloudflare在中国的可用性及相关的网络和数据隐私问题。",
+        "x_line": "Talorys允许用户在Cloudflare的免费套餐上自托管个人AI代理，满足个性化需求。"
+      },
+      "overseas_heat": 80.6,
+      "cn_scarcity": 100.0,
+      "total": 79.2,
+      "notes": [],
+      "signal_id": "03111b7b91c81dfe"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "LosaLosSantos/aurelio-finance",
+        "url": "https://github.com/LosaLosSantos/aurelio-finance",
+        "discussion_url": "",
+        "summary": "Open-source personal finance app with an AI financial advisor: track your net worth, investments, ETFs, cash and debts on your own computer.",
+        "created_at": "2026-10-06T20:14:19Z",
+        "points": 2092,
+        "comments": 215,
+        "tags": [
+          "ai",
+          "dividends",
+          "etf",
+          "finance",
+          "financial-planning",
+          "fintech",
+          "investing",
+          "llm",
+          "net-worth",
+          "personal-finance",
+          "portfolio-tracker",
+          "self-hosted",
+          "stocks",
+          "wealth-management",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "aurelio finance",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开源个人财务应用：AI 财务顾问助你追踪资产与投资",
+        "what": "一个开源的个人财务应用程序，配备 AI 财务顾问，用户可以在自己的电脑上追踪净资产、投资、ETF、现金和债务。",
+        "why_now": "随着个人财务管理需求的增加，结合 AI 技术的工具越来越受到关注。",
+        "how_used": "美国用户可以通过该应用程序管理和分析自己的财务状况，使用 AI 提供的建议来优化投资组合。",
+        "why_cn": "中国用户可以关注这一趋势，了解如何利用 AI 技术来改善个人财务管理，但需注意软件的使用限制。",
+        "opportunity": "对于希望自主管理财务的用户来说，这是一个值得尝试的工具。",
+        "risks": "需自行确认软件的兼容性和安全性，特别是在处理敏感财务数据时。",
+        "x_line": "一个开源的个人财务应用，结合 AI 技术帮助用户追踪和管理财务状况。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 74.0,
+      "notes": [],
+      "signal_id": "889f0e3869a21eb4"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "Jakeschincariol/replica-skill",
+        "url": "https://github.com/Jakeschincariol/replica-skill",
+        "discussion_url": "",
+        "summary": "Eleven free Claude skills that clone any app: reverse-engineer it, rebuild it, test it for bugs, then fix what its users hate. Free, MIT.",
+        "created_at": "2026-10-03T12:07:49Z",
+        "points": 1594,
+        "comments": 218,
+        "tags": [
+          "agent",
+          "agent-skills",
+          "app-clone",
+          "claude",
+          "claude-code",
+          "claude-skills",
+          "indie-hacker",
+          "reverse-engineering",
+          "saas",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "replica skill",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开发者推出免费工具，轻松克隆和优化应用",
+        "what": "一个开源项目提供了11个免费的Claude技能，允许用户反向工程任何应用，重建、测试并修复用户不满的地方。",
+        "why_now": "随着应用开发和用户体验优化的需求增加，开发者希望通过此工具简化应用克隆和改进的过程。",
+        "how_used": "美国开发者可以利用这些技能快速复制现有应用，进行功能测试和用户反馈改进。",
+        "why_cn": "中国用户可以关注这一工具的使用，了解如何在应用开发中进行逆向工程和优化，提升产品竞争力。",
+        "opportunity": "对于有开发能力的用户，可以利用这些技能快速开发和优化应用，可能带来商业机会。",
+        "risks": "需注意反向工程可能涉及的法律风险，以及在中国大陆的使用限制需自行确认。",
+        "x_line": "一个开源项目提供了11个Claude技能，帮助用户反向工程和优化应用，提升开发效率。"
+      },
+      "overseas_heat": 97.9,
+      "cn_scarcity": 100.0,
+      "total": 73.4,
+      "notes": [],
+      "signal_id": "3fab50220ed42ab7"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "storytold/gridcraft",
+        "url": "https://github.com/storytold/gridcraft",
+        "discussion_url": "",
+        "summary": "GridCraft: an open-source, clean-room spreadsheet (Microsoft Excel-style) in pure Rust. By ArtCraft.",
+        "created_at": "2026-10-07T05:18:16Z",
+        "points": 1754,
+        "comments": 663,
+        "tags": [
+          "Rust"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "gridcraft",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 60.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "一个开源的Rust电子表格项目，值得关注",
+        "what": "一个开源项目GridCraft被开发出来，它是一个纯Rust编写的电子表格工具，类似于Microsoft Excel。",
+        "why_now": "随着Rust语言的流行，开发者们开始尝试用它构建各种应用，包括电子表格工具，以提高性能和安全性。",
+        "how_used": "美国开发者可以使用GridCraft进行数据处理、分析和可视化，尤其是在需要高性能和安全性的场合。",
+        "why_cn": "中国用户可以关注这个项目，了解Rust语言在实际应用中的潜力，尤其是在数据处理领域。",
+        "opportunity": "如果你对Rust编程感兴趣，可以参与这个项目的开发或使用它来构建自己的应用。",
+        "risks": "项目仍在开发中，可能存在稳定性和功能不全的问题，需自行确认是否满足使用需求。",
+        "x_line": "GridCraft是一个用Rust语言开发的开源电子表格工具，提供类似Excel的功能，适合数据处理和分析。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 72.0,
+      "notes": [],
+      "signal_id": "640f3e294e717475"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "storytold/wordcraft",
+        "url": "https://github.com/storytold/wordcraft",
+        "discussion_url": "",
+        "summary": "An open-source, clean-room reimplementation of Microsoft Word in pure Rust",
+        "created_at": "2026-10-07T08:34:24Z",
+        "points": 3036,
+        "comments": 869,
+        "tags": [
+          "Rust"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "wordcraft",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 50.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开源项目Wordcraft：用Rust重构的Microsoft Word",
+        "what": "一个开源项目Wordcraft实现了Microsoft Word的功能，使用纯Rust语言重构。",
+        "why_now": "随着Rust语言的流行，开发者希望提供一个更安全、更高效的文字处理工具。",
+        "how_used": "美国用户可以在本地运行这个项目，享受类似Word的文字处理体验。",
+        "why_cn": "中国用户可能对开源替代品感兴趣，尤其是在寻找更安全的办公软件时。",
+        "opportunity": "用户可以参与开发或根据需要定制软件。",
+        "risks": "项目仍在开发中，可能存在不稳定性和功能缺失，需自行确认是否满足需求。",
+        "x_line": "Wordcraft是一个用Rust重构的开源Microsoft Word，提供了一个安全且高效的文字处理选择。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 70.0,
+      "notes": [],
+      "signal_id": "a652d1548c7a77bc"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "kargulstudio/sales-crm",
+        "url": "https://github.com/kargulstudio/sales-crm",
+        "discussion_url": "",
+        "summary": "",
+        "created_at": "2026-10-04T10:55:58Z",
+        "points": 1687,
+        "comments": 370,
+        "tags": [
+          "TypeScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "sales crm",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 50.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开源销售CRM系统，适合中小企业管理客户关系",
+        "what": "一个开源项目'sales-crm'被发布，旨在帮助企业管理销售和客户关系。",
+        "why_now": "随着数字化转型加速，企业对客户关系管理的需求日益增加。",
+        "how_used": "美国的中小企业可以使用这个CRM系统来跟踪销售线索、管理客户信息和提高销售效率。",
+        "why_cn": "中国用户可以关注这一开源项目，了解如何通过CRM系统提升客户管理能力，尤其是中小企业。",
+        "opportunity": "对于有开发能力的用户，可以根据项目需求进行二次开发，定制符合自身业务的CRM系统。",
+        "risks": "需自行确认是否符合中国地区的使用要求，且开源项目可能缺乏官方支持和维护。",
+        "x_line": "一个开源的销售CRM系统发布，帮助企业管理客户关系，适合中小企业使用。"
+      },
+      "overseas_heat": 99.1,
+      "cn_scarcity": 100.0,
+      "total": 69.7,
+      "notes": [],
+      "signal_id": "15d8d235535caf54"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "nullmoth/nvidia-macos-driver",
+        "url": "https://github.com/nullmoth/nvidia-macos-driver",
+        "discussion_url": "",
+        "summary": "Metal driver for NVIDIA GeForce RTX cards on macOS 15 Sequoia (Intel / OpenCore). Free, source included.",
+        "created_at": "2026-10-07T08:13:12Z",
+        "points": 2271,
+        "comments": 209,
+        "tags": [
+          "Rust"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "nvidia macos driver",
+        "zh_results": 1,
+        "sample_urls": [
+          "https://finance.sina.com.cn/tech/roll/2026-10-09/doc-iniurfei2977339.shtml?utm_source=openai"
+        ],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 60.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "NVIDIA RTX 显卡在 macOS 上的新驱动程序，中文用户需关注兼容性",
+        "what": "一个开源项目发布了支持在 macOS 15 Sequoia 上使用 NVIDIA GeForce RTX 显卡的 Metal 驱动程序。",
+        "why_now": "随着 NVIDIA RTX 显卡在创意和计算领域的普及，用户对在 macOS 上的兼容性需求增加。",
+        "how_used": "美国用户可以通过安装该驱动程序来提升他们的 NVIDIA 显卡在 macOS 系统上的性能，尤其是在图形密集型应用中。",
+        "why_cn": "中国用户如果使用 macOS 系统并拥有 NVIDIA RTX 显卡，可能会希望了解该驱动程序的兼容性和性能提升。",
+        "opportunity": "如果你是开发者或技术爱好者，可以尝试这个开源驱动以改善显卡性能。",
+        "risks": "需自行确认该驱动程序与自己的 macOS 版本和硬件的兼容性，使用开源驱动可能存在不稳定性或功能缺失。",
+        "x_line": "一个开源项目为 macOS 15 Sequoia 用户提供了 NVIDIA GeForce RTX 显卡的 Metal 驱动程序，提升图形性能。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 80.0,
+      "total": 66.0,
+      "notes": [
+        "中文近一周已有 1 条相关结果"
+      ],
+      "signal_id": "ac5d920f53693f84"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Telegram Desktop vulnerability allowed any user's file to be stolen",
+        "url": "https://beaksec.github.io/posts/telegram-desktop-one-click-account-takeover/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50029123",
+        "summary": "",
+        "created_at": "2026-10-10T03:02:47+00:00",
+        "points": 372,
+        "comments": 207,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Telegram Desktop",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Telegram Desktop 漏洞曝光，用户文件安全面临威胁",
+        "what": "Telegram Desktop 存在一个漏洞，允许攻击者窃取任何用户的文件。",
+        "why_now": "随着网络安全问题日益严重，用户对软件安全性的关注也在增加。",
+        "how_used": "美国用户可能会通过更新软件或更改设置来保护自己的文件安全。",
+        "why_cn": "中国用户在使用 Telegram 时也应关注安全问题，尤其是在文件传输和存储方面。",
+        "opportunity": "没有明显的机会。",
+        "risks": "用户文件可能被窃取，建议及时更新软件以修补漏洞。",
+        "x_line": "Telegram Desktop 的新漏洞使得用户文件面临被窃取的风险，需引起重视。"
+      },
+      "overseas_heat": 89.3,
+      "cn_scarcity": 100.0,
+      "total": 64.8,
+      "notes": [],
+      "signal_id": "263fffe1b2b0a14b"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Bitwarden Dual License Model",
+        "url": "https://community.bitwarden.com/t/published-version-update-in-app-stores/102750",
+        "discussion_url": "https://news.ycombinator.com/item?id=50033407",
+        "summary": "",
+        "created_at": "2026-10-10T14:32:50+00:00",
+        "points": 295,
+        "comments": 218,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Bitwarden Dual License",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Bitwarden 推出双重许可模式，可能影响用户选择",
+        "what": "Bitwarden 宣布采用双重许可模式，用户可以选择不同的使用方式。",
+        "why_now": "这一变化可能是为了适应市场需求和用户反馈，提升产品的灵活性。",
+        "how_used": "美国用户可以根据自己的需求选择适合的许可模式，可能影响他们的使用体验和成本。",
+        "why_cn": "中国用户应关注这一变化，以便在选择密码管理工具时做出更明智的决策。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认是否能在中国大陆使用该服务及其支付方式。",
+        "x_line": "Bitwarden 采用双重许可模式，用户可根据需求选择不同的使用方式，可能影响其市场竞争力。"
+      },
+      "overseas_heat": 86.9,
+      "cn_scarcity": 100.0,
+      "total": 64.1,
+      "notes": [],
+      "signal_id": "3e649cc3059c6226"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "I would like the value of my home to rise, while my property taxes fall",
+        "url": "https://conversableeconomist.com/2026/09/28/i-would-like-the-value-of-my-home-to-rise-while-my-property-taxes-fall/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50032758",
+        "summary": "",
+        "created_at": "2026-10-10T13:29:03+00:00",
+        "points": 164,
+        "comments": 377,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "would like value home",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "US_LIFE",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "美国房产税与房价的矛盾引发热议",
+        "what": "讨论了希望房价上涨而房产税下降的愿望。",
+        "why_now": "当前经济形势下，房产税和房价的关系引发了公众关注。",
+        "how_used": "美国人正在讨论如何在房价上涨的同时减轻税负。",
+        "why_cn": "中国用户可以关注美国房地产市场的税收政策变化及其对投资的影响。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认美国房地产市场的政策和税收变化对投资的影响。",
+        "x_line": "美国人希望在房价上涨的同时，能够降低房产税，这一矛盾引发了广泛讨论。"
+      },
+      "overseas_heat": 84.9,
+      "cn_scarcity": 100.0,
+      "total": 63.5,
+      "notes": [],
+      "signal_id": "08b41c4e566c6118"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Apple/macOS removed from official Unix registry",
+        "url": "https://www.opengroup.org//openbrand/register/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50031653",
+        "summary": "",
+        "created_at": "2026-10-10T10:57:31+00:00",
+        "points": 197,
+        "comments": 190,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Apple Unix",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "macOS 被移除官方 Unix 注册，意味着什么？",
+        "what": "macOS 从官方 Unix 注册中被移除，这意味着它不再被视为一个正式的 Unix 操作系统。",
+        "why_now": "这一变化可能反映了对 Unix 标准的重新审视，以及 macOS 在技术和市场定位上的变化。",
+        "how_used": "美国用户可能会关注这一变化对软件兼容性和开发环境的影响，尤其是在使用 Unix 系统的开发者中。",
+        "why_cn": "中国用户应注意这一变化，因为它可能影响到 macOS 的开发者生态和与 Unix 系统的兼容性，尤其是在技术转型和软件开发上。",
+        "opportunity": "原文未提及",
+        "risks": "macOS 的开发者可能面临与 Unix 兼容性下降的问题，影响软件开发和运行环境。",
+        "x_line": "macOS 被移除官方 Unix 注册，标志着其在 Unix 生态中的地位发生了变化，可能影响开发者的使用体验。"
+      },
+      "overseas_heat": 82.2,
+      "cn_scarcity": 100.0,
+      "total": 62.7,
+      "notes": [],
+      "signal_id": "d06056a614426330"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "openai/math",
+        "url": "https://github.com/openai/math",
+        "discussion_url": "",
+        "summary": "",
+        "created_at": "2026-10-06T21:47:02Z",
+        "points": 13633,
+        "comments": 1505,
+        "tags": [
+          "Lean"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "math",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "OpenAI 发布了数学工具库，助力数学推理和计算",
+        "what": "OpenAI 在 GitHub 上发布了一个名为 math 的开源项目，旨在提供数学推理和计算的支持。",
+        "why_now": "随着人工智能技术的发展，数学推理在许多应用中变得越来越重要，OpenAI 希望通过这个项目提升相关能力。",
+        "how_used": "美国的开发者可以使用这个库来构建和优化数学相关的应用，进行复杂的数学计算和推理。",
+        "why_cn": "中国用户可以关注这个项目，以便了解数学推理在 AI 应用中的最新进展，可能会对相关领域的研究和开发有所帮助。",
+        "opportunity": "没有直接的商业机会，主要是一个技术工具。",
+        "risks": "需自行确认是否符合中国大陆的使用政策和网络访问限制。",
+        "x_line": "OpenAI 发布了一个数学工具库，旨在提升数学推理和计算能力，适合开发者使用。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 60.0,
+      "notes": [],
+      "signal_id": "e6f6b2abd84dbd53"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "YouTuber Says Cops Visited Him After He Built a Flock-Style Camera to Track Cops",
+        "url": "https://gizmodo.com/youtuber-says-cops-paid-him-a-visit-after-he-built-flock-style-camera-to-track-cops-2000824306",
+        "discussion_url": "https://news.ycombinator.com/item?id=50026555",
+        "summary": "",
+        "created_at": "2026-10-09T21:06:59+00:00",
+        "points": 649,
+        "comments": 344,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "YouTuber Says Cops",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "YouTuber因制作监控警察的摄像头被警方拜访，引发公众讨论",
+        "what": "一位YouTuber开发了一种类似Flock的摄像头，用于监控警察活动，结果警方上门找他了解情况。",
+        "why_now": "随着公众对警察行为的关注增加，监控技术的使用引发了更多的讨论和争议。",
+        "how_used": "美国一些人可能会使用类似的技术来监控公共安全和执法活动，尤其是在对警察行为有疑虑的情况下。",
+        "why_cn": "中国用户可能会关注此事件，因为它涉及到监控技术与执法透明度的关系，反映了社会对权力监督的需求。",
+        "opportunity": "没有明确的机会。",
+        "risks": "涉及法律风险和隐私问题，可能会引发法律诉讼或警方的关注。",
+        "x_line": "一位YouTuber因开发监控警察的摄像头被警方拜访，反映出公众对执法透明度的关注。"
+      },
+      "overseas_heat": 97.1,
+      "cn_scarcity": 100.0,
+      "total": 59.2,
+      "notes": [],
+      "signal_id": "bdb97a0bb56b341e"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "REA Reverse – Engineer Anything",
+        "url": "https://rea.tools/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50028275",
+        "summary": "",
+        "created_at": "2026-10-10T00:37:07+00:00",
+        "points": 645,
+        "comments": 273,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "REA Reverse Engineer",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "REA Reverse：一种新的逆向工程工具，可能改变开发者的工作方式",
+        "what": "REA Reverse 是一个新的逆向工程工具，旨在帮助开发者分析和理解现有的软件和系统。",
+        "why_now": "随着软件复杂性的增加，开发者需要更有效的工具来进行逆向工程，以便快速适应和改进现有技术。",
+        "how_used": "美国的开发者可以使用 REA Reverse 来分析软件的结构，识别关键组件，并进行优化或修改。",
+        "why_cn": "中国用户应该关注这一工具，因为它可能为软件开发和技术创新提供新的思路和方法。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认该工具在中国大陆的可用性及相关法律风险。",
+        "x_line": "REA Reverse 是一个新推出的逆向工程工具，旨在帮助开发者更好地理解和分析现有软件。"
+      },
+      "overseas_heat": 96.4,
+      "cn_scarcity": 100.0,
+      "total": 59.0,
+      "notes": [],
+      "signal_id": "efa2a74ec9adee8b"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "`123456' password used in Danish CPR data breach",
+        "url": "https://cphpost.dk/2026-10-10/news/round-up/123456-password-used-in-massive-danish-cpr-data-breach/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50031269",
+        "summary": "",
+        "created_at": "2026-10-10T09:51:49+00:00",
+        "points": 357,
+        "comments": 184,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Danish CPR",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "丹麦CPR数据泄露事件中使用了最常见的密码",
+        "what": "在丹麦的CPR数据泄露事件中，使用了非常常见的密码'123456'，引发了对网络安全的关注。",
+        "why_now": "随着网络攻击事件的增加，公众对密码安全的意识逐渐提高，这一事件再次突显了这一问题。",
+        "how_used": "美国用户在日常生活中被提醒使用更复杂的密码，并利用密码管理工具来增强安全性。",
+        "why_cn": "中国用户应关注网络安全问题，尤其是在使用简单密码时，可能面临的风险和后果。",
+        "opportunity": "没有明显的机会。",
+        "risks": "使用简单密码容易导致账户被攻击，用户需提高密码复杂性并定期更换密码。",
+        "x_line": "丹麦CPR数据泄露事件中，最常用的密码'123456'再次暴露了密码安全的严重问题。"
+      },
+      "overseas_heat": 88.4,
+      "cn_scarcity": 100.0,
+      "total": 56.6,
+      "notes": [],
+      "signal_id": "5c5a1af44ad68c94"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Computers Cannot Make Decisions",
+        "url": "https://wiki.cateat.fish/art:computers_cannot_make_decisions",
+        "discussion_url": "https://news.ycombinator.com/item?id=50029982",
+        "summary": "",
+        "created_at": "2026-10-10T05:47:46+00:00",
+        "points": 188,
+        "comments": 173,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Computers Cannot Make",
+        "zh_results": 2,
+        "sample_urls": [
+          "https://zdabc.icu/article/2026/10/10/5109.html?utm_source=openai",
+          "https://www.chinavalue.net/article/2026/3/13/1963414.html?utm_source=openai"
+        ],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "计算机无法做出决策的深层思考引发热议",
+        "what": "一篇文章探讨了计算机在决策过程中的局限性，强调人类判断的重要性。",
+        "why_now": "随着AI技术的快速发展，关于机器决策能力的讨论愈发重要。",
+        "how_used": "美国人可能在讨论中反思AI在生活和工作中的应用，尤其是在需要复杂判断的场景。",
+        "why_cn": "中国用户应关注这一话题，以理解AI在决策中的局限性，避免过度依赖技术。",
+        "opportunity": "没有明显的机会。",
+        "risks": "需注意AI决策的局限性，避免在关键决策中完全依赖计算机。",
+        "x_line": "一篇文章探讨了计算机在决策中的局限性，引发了广泛讨论。"
+      },
+      "overseas_heat": 81.3,
+      "cn_scarcity": 80.0,
+      "total": 56.4,
+      "notes": [
+        "中文近一周已有 2 条相关结果"
+      ],
+      "signal_id": "3758ba2edb4c2722"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "alchaincyf/huashu-art-motion",
+        "url": "https://github.com/alchaincyf/huashu-art-motion",
+        "discussion_url": "",
+        "summary": "艺术动画skill：35种艺术风格、9种解说语法，用代码让画动起来。",
+        "created_at": "2026-10-06T04:49:37Z",
+        "points": 3191,
+        "comments": 351,
+        "tags": [
+          "JavaScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "huashu art motion",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 80.0,
+        "by_llm": true,
+        "headline_zh": "开源项目让艺术作品动起来，支持多种风格和解说语法",
+        "what": "一个开源项目提供了35种艺术风格和9种解说语法的动画功能，允许用户通过代码使静态艺术作品动态化。",
+        "why_now": "随着数字艺术和动画技术的发展，越来越多的艺术家和开发者希望将静态作品转化为动态展示，以吸引观众的注意力。",
+        "how_used": "美国的开发者和艺术家可以利用这个项目，通过编写JavaScript代码，将他们的艺术作品转化为动画，增强作品的表现力。",
+        "why_cn": "中国用户可以关注这个项目，了解如何将传统艺术与现代技术结合，提升艺术作品的互动性和吸引力。",
+        "opportunity": "对于有编程基础的艺术创作者来说，这是一个提升作品表现力的机会。",
+        "risks": "需自行确认是否能在中国大陆访问GitHub及相关资源，且需要一定的编程基础才能使用。",
+        "x_line": "一个开源项目提供了将艺术作品动态化的工具，支持多种风格和解说语法。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 10.0,
+      "total": 55.0,
+      "notes": [
+        "原文本身含中文,已面向中文用户(稀缺度按 10 计)"
+      ],
+      "signal_id": "4ae38314a2f53c64"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Clinical trial of a prion disease drug candidate begins enrolling participants",
+        "url": "https://www.broadinstitute.org/news/clinical-trial-prion-disease-drug-candidate-begins-enrolling-participants",
+        "discussion_url": "https://news.ycombinator.com/item?id=50028027",
+        "summary": "",
+        "created_at": "2026-10-09T23:53:08+00:00",
+        "points": 152,
+        "comments": 43,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Clinical",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "针对朊病毒疾病的新药临床试验开始招募参与者",
+        "what": "一项针对朊病毒疾病的药物候选者的临床试验已开始招募参与者。",
+        "why_now": "随着对朊病毒疾病的研究加深，新的治疗方案的需求日益增加。",
+        "how_used": "美国的研究机构正在招募志愿者参与临床试验，以评估新药的安全性和有效性。",
+        "why_cn": "中国用户应关注这一进展，因为朊病毒疾病的研究可能影响未来的治疗方法，尤其是在神经退行性疾病领域。",
+        "opportunity": "原文未提及",
+        "risks": "参与临床试验可能存在未知的副作用和风险，需谨慎考虑。",
+        "x_line": "针对朊病毒疾病的新药临床试验开始招募参与者，可能为未来治疗提供新希望。"
+      },
+      "overseas_heat": 74.7,
+      "cn_scarcity": 100.0,
+      "total": 52.5,
+      "notes": [],
+      "signal_id": "377d97d611eb4776"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "zhongerxin/iPhone-use",
+        "url": "https://github.com/zhongerxin/iPhone-use",
+        "discussion_url": "",
+        "summary": "让 Codex 通过 USB 操作真实 iPhone：引导安装、App 自动化、实时屏幕与截图回退。",
+        "created_at": "2026-10-06T15:09:33Z",
+        "points": 2533,
+        "comments": 252,
+        "tags": [
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "iPhone use",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开发者通过USB实现iPhone自动化操作，中文用户可借鉴",
+        "what": "一个开源项目允许通过USB对真实iPhone进行操作，包括引导安装、App自动化和实时屏幕截图等功能。",
+        "why_now": "随着对iPhone自动化需求的增加，开发者希望提供更便捷的操作方式。",
+        "how_used": "美国开发者可以利用这个工具进行iPhone的自动化测试和应用开发。",
+        "why_cn": "中国用户可以关注这一工具，了解如何在iPhone上进行更高效的开发和测试，尤其是对于开发者和技术爱好者。",
+        "opportunity": "有机会通过学习和使用该工具提升iPhone开发技能。",
+        "risks": "需自行确认是否符合当地法律法规，且使用过程中可能存在设备损坏的风险。",
+        "x_line": "一个开源项目允许通过USB对真实iPhone进行操作，支持引导安装和App自动化。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 10.0,
+      "total": 47.0,
+      "notes": [
+        "原文本身含中文,已面向中文用户(稀缺度按 10 计)"
+      ],
+      "signal_id": "a223aa2decdb12e4"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "mhtsec/ARTEX",
+        "url": "https://github.com/mhtsec/ARTEX",
+        "discussion_url": "",
+        "summary": "AI 自主渗透测试系统 | 百度“agent+”攻防挑战赛冠军项目",
+        "created_at": "2026-10-08T05:33:06Z",
+        "points": 2892,
+        "comments": 5304,
+        "tags": [
+          "Go"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "ARTEX",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "AI自主渗透测试系统，助力网络安全防护",
+        "what": "一个名为ARTEX的AI自主渗透测试系统在GitHub上发布，该项目曾获得百度“agent+”攻防挑战赛的冠军。",
+        "why_now": "随着网络安全威胁的增加，企业和组织对渗透测试工具的需求日益增长。",
+        "how_used": "美国的安全团队可能会利用ARTEX进行自主渗透测试，以评估其系统的安全性。",
+        "why_cn": "中国用户应关注此项目，因为它展示了AI在网络安全领域的应用，可能影响未来的安全防护策略。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认该工具在中国的使用合规性和网络环境适配性。",
+        "x_line": "ARTEX是一个AI自主渗透测试系统，曾获百度攻防挑战赛冠军，展示了AI在网络安全中的潜力。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 10.0,
+      "total": 33.0,
+      "notes": [
+        "原文本身含中文,已面向中文用户(稀缺度按 10 计)"
+      ],
+      "signal_id": "65d8248ff8a4e0fe"
+    }
+  ],
+  "candidates": [
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Talorys – A self-hosted personal AI agent on Cloudflare's free tier",
+        "url": "https://github.com/rociiu/talorys",
+        "discussion_url": "https://news.ycombinator.com/item?id=50031614",
+        "summary": "",
+        "created_at": "2026-10-10T10:52:09+00:00",
+        "points": 208,
+        "comments": 106,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Talorys AI Cloudflare",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 60.0,
+        "visual": 50.0,
+        "by_llm": true,
+        "headline_zh": "Talorys：一个可自托管的个人AI代理，利用Cloudflare免费套餐",
+        "what": "Talorys是一个可以自托管的个人AI代理，用户可以在Cloudflare的免费套餐上运行它。",
+        "why_now": "随着个人化AI工具的需求增加，越来越多的人希望能够自主管理自己的AI代理。",
+        "how_used": "美国用户可以通过在Cloudflare上部署Talorys，创建一个自己的AI助手，用于处理日常任务或信息查询。",
+        "why_cn": "中国用户可能对自托管AI代理的概念感兴趣，尤其是在数据隐私和个性化服务方面。",
+        "opportunity": "有机会通过自托管的方式使用AI工具，但需要一定的技术基础。",
+        "risks": "需自行确认Cloudflare在中国的可用性及相关的网络和数据隐私问题。",
+        "x_line": "Talorys允许用户在Cloudflare的免费套餐上自托管个人AI代理，满足个性化需求。"
+      },
+      "overseas_heat": 80.6,
+      "cn_scarcity": 100.0,
+      "total": 79.2,
+      "notes": [],
+      "signal_id": "03111b7b91c81dfe"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "LosaLosSantos/aurelio-finance",
+        "url": "https://github.com/LosaLosSantos/aurelio-finance",
+        "discussion_url": "",
+        "summary": "Open-source personal finance app with an AI financial advisor: track your net worth, investments, ETFs, cash and debts on your own computer.",
+        "created_at": "2026-10-06T20:14:19Z",
+        "points": 2092,
+        "comments": 215,
+        "tags": [
+          "ai",
+          "dividends",
+          "etf",
+          "finance",
+          "financial-planning",
+          "fintech",
+          "investing",
+          "llm",
+          "net-worth",
+          "personal-finance",
+          "portfolio-tracker",
+          "self-hosted",
+          "stocks",
+          "wealth-management",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "aurelio finance",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开源个人财务应用：AI 财务顾问助你追踪资产与投资",
+        "what": "一个开源的个人财务应用程序，配备 AI 财务顾问，用户可以在自己的电脑上追踪净资产、投资、ETF、现金和债务。",
+        "why_now": "随着个人财务管理需求的增加，结合 AI 技术的工具越来越受到关注。",
+        "how_used": "美国用户可以通过该应用程序管理和分析自己的财务状况，使用 AI 提供的建议来优化投资组合。",
+        "why_cn": "中国用户可以关注这一趋势，了解如何利用 AI 技术来改善个人财务管理，但需注意软件的使用限制。",
+        "opportunity": "对于希望自主管理财务的用户来说，这是一个值得尝试的工具。",
+        "risks": "需自行确认软件的兼容性和安全性，特别是在处理敏感财务数据时。",
+        "x_line": "一个开源的个人财务应用，结合 AI 技术帮助用户追踪和管理财务状况。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 74.0,
+      "notes": [],
+      "signal_id": "889f0e3869a21eb4"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "Jakeschincariol/replica-skill",
+        "url": "https://github.com/Jakeschincariol/replica-skill",
+        "discussion_url": "",
+        "summary": "Eleven free Claude skills that clone any app: reverse-engineer it, rebuild it, test it for bugs, then fix what its users hate. Free, MIT.",
+        "created_at": "2026-10-03T12:07:49Z",
+        "points": 1594,
+        "comments": 218,
+        "tags": [
+          "agent",
+          "agent-skills",
+          "app-clone",
+          "claude",
+          "claude-code",
+          "claude-skills",
+          "indie-hacker",
+          "reverse-engineering",
+          "saas",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "replica skill",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开发者推出免费工具，轻松克隆和优化应用",
+        "what": "一个开源项目提供了11个免费的Claude技能，允许用户反向工程任何应用，重建、测试并修复用户不满的地方。",
+        "why_now": "随着应用开发和用户体验优化的需求增加，开发者希望通过此工具简化应用克隆和改进的过程。",
+        "how_used": "美国开发者可以利用这些技能快速复制现有应用，进行功能测试和用户反馈改进。",
+        "why_cn": "中国用户可以关注这一工具的使用，了解如何在应用开发中进行逆向工程和优化，提升产品竞争力。",
+        "opportunity": "对于有开发能力的用户，可以利用这些技能快速开发和优化应用，可能带来商业机会。",
+        "risks": "需注意反向工程可能涉及的法律风险，以及在中国大陆的使用限制需自行确认。",
+        "x_line": "一个开源项目提供了11个Claude技能，帮助用户反向工程和优化应用，提升开发效率。"
+      },
+      "overseas_heat": 97.9,
+      "cn_scarcity": 100.0,
+      "total": 73.4,
+      "notes": [],
+      "signal_id": "3fab50220ed42ab7"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "storytold/gridcraft",
+        "url": "https://github.com/storytold/gridcraft",
+        "discussion_url": "",
+        "summary": "GridCraft: an open-source, clean-room spreadsheet (Microsoft Excel-style) in pure Rust. By ArtCraft.",
+        "created_at": "2026-10-07T05:18:16Z",
+        "points": 1754,
+        "comments": 663,
+        "tags": [
+          "Rust"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "gridcraft",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 60.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "一个开源的Rust电子表格项目，值得关注",
+        "what": "一个开源项目GridCraft被开发出来，它是一个纯Rust编写的电子表格工具，类似于Microsoft Excel。",
+        "why_now": "随着Rust语言的流行，开发者们开始尝试用它构建各种应用，包括电子表格工具，以提高性能和安全性。",
+        "how_used": "美国开发者可以使用GridCraft进行数据处理、分析和可视化，尤其是在需要高性能和安全性的场合。",
+        "why_cn": "中国用户可以关注这个项目，了解Rust语言在实际应用中的潜力，尤其是在数据处理领域。",
+        "opportunity": "如果你对Rust编程感兴趣，可以参与这个项目的开发或使用它来构建自己的应用。",
+        "risks": "项目仍在开发中，可能存在稳定性和功能不全的问题，需自行确认是否满足使用需求。",
+        "x_line": "GridCraft是一个用Rust语言开发的开源电子表格工具，提供类似Excel的功能，适合数据处理和分析。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 72.0,
+      "notes": [],
+      "signal_id": "640f3e294e717475"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "storytold/wordcraft",
+        "url": "https://github.com/storytold/wordcraft",
+        "discussion_url": "",
+        "summary": "An open-source, clean-room reimplementation of Microsoft Word in pure Rust",
+        "created_at": "2026-10-07T08:34:24Z",
+        "points": 3036,
+        "comments": 869,
+        "tags": [
+          "Rust"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "wordcraft",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 50.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开源项目Wordcraft：用Rust重构的Microsoft Word",
+        "what": "一个开源项目Wordcraft实现了Microsoft Word的功能，使用纯Rust语言重构。",
+        "why_now": "随着Rust语言的流行，开发者希望提供一个更安全、更高效的文字处理工具。",
+        "how_used": "美国用户可以在本地运行这个项目，享受类似Word的文字处理体验。",
+        "why_cn": "中国用户可能对开源替代品感兴趣，尤其是在寻找更安全的办公软件时。",
+        "opportunity": "用户可以参与开发或根据需要定制软件。",
+        "risks": "项目仍在开发中，可能存在不稳定性和功能缺失，需自行确认是否满足需求。",
+        "x_line": "Wordcraft是一个用Rust重构的开源Microsoft Word，提供了一个安全且高效的文字处理选择。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 70.0,
+      "notes": [],
+      "signal_id": "a652d1548c7a77bc"
+    }
+  ],
+  "picks": [
+    "03111b7b91c81dfe",
+    "889f0e3869a21eb4",
+    "a652d1548c7a77bc"
+  ],
+  "coverage_checked": true,
+  "llm_used": true,
+  "by_source": {
+    "hackernews": 32,
+    "github": 29
+  },
+  "skipped_seen": 1
+}
