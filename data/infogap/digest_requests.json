@@ -294,5 +294,10 @@
     "failures": [
       "X API returned 401: {\n  \"title\": \"Unauthorized\",\n  \"type\": \"about:blank\",\n  \"status\": 401,\n  \"detail\": \"Unauthorized\"\n}"
     ]
+  },
+  {
+    "status": "pending",
+    "auto": true,
+    "note": "daily auto scan 2026-10-10"
   }
 ]
