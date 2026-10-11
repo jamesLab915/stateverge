@@ -14,7 +14,16 @@
     "anchor_clips": 0
   },
   {
-    "status": "pending",
-    "note": "sample 2 after subtitle/board/length fixes"
+    "status": "rendered",
+    "note": "sample 2 after subtitle/board/length fixes",
+    "processed_at": "2026-10-11T23:11:09+00:00",
+    "episode": "episodes/2026-10-09.json",
+    "video_url": "https://github.com/jamesLab915/stateverge/releases/download/finance-2026-10-09-231345/stateverge_finance_2026-10-09.mp4",
+    "title": "美股三大指数全线收涨 道指涨423.31点",
+    "problems": [
+      "总字数 641,应在 650–1150 之间",
+      "RUNWAYML_API_SECRET 未设置,主播用静态形象"
+    ],
+    "anchor_clips": 0
   }
 ]
