@@ -43,7 +43,8 @@ SYSTEM_PROMPT = f"""你是「Stateverge 美国财经日报」的中文撰稿人�
 5. 1–2 段 vo:利率、美元、原油、黄金或比特币中值得一提的变化
 6. anchor:结尾一句(不超过 {ANCHOR_MAX_CHARS} 个字),只做告别,不要说「订阅」以外的号召
 
-anchor 恰好 3 段。全部 text 合计 {MIN_CHARS}–{MAX_CHARS} 个字。
+anchor 恰好 3 段(不多不少)。每段 vo 写 120–220 字,讲透背景和影响;全部 text 合计 {MIN_CHARS}–{MAX_CHARS} 个字
+(少于 {MIN_CHARS} 字视为不合格)。
 
 只输出 JSON:
 {{"title": "YouTube 标题(30 字内,写清今天最大的变化,不夸张)",
@@ -128,7 +129,7 @@ def allowed_numbers(quotes: list[Quote], heads: list[Headline]) -> set[str]:
 
 
 def _cjk_len(text: str) -> int:
-    return len(re.sub(r"[\s,。、!?:;,.!?:;「」\"'()()]", "", text))
+    return len(re.sub(r"[\s，。、！？：；,.!?:;「」\"'()（）]", "", text))
 
 
 def check(script: Script, quotes: list[Quote], heads: list[Headline]) -> list[str]:
@@ -164,6 +165,18 @@ def check(script: Script, quotes: list[Quote], heads: list[Headline]) -> list[st
     return problems
 
 
+def normalize(script: Script) -> Script:
+    """Keep exactly the first, a middle and the last anchor line; extra ones become voice-over."""
+    idx = [i for i, s in enumerate(script.segments) if s.kind == "anchor"]
+    if len(idx) > 3:
+        keep = {idx[0], idx[len(idx) // 2], idx[-1]}
+        for i in idx:
+            if i not in keep:
+                script.segments[i].kind = "vo"
+                script.segments[i].visual = script.segments[i].visual or {"type": "board"}
+    return script
+
+
 # ---------- writer ----------
 
 def _http(url: str, headers: dict, body: bytes) -> bytes:
@@ -177,6 +190,7 @@ class ScriptWriter:
         self.api_key = (api_key or os.environ.get("OPENAI_API_KEY", "")).strip()
         self.model = model or os.environ.get("FINANCE_MODEL") or "gpt-4o-mini"
         self.post = post or _http
+        self.retries = 2
 
     def _ask(self, messages: list[dict]) -> Script:
         body = json.dumps({"model": self.model, "temperature": 0.4, "response_format": {"type": "json_object"},
@@ -190,13 +204,15 @@ class ScriptWriter:
             raise RuntimeError("OPENAI_API_KEY missing")
         messages = [{"role": "system", "content": SYSTEM_PROMPT}, {"role": "user", "content": material(quotes, heads)}]
         try:
-            script = self._ask(messages)
-            problems = check(script, quotes, heads)
-            if problems:
+            script = normalize(self._ask(messages))
+            for _ in range(self.retries):
+                problems = check(script, quotes, heads)
+                if not problems:
+                    break
                 messages += [{"role": "assistant", "content": json.dumps(script.to_dict(), ensure_ascii=False)},
                              {"role": "user", "content": "请修正以下问题后重新输出完整 JSON:\n- " + "\n- ".join(problems)}]
-                script = self._ask(messages)
-                script.problems = check(script, quotes, heads)
+                script = normalize(self._ask(messages))
+            script.problems = check(script, quotes, heads)
             return script
         except (urllib.error.URLError, TimeoutError, KeyError, IndexError, TypeError, ValueError) as e:
             raise RuntimeError(f"script generation failed: {type(e).__name__}: {e}") from e

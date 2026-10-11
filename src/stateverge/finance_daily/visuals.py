@@ -78,14 +78,14 @@ def board(day: str, quotes: list[Quote], out: Path) -> Path:
     img, d = _canvas()
     _chrome(d, day)
     d.text((96, 140), "收盘行情", font=font(56), fill=WHITE)
-    cols, cw, ch = 2, 840, 170
+    cols, cw, ch = 2, 840, 140
     for i, q in enumerate(quotes[:8]):
-        x, y = 96 + (i % cols) * (cw + 48), 250 + (i // cols) * (ch + 20)
+        x, y = 96 + (i % cols) * (cw + 48), 230 + (i // cols) * (ch + 16)
         d.rounded_rectangle([x, y, x + cw, y + ch], 18, fill=(22, 33, 56))
         value, pct, color = _fmt(q)
-        d.text((x + 36, y + 30), q.name, font=font(40), fill=GRAY)
-        d.text((x + 36, y + 88), value, font=font(56), fill=WHITE)
-        d.text((x + cw - 36, y + 96), pct, font=font(48), fill=color, anchor="ra")
+        d.text((x + 36, y + 18), q.name, font=font(36), fill=GRAY)
+        d.text((x + 36, y + 66), value, font=font(52), fill=WHITE)
+        d.text((x + cw - 36, y + 74), pct, font=font(44), fill=color, anchor="ra")
     img.save(out)
     return out
 
@@ -151,9 +151,10 @@ def lower_third(out: Path) -> Path:
     """Transparent overlay for anchor shots: AI label is always visible on the presenter."""
     img = Image.new("RGBA", (W, H))
     d = ImageDraw.Draw(img)
-    d.rectangle([0, H - 190, 980, H - 90], fill=(8, 12, 22, 225))
-    d.rectangle([0, H - 190, 14, H - 90], fill=RED)
-    d.text((48, H - 178), SHOW, font=font(40), fill=WHITE)
-    d.text((48, H - 128), "AI 虚拟主播 · 非真人", font=font(28), fill=GRAY)
+    top = H - 330  # above the subtitle band
+    d.rectangle([0, top, 760, top + 100], fill=(8, 12, 22, 225))
+    d.rectangle([0, top, 14, top + 100], fill=RED)
+    d.text((48, top + 12), SHOW, font=font(40), fill=WHITE)
+    d.text((48, top + 62), "AI 虚拟主播 · 非真人", font=font(28), fill=GRAY)
     img.save(out)
     return out

@@ -12,5 +12,9 @@
       "RUNWAYML_API_SECRET 未设置,主播用静态形象"
     ],
     "anchor_clips": 0
+  },
+  {
+    "status": "pending",
+    "note": "sample 2 after subtitle/board/length fixes"
   }
 ]

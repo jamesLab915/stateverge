@@ -116,6 +116,22 @@ class TestGuard(unittest.TestCase):
         self.assertEqual(out.problems, [])
 
 
+class TestTextRules(unittest.TestCase):
+    def test_subtitles_never_split_numbers(self):
+        from stateverge.finance_daily.assemble import _chunks
+        chunks = _chunks("道琼斯指数收于51,654.95点,上涨0.83%。标普500收于7,811.54点。")
+        self.assertIn("51,654.95", "".join(c for c in chunks if "51" in c))
+        self.assertTrue(all("51," != c[-3:] for c in chunks))
+
+    def test_extra_anchor_lines_become_voice_over(self):
+        s = good_script()
+        s.segments.insert(2, Segment("anchor", "再补一句。"))
+        script.normalize(s)
+        self.assertEqual(sum(x.kind == "anchor" for x in s.segments), 3)
+        self.assertEqual(s.segments[0].kind, "anchor")
+        self.assertEqual(s.segments[-1].kind, "anchor")
+
+
 class TestRunway(unittest.TestCase):
     def test_avatar_video_flow(self):
         seen = []

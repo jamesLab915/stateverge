@@ -121,7 +121,8 @@ class FinanceRunner:
             item.update(status="error", failures=[f"行情数据不足({len(quotes)} 个品种)"])
             return
         script: Script = self.writer.write(quotes, heads)
-        day = max(q.as_of for q in quotes)
+        idx = [q.as_of for q in quotes if q.symbol.startswith("^")] or [q.as_of for q in quotes]
+        day = max(idx)  # last stock-market session (crypto trades on weekends)
         if item.get("voice"):
             self.speaker.voice = item["voice"]
         audios = {i: self.speaker.speak(s.text, self.work / f"seg_{i:02d}.mp3") for i, s in enumerate(script.segments)}

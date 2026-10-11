@@ -42,8 +42,7 @@ def render_shot(shot: Shot, out: Path) -> float:
              f"setsar=1,fps={FPS},tpad=stop_mode=clone:stop_duration={dur}[base]")
     else:
         inputs += ["-loop", "1", "-framerate", str(FPS), "-i", str(shot.image)]
-        v = (f"[0:v]scale={int(W * 1.05)}:{int(H * 1.05)},crop={W}:{H}:x='{W * 0.05}*t/{dur:.3f}':"
-             f"y='{H * 0.05}*t/{dur:.3f}',setsar=1,fps={FPS}[base]")
+        v = f"[0:v]scale={W}:{H},setsar=1,fps={FPS}[base]"  # static: text cards must stay fully readable
     chain = [v]
     if shot.overlay:
         inputs += ["-i", str(shot.overlay)]
@@ -64,13 +63,17 @@ def render_shot(shot: Shot, out: Path) -> float:
 
 
 def _chunks(text: str, limit: int = 18) -> list[str]:
-    parts = [p for p in re.split(r"(?<=[,。!?;:、,!?;])", text) if p.strip()]
+    # split after Chinese punctuation, or ASCII punctuation not inside a number (51,654.95)
+    parts = [p for p in re.split(r"(?<=[，。！？；：、])|(?<=[,!?;])(?!\d)", text) if p and p.strip()]
     out: list[str] = []
     for p in parts:
         p = p.strip()
         while len(p) > limit:
-            out.append(p[:limit])
-            p = p[limit:]
+            cut = limit
+            while cut > limit // 2 and (p[cut - 1].isdigit() or p[cut - 1] in ".,%") and p[cut].isascii():
+                cut -= 1  # never break inside a number
+            out.append(p[:cut])
+            p = p[cut:]
         if p:
             out.append(p)
     return out
@@ -91,7 +94,7 @@ def srt(shots: list[Shot], durations: list[float]) -> str:
         start = t
         for c in chunks:
             end = start + speak * len(c) / total
-            lines.append(f"{n}\n{_ts(start)} --> {_ts(end)}\n{c.rstrip(',、,')}\n")
+            lines.append(f"{n}\n{_ts(start)} --> {_ts(end)}\n{c.rstrip('，、,')}\n")
             n, start = n + 1, end
         t += dur
     return "\n".join(lines)
