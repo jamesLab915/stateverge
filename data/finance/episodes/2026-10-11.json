@@ -1,0 +1,506 @@
+{
+  "day": "2026-10-11",
+  "script": {
+    "title": "美股三大指数全线收涨，科技股表现强劲",
+    "description": "今天美股三大指数均实现上涨，尤其是科技股表现突出。市场对即将公布的企业财报充满期待，投资者情绪乐观。原油价格小幅上涨，而黄金则出现小幅回落。",
+    "problems": [
+      "anchor 段应为 3 段,实际 4 段",
+      "总字数 380,应在 650–1150 之间"
+    ],
+    "by_llm": true,
+    "segments": [
+      {
+        "kind": "anchor",
+        "text": "今天美股表现强劲，三大指数全线收涨。",
+        "visual": {}
+      },
+      {
+        "kind": "anchor",
+        "text": "科技股引领上涨，投资者情绪乐观。",
+        "visual": {}
+      },
+      {
+        "kind": "anchor",
+        "text": "市场关注即将公布的企业财报。",
+        "visual": {}
+      },
+      {
+        "kind": "vo",
+        "text": "标普500指数收于7,811.54点，涨幅为0.59%。纳斯达克指数上涨0.64%，收于27,366.17点。道琼斯指数则上涨0.83%，收于51,654.95点。",
+        "visual": {
+          "type": "board"
+        }
+      },
+      {
+        "kind": "vo",
+        "text": "市场对即将公布的企业财报充满期待，尤其是科技股的表现引发关注。分析师指出，投资者情绪乐观，可能会推动市场进一步上涨。",
+        "visual": {
+          "type": "chart",
+          "symbol": "^IXIC"
+        }
+      },
+      {
+        "kind": "vo",
+        "text": "与此同时，零售商正在通过缩减产品种类来提升业务表现，这一策略可能会对市场产生深远影响。随着消费者需求的变化，商家们正在努力调整产品组合，以适应市场的变化。",
+        "visual": {
+          "type": "headline",
+          "index": 8
+        }
+      },
+      {
+        "kind": "vo",
+        "text": "在其他市场方面，10年期美债收益率小幅上升至5.24%，上涨1个基点。这表明市场对未来利率变化的关注依然存在。",
+        "visual": {
+          "type": "chart",
+          "symbol": "^TNX"
+        }
+      },
+      {
+        "kind": "vo",
+        "text": "原油价格小幅上涨，WTI原油收于92.46美元，涨幅为0.66%。而黄金价格则小幅回落，收于4,210.00美元，跌幅为0.15%。",
+        "visual": {
+          "type": "chart",
+          "symbol": "CL=F"
+        }
+      },
+      {
+        "kind": "anchor",
+        "text": "整体来看，市场情绪依然积极，关注未来的经济数据。",
+        "visual": {}
+      }
+    ]
+  },
+  "quotes": [
+    {
+      "symbol": "^GSPC",
+      "name": "标普500",
+      "unit": "点",
+      "close": 7811.5400390625,
+      "prev_close": 7765.35986328125,
+      "as_of": "2026-10-09",
+      "series": [
+        7591.7001953125,
+        7656.97998046875,
+        7619.97998046875,
+        7585.72998046875,
+        7551.81005859375,
+        7637.759765625,
+        7650.5,
+        7764.7001953125,
+        7764.64013671875,
+        7706.02978515625,
+        7704.1298828125,
+        7743.41015625,
+        7683.68994140625,
+        7670.83984375,
+        7651.5400390625,
+        7666.4501953125,
+        7722.72021484375,
+        7773.9501953125,
+        7818.93017578125,
+        7801.77001953125,
+        7765.35986328125,
+        7811.5400390625
+      ],
+      "source": "yahoo",
+      "change": 46.1802,
+      "change_pct": 0.59
+    },
+    {
+      "symbol": "^IXIC",
+      "name": "纳斯达克",
+      "unit": "点",
+      "close": 27366.169921875,
+      "prev_close": 27193.33984375,
+      "as_of": "2026-10-09",
+      "series": [
+        26081.720703125,
+        26333.0390625,
+        26186.41015625,
+        25981.5703125,
+        25978.4296875,
+        26418.30078125,
+        26522.5390625,
+        27122.08984375,
+        27244.279296875,
+        26936.0390625,
+        26939.369140625,
+        27068.720703125,
+        26820.380859375,
+        26797.5390625,
+        26861.060546875,
+        26871.599609375,
+        27190.859375,
+        27477.310546875,
+        27599.7890625,
+        27538.689453125,
+        27193.33984375,
+        27366.169921875
+      ],
+      "source": "yahoo",
+      "change": 172.8301,
+      "change_pct": 0.64
+    },
+    {
+      "symbol": "^DJI",
+      "name": "道琼斯",
+      "unit": "点",
+      "close": 51654.94921875,
+      "prev_close": 51231.640625,
+      "as_of": "2026-10-09",
+      "series": [
+        52064.1015625,
+        52573.2890625,
+        52421.19921875,
+        52093.109375,
+        51461.8984375,
+        51778.0390625,
+        51682.640625,
+        52048.828125,
+        51863.69140625,
+        51511.58984375,
+        51349.98046875,
+        51828.62109375,
+        51481.51171875,
+        51349.921875,
+        50906.05078125,
+        50926.55859375,
+        51176.9609375,
+        51267.8984375,
+        51521.28125,
+        51179.87109375,
+        51231.640625,
+        51654.94921875
+      ],
+      "source": "yahoo",
+      "change": 423.3086,
+      "change_pct": 0.83
+    },
+    {
+      "symbol": "^TNX",
+      "name": "10年期美债收益率",
+      "unit": "%",
+      "close": 5.24399995803833,
+      "prev_close": 5.230999946594238,
+      "as_of": "2026-10-09",
+      "series": [
+        4.836999893188477,
+        4.943999767303467,
+        4.974999904632568,
+        4.960999965667725,
+        4.995999813079834,
+        5.00600004196167,
+        4.947000026702881,
+        4.998000144958496,
+        4.9629998207092285,
+        4.9679999351501465,
+        5.113999843597412,
+        5.1620001792907715,
+        5.184000015258789,
+        5.239999771118164,
+        5.255000114440918,
+        5.293000221252441,
+        5.236999988555908,
+        5.2769999504089355,
+        5.310999870300293,
+        5.269000053405762,
+        5.2769999504089355,
+        5.230999946594238,
+        5.24399995803833
+      ],
+      "source": "yahoo",
+      "change": 0.013,
+      "change_pct": 0.25
+    },
+    {
+      "symbol": "CL=F",
+      "name": "WTI原油",
+      "unit": "美元",
+      "close": 92.45999908447266,
+      "prev_close": 91.8499984741211,
+      "as_of": "2026-10-11",
+      "series": [
+        100.05000305175781,
+        101.38999938964844,
+        105.83000183105469,
+        102.43000030517578,
+        101.91000366210938,
+        100.30000305175781,
+        95.77999877929688,
+        94.58999633789062,
+        92.16000366210938,
+        94.61000061035156,
+        92.41000366210938,
+        92.5999984741211,
+        89.37999725341797,
+        90.41999816894531,
+        92.87000274658203,
+        91.11000061035156,
+        89.43000030517578,
+        89.44000244140625,
+        88.27999877929688,
+        91.48999786376953,
+        91.8499984741211,
+        92.45999908447266
+      ],
+      "source": "yahoo",
+      "change": 0.61,
+      "change_pct": 0.66
+    },
+    {
+      "symbol": "GC=F",
+      "name": "黄金",
+      "unit": "美元",
+      "close": 4210.0,
+      "prev_close": 4216.2998046875,
+      "as_of": "2026-10-11",
+      "series": [
+        4408.89990234375,
+        4351.89990234375,
+        4332.7998046875,
+        4387.5,
+        4399.7001953125,
+        4424.89990234375,
+        4383.89990234375,
+        4376.39990234375,
+        4318.39990234375,
+        4298.0,
+        4321.2001953125,
+        4168.39990234375,
+        4179.7001953125,
+        4186.7001953125,
+        4202.2998046875,
+        4162.2998046875,
+        4156.7998046875,
+        4187.10009765625,
+        4140.7001953125,
+        4157.0,
+        4216.2998046875,
+        4210.0
+      ],
+      "source": "yahoo",
+      "change": -6.2998,
+      "change_pct": -0.15
+    },
+    {
+      "symbol": "BTC-USD",
+      "name": "比特币",
+      "unit": "美元",
+      "close": 83638.8125,
+      "prev_close": 82912.2265625,
+      "as_of": "2026-10-11",
+      "series": [
+        77173.796875,
+        77270.46875,
+        76838.15625,
+        78163.3828125,
+        75612.5078125,
+        76150.3203125,
+        76403.7734375,
+        80901.4609375,
+        81233.6796875,
+        81142.609375,
+        86602.9140625,
+        86172.28125,
+        84383.0078125,
+        84379.0625,
+        84034.921875,
+        84406.453125,
+        84458.0859375,
+        83502.609375,
+        83622.4296875,
+        83553.8515625,
+        84853.1015625,
+        84497.2109375,
+        84763.578125,
+        86480.3046875,
+        85786.59375,
+        85557.5625,
+        83275.9296875,
+        81676.3359375,
+        82546.3203125,
+        82912.2265625,
+        83638.8125
+      ],
+      "source": "yahoo",
+      "change": 726.5859,
+      "change_pct": 0.88
+    },
+    {
+      "symbol": "CNY=X",
+      "name": "美元兑人民币",
+      "unit": "",
+      "close": 6.683000087738037,
+      "prev_close": 6.702099800109863,
+      "as_of": "2026-10-11",
+      "series": [
+        6.708000183105469,
+        6.708199977874756,
+        6.71120023727417,
+        6.705999851226807,
+        6.707399845123291,
+        6.697500228881836,
+        6.695300102233887,
+        6.6996002197265625,
+        6.711100101470947,
+        6.711100101470947,
+        6.712800025939941,
+        6.710299968719482,
+        6.703000068664551,
+        6.704500198364258,
+        6.704500198364258,
+        6.704500198364258,
+        6.704500198364258,
+        6.704500198364258,
+        6.704500198364258,
+        6.702099800109863,
+        6.683000087738037
+      ],
+      "source": "yahoo",
+      "change": -0.0191,
+      "change_pct": -0.28
+    }
+  ],
+  "headlines": [
+    {
+      "source": "CNBC",
+      "title": "Trump Media advisor Katie Zacharia named White House press secretary",
+      "url": "https://www.cnbc.com/2026/10/11/trump-katie-zacharia-white-house-press-secretary.html",
+      "summary": "Trump named Katie Zacharia to take over as the next press secretary.",
+      "published": "2026-10-11T22:16:40+00:00"
+    },
+    {
+      "source": "CNBC",
+      "title": "Trump says he is 'going to look at' joining Saudi Arabia in the fight against Iran-backed Houthis after deadly airport strike",
+      "url": "https://www.cnbc.com/2026/10/11/trump-saudi-arabia-iran-houthis.html",
+      "summary": "U.S. military involvement in the fight against the Houthis would stretch resources in the Middle East already committed to fighting Iran, analysts said.",
+      "published": "2026-10-11T21:30:45+00:00"
+    },
+    {
+      "source": "CNBC",
+      "title": "Justice Department investigates TV networks as White House press-access fight escalates",
+      "url": "https://www.cnbc.com/2026/10/11/trump-doj-white-house-tv-press-pool-antitrust.html",
+      "summary": "The Justice Department said in a statement that it is examining whether the White House TV press pool violated the Sherman Act.",
+      "published": "2026-10-11T20:18:38+00:00"
+    },
+    {
+      "source": "MarketWatch",
+      "title": "‘I have no children’: My aunt gave me $50,000 for a down payment. Now she wants me to leave my home to her two children.",
+      "url": "https://www.marketwatch.com/story/i-have-no-children-my-aunt-gave-me-50-000-for-a-down-payment-she-wants-me-to-leave-my-home-to-her-two-children-24fad94c?mod=mw_rss_topstories",
+      "summary": "“The house cost $385,000. With my savings, her $50,000 and a small mortgage, I was able to close.”",
+      "published": "2026-10-11T20:15:00+00:00"
+    },
+    {
+      "source": "MarketWatch",
+      "title": "‘I feel like a loser’: My stock portfolio is swinging wildly. Is it finally time to worry?",
+      "url": "https://www.marketwatch.com/story/i-feel-like-a-loser-my-etfs-go-up-one-day-and-crash-the-next-is-this-a-bad-sign-0c9848b2?mod=mw_rss_topstories",
+      "summary": "“I presume these are sophisticated investors taking a profit.”",
+      "published": "2026-10-11T20:00:00+00:00"
+    },
+    {
+      "source": "CNBC",
+      "title": "Trump declares 'energy ceasefire' between Russia and Ukraine; Zelenskyy is waiting for details",
+      "url": "https://www.cnbc.com/2026/10/11/trump-energy-ceasefire-russia-ukraine-zelenskyy.html",
+      "summary": "Ukrainian President Volodymyr Zelenskyy said he is waiting on details from Washington.",
+      "published": "2026-10-11T19:33:51+00:00"
+    },
+    {
+      "source": "MarketWatch",
+      "title": "My brother-in-law convinced his parents to sign over their home and life savings to buy a $3 million compound. Do I intervene?",
+      "url": "https://www.marketwatch.com/story/my-brother-in-law-convinced-his-parents-to-sign-over-their-home-and-savings-to-buy-a-3-million-compound-do-i-intervene-03fb96b7?mod=mw_rss_topstories",
+      "summary": "“Both properties will be solely in his name.”",
+      "published": "2026-10-11T19:32:00+00:00"
+    },
+    {
+      "source": "MarketWatch",
+      "title": "I’m a 68-year-old widow and give money to my two adult children. Am I putting my retirement at risk?",
+      "url": "https://www.marketwatch.com/story/im-a-68-year-old-widow-my-two-adult-children-keep-asking-me-for-money-are-they-taking-advantage-of-me-f725374e?mod=mw_rss_topstories",
+      "summary": "“I also have $310,000 in an IRA and $46,000 in savings. My house is paid off.”",
+      "published": "2026-10-11T19:32:00+00:00"
+    },
+    {
+      "source": "CNBC",
+      "title": "From BJ’s to Lululemon, retailers are trimming assortments to boost business",
+      "url": "https://www.cnbc.com/2026/10/10/from-bjs-to-lululemon-retailers-are-trimming-assortments.html",
+      "summary": "Retail brands are shrinking assortments to get back to healthy growth, while box stores are culling products to better curate offerings and stabilize business.",
+      "published": "2026-10-11T17:08:30+00:00"
+    },
+    {
+      "source": "MarketWatch",
+      "title": "Millions of Americans will have fewer options during Medicare open enrollment this year",
+      "url": "https://www.marketwatch.com/story/millions-of-americans-will-have-fewer-options-during-medicare-open-enrollment-this-year-6b56698b?mod=mw_rss_topstories",
+      "summary": "There will be no Medicare Advantage plans in 181 counties in 2027, up from 67 in 2026.",
+      "published": "2026-10-11T16:35:00+00:00"
+    },
+    {
+      "source": "CNBC",
+      "title": "AI’s quiet safety gatekeepers are stepping into the spotlight",
+      "url": "https://www.cnbc.com/2026/10/11/ais-quiet-safety-gatekeepers-are-stepping-into-the-spotlight.html",
+      "summary": "The intensifying AI safety debate is bringing a small group of third-party evaluators into the center of a multitrillion-dollar industry.",
+      "published": "2026-10-11T14:08:44+00:00"
+    },
+    {
+      "source": "MarketWatch",
+      "title": "We’re about to get a huge read on whether earnings can keep propping up the stock market",
+      "url": "https://www.marketwatch.com/story/were-about-to-get-a-huge-read-on-whether-earnings-can-keep-propping-up-the-stock-market-459b565b?mod=mw_rss_topstories",
+      "summary": "High hopes for third-quarter earnings are outweighing concerns around interest rates and oil prices — but one expert warns markets have gotten “extremely complacent.”",
+      "published": "2026-10-11T14:00:00+00:00"
+    },
+    {
+      "source": "CNBC",
+      "title": "AI is automating coding. So why are software developer job postings on the rise?",
+      "url": "https://www.cnbc.com/2026/10/11/ai-software-developer-jobs.html",
+      "summary": "Software developer job postings are rebounding, led by senior and AI-focused roles, even as AI automates more coding and entry-level hiring weakens.",
+      "published": "2026-10-11T13:30:01+00:00"
+    },
+    {
+      "source": "MarketWatch",
+      "title": "The bull market is turning 4 years old — but yields could crash the party",
+      "url": "https://www.marketwatch.com/story/the-bull-market-is-turning-4-years-old-but-yields-could-crash-the-party-1305fe6c?mod=mw_rss_topstories",
+      "summary": "For four years, tech has been the answer to almost every question about this bull market.",
+      "published": "2026-10-11T13:00:00+00:00"
+    },
+    {
+      "source": "CNBC",
+      "title": "NBA commissioner Adam Silver says league could introduce ‘smart ball’ technology as soon as next year",
+      "url": "https://www.cnbc.com/2026/10/11/commissioner-adam-silver-nba-could-launch-smart-ball-tech-next-year.html",
+      "summary": "Commissioner Adam Silver says the NBA could begin using a new \"smart ball\" in games as soon as next year, potentially transforming how officials make calls.",
+      "published": "2026-10-11T12:54:04+00:00"
+    },
+    {
+      "source": "CNBC",
+      "title": "I’m a psychologist who studies couples: The No. 1 way to end a fight before it escalates—it works ‘almost immediately’",
+      "url": "https://www.cnbc.com/make-it/2026/10/11/psychologist-couples-end-fight-before-escalates-partial-yield.html",
+      "summary": "\"In my experience, nothing de-escalates a conflict faster,\" says psychologist Mark Travers. Why a \"partial yield\" works, and how to use it.",
+      "published": "2026-10-11T12:48:01+00:00"
+    },
+    {
+      "source": "MarketWatch",
+      "title": "Bank earnings to shed the first light on how higher yields are affecting the economy",
+      "url": "https://www.marketwatch.com/story/bank-earnings-to-shed-the-first-light-on-how-higher-yields-are-affecting-the-economy-cf3763ef?mod=mw_rss_topstories",
+      "summary": "The big banks kick off earnings season on Tuesday, to provide a first read on the health of the economy in a rising-yield environment.",
+      "published": "2026-10-11T12:00:00+00:00"
+    },
+    {
+      "source": "CNBC Markets",
+      "title": "Top Wall Street analysts prefer these 3 dividend stocks for stable income",
+      "url": "https://www.cnbc.com/2026/10/11/top-analysts-prefer-these-3-dividend-stocks-for-stable-income.html",
+      "summary": "Given a volatile backdrop, investors seeking stable income can consider enhancing their portfolios by adding dividend-paying stocks.",
+      "published": "2026-10-11T11:42:31+00:00"
+    },
+    {
+      "source": "CNBC",
+      "title": "AI may change the price of your Big Mac and groceries — what this means for shoppers",
+      "url": "https://www.cnbc.com/2026/10/11/ai-dynamic-pricing-shoppers-groceries.html",
+      "summary": "As retailers turn to AI tools to streamline operations, experts warn that collecting more detailed consumer data increases the risk of personalized pricing.",
+      "published": "2026-10-11T05:00:01+00:00"
+    }
+  ],
+  "problems": [
+    "anchor 段应为 3 段,实际 4 段",
+    "总字数 380,应在 650–1150 之间",
+    "RUNWAYML_API_SECRET 未设置,主播用静态形象"
+  ],
+  "anchor_clips": 0,
+  "video_file": "stateverge_finance_2026-10-11.mp4"
+}
