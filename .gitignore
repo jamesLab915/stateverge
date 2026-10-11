@@ -63,3 +63,4 @@ __pycache__/
 *.pyc
 /data/political_archive.db*
 /media/
+/finance_build/
