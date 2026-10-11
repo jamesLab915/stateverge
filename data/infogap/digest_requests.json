@@ -325,8 +325,30 @@
     ]
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-11"
+    "note": "daily auto scan 2026-10-11",
+    "processed_at": "2026-10-11T20:53:18+00:00",
+    "digest": "digests/2026-10-11.json",
+    "review": "digests/2026-10-11.md",
+    "collected": 59,
+    "skipped_seen": 5,
+    "candidates": 6,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① 开源项目Deckcraft：用Rust重构的PowerPoint替代品\n为什么重要:中国用户可以关注这一项目，了解开源工具的发展趋势，并探索使用Rust语言的潜力。\n🔗 https://github.com/storytold/deckcraft\n1/4",
+      "② macOS用户注意：新开源工具实现全盘文件快速搜索\n为什么重要:中国用户在使用macOS时，也可能面临文件搜索效率低的问题，这个工具提供了一个高效的解决方案。\n🔗 https://github.com/noahdunnagan/fsearch\n2/4",
+      "③ LineageOS 24.0 发布，带来多项新特性和改进\n为什么重要:中国用户可能对 LineageOS 感兴趣，因为它提供了比原生安卓更高的自定义性，适合喜欢折腾手机的用户。\n🔗 https://lineageos.org/Changelog-32/\n3/4",
+      "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n4/4"
+    ],
+    "auto_skipped": [
+      "开发者推出新工具，将技术理念转化为互动3D图形:个人/开源项目的标题写成了官方发布,需人工改写"
+    ],
+    "auto_signal_ids": [
+      "4129ad30affa7d29",
+      "f8cf8a0cba852e22",
+      "71c60b50103c00e7"
+    ],
+    "post_after": "2026-10-11T23:53:18+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]
