@@ -355,8 +355,26 @@
     ]
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-12"
+    "note": "daily auto scan 2026-10-12",
+    "processed_at": "2026-10-12T20:53:44+00:00",
+    "digest": "digests/2026-10-12.json",
+    "review": "digests/2026-10-12.md",
+    "collected": 63,
+    "skipped_seen": 10,
+    "candidates": 2,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有2个值得中文用户注意的变化\n\n① 开源项目为macOS用户提供NVIDIA显卡驱动支持\n为什么重要:中国用户如果使用macOS且有NVIDIA显卡，可以关注这个项目以获取更好的驱动支持。\n🔗 https://github.com/nullmoth/nvidia-macos-driver\n1/3",
+      "② 新工具让Mac用户通过文件内容搜索，提升工作效率\n为什么重要:中国用户在使用Mac时也可能面临相似的文件管理问题，了解该工具可以帮助提升工作效率。\n🔗 https://github.com/ARahim3/DigUp\n2/3",
+      "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n3/3"
+    ],
+    "auto_skipped": [],
+    "auto_signal_ids": [
+      "ac5d920f53693f84",
+      "9bd8168ac1ecc24d"
+    ],
+    "post_after": "2026-10-12T23:53:44+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]
