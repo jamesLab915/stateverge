@@ -23,9 +23,16 @@
     "failures": []
   },
   {
-    "status": "pending",
+    "status": "rendered",
     "action": "render",
     "episode": "ep001",
-    "note": "EP001 How the Federal Reserve Works — first cut"
+    "note": "EP001 How the Federal Reserve Works — first cut",
+    "processed_at": "2026-10-13T23:02:07+00:00",
+    "video_url": "https://github.com/jamesLab915/stateverge/releases/download/explainer-ep001-20261013230859/stateverge_markets_ep001.mp4",
+    "title": "How the Federal Reserve Works",
+    "notes": [
+      "RUNWAYML_API_SECRET not set; presenter shown as still"
+    ],
+    "segments": 21
   }
 ]
