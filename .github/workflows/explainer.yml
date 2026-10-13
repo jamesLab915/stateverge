@@ -1,0 +1,50 @@
+# Stateverge Markets — Fed explainer: fetch official sources / render episodes.
+name: Explainer
+
+on:
+  push:
+    paths:
+      - "data/explainer/requests.json"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: explainer-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg fonts-noto-cjk poppler-utils
+          pip install -q Pillow
+      - name: Run
+        env:
+          PYTHONPATH: src
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          RUNWAYML_API_SECRET: ${{ secrets.RUNWAYML_API_SECRET }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FINANCE_SUB_FONT: "Noto Sans CJK SC"
+        run: |
+          python -m stateverge.explainer cloud-run --root data/explainer | tee run.log
+          { echo '## Explainer'; echo '```'; cat run.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+      - name: Commit results
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/explainer
+          if git diff --cached --quiet; then echo "no changes"; exit 0; fi
+          git commit -m "explainer: results"
+          git pull --rebase -q origin "${GITHUB_REF_NAME}"
+          git push

@@ -1,0 +1,15 @@
+[
+  {
+    "status": "pending",
+    "action": "fetch",
+    "note": "official sources for EP001",
+    "urls": [
+      "https://www.federalreserve.gov/aboutthefed/fedexplained/who-we-are.htm",
+      "https://www.federalreserve.gov/aboutthefed/fedexplained/monetary-policy.htm",
+      "https://www.federalreserve.gov/aboutthefed/the-fed-explained.htm",
+      "https://www.federalreserve.gov/disclaimer.htm",
+      "https://www.federalreserve.gov/aboutthefed/files/the-fed-explained.pdf",
+      "https://www.federalreserve.gov/monetarypolicy/fomc.htm"
+    ]
+  }
+]
