@@ -381,8 +381,28 @@
     ]
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-13"
+    "note": "daily auto scan 2026-10-13",
+    "processed_at": "2026-10-13T20:53:45+00:00",
+    "digest": "digests/2026-10-13.json",
+    "review": "digests/2026-10-13.md",
+    "collected": 68,
+    "skipped_seen": 11,
+    "candidates": 4,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有3个值得中文用户注意的变化\n\n① 开发者将EmbeddingGemma 2转变为语音转文本模型，提升语音识别能力\n为什么重要:中国用户应关注这一技术进展，因为语音识别在中文市场也有广泛应用，可能影响相关产品和服务的开发。\n🔗 https://eg2.haku.sh/\n1/4",
+      "② AI作为工具，使用它需要技巧，中文用户需重视技能提升\n为什么重要:中国用户在AI应用日益普及的背景下，提升使用AI的技能将有助于在竞争中脱颖而出。\n🔗 https://yyhh.org/blog/2026/10/ai-is-a-tool/\n2/4",
+      "③ 一款新应用让你的截图悬挂在屏幕顶部，方便查看\n为什么重要:中国用户在使用截图工具时，也可能希望有更直观的管理方式，这款应用提供了一种新的思路。\n🔗 https://github.com/alejandrobujan/tendedero\n3/4",
+      "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n4/4"
+    ],
+    "auto_skipped": [],
+    "auto_signal_ids": [
+      "69ea9d53f3b667b3",
+      "89a140ea903d8f22",
+      "e597b6a4de51a14c"
+    ],
+    "post_after": "2026-10-13T23:53:45+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]
