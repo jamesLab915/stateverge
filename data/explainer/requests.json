@@ -1,6 +1,6 @@
 [
   {
-    "status": "pending",
+    "status": "done",
     "action": "fetch",
     "note": "official sources for EP001",
     "urls": [
@@ -10,6 +10,16 @@
       "https://www.federalreserve.gov/disclaimer.htm",
       "https://www.federalreserve.gov/aboutthefed/files/the-fed-explained.pdf",
       "https://www.federalreserve.gov/monetarypolicy/fomc.htm"
-    ]
+    ],
+    "processed_at": "2026-10-13T22:58:21+00:00",
+    "files": [
+      "sources/www-federalreserve-gov-aboutthefed-fedexplained-who-we-are-htm.txt",
+      "sources/www-federalreserve-gov-aboutthefed-fedexplained-monetary-policy-htm.txt",
+      "sources/www-federalreserve-gov-aboutthefed-the-fed-explained-htm.txt",
+      "sources/www-federalreserve-gov-disclaimer-htm.txt",
+      "sources/www-federalreserve-gov-aboutthefed-files-the-fed-explained-pdf.txt",
+      "sources/www-federalreserve-gov-monetarypolicy-fomc-htm.txt"
+    ],
+    "failures": []
   }
 ]
