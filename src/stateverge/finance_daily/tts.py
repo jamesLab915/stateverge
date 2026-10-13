@@ -22,7 +22,8 @@ def _http(url: str, headers: dict, body: bytes) -> bytes:
 
 class Speaker:
     def __init__(self, api_key: str | None = None, voice: str | None = None, model: str | None = None,
-                 post: Post | None = None) -> None:
+                 post: Post | None = None, instructions: str | None = None) -> None:
+        self.instructions = instructions or INSTRUCTIONS
         self.api_key = (api_key or os.environ.get("OPENAI_API_KEY", "")).strip()
         self.voice = voice or os.environ.get("FINANCE_VOICE") or "onyx"
         self.model = model or os.environ.get("FINANCE_TTS_MODEL") or "gpt-4o-mini-tts"
@@ -30,7 +31,7 @@ class Speaker:
 
     def speak(self, text: str, out: Path) -> Path:
         body = json.dumps({"model": self.model, "voice": self.voice, "input": text,
-                           "instructions": INSTRUCTIONS, "response_format": "mp3"}).encode()
+                           "instructions": self.instructions, "response_format": "mp3"}).encode()
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_bytes(self.post(API_URL, {"Authorization": f"Bearer {self.api_key}",
                                             "Content-Type": "application/json"}, body))

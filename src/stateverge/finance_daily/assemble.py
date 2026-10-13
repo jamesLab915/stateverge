@@ -85,10 +85,11 @@ def _ts(t: float) -> str:
     return f"{int(h):02d}:{int(m):02d}:{int(s):02d},{int(round((s - int(s)) * 1000)) % 1000:03d}"
 
 
-def srt(shots: list[Shot], durations: list[float]) -> str:
+def srt(shots: list[Shot], durations: list[float], chunker=None) -> str:
+    chunker = chunker or _chunks
     lines, n, t = [], 1, 0.0
     for shot, dur in zip(shots, durations, strict=True):
-        chunks = _chunks(shot.text) if shot.text else []
+        chunks = chunker(shot.text) if shot.text else []
         speak = max(dur - GAP, 0.1)
         total = sum(len(c) for c in chunks) or 1
         start = t
@@ -100,7 +101,8 @@ def srt(shots: list[Shot], durations: list[float]) -> str:
     return "\n".join(lines)
 
 
-def assemble(shots: list[Shot], work: Path, out: Path, watermark: Path | None = None) -> Path:
+def assemble(shots: list[Shot], work: Path, out: Path, watermark: Path | None = None, chunker=None,
+             sub_style: str = "") -> Path:
     work.mkdir(parents=True, exist_ok=True)
     clips, durs = [], []
     for i, shot in enumerate(shots):
@@ -108,9 +110,10 @@ def assemble(shots: list[Shot], work: Path, out: Path, watermark: Path | None = 
         durs.append(render_shot(shot, clip))
         clips.append(clip)
     (work / "list.txt").write_text("".join(f"file '{c.resolve()}'\n" for c in clips), encoding="utf-8")
-    (work / "subs.srt").write_text(srt(shots, durs), encoding="utf-8")
+    (work / "subs.srt").write_text(srt(shots, durs, chunker), encoding="utf-8")
     style = (f"FontName={SUB_FONT},FontSize=20,PrimaryColour=&H00FFFFFF,OutlineColour=&H80000000,"
              "BorderStyle=1,Outline=2,Shadow=0,MarginV=36")
+    style = sub_style or style
     vf = f"subtitles='{(work / 'subs.srt').resolve()}':force_style='{style}'"
     args = ["-f", "concat", "-safe", "0", "-i", str(work / "list.txt")]
     if watermark and watermark.exists():
