@@ -13,6 +13,7 @@ on:
       - "data/infogap/digest_requests.json"
       # Touched by the daily scheduler to post veto-window items that are due.
       - "data/infogap/tick.txt"
+      - "data/cnbrief/requests.json"
   # Weekly account snapshot (Monday 13:07 UTC). GitHub only runs schedules for
   # workflows on the default branch, so this activates once merged to main;
   # until then, add {"status": "pending"} to stats_requests.json instead.
@@ -75,12 +76,24 @@ jobs:
           python -m stateverge.cn_news.infogap cloud-run --root data/infogap | tee infogap.log
           { echo '## 24H 信息差'; echo '```'; cat infogap.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
 
+      - name: 国内要闻 (China economy/tech/policy)
+        env:
+          PYTHONPATH: src
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          python -m stateverge.cn_news.cnbrief cloud-run --root data/cnbrief | tee cnbrief.log
+          { echo '## 国内要闻'; echo '```'; cat cnbrief.log; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
       # Commits made with GITHUB_TOKEN do not trigger another run.
       - name: Commit results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/archive data/infogap
+          git add data/archive data/infogap data/cnbrief
           if git diff --cached --quiet; then echo "no changes"; exit 0; fi
           git commit -m "archive: cloud run results"
           git push
