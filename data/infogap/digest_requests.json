@@ -409,8 +409,26 @@
     ]
   },
   {
-    "status": "pending",
+    "status": "scheduled",
     "auto": true,
-    "note": "daily auto scan 2026-10-14"
+    "note": "daily auto scan 2026-10-14",
+    "processed_at": "2026-10-14T20:53:29+00:00",
+    "digest": "digests/2026-10-14.json",
+    "review": "digests/2026-10-14.md",
+    "collected": 60,
+    "skipped_seen": 12,
+    "candidates": 2,
+    "preview": [
+      "🇺🇸 Stateverge · 24H 信息差\n今天英文互联网有2个值得中文用户注意的变化\n\n① Iosevka字体：开源的无衬线和衬线等宽字体，值得关注\n为什么重要:中国用户在进行编程或设计时，选择合适的字体可以提升工作效率，Iosevka作为开源字体，使用成本低且可定制，值得关注。\n🔗 https://typeof.net/Iosevka/\n1/3",
+      "② 用7美元的ESP32让AI模型控制真实iPhone，中文用户可借鉴\n为什么重要:中国用户可以关注这个项目，了解如何利用低成本硬件与AI结合，探索新的应用场景。\n🔗 https://github.com/onehumanbeing/esp32-iphone-agent\n2/3",
+      "我们只做一件事:把英文互联网里真正有价值的信息,提前翻译成中文世界能理解的机会、风险和趋势。\n(AI 辅助整理,以原文为准)\n3/3"
+    ],
+    "auto_skipped": [],
+    "auto_signal_ids": [
+      "859ef77eb69657e3",
+      "adafb1f62e06ba44"
+    ],
+    "post_after": "2026-10-14T23:53:29+00:00",
+    "how_to_veto": "把 \"status\" 改成 \"vetoed\" 并提交,即可取消这次自动发布"
   }
 ]

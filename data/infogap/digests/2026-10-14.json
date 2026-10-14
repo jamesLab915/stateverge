@@ -1,0 +1,988 @@
+{
+  "scanned_at": "2026-10-14T20:53:29+00:00",
+  "collected": 60,
+  "shortlisted": [
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Iosevka is an open-source, sans-serif and slab-serif monospace font",
+        "url": "https://typeof.net/Iosevka/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50084240",
+        "summary": "",
+        "created_at": "2026-10-14T08:27:59+00:00",
+        "points": 657,
+        "comments": 274,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Iosevka",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 50.0,
+        "discussion": 70.0,
+        "visual": 30.0,
+        "by_llm": true,
+        "headline_zh": "Iosevka字体：开源的无衬线和衬线等宽字体，值得关注",
+        "what": "Iosevka是一款开源的无衬线和衬线等宽字体，适合编程和排版使用。",
+        "why_now": "随着开源字体的普及，越来越多的开发者和设计师开始关注字体的选择，以提升工作效率和视觉体验。",
+        "how_used": "美国的开发者和设计师们在编程、文档排版和设计项目中广泛使用Iosevka字体，因其清晰易读的特性。",
+        "why_cn": "中国用户在进行编程或设计时，选择合适的字体可以提升工作效率，Iosevka作为开源字体，使用成本低且可定制，值得关注。",
+        "opportunity": "对于有编程或设计需求的用户，可以尝试使用Iosevka字体，提升工作体验。",
+        "risks": "需自行确认字体的兼容性及在特定软件中的表现，某些软件可能不支持自定义字体。",
+        "x_line": "Iosevka是一款开源的等宽字体，适合编程和设计，提升用户体验。"
+      },
+      "overseas_heat": 96.7,
+      "cn_scarcity": 100.0,
+      "total": 79.0,
+      "notes": [],
+      "signal_id": "859ef77eb69657e3"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "onehumanbeing/esp32-iphone-agent",
+        "url": "https://github.com/onehumanbeing/esp32-iphone-agent",
+        "discussion_url": "",
+        "summary": "Let an AI model use a real iPhone with a $7 ESP32: AirPlay eyes, USB HID hands, any OpenAI-compatible vision model. No Mac, no developer account, no jailbreak.",
+        "created_at": "2026-10-11T19:10:25Z",
+        "points": 2060,
+        "comments": 274,
+        "tags": [
+          "ai-agent",
+          "airplay",
+          "automation",
+          "computer-use",
+          "esp32",
+          "esp32-s3",
+          "iphone",
+          "llm",
+          "usb-hid",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "esp32 iphone agent",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "用7美元的ESP32让AI模型控制真实iPhone，中文用户可借鉴",
+        "what": "一个开源项目允许AI模型通过ESP32控制真实的iPhone，支持AirPlay和USB HID功能，且无需Mac、开发者账号或越狱。",
+        "why_now": "随着AI技术的普及，开发者希望利用现有设备实现更多功能，降低了技术门槛。",
+        "how_used": "美国开发者可以使用这个项目将AI模型与iPhone结合，实现自动化控制和交互。",
+        "why_cn": "中国用户可以关注这个项目，了解如何利用低成本硬件与AI结合，探索新的应用场景。",
+        "opportunity": "可以借鉴该项目的思路，开发类似的自动化应用，但需具备一定的编程能力。",
+        "risks": "项目的稳定性和兼容性需自行确认，使用过程中可能涉及到法律和隐私问题。",
+        "x_line": "一个开源项目让AI模型通过ESP32控制iPhone，降低了技术门槛，适合开发者探索新应用。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 74.0,
+      "notes": [],
+      "signal_id": "adafb1f62e06ba44"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "LoreanXavier/pt-pc",
+        "url": "https://github.com/LoreanXavier/pt-pc",
+        "discussion_url": "",
+        "summary": "Native PC port of P.T. (runs from your own PS4 game files)",
+        "created_at": "2026-10-07T09:33:31Z",
+        "points": 1714,
+        "comments": 111,
+        "tags": [
+          "C++"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "pt pc",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 50.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开发者将经典恐怖游戏P.T.移植到PC，需自备PS4游戏文件",
+        "what": "开发者LoreanXavier创建了P.T.的PC本地移植版本，用户需要使用自己的PS4游戏文件来运行该游戏。",
+        "why_now": "由于P.T.在游戏界的影响力和玩家对恐怖游戏的持续兴趣，移植版本的发布引起了关注。",
+        "how_used": "美国玩家可以通过下载该项目并使用自己的PS4游戏文件来体验P.T.的恐怖氛围。",
+        "why_cn": "中国用户可能对P.T.这款经典恐怖游戏感兴趣，尤其是想要在PC上体验其独特的游戏机制和氛围。",
+        "opportunity": "对喜欢恐怖游戏的玩家来说，这是一个在PC上体验经典游戏的机会。",
+        "risks": "需要拥有PS4游戏文件，且可能存在法律风险，具体情况需自行确认。",
+        "x_line": "开发者移植了经典恐怖游戏P.T.到PC，但用户需自备PS4游戏文件才能运行。"
+      },
+      "overseas_heat": 98.4,
+      "cn_scarcity": 100.0,
+      "total": 69.5,
+      "notes": [],
+      "signal_id": "26d70b68966df363"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "AI agents aren't 'going rogue.' Frontier labs are skipping security basics",
+        "url": "https://www.csoonline.com/article/4234854/ai-agents-arent-going-rogue-frontier-labs-are-skipping-security-basics.html",
+        "discussion_url": "https://news.ycombinator.com/item?id=50091788",
+        "summary": "",
+        "created_at": "2026-10-14T17:45:23+00:00",
+        "points": 733,
+        "comments": 341,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "AI Frontier",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "AI 代理并非失控，前沿实验室忽视安全基础",
+        "what": "有研究指出，AI 代理并没有失控，而是一些前沿实验室在安全基础方面存在疏漏。",
+        "why_now": "随着AI技术的快速发展，安全问题变得愈发重要，相关讨论也随之增多。",
+        "how_used": "美国的研究人员和开发者在构建AI系统时，开始关注安全性和伦理问题，但仍有实验室未能落实基本的安全措施。",
+        "why_cn": "中国用户应关注AI安全问题，尤其是在AI技术应用日益广泛的背景下，了解潜在的安全隐患至关重要。",
+        "opportunity": "没有明显机会。",
+        "risks": "部分实验室在AI开发中忽视安全基础，可能导致系统漏洞和不当使用的风险。",
+        "x_line": "研究表明，AI代理并未失控，而是因实验室忽视安全基础而引发的担忧。"
+      },
+      "overseas_heat": 98.5,
+      "cn_scarcity": 100.0,
+      "total": 67.5,
+      "notes": [],
+      "signal_id": "f06365767b143418"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "AOSP Source Releases Are So Late Developers Disassemble Libraries to Report Bugs",
+        "url": "https://github.com/android/ndk/issues/2260",
+        "discussion_url": "https://news.ycombinator.com/item?id=50083130",
+        "summary": "",
+        "created_at": "2026-10-14T06:18:01+00:00",
+        "points": 469,
+        "comments": 233,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "AOSP Releases So",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Android 开源项目源代码发布延迟，开发者被迫反编译库以报告错误",
+        "what": "开发者们因 Android 开源项目（AOSP）源代码发布延迟，开始反编译库文件以报告错误。",
+        "why_now": "这一现象反映出开发者对及时获取源代码的需求与当前发布节奏之间的矛盾。",
+        "how_used": "美国开发者通过反编译现有库，分析代码以发现和报告潜在的错误。",
+        "why_cn": "中国开发者应关注这一问题，以便了解开源项目的更新动态及其对开发流程的影响。",
+        "opportunity": "原文未提及",
+        "risks": "反编译可能涉及法律风险，且技术门槛较高，普通开发者可能难以掌握。",
+        "x_line": "由于 Android 开源项目源代码发布延迟，开发者不得不反编译库文件以报告错误，反映出开源更新的紧迫性。"
+      },
+      "overseas_heat": 92.3,
+      "cn_scarcity": 100.0,
+      "total": 65.7,
+      "notes": [],
+      "signal_id": "c6fd7c6c27f6e7bc"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "ICE Planning $100M 'Nightmare' Domestic Spy Program",
+        "url": "https://prospect.org/2026/10/14/ice-planning-nightmare-domestic-spy-program-ero-one/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50090246",
+        "summary": "",
+        "created_at": "2026-10-14T16:24:11+00:00",
+        "points": 441,
+        "comments": 228,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "ICE Planning M",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "美国ICE计划投入1亿美元开展国内监控项目，引发广泛关注",
+        "what": "美国移民与海关执法局（ICE）计划启动一项预算达1亿美元的国内监控项目，旨在加强对移民的监控和执法。",
+        "why_now": "随着移民政策的变化和社会对安全问题的关注，ICE希望通过这一项目提升其监控能力。",
+        "how_used": "美国政府机构可能会利用该项目收集和分析移民相关数据，以便更有效地执行移民法。",
+        "why_cn": "中国用户应关注这一动态，因为它可能影响到美国的移民政策及其对社会安全的影响，进而可能影响到华人社区的安全感。",
+        "opportunity": "没有明显的机会。",
+        "risks": "该项目可能引发隐私权和人权方面的争议，且实施过程中可能面临法律挑战。",
+        "x_line": "ICE计划投入1亿美元开展国内监控项目，旨在加强对移民的监控，引发社会广泛关注。"
+      },
+      "overseas_heat": 91.5,
+      "cn_scarcity": 100.0,
+      "total": 65.5,
+      "notes": [],
+      "signal_id": "e238cd7e142afb93"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Google is silently linking your phone number across all signed-in accounts",
+        "url": "https://www.androidauthority.com/google-auto-phone-number-verification-android-3723117/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50090349",
+        "summary": "",
+        "created_at": "2026-10-14T16:28:51+00:00",
+        "points": 252,
+        "comments": 60,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Google",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "谷歌悄悄将你的手机号码关联到所有已登录账户",
+        "what": "谷歌正在自动将用户的手机号码链接到所有已登录的账户上，可能影响用户的隐私和安全。",
+        "why_now": "随着用户对隐私保护的关注增加，谷歌的这一做法引发了广泛讨论。",
+        "how_used": "美国用户可能会发现，他们的手机号码在多个谷歌服务中被自动验证和关联，影响账户安全性。",
+        "why_cn": "中国用户应关注这一变化，因为这可能影响到他们在使用谷歌服务时的隐私和安全管理。",
+        "opportunity": "原文未提及",
+        "risks": "用户可能面临隐私泄露的风险，尤其是在多个账户之间共享手机号码时。",
+        "x_line": "谷歌正在将用户手机号码自动关联到所有已登录账户，可能影响隐私和安全。"
+      },
+      "overseas_heat": 81.7,
+      "cn_scarcity": 100.0,
+      "total": 62.5,
+      "notes": [],
+      "signal_id": "00436df3d8fd6c57"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Fire at Starlink site in Bulgaria after suspected sabotage in Poland",
+        "url": "https://dpa-international.com/politics/urn:newsml:dpa.com:20090101:261014-930-839530/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50092730",
+        "summary": "",
+        "created_at": "2026-10-14T18:37:21+00:00",
+        "points": 202,
+        "comments": 123,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Fire Starlink Bulgaria",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 80.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Starlink在保加利亚发生火灾，疑似与波兰的破坏活动有关",
+        "what": "Starlink在保加利亚的一个站点发生火灾，可能与波兰的破坏事件有关。",
+        "why_now": "此事件引发了对Starlink网络安全和运营稳定性的关注。",
+        "how_used": "美国用户可能会关注Starlink服务的可用性和安全性。",
+        "why_cn": "中国用户应关注Starlink在全球的运营动态，尤其是网络安全问题。",
+        "opportunity": "原文未提及",
+        "risks": "可能影响Starlink服务的稳定性和可用性，需关注后续发展。",
+        "x_line": "Starlink在保加利亚的站点发生火灾，疑似与波兰的破坏活动有关，可能影响服务稳定性。"
+      },
+      "overseas_heat": 80.7,
+      "cn_scarcity": 100.0,
+      "total": 62.2,
+      "notes": [],
+      "signal_id": "35437739e41fcc41"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "storytold/craft-launcher",
+        "url": "https://github.com/storytold/craft-launcher",
+        "discussion_url": "",
+        "summary": "The Craft App Launcher",
+        "created_at": "2026-10-09T23:21:59Z",
+        "points": 2610,
+        "comments": 874,
+        "tags": [
+          "Rust"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "craft launcher",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开源项目Craft Launcher为Rust开发者提供了新的应用启动解决方案",
+        "what": "一个名为Craft Launcher的开源项目在GitHub上发布，旨在为Rust开发者提供应用启动的工具。",
+        "why_now": "随着Rust语言的流行，开发者对高效的应用管理工具的需求增加。",
+        "how_used": "美国的Rust开发者可以使用Craft Launcher来简化他们的应用启动流程，提高开发效率。",
+        "why_cn": "中国用户如果对Rust开发感兴趣，可以关注这个工具，了解其在应用管理方面的优势。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认是否符合个人需求，且开源项目可能存在不稳定性。",
+        "x_line": "Craft Launcher是一个新的开源工具，专为Rust开发者设计，旨在优化应用启动流程。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 60.0,
+      "notes": [],
+      "signal_id": "f660505dca037d9d"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "liseami/CCBaga",
+        "url": "https://github.com/liseami/CCBaga",
+        "discussion_url": "",
+        "summary": "",
+        "created_at": "2026-10-11T03:47:06Z",
+        "points": 2243,
+        "comments": 222,
+        "tags": [
+          "Rust"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "CCBaga",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "一个新的Rust项目CCBaga上线，可能影响开发者的工具选择",
+        "what": "有开发者创建了一个名为CCBaga的Rust项目，旨在提供新的功能或工具。",
+        "why_now": "Rust语言在开发者社区中越来越受欢迎，新的项目不断涌现。",
+        "how_used": "美国开发者可能会将CCBaga作为工具或库来提升他们的开发效率。",
+        "why_cn": "中国开发者可以关注这个项目，了解Rust生态系统的最新动态。",
+        "opportunity": "暂无明确的机会，需自行探索项目的具体功能。",
+        "risks": "项目的稳定性和支持度尚不明确，使用前需自行评估风险。",
+        "x_line": "开发者推出了Rust项目CCBaga，可能为开发者提供新的工具选择。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 60.0,
+      "notes": [],
+      "signal_id": "403a59d662c8f349"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "shadany7824/playgta5",
+        "url": "https://github.com/shadany7824/playgta5",
+        "discussion_url": "",
+        "summary": "A source code for playgta5.com.",
+        "created_at": "2026-10-07T08:37:15Z",
+        "points": 1596,
+        "comments": 782,
+        "tags": [
+          "JavaScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "playgta5",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开源项目提供GTA5在线游戏的源代码",
+        "what": "一个开源项目提供了playgta5.com的源代码，允许用户在浏览器中玩GTA5。",
+        "why_now": "随着在线游戏的普及，开发者希望通过开源项目让更多人体验经典游戏。",
+        "how_used": "美国用户可以通过访问该项目，下载源代码并在本地或服务器上运行游戏。",
+        "why_cn": "中国用户可能对在线游戏开发和经典游戏的复刻感兴趣，但需注意法律和版权问题。",
+        "opportunity": "有兴趣的开发者可以基于此项目进行二次开发或学习游戏开发技术。",
+        "risks": "需自行确认是否符合当地法律法规，可能涉及版权问题。",
+        "x_line": "一个开源项目发布了GTA5的源代码，允许用户在浏览器中体验这款经典游戏。"
+      },
+      "overseas_heat": 99.9,
+      "cn_scarcity": 100.0,
+      "total": 60.0,
+      "notes": [],
+      "signal_id": "60a1f279ebce82c9"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "Fei2411/DeepSeek-Bot",
+        "url": "https://github.com/Fei2411/DeepSeek-Bot",
+        "discussion_url": "",
+        "summary": "A team of long-lived bots for DeepSeek Harness, with main bots, bot-to-bot messages and group chats.",
+        "created_at": "2026-10-07T15:37:36Z",
+        "points": 1871,
+        "comments": 178,
+        "tags": [
+          "bot",
+          "deepseek-harness",
+          "dsh-plugin",
+          "multi-agent",
+          "JavaScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "DeepSeek Bot",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "一款多代理的DeepSeek机器人项目，可能影响聊天自动化",
+        "what": "一个开源项目DeepSeek-Bot被发布，包含多个长期运行的聊天机器人，支持机器人间消息和群聊功能。",
+        "why_now": "随着聊天自动化需求的增加，团队开发了这一工具以提升聊天效率。",
+        "how_used": "美国用户可以利用该项目创建和管理多个聊天机器人，以实现更高效的沟通和信息处理。",
+        "why_cn": "中国用户可以关注这一项目，了解聊天机器人在自动化沟通中的应用，但需自行确认是否可用。",
+        "opportunity": "没有明确的商业机会。",
+        "risks": "需自行确认是否符合当地法律法规，且使用开源项目可能存在技术门槛。",
+        "x_line": "DeepSeek-Bot是一个支持多代理的聊天机器人项目，旨在提升聊天自动化的效率。"
+      },
+      "overseas_heat": 99.7,
+      "cn_scarcity": 100.0,
+      "total": 59.9,
+      "notes": [],
+      "signal_id": "b8d6654689fea1be"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Amazon pushes up prices across the Internet",
+        "url": "https://www.not-ship.com/how-amazon-pushes-up-prices-all-across-the-internet/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50084757",
+        "summary": "",
+        "created_at": "2026-10-14T09:28:17+00:00",
+        "points": 650,
+        "comments": 551,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Amazon Internet",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "INDUSTRY",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "亚马逊如何推动互联网价格上涨，值得关注",
+        "what": "亚马逊通过其市场策略影响了其他电商平台的定价，导致整体价格上涨。",
+        "why_now": "在经济环境变化和消费者行为转变的背景下，亚马逊的定价策略引发了广泛关注。",
+        "how_used": "美国消费者可能在多个电商平台上发现商品价格普遍上涨，影响购物决策。",
+        "why_cn": "中国用户应关注这一现象，因为它可能影响全球电商市场的价格趋势，尤其是跨境电商。",
+        "opportunity": "原文未提及",
+        "risks": "价格上涨可能导致消费者支出增加，影响购买力。",
+        "x_line": "亚马逊的市场策略正在推动互联网整体价格上涨，影响消费者购物体验。"
+      },
+      "overseas_heat": 98.9,
+      "cn_scarcity": 100.0,
+      "total": 59.8,
+      "notes": [],
+      "signal_id": "b8ce6c2bc0913864"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "HelixDB/helix-foundry",
+        "url": "https://github.com/HelixDB/helix-foundry",
+        "discussion_url": "",
+        "summary": "Your company's data, connected into one ontology, on your own computer. A local-first data workspace built on HelixDB and DuckDB.",
+        "created_at": "2026-10-07T05:10:45Z",
+        "points": 1461,
+        "comments": 222,
+        "tags": [
+          "TypeScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "helix foundry",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "HelixDB推出本地数据工作空间，助力数据整合",
+        "what": "HelixDB推出了一个名为Helix Foundry的项目，旨在将公司的数据整合到一个本地的本体中，基于HelixDB和DuckDB构建。",
+        "why_now": "随着数据管理需求的增加，企业需要更灵活和安全的本地数据解决方案。",
+        "how_used": "美国的企业可能会利用这一工具来集中管理和分析本地数据，提升数据处理效率。",
+        "why_cn": "中国用户应关注这一趋势，因为数据隐私和安全性在企业管理中越来越重要，类似工具可能会影响未来的数据管理方式。",
+        "opportunity": "原文未提及",
+        "risks": "需自行确认是否符合中国的网络和数据管理法规。",
+        "x_line": "HelixDB推出Helix Foundry，提供本地数据整合解决方案，适应企业对数据安全的需求。"
+      },
+      "overseas_heat": 96.8,
+      "cn_scarcity": 100.0,
+      "total": 59.0,
+      "notes": [],
+      "signal_id": "15201e95be4e4dda"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Felix Rieseberg Homepage",
+        "url": "https://felixrieseberg.com/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50082470",
+        "summary": "",
+        "created_at": "2026-10-14T04:42:33+00:00",
+        "points": 269,
+        "comments": 102,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Felix Rieseberg Homepage",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 0.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "Felix Rieseberg 的个人主页值得关注",
+        "what": "Felix Rieseberg 创建了个人主页，展示了他的项目和工作经历。",
+        "why_now": "个人主页是展示个人品牌和专业技能的重要方式，尤其在数字化时代。",
+        "how_used": "美国人通过个人主页展示自己的职业成就，吸引潜在雇主或合作伙伴。",
+        "why_cn": "中国用户可以借鉴这种方式，提升个人品牌形象，增加职业机会。",
+        "opportunity": "有机会通过建立个人主页来展示自己的技能和项目。",
+        "risks": "需自行确认个人信息的隐私保护和展示内容的适当性。",
+        "x_line": "Felix Rieseberg 创建了个人主页，展示了他的项目和职业经历，值得关注。"
+      },
+      "overseas_heat": 83.5,
+      "cn_scarcity": 100.0,
+      "total": 55.0,
+      "notes": [],
+      "signal_id": "574755857db06c66"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "ASML's strong orders ease fears AI spending boom is running out of steam",
+        "url": "https://www.reuters.com/business/asml-forecasts-q4-sales-above-expectations-ai-chip-demand-2026-10-14/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50088430",
+        "summary": "",
+        "created_at": "2026-10-14T14:38:55+00:00",
+        "points": 165,
+        "comments": 162,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "ASML AI",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "INDUSTRY",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "ASML 强劲订单缓解了对 AI 支出热潮减退的担忧",
+        "what": "ASML 公布了强劲的订单，预计第四季度销售将超出预期，表明 AI 芯片需求依然强劲。",
+        "why_now": "随着 AI 技术的快速发展，市场对相关芯片的需求持续上升，ASML 的表现反映了这一趋势。",
+        "how_used": "美国企业在加大对 AI 芯片的投资，以满足不断增长的市场需求。",
+        "why_cn": "中国用户应关注全球 AI 芯片市场的动态，这可能影响相关行业的发展和投资机会。",
+        "opportunity": "原文未提及",
+        "risks": "市场需求波动可能影响芯片生产和销售，需关注全球经济形势变化。",
+        "x_line": "ASML 强劲的订单显示出 AI 芯片需求依然旺盛，缓解了市场对支出热潮减退的担忧。"
+      },
+      "overseas_heat": 79.7,
+      "cn_scarcity": 100.0,
+      "total": 54.0,
+      "notes": [],
+      "signal_id": "496d2bc102f7295c"
+    },
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Banks are now trying to offload the AI data center debt they just underwrote",
+        "url": "https://startupfortune.com/banks-are-now-trying-to-offload-the-ai-data-center-debt-they-just-underwrote/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50092664",
+        "summary": "",
+        "created_at": "2026-10-14T18:32:52+00:00",
+        "points": 164,
+        "comments": 134,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Banks AI",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "INDUSTRY",
+        "practical_value": 0.0,
+        "discussion": 1.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "银行开始转移AI数据中心的债务，反映市场变化",
+        "what": "银行正在尝试转移它们刚刚承销的AI数据中心债务。",
+        "why_now": "随着AI行业的快速发展，相关债务的风险也逐渐显现，银行希望降低潜在损失。",
+        "how_used": "美国的银行可能通过出售这些债务来减轻财务负担，投资者可能会关注这些债务的价值。",
+        "why_cn": "中国用户应关注这一趋势，因为它可能影响全球AI投资环境及相关金融政策。",
+        "opportunity": "原文未提及",
+        "risks": "银行转移债务可能意味着AI数据中心的市场前景不如预期，投资风险加大。",
+        "x_line": "银行正在尝试转移AI数据中心的债务，反映出市场对AI投资的谨慎态度。"
+      },
+      "overseas_heat": 78.8,
+      "cn_scarcity": 100.0,
+      "total": 53.7,
+      "notes": [],
+      "signal_id": "7fda54c0bba68605"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "mhtsec/ARTEX",
+        "url": "https://github.com/mhtsec/ARTEX",
+        "discussion_url": "",
+        "summary": "AI 自主渗透测试系统 | 百度“agent+”攻防挑战赛冠军项目",
+        "created_at": "2026-10-08T05:33:06Z",
+        "points": 4070,
+        "comments": 6363,
+        "tags": [
+          "Go"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "ARTEX",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "AI 自主渗透测试系统引发网络安全关注",
+        "what": "一个名为 ARTEX 的 AI 自主渗透测试系统在 GitHub 上发布，该项目是百度“agent+”攻防挑战赛的冠军作品。",
+        "why_now": "随着网络安全威胁的增加，AI 驱动的安全工具变得愈发重要，ARTEX 的发布正值此时。",
+        "how_used": "美国的网络安全专家和公司可以利用 ARTEX 进行渗透测试，评估其系统的安全性。",
+        "why_cn": "中国用户应关注此项目，因为它展示了 AI 在网络安全领域的应用潜力，可能影响未来的安全防护策略。",
+        "opportunity": "对网络安全领域的专业人士和爱好者来说，学习和使用 ARTEX 可以提升其技能和竞争力。",
+        "risks": "使用此类工具需遵循法律法规，未经授权的渗透测试可能导致法律责任。",
+        "x_line": "ARTEX 是一个 AI 驱动的渗透测试系统，旨在提升网络安全防护能力。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 10.0,
+      "total": 47.0,
+      "notes": [
+        "原文本身含中文,已面向中文用户(稀缺度按 10 计)"
+      ],
+      "signal_id": "65d8248ff8a4e0fe"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "jhaizhou-ops/d2r-mobile",
+        "url": "https://github.com/jhaizhou-ops/d2r-mobile",
+        "discussion_url": "",
+        "summary": "Open-source iOS / macOS compatibility layer for Diablo II: Resurrected with the Reign of the Warlock expansion. Runs your own Switch copy natively on iPhone, iPad and Mac — full touch controls, 60 fps, new endgame modes. Bring your own game files. 开源的《暗黑破坏神 II：狱火重生》术士君临 iOS / macOS 兼容层",
+        "created_at": "2026-10-12T08:41:19Z",
+        "points": 2050,
+        "comments": 676,
+        "tags": [
+          "compatibility-layer",
+          "diablo-2-resurrected",
+          "diablo2",
+          "game-port",
+          "ios",
+          "ipad",
+          "iphone",
+          "mac",
+          "macos",
+          "metal",
+          "reign-of-the-warlock",
+          "C"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "d2r mobile",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "开源项目让《暗黑破坏神 II：狱火重生》在iOS和macOS上运行",
+        "what": "一个开源项目提供了iOS和macOS平台上运行《暗黑破坏神 II：狱火重生》的兼容层，支持触控操作和60帧每秒的流畅体验。",
+        "why_now": "随着移动游戏市场的增长，玩家对经典游戏在新平台上的可玩性需求增加。",
+        "how_used": "美国玩家可以通过该项目在iPhone、iPad和Mac上运行自己的Switch版游戏，享受全触控控制和新游戏模式。",
+        "why_cn": "中国用户可能对在移动设备上玩经典游戏感兴趣，尤其是对于《暗黑破坏神 II》的粉丝。",
+        "opportunity": "如果你有Switch版的游戏文件，可以尝试在iOS或macOS上体验这款经典游戏。",
+        "risks": "需自行确认是否符合相关法律法规，且需要拥有Switch版的游戏文件才能使用该项目。",
+        "x_line": "开源项目使《暗黑破坏神 II：狱火重生》能够在iOS和macOS上运行，支持触控和高帧率。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 10.0,
+      "total": 47.0,
+      "notes": [
+        "原文本身含中文,已面向中文用户(稀缺度按 10 计)"
+      ],
+      "signal_id": "fb7a6ce3514ec887"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "T-Auto/dsh-ops",
+        "url": "https://github.com/T-Auto/dsh-ops",
+        "discussion_url": "",
+        "summary": "A toolkit for low-level operations in DSH, designed to reduce token usage and task execution time / DSH 底层操作工具插件，旨在减少 Token 消耗与任务耗时",
+        "created_at": "2026-10-08T07:09:25Z",
+        "points": 1523,
+        "comments": 27,
+        "tags": [
+          "dsh",
+          "dsh-plugin",
+          "dsh-plugins",
+          "JavaScript"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "dsh ops",
+        "zh_results": 2,
+        "sample_urls": [
+          "https://deepseekharnessai.com/zh/plugins/dsh-ops/?utm_source=openai",
+          "https://dshx.dev/?utm_source=openai"
+        ],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 60.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "一个新工具插件助力 DSH 操作，降低 Token 消耗",
+        "what": "开发者推出了一个名为 dsh-ops 的工具插件，旨在优化 DSH 的底层操作，减少 Token 消耗和任务执行时间。",
+        "why_now": "随着 DSH 使用的普及，用户对降低成本和提高效率的需求日益增加。",
+        "how_used": "美国开发者可以将该插件集成到他们的 DSH 工作流程中，以提升操作效率。",
+        "why_cn": "中国用户在使用 DSH 或相关工具时，可能会面临高 Token 消耗的问题，了解此工具有助于优化使用成本。",
+        "opportunity": "对于希望降低 DSH 使用成本的开发者来说，这是一个值得关注的工具。",
+        "risks": "需自行确认该插件的兼容性和稳定性，可能存在技术门槛。",
+        "x_line": "dsh-ops 是一个新发布的 DSH 工具插件，旨在通过优化底层操作来减少 Token 消耗。"
+      },
+      "overseas_heat": 96.5,
+      "cn_scarcity": 10.0,
+      "total": 44.0,
+      "notes": [
+        "原文本身含中文,已面向中文用户(稀缺度按 10 计)"
+      ],
+      "signal_id": "ce29ad15d74d9c10"
+    }
+  ],
+  "candidates": [
+    {
+      "signal": {
+        "source": "hackernews",
+        "title": "Iosevka is an open-source, sans-serif and slab-serif monospace font",
+        "url": "https://typeof.net/Iosevka/",
+        "discussion_url": "https://news.ycombinator.com/item?id=50084240",
+        "summary": "",
+        "created_at": "2026-10-14T08:27:59+00:00",
+        "points": 657,
+        "comments": 274,
+        "tags": []
+      },
+      "coverage": {
+        "checked": true,
+        "query": "Iosevka",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "OTHER",
+        "practical_value": 50.0,
+        "discussion": 70.0,
+        "visual": 30.0,
+        "by_llm": true,
+        "headline_zh": "Iosevka字体：开源的无衬线和衬线等宽字体，值得关注",
+        "what": "Iosevka是一款开源的无衬线和衬线等宽字体，适合编程和排版使用。",
+        "why_now": "随着开源字体的普及，越来越多的开发者和设计师开始关注字体的选择，以提升工作效率和视觉体验。",
+        "how_used": "美国的开发者和设计师们在编程、文档排版和设计项目中广泛使用Iosevka字体，因其清晰易读的特性。",
+        "why_cn": "中国用户在进行编程或设计时，选择合适的字体可以提升工作效率，Iosevka作为开源字体，使用成本低且可定制，值得关注。",
+        "opportunity": "对于有编程或设计需求的用户，可以尝试使用Iosevka字体，提升工作体验。",
+        "risks": "需自行确认字体的兼容性及在特定软件中的表现，某些软件可能不支持自定义字体。",
+        "x_line": "Iosevka是一款开源的等宽字体，适合编程和设计，提升用户体验。"
+      },
+      "overseas_heat": 96.7,
+      "cn_scarcity": 100.0,
+      "total": 79.0,
+      "notes": [],
+      "signal_id": "859ef77eb69657e3"
+    },
+    {
+      "signal": {
+        "source": "github",
+        "title": "onehumanbeing/esp32-iphone-agent",
+        "url": "https://github.com/onehumanbeing/esp32-iphone-agent",
+        "discussion_url": "",
+        "summary": "Let an AI model use a real iPhone with a $7 ESP32: AirPlay eyes, USB HID hands, any OpenAI-compatible vision model. No Mac, no developer account, no jailbreak.",
+        "created_at": "2026-10-11T19:10:25Z",
+        "points": 2060,
+        "comments": 274,
+        "tags": [
+          "ai-agent",
+          "airplay",
+          "automation",
+          "computer-use",
+          "esp32",
+          "esp32-s3",
+          "iphone",
+          "llm",
+          "usb-hid",
+          "Python"
+        ]
+      },
+      "coverage": {
+        "checked": true,
+        "query": "esp32 iphone agent",
+        "zh_results": 0,
+        "sample_urls": [],
+        "provider": "openai",
+        "error": ""
+      },
+      "assessment": {
+        "track": "AI_TECH",
+        "practical_value": 70.0,
+        "discussion": 0.0,
+        "visual": 0.0,
+        "by_llm": true,
+        "headline_zh": "用7美元的ESP32让AI模型控制真实iPhone，中文用户可借鉴",
+        "what": "一个开源项目允许AI模型通过ESP32控制真实的iPhone，支持AirPlay和USB HID功能，且无需Mac、开发者账号或越狱。",
+        "why_now": "随着AI技术的普及，开发者希望利用现有设备实现更多功能，降低了技术门槛。",
+        "how_used": "美国开发者可以使用这个项目将AI模型与iPhone结合，实现自动化控制和交互。",
+        "why_cn": "中国用户可以关注这个项目，了解如何利用低成本硬件与AI结合，探索新的应用场景。",
+        "opportunity": "可以借鉴该项目的思路，开发类似的自动化应用，但需具备一定的编程能力。",
+        "risks": "项目的稳定性和兼容性需自行确认，使用过程中可能涉及到法律和隐私问题。",
+        "x_line": "一个开源项目让AI模型通过ESP32控制iPhone，降低了技术门槛，适合开发者探索新应用。"
+      },
+      "overseas_heat": 100.0,
+      "cn_scarcity": 100.0,
+      "total": 74.0,
+      "notes": [],
+      "signal_id": "adafb1f62e06ba44"
+    }
+  ],
+  "picks": [
+    "859ef77eb69657e3",
+    "adafb1f62e06ba44"
+  ],
+  "coverage_checked": true,
+  "llm_used": true,
+  "by_source": {
+    "hackernews": 42,
+    "github": 18
+  },
+  "skipped_seen": 12
+}
