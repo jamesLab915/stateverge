@@ -1,6 +1,12 @@
 [
   {
-    "status": "pending",
-    "note": "first 国内要闻 scan — draft only, no posting"
+    "status": "drafted",
+    "note": "first 国内要闻 scan — draft only, no posting",
+    "processed_at": "2026-10-14T08:21:14+00:00",
+    "scan": "scans/2026-10-14.json",
+    "collected": 132,
+    "events": 4,
+    "passed": 4,
+    "blocked": []
   }
 ]
