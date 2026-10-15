@@ -36,11 +36,13 @@
     "segments": 21
   },
   {
-    "status": "pending",
+    "status": "done",
     "action": "youtube",
     "handles": [
       "@stateverge"
     ],
-    "note": "public channel check"
+    "note": "public channel check",
+    "processed_at": "2026-10-15T08:56:01+00:00",
+    "file": "youtube_check.json"
   }
 ]
