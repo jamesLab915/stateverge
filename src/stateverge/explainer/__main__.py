@@ -32,6 +32,13 @@ def run(root: Path) -> list[str]:
                     except Exception as e:  # noqa: BLE001 - record every failure
                         failed.append(f"{url}: {type(e).__name__}: {e}"[:300])
                 item.update(status="done" if not failed else "partial", files=done, failures=failed)
+            elif item.get("action") == "youtube":
+                from .youtube import report
+
+                res = report(item.get("handles", []))
+                (root / "youtube_check.json").write_text(json.dumps(res, ensure_ascii=False, indent=2) + "\n",
+                                                         encoding="utf-8")
+                item.update(status="done", file="youtube_check.json")
             elif item.get("action") == "render":
                 from .render import render_episode
 

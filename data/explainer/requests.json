@@ -34,5 +34,13 @@
       "RUNWAYML_API_SECRET not set; presenter shown as still"
     ],
     "segments": 21
+  },
+  {
+    "status": "pending",
+    "action": "youtube",
+    "handles": [
+      "@stateverge"
+    ],
+    "note": "public channel check"
   }
 ]
