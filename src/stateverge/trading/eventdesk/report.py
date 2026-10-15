@@ -75,7 +75,7 @@ def build(ev: EventType, actual: float, consensus: float | None, consensus_sourc
         direction = "risk_off" if surprise * ev.sign > 0 else "risk_on"
     rep = WarReport(ev.name, ev.tier, actual, consensus, consensus_source, surprise, size, direction)
     if consensus_source != "manual":
-        rep.warnings.append("预期值来自自动搜索,请人工核对后再参考")
+        rep.warnings.append(f"预期值来自 {consensus_source},请在 Moomoo 核对后再参考")
     if direction == "none":
         rep.warnings.append("偏离不够大或事件级别不够,今天不做")
         return rep

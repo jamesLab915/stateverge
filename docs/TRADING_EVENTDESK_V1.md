@@ -12,14 +12,15 @@
 在 `data/trading/requests.json` 追加:
 ```json
 {"status": "pending", "action": "calendar", "date": "2026-10-16"}
-{"status": "pending", "action": "report", "event": "ppi", "consensus": 0.3}
+{"status": "pending", "action": "report", "event": "ppi"}                     ← 预期值用 ForexFactory
+{"status": "pending", "action": "report", "event": "ppi", "consensus": 0.3}   ← 手填覆盖
 {"status": "pending", "action": "confirm", "report": "reports/2026-10-16-ppi.json"}
 ```
 推送后 `trading-desk.yml` 运行,结果写回 `data/trading/reports/`。
 
 ## 需要
 - GitHub Secret `FRED_API_KEY`(免费:fred.stlouisfed.org → My Account → API Keys)。
-- 预期值目前手填(免费源不稳定)。
+- 预期值:默认读 ForexFactory 公开周历(Forecast 栏,免费);请求里写 `consensus` 则以手填为准(Moomoo 核对后填)。自动取的预期值战报会标注来源并提示核对。
 - 标的池:`data/trading/config.json`。
 
 ## 已知限制

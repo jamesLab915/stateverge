@@ -2,7 +2,7 @@
 
     {"action": "calendar", "date": "2026-10-16"}
         → which catalog events release that day (FRED) → reports/<date>-calendar.md
-    {"action": "report", "event": "ppi", "consensus": 0.3, "actual": 1.3 (optional), "pool": [...] (optional)}
+    {"action": "report", "event": "ppi", "consensus": 0.3 (optional, else ForexFactory), "actual": 1.3 (optional), "pool": [...] (optional)}
         → war report (actual from FRED unless given) → reports/<date>-<event>.md/.json
     {"action": "confirm", "report": "reports/2026-10-15-ppi.json"}
         → open confirmation appended to that report
@@ -17,7 +17,7 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from . import confirm, journal, market, report
+from . import confirm, ff, journal, market, report
 from .events import BY_KEY
 from .fred import Fred
 
@@ -33,18 +33,37 @@ def _write(p: Path, data: Any) -> None:
 
 
 class DeskRunner:
-    def __init__(self, root: Path, fred: Fred | None = None, quote=market.change_pct) -> None:
+    def __init__(self, root: Path, fred: Fred | None = None, quote=market.change_pct, ff_get=None) -> None:
         self.root = Path(root)
         self.fred = fred or Fred()
         self.quote = quote
+        self.ff_get = ff_get
+        self._ff: list[dict] | None = None
         self.config = _read(self.root / "config.json", {"pool": ["QQQ", "MU", "RKLB"]})
+
+    def ff_rows(self) -> list[dict]:
+        if self._ff is None:
+            try:
+                self._ff = ff.week(self.ff_get)
+            except (OSError, ValueError):
+                self._ff = []
+        return self._ff
 
     def calendar(self, item: dict) -> None:
         day = date.fromisoformat(item.get("date") or date.today().isoformat())
         evs = self.fred.releases_on(day)
-        lines = [f"# {day} 事件日历", ""] + [f"- **{e.tier} 级** {e.name}({e.time_et} ET)" for e in evs]
+        lines = [f"# {day} 事件日历", ""]
+        for e in evs:
+            fc = ff.forecast(e.key, day.isoformat(), self.ff_rows())
+            lines.append(f"- **{e.tier} 级** {e.name}({e.time_et} ET)预期 "
+                         + (f"{fc[0]}{e.unit}({fc[1]})" if fc else "未知,请在 Moomoo 查后手填"))
         if not evs:
             lines.append("今天没有目录里的高影响数据。")
+        others = [r for r in ff.high_impact(day.isoformat(), self.ff_rows())
+                  if r.get("title") not in ff.TITLES.values()]
+        if others:
+            lines += ["", "ForexFactory 其他高影响事件:"] + [
+                f"- {r.get('date', '')[11:16]} {r.get('title')} 预期 {r.get('forecast') or '—'}" for r in others]
         path = self.root / "reports" / f"{day}-calendar.md"
         _write(path, "\n".join(lines) + "\n")
         item.update(status="done", events=[e.key for e in evs], file=str(path.relative_to(self.root)))
@@ -55,12 +74,15 @@ class DeskRunner:
             actual, period = float(item["actual"]), item.get("period", "")
         else:
             actual, period = self.fred.actual(ev)
-        consensus = item.get("consensus")
+        day = item.get("date") or date.today().isoformat()
+        consensus, source = item.get("consensus"), "manual"
+        if consensus is None:
+            fc = ff.forecast(ev.key, day, self.ff_rows())
+            consensus, source = (fc[0], "forexfactory") if fc else (None, "none")
+            item["consensus_note"] = fc[1] if fc else "ForexFactory 无预期值"
         pool = item.get("pool") or self.config.get("pool", [])
         prices = {s: (q[0] if (q := self.quote(s)) else None) for s in pool}
-        rep = report.build(ev, actual, float(consensus) if consensus is not None else None,
-                           "manual" if consensus is not None else "none", pool, prices)
-        day = date.today().isoformat()
+        rep = report.build(ev, actual, float(consensus) if consensus is not None else None, source, pool, prices)
         base = self.root / "reports" / f"{day}-{ev.key}"
         data = rep.to_dict() | {"period": period, "generated_at": datetime.now(timezone.utc).isoformat()}
         _write(base.with_suffix(".json"), data)
