@@ -1,0 +1,9 @@
+{
+  "trades": 0,
+  "win_rate": 0.0,
+  "payoff": 0.0,
+  "total_pnl": 0,
+  "max_drawdown": 0.0,
+  "phase2_ready": false,
+  "phase2_note": "样本 0/30 笔"
+}
