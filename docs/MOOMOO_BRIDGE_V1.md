@@ -17,6 +17,12 @@
    - 每笔卖出写入 `data/trading/journal.json`(`paper: true`)
 4. 收市后 `git add data/trading/journal.json && git commit && git push` → GitHub 自动更新 `stats.json`。
 
+## 分批 / 持仓过夜
+- 腿上加 `underlying_min` / `underlying_max`:正股不在区间就不入场(例:RKLB ≥54 才入,跌穿 53 不追 → `"underlying_min": 54`)。
+- `exit.hold_until`:最迟哪天清仓(当天 `flat_by_et`)。非最后一天 16:00 ET 会把仓位存进 `data/trading/open_positions.json` 并退出。
+- 第二天:`--plan <原计划> --mode paper --resume` 继续管理出场(09:30 前会等开盘)。
+- 第二批是一个新计划文件;程序会把隔夜仓位计入 $1,000 总预算,同一标的同方向再买会被拒绝(不加仓摊平)。
+
 ## 电脑设置(一次)
 1. 下载安装 Moomoo OpenD(moomoo 官网 → OpenAPI),用你的 moomoo 账号登录,端口默认 11111。
 2. 在 moomoo App 开通模拟交易(美股期权)。

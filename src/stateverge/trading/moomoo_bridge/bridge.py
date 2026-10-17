@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import math
 import time as _time
-from datetime import datetime, time
+from datetime import date, datetime, time
 from pathlib import Path
 from typing import Callable
 from zoneinfo import ZoneInfo
@@ -17,6 +17,7 @@ from .plan import DAILY_LOSS_STOP, MAX_PER_CONTRACT, MAX_SPREAD_PCT, BUDGET, Pla
 ET = ZoneInfo("America/New_York")
 FILL_WAIT_S = 90
 POLL_S = 15
+CLOSE_ET = "16:00"
 
 
 class Bridge:
@@ -28,6 +29,25 @@ class Bridge:
         self.sleep, self.log = sleep, log
         self.confirm_quote = confirm_quote
         self.positions: list[tuple[exits.Position, dict]] = []
+        self.state_path = self.journal_path.parent / "open_positions.json"
+
+    # --- overnight state ----------------------------------------------------
+    def _open_state(self) -> list[dict]:
+        p = self.state_path
+        return json.loads(p.read_text(encoding="utf-8")) if p.exists() and p.read_text().strip() else []
+
+    def _save_state(self) -> None:
+        mine = [dict(pos.__dict__, meta=meta, plan=self.plan_dict) for pos, meta in self.positions if pos.qty > 0]
+        others = [r for r in self._open_state() if r.get("plan") != self.plan_dict]
+        rows = others + mine
+        if rows:
+            self.state_path.write_text(json.dumps(rows, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        elif self.state_path.exists():
+            self.state_path.unlink()
+
+    @property
+    def plan_dict(self) -> dict:
+        return {"date": self.plan.date, "event": self.plan.event}
 
     # --- guards -----------------------------------------------------------
     def _journal(self) -> list[dict]:
@@ -42,12 +62,21 @@ class Bridge:
         done = {(t.get("symbol"), t.get("opened_at")) for t in today if t.get("event") == self.plan.event}
         if len(done) + len(self.plan.legs) > 2:
             out.append(f"这个事件今天已做 {len(done)} 笔,再加 {len(self.plan.legs)} 笔会超过 2 笔")
+        held = self._open_state()
+        if any(r["meta"]["symbol"] == leg.symbol and r["meta"]["side"] == leg.side
+               for r in held for leg in self.plan.legs):
+            out.append("已持有同一标的同方向的仓位,再买 = 加仓摊平")
+        if self.open_cost() >= BUDGET:
+            out.append(f"隔夜持仓成本 ${self.open_cost():.0f} 已用完 ${BUDGET:.0f} 预算")
         if self.now().date().isoformat() != self.plan.date:
             out.append(f"计划日期 {self.plan.date} 不是今天(美东 {self.now().date()})")
         return out
 
-    def _at(self, hhmm: str) -> datetime:
-        return datetime.combine(self.now().date(), time.fromisoformat(hhmm), ET)
+    def open_cost(self) -> float:
+        return sum(r["entry"] * 100 * r["qty"] for r in self._open_state())
+
+    def _at(self, hhmm: str, day: date | None = None) -> datetime:
+        return datetime.combine(day or self.now().date(), time.fromisoformat(hhmm), ET)
 
     # --- entry ------------------------------------------------------------
     def wait_for_window(self) -> bool:
@@ -60,9 +89,15 @@ class Bridge:
         return True
 
     def enter(self) -> None:
-        budget = BUDGET
+        budget = BUDGET - self.open_cost()
         for leg in self.plan.legs:
             tag = f"{leg.symbol} {leg.expiry} {leg.strike:g}{leg.side[0].upper()}"
+            if leg.underlying_min is not None or leg.underlying_max is not None:
+                px = self.b.quote(f"US.{leg.symbol}")[2]
+                lo, hi = leg.underlying_min or 0, leg.underlying_max or float("inf")
+                if not lo <= px <= hi:
+                    self.log(f"{tag}: 正股 ${px} 不在入场区 {lo:g}–{hi:g},不入场")
+                    continue
             code = self.b.option_code(leg.symbol, leg.side, leg.strike, leg.expiry)
             if not code:
                 self.log(f"{tag}: 找不到合约,跳过")
@@ -105,8 +140,13 @@ class Bridge:
 
     # --- exits ------------------------------------------------------------
     def manage(self) -> None:
-        flat_by = self._at(self.plan.exit.flat_by_et)
+        last_day = date.fromisoformat(self.plan.exit.hold_until or self.plan.date)
+        flat_by = self._at(self.plan.exit.flat_by_et, last_day)
         while any(p.qty > 0 for p, _ in self.positions):
+            if self.now().date() < last_day and self.now() >= self._at(CLOSE_ET):
+                self._save_state()
+                self.log(f"收市,持仓过夜(最迟 {last_day} {self.plan.exit.flat_by_et} ET 清仓)。明早用 --resume 继续")
+                return
             past = self.now() >= flat_by
             for pos, meta in self.positions:
                 if pos.qty <= 0:
@@ -124,6 +164,7 @@ class Bridge:
                     pos.half_taken = True
                 self.log(f"{pos.code}: 卖出 {f.qty} 张 @ ${f.price} — {why}")
                 self._record(meta, pos, f.qty, f.price, why)
+                self._save_state()
             if any(p.qty > 0 for p, _ in self.positions):
                 self.sleep(POLL_S)
 
@@ -152,6 +193,21 @@ class Bridge:
                 return 0
             self.log(f"✅ 开盘确认通过 {res['movers']}")
         self.enter()
+        self._save_state()
         self.manage()
         self.log("今日计划完成")
+        return 0
+
+    def resume(self) -> int:
+        """Manage positions carried overnight for this plan (no new entries)."""
+        rows = [r for r in self._open_state() if r.get("plan") == self.plan_dict]
+        if not rows:
+            self.log("没有这个计划的隔夜持仓")
+            return 0
+        for r in rows:
+            self.positions.append((exits.Position(r["code"], r["qty"], r["entry"], r["peak"], r["half_taken"]),
+                                   r["meta"]))
+        while self.now() < self._at("09:30"):
+            self.sleep(min(60.0, (self._at("09:30") - self.now()).total_seconds()))
+        self.manage()
         return 0

@@ -7,10 +7,16 @@
   "require_confirm": true,
   "entry_window_et": ["09:30", "10:00"],
   "legs": [
-    {"symbol": "MU", "side": "put", "strike": 860, "expiry": "2026-10-23", "qty": 2, "max_price": 3.00}
+    {"symbol": "MU", "side": "put", "strike": 860, "expiry": "2026-10-23", "qty": 2, "max_price": 3.00,
+     "underlying_min": 850, "underlying_max": 900}
   ],
-  "exit": {"take_half_at_pct": 100, "trail_giveback_pct": 40, "stop_loss_pct": 50, "flat_by_et": "15:00"}
+  "exit": {"take_half_at_pct": 100, "trail_giveback_pct": 40, "stop_loss_pct": 50, "flat_by_et": "15:00",
+           "hold_until": "2026-10-23"}
 }
+
+underlying_min/max (optional): only enter while the stock trades inside that range.
+hold_until (optional, default = plan date): positions carry overnight until that day's
+flat_by_et; the bridge saves them at 16:00 ET and `--resume` picks them up next morning.
 """
 
 from __future__ import annotations
@@ -33,6 +39,8 @@ class Leg:
     expiry: str
     qty: int
     max_price: float
+    underlying_min: float | None = None
+    underlying_max: float | None = None
 
 
 @dataclass
@@ -41,6 +49,7 @@ class Exit:
     trail_giveback_pct: float = 40.0
     stop_loss_pct: float = 50.0
     flat_by_et: str = "15:00"
+    hold_until: str | None = None
 
 
 @dataclass
@@ -62,7 +71,8 @@ class Plan:
     def from_dict(cls, d: dict) -> "Plan":
         return cls(date=d["date"], event=d.get("event", ""), thesis=d.get("thesis", ""),
                    legs=[Leg(symbol=str(x["symbol"]).upper(), side=x["side"], strike=float(x["strike"]),
-                             expiry=x["expiry"], qty=int(x["qty"]), max_price=float(x["max_price"]))
+                             expiry=x["expiry"], qty=int(x["qty"]), max_price=float(x["max_price"]),
+                             underlying_min=x.get("underlying_min"), underlying_max=x.get("underlying_max"))
                          for x in d.get("legs", [])],
                    require_confirm=bool(d.get("require_confirm", True)),
                    entry_window_et=tuple(d.get("entry_window_et", ("09:30", "10:00"))),
@@ -76,6 +86,9 @@ def problems(p: Plan) -> list[str]:
         out.append("没有任何一笔")
     if len(p.legs) > MAX_LEGS:
         out.append(f"每个事件最多 {MAX_LEGS} 笔(现在 {len(p.legs)})")
+    seen = [(leg.symbol, leg.side) for leg in p.legs]
+    if len(set(seen)) < len(seen):
+        out.append("同一标的同方向买两次 = 加仓摊平,不允许")
     if p.direction == "mixed":
         out.append("同一事件同时买 put 和 call,违反「看错不反手」")
     total = 0.0
@@ -89,6 +102,8 @@ def problems(p: Plan) -> list[str]:
             out.append(f"{tag}: 限价 ${leg.max_price} ×100 超过单张 ${MAX_PER_CONTRACT:.0f}")
         if leg.expiry < p.date:
             out.append(f"{tag}: 到期日 {leg.expiry} 早于交易日")
+        if p.exit.hold_until and leg.expiry < p.exit.hold_until:
+            out.append(f"{tag}: 到期日 {leg.expiry} 早于 hold_until {p.exit.hold_until}")
         total += leg.max_price * 100 * max(leg.qty, 0)
     if total > BUDGET:
         out.append(f"最坏成本 ${total:.0f} 超过总仓位 ${BUDGET:.0f}")
@@ -100,6 +115,8 @@ def problems(p: Plan) -> list[str]:
         if not a < b:
             out.append("入场时间窗口无效")
         time.fromisoformat(p.exit.flat_by_et)
+        if p.exit.hold_until and p.exit.hold_until < p.date:
+            out.append("hold_until 早于交易日")
     except ValueError as e:
         out.append(f"日期/时间格式错: {e}")
     return out

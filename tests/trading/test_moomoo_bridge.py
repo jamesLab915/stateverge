@@ -45,7 +45,12 @@ class Quotes:
     def option_code(self, symbol, side, strike, expiry):
         return f"US.{symbol}261023P{int(strike * 1000)}"
 
+    stock = {"US.RKLB": 55.75, "US.MU": 870.0}
+
     def quote(self, code):
+        if code in self.stock:
+            p = self.stock[code]
+            return p, p, p
         b = self.bids.pop(0) if len(self.bids) > 1 else self.bids[0]
         return b, round(b * 1.04, 2), b
 
@@ -109,6 +114,42 @@ class TestBridge(unittest.TestCase):
         code, rows, logs = self.run_day([2.0], hhmm="10:05")
         self.assertEqual(rows, [])
         self.assertTrue(any("入场时间窗口" in x for x in logs))
+
+    def test_underlying_range_blocks_entry(self):
+        d = json.loads(json.dumps(PLAN))
+        d["legs"][0].update(underlying_min=880, underlying_max=900)
+        code, rows, logs = self.run_day([2.0], plan=d)
+        self.assertTrue(any("不在入场区" in x for x in logs))
+
+    def test_add_on_same_symbol_refused(self):
+        d = json.loads(json.dumps(PLAN))
+        d["legs"].append(dict(d["legs"][0], strike=850, qty=1, max_price=1.0))
+        self.assertIn("摊平", " ".join(problems(Plan.from_dict(d))))
+
+    def test_overnight_then_resume(self):
+        d = json.loads(json.dumps(PLAN))
+        d["date"] = "2026-10-16"
+        d["exit"] = {"hold_until": "2026-10-23"}
+        root = Path(tempfile.mkdtemp())
+        j = root / "journal.json"
+        c = Clock("09:31")
+        c.t = c.t.replace(day=16)
+        logs = []
+        Bridge(Plan.from_dict(d), DryRun(Quotes([2.0, 2.1])), j, now=c.now, sleep=c.sleep, log=logs.append).run()
+        self.assertTrue(any("过夜" in x for x in logs))
+        state = json.loads((root / "open_positions.json").read_text())
+        self.assertEqual(state[0]["qty"], 2)
+        # Monday: second batch must not double the same symbol, and must respect remaining budget
+        d2 = dict(PLAN, legs=[dict(PLAN["legs"][0], qty=1)])
+        c2 = Clock("09:31")
+        msgs = []
+        self.assertEqual(Bridge(Plan.from_dict(d2), DryRun(Quotes([2.0])), j, now=c2.now, sleep=c2.sleep,
+                                log=msgs.append).run(), 2)
+        self.assertTrue(any("摊平" in x for x in msgs))
+        # resume on Monday: stop-loss fires
+        Bridge(Plan.from_dict(d), DryRun(Quotes([0.9])), j, now=c2.now, sleep=c2.sleep, log=msgs.append).resume()
+        self.assertFalse((root / "open_positions.json").exists())
+        self.assertEqual(json.loads(j.read_text())[0]["reason"][:2], "止损")
 
     def test_wrong_day_refused(self):
         d = dict(PLAN, date="2026-10-20")

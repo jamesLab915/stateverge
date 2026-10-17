@@ -19,6 +19,7 @@ def main() -> int:
     ap.add_argument("--plan", required=True)
     ap.add_argument("--mode", choices=["dry", "paper"], default="dry")
     ap.add_argument("--check", action="store_true", help="only validate the plan, no OpenD needed")
+    ap.add_argument("--resume", action="store_true", help="manage this plan's overnight positions only")
     ap.add_argument("--journal", default="data/trading/journal.json")
     ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=11111)
@@ -31,7 +32,8 @@ def main() -> int:
     quotes = MoomooPaper(a.host, a.port)
     broker = quotes if a.mode == "paper" else DryRun(quotes)
     try:
-        return Bridge(plan, broker, Path(a.journal)).run()
+        br = Bridge(plan, broker, Path(a.journal))
+        return br.resume() if a.resume else br.run()
     finally:
         broker.close()
 
