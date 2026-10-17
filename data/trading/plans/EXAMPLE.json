@@ -1,11 +1,13 @@
 {
   "date": "2026-10-19",
-  "event": "CPI",
-  "thesis": "示例:CPI 高于预期 → 科技股承压。不是建议。",
-  "require_confirm": true,
-  "entry_window_et": ["09:30", "10:00"],
+  "event": "radar",
+  "thesis": "示例:开盘雷达偏空 → QQQ 即日 put,快进快出。不是建议。",
+  "require_confirm": false,
+  "entry_window_et": ["09:30", "09:50"],
   "legs": [
-    {"symbol": "MU", "side": "put", "strike": 860, "expiry": "2026-10-23", "qty": 2, "max_price": 3.00}
+    {"symbol": "QQQ", "side": "put", "strike": "otm1", "expiry": "0dte", "qty": 2, "max_price": 2.00,
+     "underlying_max": 730}
   ],
-  "exit": {"take_half_at_pct": 100, "trail_giveback_pct": 40, "stop_loss_pct": 50, "flat_by_et": "15:00"}
+  "exit": {"take_half_at_pct": 100, "trail_giveback_pct": 40, "stop_loss_pct": 50, "flat_by_et": "15:00",
+           "max_hold_min": 45}
 }

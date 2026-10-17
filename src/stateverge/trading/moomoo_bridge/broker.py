@@ -38,11 +38,10 @@ class MoomooPaper:
             raise RuntimeError(str(data))
         return data
 
-    def option_code(self, symbol: str, side: str, strike: float, expiry: str) -> str | None:
+    def chain(self, symbol: str, side: str, expiry: str) -> list[tuple[float, str]]:
         kind = self.mm.OptionType.PUT if side == "put" else self.mm.OptionType.CALL
         df = self._ok(self.q.get_option_chain(code=f"US.{symbol}", start=expiry, end=expiry, option_type=kind))
-        hit = df[(abs(df["strike_price"] - strike) < 1e-6)]
-        return None if hit.empty else str(hit.iloc[0]["code"])
+        return [(float(r["strike_price"]), str(r["code"])) for _, r in df.iterrows()]
 
     def quote(self, code: str) -> tuple[float, float, float]:
         r = self._ok(self.q.get_market_snapshot([code])).iloc[0]
@@ -84,8 +83,8 @@ class DryRun:
         if hasattr(self.quotes, "close"):
             self.quotes.close()
 
-    def option_code(self, symbol, side, strike, expiry):
-        return self.quotes.option_code(symbol, side, strike, expiry)
+    def chain(self, symbol, side, expiry):
+        return self.quotes.chain(symbol, side, expiry)
 
     def quote(self, code):
         return self.quotes.quote(code)

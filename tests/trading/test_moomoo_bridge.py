@@ -42,10 +42,11 @@ class Quotes:
     def __init__(self, bids):
         self.bids = list(bids)
 
-    def option_code(self, symbol, side, strike, expiry):
-        return f"US.{symbol}261023P{int(strike * 1000)}"
+    def chain(self, symbol, side, expiry):
+        base = {"MU": 860, "RKLB": 55, "QQQ": 728}[symbol]
+        return [(float(k), f"US.{symbol}{expiry}{side[0].upper()}{k}") for k in range(base - 5, base + 6)]
 
-    stock = {"US.RKLB": 55.75, "US.MU": 870.0}
+    stock = {"US.RKLB": 55.75, "US.MU": 870.0, "US.QQQ": 728.4}
 
     def quote(self, code):
         if code in self.stock:
@@ -73,15 +74,15 @@ class TestExits(unittest.TestCase):
     def test_sequence(self):
         r = Exit()
         p = exits.Position("x", 4, 1.0, 1.0)
-        self.assertEqual(exits.decide(p, 1.5, r, False)[0], 0)
-        self.assertEqual(exits.decide(p, 2.1, r, False)[0], 2)
+        self.assertEqual(exits.decide(p, 1.5, r)[0], 0)
+        self.assertEqual(exits.decide(p, 2.1, r)[0], 2)
         p.qty, p.half_taken = 2, True
-        self.assertEqual(exits.decide(p, 3.0, r, False)[0], 0)
-        self.assertEqual(exits.decide(p, 1.7, r, False)[0], 2)  # 3.0 → 1.7 = −43%
+        self.assertEqual(exits.decide(p, 3.0, r)[0], 0)
+        self.assertEqual(exits.decide(p, 1.7, r)[0], 2)  # 3.0 → 1.7 = −43%
 
     def test_stop_and_time(self):
-        self.assertEqual(exits.decide(exits.Position("x", 3, 2.0, 2.0), 0.95, Exit(), False)[0], 3)
-        self.assertEqual(exits.decide(exits.Position("x", 3, 2.0, 2.0), 2.1, Exit(), True)[1][:4], "时间止损")
+        self.assertEqual(exits.decide(exits.Position("x", 3, 2.0, 2.0), 0.95, Exit())[0], 3)
+        self.assertEqual(exits.decide(exits.Position("x", 3, 2.0, 2.0), 2.1, Exit(), "时间止损")[1], "时间止损")
 
 
 class TestBridge(unittest.TestCase):
@@ -150,6 +151,23 @@ class TestBridge(unittest.TestCase):
         Bridge(Plan.from_dict(d), DryRun(Quotes([0.9])), j, now=c2.now, sleep=c2.sleep, log=msgs.append).resume()
         self.assertFalse((root / "open_positions.json").exists())
         self.assertEqual(json.loads(j.read_text())[0]["reason"][:2], "止损")
+
+    def test_0dte_otm1_quick_exit(self):
+        d = {"date": "2026-10-19", "event": "radar", "thesis": "雷达偏空", "require_confirm": False,
+             "legs": [{"symbol": "QQQ", "side": "put", "strike": "otm1", "expiry": "0dte", "qty": 2,
+                       "max_price": 2.0}],
+             "exit": {"max_hold_min": 1}}
+        code, rows, logs = self.run_day([1.5, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6, 1.6],
+                                        plan=d)
+        self.assertEqual(rows[0]["strike"], 728.0)  # QQQ 728.4 → first put strike below
+        self.assertEqual(rows[0]["expiry"], "2026-10-19")
+        self.assertIn("1 分钟", rows[0]["reason"])
+
+    def test_0dte_cannot_hold_overnight(self):
+        d = json.loads(json.dumps(PLAN))
+        d["legs"][0]["expiry"] = "0dte"
+        d["exit"] = {"hold_until": "2026-10-20"}
+        self.assertIn("0DTE", " ".join(problems(Plan.from_dict(d))))
 
     def test_wrong_day_refused(self):
         d = dict(PLAN, date="2026-10-20")

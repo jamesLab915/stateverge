@@ -5,7 +5,7 @@ from __future__ import annotations
 import json
 import math
 import time as _time
-from datetime import date, datetime, time
+from datetime import date, datetime, time, timedelta
 from pathlib import Path
 from typing import Callable
 from zoneinfo import ZoneInfo
@@ -16,7 +16,7 @@ from .plan import DAILY_LOSS_STOP, MAX_PER_CONTRACT, MAX_SPREAD_PCT, BUDGET, Pla
 
 ET = ZoneInfo("America/New_York")
 FILL_WAIT_S = 90
-POLL_S = 15
+POLL_S = 5
 CLOSE_ET = "16:00"
 
 
@@ -88,20 +88,42 @@ class Bridge:
             return False
         return True
 
+    def resolve(self, leg) -> tuple[str, float, str] | None:
+        """(option code, strike, expiry date) from the live chain."""
+        today = self.now().date()
+        expiry = (today.isoformat() if leg.expiry == "0dte" else
+                  (today + timedelta(days=(4 - today.weekday()) % 7)).isoformat() if leg.expiry == "weekly"
+                  else leg.expiry)
+        chain = sorted(self.b.chain(leg.symbol, leg.side, expiry))
+        if not chain:
+            return None
+        if not isinstance(leg.strike, str):
+            hit = [c for c in chain if abs(c[0] - leg.strike) < 1e-6]
+            return (hit[0][1], hit[0][0], expiry) if hit else None
+        px = self.b.quote(f"US.{leg.symbol}")[2]
+        if leg.strike == "atm":
+            k, code = min(chain, key=lambda c: abs(c[0] - px))
+            return code, k, expiry
+        n = int(leg.strike[3:])
+        otm = [c for c in chain if c[0] < px][::-1] if leg.side == "put" else [c for c in chain if c[0] > px]
+        return (otm[n - 1][1], otm[n - 1][0], expiry) if len(otm) >= n else None
+
     def enter(self) -> None:
         budget = BUDGET - self.open_cost()
         for leg in self.plan.legs:
-            tag = f"{leg.symbol} {leg.expiry} {leg.strike:g}{leg.side[0].upper()}"
+            tag = f"{leg.symbol} {leg.expiry} {leg.strike}{leg.side[0].upper()}"
             if leg.underlying_min is not None or leg.underlying_max is not None:
                 px = self.b.quote(f"US.{leg.symbol}")[2]
                 lo, hi = leg.underlying_min or 0, leg.underlying_max or float("inf")
                 if not lo <= px <= hi:
                     self.log(f"{tag}: 正股 ${px} 不在入场区 {lo:g}–{hi:g},不入场")
                     continue
-            code = self.b.option_code(leg.symbol, leg.side, leg.strike, leg.expiry)
-            if not code:
+            got = self.resolve(leg)
+            if not got:
                 self.log(f"{tag}: 找不到合约,跳过")
                 continue
+            code, strike, expiry = got
+            tag = f"{leg.symbol} {expiry} {strike:g}{leg.side[0].upper()}"
             bid, ask, _ = self.b.quote(code)
             sp = spread_pct(bid, ask)
             if sp > MAX_SPREAD_PCT:
@@ -121,7 +143,7 @@ class Bridge:
                 continue
             budget -= f.price * 100 * f.qty
             self.log(f"{tag}: 买入 {f.qty} 张 @ ${f.price}({self.b.name})")
-            meta = {"symbol": leg.symbol, "side": leg.side, "strike": leg.strike, "expiry": leg.expiry,
+            meta = {"symbol": leg.symbol, "side": leg.side, "strike": strike, "expiry": expiry,
                     "opened_at": self.now().isoformat(timespec="seconds")}
             self.positions.append((exits.Position(code, f.qty, f.price, f.price), meta))
 
@@ -151,8 +173,12 @@ class Bridge:
             for pos, meta in self.positions:
                 if pos.qty <= 0:
                     continue
+                force = "时间止损(收市前清仓)" if past else ""
+                mh = self.plan.exit.max_hold_min
+                if not force and mh and self.now() - datetime.fromisoformat(meta["opened_at"]) >= timedelta(minutes=mh):
+                    force = f"持仓满 {mh:g} 分钟离场"
                 bid, _, _ = self.b.quote(pos.code)
-                n, why = exits.decide(pos, bid, self.plan.exit, past)
+                n, why = exits.decide(pos, bid, self.plan.exit, force)
                 if n <= 0:
                     continue
                 f = self._wait_fill(self.b.sell(pos.code, n, round(bid, 2)))

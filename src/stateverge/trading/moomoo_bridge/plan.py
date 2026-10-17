@@ -7,12 +7,16 @@
   "require_confirm": true,
   "entry_window_et": ["09:30", "10:00"],
   "legs": [
-    {"symbol": "MU", "side": "put", "strike": 860, "expiry": "2026-10-23", "qty": 2, "max_price": 3.00,
-     "underlying_min": 850, "underlying_max": 900}
+    {"symbol": "QQQ", "side": "put", "strike": "otm1", "expiry": "0dte", "qty": 2, "max_price": 2.00,
+     "underlying_max": 730}
   ],
   "exit": {"take_half_at_pct": 100, "trail_giveback_pct": 40, "stop_loss_pct": 50, "flat_by_et": "15:00",
-           "hold_until": "2026-10-23"}
+           "max_hold_min": 45}
 }
+
+strike: a number, or "atm" / "otm1" / "otm2" (picked from the live chain at entry).
+expiry: "YYYY-MM-DD", "0dte" (today; index ETFs only) or "weekly" (nearest Friday).
+max_hold_min (optional): sell everything that many minutes after entry, whatever the P&L.
 
 underlying_min/max (optional): only enter while the stock trades inside that range.
 hold_until (optional, default = plan date): positions carry overnight until that day's
@@ -35,7 +39,7 @@ DAILY_LOSS_STOP = -1000.0
 class Leg:
     symbol: str
     side: str
-    strike: float
+    strike: float | str
     expiry: str
     qty: int
     max_price: float
@@ -50,6 +54,7 @@ class Exit:
     stop_loss_pct: float = 50.0
     flat_by_et: str = "15:00"
     hold_until: str | None = None
+    max_hold_min: float | None = None
 
 
 @dataclass
@@ -70,13 +75,21 @@ class Plan:
     @classmethod
     def from_dict(cls, d: dict) -> "Plan":
         return cls(date=d["date"], event=d.get("event", ""), thesis=d.get("thesis", ""),
-                   legs=[Leg(symbol=str(x["symbol"]).upper(), side=x["side"], strike=float(x["strike"]),
+                   legs=[Leg(symbol=str(x["symbol"]).upper(), side=x["side"], strike=_strike(x["strike"]),
                              expiry=x["expiry"], qty=int(x["qty"]), max_price=float(x["max_price"]),
                              underlying_min=x.get("underlying_min"), underlying_max=x.get("underlying_max"))
                          for x in d.get("legs", [])],
                    require_confirm=bool(d.get("require_confirm", True)),
                    entry_window_et=tuple(d.get("entry_window_et", ("09:30", "10:00"))),
                    exit=Exit(**d.get("exit", {})))
+
+
+STRIKE_WORDS = ("atm", "otm1", "otm2")
+EXPIRY_WORDS = ("0dte", "weekly")
+
+
+def _strike(v) -> float | str:
+    return v.lower() if isinstance(v, str) and not v.replace(".", "", 1).isdigit() else float(v)
 
 
 def problems(p: Plan) -> list[str]:
@@ -93,16 +106,21 @@ def problems(p: Plan) -> list[str]:
         out.append("同一事件同时买 put 和 call,违反「看错不反手」")
     total = 0.0
     for leg in p.legs:
-        tag = f"{leg.symbol} {leg.side} {leg.strike:g}"
+        tag = f"{leg.symbol} {leg.side} {leg.strike}"
+        if isinstance(leg.strike, str) and leg.strike not in STRIKE_WORDS:
+            out.append(f"{tag}: strike 只能是数字或 {'/'.join(STRIKE_WORDS)}")
+        dated = leg.expiry not in EXPIRY_WORDS
         if leg.side not in ("put", "call"):
             out.append(f"{tag}: side 只能是 put/call")
         if leg.qty < 1:
             out.append(f"{tag}: 张数要 ≥1")
         if leg.max_price * 100 > MAX_PER_CONTRACT:
             out.append(f"{tag}: 限价 ${leg.max_price} ×100 超过单张 ${MAX_PER_CONTRACT:.0f}")
-        if leg.expiry < p.date:
+        if dated and leg.expiry < p.date:
             out.append(f"{tag}: 到期日 {leg.expiry} 早于交易日")
-        if p.exit.hold_until and leg.expiry < p.exit.hold_until:
+        if leg.expiry == "0dte" and p.exit.hold_until and p.exit.hold_until > p.date:
+            out.append(f"{tag}: 0DTE 不能持仓过夜")
+        if dated and p.exit.hold_until and leg.expiry < p.exit.hold_until:
             out.append(f"{tag}: 到期日 {leg.expiry} 早于 hold_until {p.exit.hold_until}")
         total += leg.max_price * 100 * max(leg.qty, 0)
     if total > BUDGET:

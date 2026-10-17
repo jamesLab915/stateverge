@@ -17,7 +17,14 @@
    - 每笔卖出写入 `data/trading/journal.json`(`paper: true`)
 4. 收市后 `git add data/trading/journal.json && git commit && git push` → GitHub 自动更新 `stats.json`。
 
-## 分批 / 持仓过夜
+## 快进快出(默认)
+- 只买期权;`underlying_min/max` 只是用正股价做入场触发,不买正股。
+- `strike`: 数字,或 `atm` / `otm1` / `otm2`(入场时按实时价从期权链挑)。
+- `expiry`: 日期,或 `0dte`(当天到期,只有 SPY/QQQ 等有)/ `weekly`(最近周五)。
+- `exit.max_hold_min`: 入场后满 N 分钟无论盈亏都走。默认当日 `flat_by_et` 前全部清仓,不过夜。
+- 出场每 5 秒检查一次。
+
+## 分批 / 持仓过夜(可选)
 - 腿上加 `underlying_min` / `underlying_max`:正股不在区间就不入场(例:RKLB ≥54 才入,跌穿 53 不追 → `"underlying_min": 54`)。
 - `exit.hold_until`:最迟哪天清仓(当天 `flat_by_et`)。非最后一天 16:00 ET 会把仓位存进 `data/trading/open_positions.json` 并退出。
 - 第二天:`--plan <原计划> --mode paper --resume` 继续管理出场(09:30 前会等开盘)。
