@@ -24,6 +24,18 @@
 - `exit.max_hold_min`(可选,默认不开):入场后满 N 分钟无论盈亏都走。原规矩是当日清仓、0DTE 最迟 15:00。
 - 出场每 5 秒检查一次。
 
+## 跟踪模式(可选,默认关)
+计划 `exit` 里加 `"trail": {}` 即开启(参数可改):
+```json
+"trail": {"activate_pct": 30, "lock_pct": 20, "giveback_pct": 20, "underlying_reversal_pct": 0.3}
+```
+- 到 +30% 不卖,开始跟踪;之后以下任一发生就**全部**卖出:
+  - 期权价跌到 入场价 +20%(锁利底线)
+  - 期权价由最高位回吐 20%
+  - 正股由跟踪开始后的最有利价位反转 0.3%(put 看反弹、call 看回落)= 势头没了
+- 止损、15:00 清仓、`max_hold_min` 照常有效。
+- 限制:启动点 +30~50%,锁利 ≥ +10%,回吐 10~30%,正股反转 0.1~2%。
+
 ## 分批 / 持仓过夜(可选)
 - 腿上加 `underlying_min` / `underlying_max`:正股不在区间就不入场(例:RKLB ≥54 才入,跌穿 53 不追 → `"underlying_min": 54`)。
 - `exit.hold_until`:最迟哪天清仓(当天 `flat_by_et`)。非最后一天 16:00 ET 会把仓位存进 `data/trading/open_positions.json` 并退出。

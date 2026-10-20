@@ -179,7 +179,10 @@ class Bridge:
                     force = f"持仓满 {mh:g} 分钟离场"
                 bid, _, _ = self.b.quote(pos.code)
                 stop = self.plan.exit.stop_loss_pct or stop_cap(meta["expiry"], self.plan.date)
-                n, why = exits.decide(pos, bid, self.plan.exit, force, stop)
+                tr, u = self.plan.exit.trail, None
+                if tr and (pos.trailing or bid >= pos.entry * (1 + tr.activate_pct / 100)):
+                    u = self.b.quote(f"US.{meta['symbol']}")[2]
+                n, why = exits.decide(pos, bid, self.plan.exit, force, stop, meta["side"], u)
                 if n <= 0:
                     continue
                 f = self._wait_fill(self.b.sell(pos.code, n, round(bid, 2)))
@@ -230,7 +233,8 @@ class Bridge:
             self.log("没有这个计划的隔夜持仓")
             return 0
         for r in rows:
-            self.positions.append((exits.Position(r["code"], r["qty"], r["entry"], r["peak"]),
+            self.positions.append((exits.Position(r["code"], r["qty"], r["entry"], r["peak"],
+                                                 r.get("trailing", False), r.get("u_best")),
                                    r["meta"]))
         while self.now() < self._at("09:30"):
             self.sleep(min(60.0, (self._at("09:30") - self.now()).total_seconds()))

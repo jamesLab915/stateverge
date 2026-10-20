@@ -83,6 +83,36 @@ class TestExits(unittest.TestCase):
         self.assertEqual(exits.decide(exits.Position("x", 3, 2.0, 2.0), 2.1, Exit(), "时间止损")[1], "时间止损")
 
 
+class TestTrail(unittest.TestCase):
+    T = Exit(trail={"activate_pct": 30, "lock_pct": 20, "giveback_pct": 20, "underlying_reversal_pct": 0.3})
+
+    def test_runs_past_30_then_gives_back(self):
+        p = exits.Position("x", 2, 1.0, 1.0)
+        self.assertEqual(exits.decide(p, 1.35, self.T, side="put", underlying=100.0)[0], 0)  # activates, holds
+        self.assertEqual(exits.decide(p, 2.0, self.T, side="put", underlying=99.0)[0], 0)  # +100%, stock still falling
+        n, why = exits.decide(p, 1.58, self.T, side="put", underlying=98.9)  # 2.0 → 1.58 = −21% from peak
+        self.assertEqual(n, 2)
+        self.assertIn("跟踪出场", why)
+
+    def test_lock_floor(self):
+        p = exits.Position("x", 1, 1.0, 1.0)
+        exits.decide(p, 1.31, self.T, side="call", underlying=50.0)
+        self.assertEqual(exits.decide(p, 1.19, self.T, side="call", underlying=50.1)[0], 1)  # below +20% lock
+
+    def test_underlying_reversal(self):
+        p = exits.Position("x", 1, 1.0, 1.0)
+        exits.decide(p, 1.4, self.T, side="put", underlying=100.0)
+        exits.decide(p, 1.5, self.T, side="put", underlying=99.5)
+        n, why = exits.decide(p, 1.45, self.T, side="put", underlying=99.85)  # bounced 0.35% off the low
+        self.assertEqual(n, 1)
+        self.assertIn("势头反转", why)
+
+    def test_validation(self):
+        d = json.loads(json.dumps(PLAN))
+        d["exit"] = {"trail": {"activate_pct": 30, "lock_pct": 5}}
+        self.assertIn("锁利", " ".join(problems(Plan.from_dict(d))))
+
+
 class TestBridge(unittest.TestCase):
     def run_day(self, bids, hhmm="09:31", plan=PLAN):
         c = Clock(hhmm)
@@ -119,6 +149,13 @@ class TestBridge(unittest.TestCase):
         d["legs"][0].update(underlying_min=880, underlying_max=900)
         code, rows, logs = self.run_day([2.0], plan=d)
         self.assertTrue(any("不在入场区" in x for x in logs))
+
+    def test_trail_in_bridge(self):
+        d = json.loads(json.dumps(PLAN))
+        d["exit"] = {"trail": {}}
+        code, rows, _ = self.run_day([2.0, 2.8, 3.5, 4.2, 3.3], plan=d)  # entry 2.08; peak 4.2; 3.3 < 4.2×0.8
+        self.assertEqual([(r["qty"], r["exit"]) for r in rows], [(2, 3.3)])
+        self.assertIn("跟踪出场", rows[0]["reason"])
 
     def test_this_week_stop_is_25(self):
         # PLAN expiry 10/23 is this week for 10/19 → −25%: 2.08 → 1.56 = −25%

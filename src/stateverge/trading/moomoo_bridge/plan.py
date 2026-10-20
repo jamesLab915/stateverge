@@ -54,12 +54,28 @@ class Leg:
 
 
 @dataclass
+class Trail:
+    """Opt-in "let winners run": at +activate_pct don't sell; instead exit when the option
+    falls to max(entry +lock_pct, peak −giveback_pct) or the stock reverses underlying_reversal_pct
+    from its best level since activation."""
+    activate_pct: float = 30.0
+    lock_pct: float = 20.0
+    giveback_pct: float = 20.0
+    underlying_reversal_pct: float = 0.3
+
+
+@dataclass
 class Exit:
     take_profit_pct: float = 30.0
     stop_loss_pct: float | None = None  # None → 30, or 25 for this-week expiry
     flat_by_et: str = "15:00"
     hold_until: str | None = None
     max_hold_min: float | None = None
+    trail: Trail | None = None
+
+    def __post_init__(self) -> None:
+        if isinstance(self.trail, dict):
+            self.trail = Trail(**self.trail)
 
 
 @dataclass
@@ -146,6 +162,16 @@ def problems(p: Plan) -> list[str]:
         out.append(f"最坏成本 ${total:.0f} 超过总仓位 ${BUDGET:.0f}")
     if not TAKE_PROFIT_RANGE[0] <= p.exit.take_profit_pct <= TAKE_PROFIT_RANGE[1]:
         out.append(f"止盈要在 +{TAKE_PROFIT_RANGE[0]:g}%~+{TAKE_PROFIT_RANGE[1]:g}% 之间,全走")
+    t = p.exit.trail
+    if t:
+        if not TAKE_PROFIT_RANGE[0] <= t.activate_pct <= TAKE_PROFIT_RANGE[1]:
+            out.append(f"trail 启动点要在 +{TAKE_PROFIT_RANGE[0]:g}%~+{TAKE_PROFIT_RANGE[1]:g}%")
+        if not 10 <= t.lock_pct < t.activate_pct:
+            out.append("trail 锁利底线要 ≥ +10% 且低于启动点")
+        if not 10 <= t.giveback_pct <= 30:
+            out.append("trail 由高位回吐要在 10%~30%")
+        if not 0.1 <= t.underlying_reversal_pct <= 2:
+            out.append("trail 正股反转阈值要在 0.1%~2%")
     for leg in p.legs:
         cap = stop_cap(leg.expiry, p.date)
         if p.exit.stop_loss_pct is not None and not STOP_FLOOR <= p.exit.stop_loss_pct <= cap:
