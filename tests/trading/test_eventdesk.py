@@ -68,7 +68,7 @@ class TestReport(unittest.TestCase):
         self.assertEqual(report.build(BY_KEY["unrate"], 4.5, 4.2, "manual", [], {}).direction, "risk_on")
 
     def test_sizing(self):
-        self.assertEqual(report.contracts_for(1.20), 8)
+        self.assertEqual(report.contracts_for(1.20), 7)  # $900 budget
         self.assertEqual(report.contracts_for(4.50), 0)  # over $400 per contract
 
 

@@ -12,7 +12,7 @@ from zoneinfo import ZoneInfo
 
 from ..eventdesk import confirm, journal
 from . import exits
-from .plan import DAILY_LOSS_STOP, MAX_PER_CONTRACT, MAX_SPREAD_PCT, BUDGET, Plan, problems, spread_pct
+from .plan import BUDGET, DAILY_LOSS_STOP, MAX_PER_CONTRACT, MAX_SPREAD_PCT, Plan, problems, spread_pct, stop_cap
 
 ET = ZoneInfo("America/New_York")
 FILL_WAIT_S = 90
@@ -178,7 +178,8 @@ class Bridge:
                 if not force and mh and self.now() - datetime.fromisoformat(meta["opened_at"]) >= timedelta(minutes=mh):
                     force = f"持仓满 {mh:g} 分钟离场"
                 bid, _, _ = self.b.quote(pos.code)
-                n, why = exits.decide(pos, bid, self.plan.exit, force)
+                stop = self.plan.exit.stop_loss_pct or stop_cap(meta["expiry"], self.plan.date)
+                n, why = exits.decide(pos, bid, self.plan.exit, force, stop)
                 if n <= 0:
                     continue
                 f = self._wait_fill(self.b.sell(pos.code, n, round(bid, 2)))
@@ -186,8 +187,6 @@ class Bridge:
                     self.log(f"{pos.code}: 卖出未成交,下轮再试({why})")
                     continue
                 pos.qty -= f.qty
-                if not pos.half_taken and "平一半" in why:
-                    pos.half_taken = True
                 self.log(f"{pos.code}: 卖出 {f.qty} 张 @ ${f.price} — {why}")
                 self._record(meta, pos, f.qty, f.price, why)
                 self._save_state()
@@ -231,7 +230,7 @@ class Bridge:
             self.log("没有这个计划的隔夜持仓")
             return 0
         for r in rows:
-            self.positions.append((exits.Position(r["code"], r["qty"], r["entry"], r["peak"], r["half_taken"]),
+            self.positions.append((exits.Position(r["code"], r["qty"], r["entry"], r["peak"]),
                                    r["meta"]))
         while self.now() < self._at("09:30"):
             self.sleep(min(60.0, (self._at("09:30") - self.now()).total_seconds()))

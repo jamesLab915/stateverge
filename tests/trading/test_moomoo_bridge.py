@@ -71,17 +71,15 @@ class TestPlan(unittest.TestCase):
 
 
 class TestExits(unittest.TestCase):
-    def test_sequence(self):
+    def test_take_profit_all_out(self):
         r = Exit()
-        p = exits.Position("x", 4, 1.0, 1.0)
-        self.assertEqual(exits.decide(p, 1.5, r)[0], 0)
-        self.assertEqual(exits.decide(p, 2.1, r)[0], 2)
-        p.qty, p.half_taken = 2, True
-        self.assertEqual(exits.decide(p, 3.0, r)[0], 0)
-        self.assertEqual(exits.decide(p, 1.7, r)[0], 2)  # 3.0 → 1.7 = −43%
+        p = exits.Position("x", 3, 1.0, 1.0)
+        self.assertEqual(exits.decide(p, 1.2, r)[0], 0)
+        self.assertEqual(exits.decide(p, 1.31, r), (3, "止盈 +31% 全走"))
 
     def test_stop_and_time(self):
-        self.assertEqual(exits.decide(exits.Position("x", 3, 2.0, 2.0), 0.95, Exit())[0], 3)
+        self.assertEqual(exits.decide(exits.Position("x", 3, 2.0, 2.0), 1.55, Exit(), stop_pct=25)[0], 0)
+        self.assertEqual(exits.decide(exits.Position("x", 3, 2.0, 2.0), 1.5, Exit(), stop_pct=25)[0], 3)
         self.assertEqual(exits.decide(exits.Position("x", 3, 2.0, 2.0), 2.1, Exit(), "时间止损")[1], "时间止损")
 
 
@@ -95,10 +93,10 @@ class TestBridge(unittest.TestCase):
         rows = json.loads(j.read_text()) if j.exists() else []
         return code, rows, logs
 
-    def test_double_then_trail(self):
-        code, rows, _ = self.run_day([2.0, 2.0, 2.5, 4.1, 5.0, 2.9])
+    def test_take_profit(self):
+        code, rows, _ = self.run_day([2.0, 2.2, 2.6, 2.75])
         self.assertEqual(code, 0)
-        self.assertEqual([(r["qty"], r["exit"]) for r in rows], [(1, 5.0), (1, 2.9)])  # entry at ask 2.08; 4.1 is only +97%
+        self.assertEqual([(r["qty"], r["exit"]) for r in rows], [(2, 2.75)])  # entry at ask 2.08; 2.6 is only +25%
         self.assertTrue(all(r["paper"] for r in rows))
 
     def test_wide_spread_skipped(self):
@@ -121,6 +119,16 @@ class TestBridge(unittest.TestCase):
         d["legs"][0].update(underlying_min=880, underlying_max=900)
         code, rows, logs = self.run_day([2.0], plan=d)
         self.assertTrue(any("不在入场区" in x for x in logs))
+
+    def test_this_week_stop_is_25(self):
+        # PLAN expiry 10/23 is this week for 10/19 → −25%: 2.08 → 1.56 = −25%
+        code, rows, _ = self.run_day([2.0, 1.7, 1.56])
+        self.assertEqual(rows[0]["reason"][:2], "止损")
+        d = json.loads(json.dumps(PLAN))
+        d["exit"] = {"stop_loss_pct": 30}
+        self.assertIn("止损要在", " ".join(problems(Plan.from_dict(d))))
+        d["exit"] = {"take_profit_pct": 100}
+        self.assertIn("止盈", " ".join(problems(Plan.from_dict(d))))
 
     def test_add_on_same_symbol_refused(self):
         d = json.loads(json.dumps(PLAN))

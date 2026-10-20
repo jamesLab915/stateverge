@@ -7,14 +7,14 @@ from dataclasses import asdict, dataclass, field
 
 from .events import EventType
 
-BUDGET = 1000.0  # total per event
+BUDGET = 900.0  # whole account as of 2026-10-19
 MAX_PER_CONTRACT = 400.0  # premium ×100 per contract
 RULES = [
-    "单张期权 ≤ $400,总仓位 ≤ $1,000;每个事件最多 2 笔,看错不反手",
+    "单张期权 ≤ $400,总仓位 ≤ $900;每个事件最多 2 笔,看错不反手",
     "只用限价单;买卖价差 > 10% 不做",
-    "+100% 平一半,剩余回吐 40% 全走;-50% 全斩",
-    "SPY/QQQ 0DTE 15:00 前清仓;个股周权周五收市前清仓;不加仓摊平",
-    "当日亏损达 $1,000 即停",
+    "+30~50% 全走(有盈利就跑,唔贪心);-30% 全斩,本周到期 -20~25%",
+    "当日清仓;0DTE 最迟 15:00 走;不加仓摊平",
+    "当日亏损上限:待定(请设定)",
 ]
 
 

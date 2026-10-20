@@ -10,13 +10,15 @@
     {"symbol": "QQQ", "side": "put", "strike": "otm1", "expiry": "0dte", "qty": 2, "max_price": 2.00,
      "underlying_max": 730}
   ],
-  "exit": {"take_half_at_pct": 100, "trail_giveback_pct": 40, "stop_loss_pct": 50, "flat_by_et": "15:00",
-           "max_hold_min": 45}
+  "exit": {"take_profit_pct": 30, "flat_by_et": "15:00"}
 }
 
 strike: a number, or "atm" / "otm1" / "otm2" (picked from the live chain at entry).
 expiry: "YYYY-MM-DD", "0dte" (today; index ETFs only) or "weekly" (nearest Friday).
-max_hold_min (optional): sell everything that many minutes after entry, whatever the P&L.
+take_profit_pct: +30..50 → sell everything ("有盈利就跑,唔贪心").
+stop_loss_pct (optional): default −30%, or −25% when the contract expires this week; may be
+tightened to −20%, never loosened.
+max_hold_min (optional, off by default): sell everything that many minutes after entry.
 
 underlying_min/max (optional): only enter while the stock trades inside that range.
 hold_until (optional, default = plan date): positions carry overnight until that day's
@@ -26,13 +28,17 @@ flat_by_et; the bridge saves them at 16:00 ET and `--resume` picks them up next 
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import date, time
+from datetime import date, time, timedelta
 
-BUDGET = 1000.0
+BUDGET = 900.0  # whole account as of 2026-10-19
 MAX_PER_CONTRACT = 400.0
 MAX_LEGS = 2
 MAX_SPREAD_PCT = 10.0
-DAILY_LOSS_STOP = -1000.0
+TAKE_PROFIT_RANGE = (30.0, 50.0)
+STOP_DEFAULT = 30.0
+STOP_THIS_WEEK = 25.0
+STOP_FLOOR = 20.0
+DAILY_LOSS_STOP = -BUDGET  # TODO: owner to set a real daily stop
 
 
 @dataclass
@@ -49,9 +55,8 @@ class Leg:
 
 @dataclass
 class Exit:
-    take_half_at_pct: float = 100.0
-    trail_giveback_pct: float = 40.0
-    stop_loss_pct: float = 50.0
+    take_profit_pct: float = 30.0
+    stop_loss_pct: float | None = None  # None → 30, or 25 for this-week expiry
     flat_by_et: str = "15:00"
     hold_until: str | None = None
     max_hold_min: float | None = None
@@ -92,6 +97,20 @@ def _strike(v) -> float | str:
     return v.lower() if isinstance(v, str) and not v.replace(".", "", 1).isdigit() else float(v)
 
 
+def expires_this_week(expiry: str, day: str) -> bool:
+    if expiry in EXPIRY_WORDS:
+        return True
+    try:
+        d, e = date.fromisoformat(day), date.fromisoformat(expiry)
+    except ValueError:
+        return False
+    return e <= d + timedelta(days=(4 - d.weekday()) % 7)
+
+
+def stop_cap(expiry: str, day: str) -> float:
+    return STOP_THIS_WEEK if expires_this_week(expiry, day) else STOP_DEFAULT
+
+
 def problems(p: Plan) -> list[str]:
     """Static rule check. Empty list = plan may run."""
     out = []
@@ -125,8 +144,12 @@ def problems(p: Plan) -> list[str]:
         total += leg.max_price * 100 * max(leg.qty, 0)
     if total > BUDGET:
         out.append(f"最坏成本 ${total:.0f} 超过总仓位 ${BUDGET:.0f}")
-    if p.exit.stop_loss_pct > 50:
-        out.append("止损不能宽过 -50%")
+    if not TAKE_PROFIT_RANGE[0] <= p.exit.take_profit_pct <= TAKE_PROFIT_RANGE[1]:
+        out.append(f"止盈要在 +{TAKE_PROFIT_RANGE[0]:g}%~+{TAKE_PROFIT_RANGE[1]:g}% 之间,全走")
+    for leg in p.legs:
+        cap = stop_cap(leg.expiry, p.date)
+        if p.exit.stop_loss_pct is not None and not STOP_FLOOR <= p.exit.stop_loss_pct <= cap:
+            out.append(f"{leg.symbol}: 止损要在 −{STOP_FLOOR:g}%~−{cap:g}% 之间(现在 −{p.exit.stop_loss_pct:g}%)")
     try:
         date.fromisoformat(p.date)
         a, b = (time.fromisoformat(t) for t in p.entry_window_et)
